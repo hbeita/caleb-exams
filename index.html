@@ -1,953 +1,178 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Examen de Práctica - Estudios Sociales 4to Grado</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Caleb's Exam Practice</title>
+<style>
+  :root {
+    --primary: #4f46e5;
+    --primary-light: #eef2ff;
+    --success: #16a34a;
+    --success-light: #dcfce7;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --bg: #f9fafb;
+    --card: #ffffff;
+    --text: #1f2937;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
+  header {
+    background: linear-gradient(135deg, #1e1b4b 0%, #4f46e5 60%, #7c3aed 100%);
+    color: white; padding: 3rem 1rem 2.5rem; text-align: center; position: relative; overflow: hidden;
+  }
+  header::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(circle at 70% 50%, rgba(255,255,255,.07) 0%, transparent 60%);
+  }
+  .header-emoji { font-size: 3rem; display: block; margin-bottom: .5rem; }
+  header h1 { font-size: 2.2rem; font-weight: 900; letter-spacing: -.02em; }
+  header p { margin-top: .4rem; opacity: .8; font-size: 1rem; }
 
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
+  main { max-width: 900px; margin: 0 auto; padding: 2rem 1rem 4rem; }
 
-        .header {
-            background: white;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            margin-bottom: 30px;
-            text-align: center;
-        }
+  .grade-section { margin-bottom: 3rem; }
+  .grade-header {
+    display: flex; align-items: center; gap: .75rem;
+    margin-bottom: 1.5rem; padding-bottom: .75rem;
+    border-bottom: 2px solid var(--border);
+  }
+  .grade-badge {
+    background: var(--primary); color: white;
+    font-weight: 800; font-size: .8rem; padding: .35rem .8rem; border-radius: 999px;
+  }
+  .grade-title { font-size: 1.3rem; font-weight: 800; }
+  .grade-sub { font-size: .85rem; color: var(--muted); margin-left: auto; }
 
-        .header h1 {
-            color: #667eea;
-            font-size: 32px;
-            margin-bottom: 10px;
-        }
+  .periods-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
 
-        .header p {
-            color: #666;
-            font-size: 18px;
-        }
+  .period-col { display: flex; flex-direction: column; gap: .75rem; }
+  .period-label {
+    font-size: .75rem; font-weight: 800; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--muted); padding: .2rem 0;
+  }
 
-        .progress-container {
-            background: white;
-            padding: 20px;
-            border-radius: 15px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
+  .exam-card {
+    background: var(--card); border-radius: 14px; padding: 1.2rem 1.3rem;
+    border: 2px solid var(--border); text-decoration: none; color: var(--text);
+    display: flex; flex-direction: column; gap: .4rem;
+    transition: all .2s; position: relative; overflow: hidden;
+  }
+  .exam-card.available:hover { border-color: var(--primary); box-shadow: 0 4px 16px rgba(79,70,229,.12); transform: translateY(-2px); }
+  .exam-card.placeholder { cursor: default; opacity: .6; }
 
-        .progress-bar {
-            background: #e0e0e0;
-            height: 12px;
-            border-radius: 10px;
-            overflow: hidden;
-            margin-bottom: 10px;
-        }
+  .exam-card .ec-top { display: flex; justify-content: space-between; align-items: flex-start; }
+  .exam-card .ec-number { font-size: .75rem; font-weight: 700; color: var(--muted); }
+  .exam-card .ec-status { font-size: .7rem; font-weight: 700; padding: .2rem .55rem; border-radius: 999px; }
+  .ec-status.ready { background: var(--success-light); color: var(--success); }
+  .ec-status.soon { background: #f3f4f6; color: var(--muted); }
 
-        .progress-fill {
-            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
-            height: 100%;
-            transition: width 0.3s ease;
-        }
+  .exam-card .ec-icon { font-size: 2rem; margin: .3rem 0; }
+  .exam-card .ec-subject { font-size: 1.05rem; font-weight: 800; }
+  .exam-card .ec-topics { font-size: .8rem; color: var(--muted); line-height: 1.4; }
 
-        .progress-text {
-            color: #666;
-            font-size: 14px;
-            text-align: center;
-        }
+  .exam-card .ec-arrow {
+    margin-top: .6rem; font-size: .82rem; font-weight: 700; color: var(--primary);
+  }
+  .exam-card.placeholder .ec-arrow { display: none; }
 
-        .question-card {
-            background: white;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            margin-bottom: 20px;
-        }
+  .exam-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--primary), #7c3aed);
+    opacity: 0; transition: opacity .2s;
+  }
+  .exam-card.available:hover::before { opacity: 1; }
 
-        .question-topic {
-            background: #f3f4f6;
-            padding: 10px 15px;
-            border-radius: 8px;
-            font-size: 14px;
-            color: #667eea;
-            font-weight: 600;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-        }
+  .footer {
+    text-align: center; padding: 1.5rem; font-size: .8rem; color: var(--muted);
+    border-top: 1px solid var(--border); margin-top: 2rem;
+  }
 
-        .question-text {
-            font-size: 22px;
-            color: #1f2937;
-            margin-bottom: 30px;
-            line-height: 1.6;
-        }
-
-        .options {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .option {
-            padding: 18px 20px;
-            border: 2px solid #e5e7eb;
-            background: white;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-size: 16px;
-            text-align: left;
-        }
-
-        .option:hover {
-            border-color: #cbd5e1;
-            background: #f9fafb;
-        }
-
-        .option.selected {
-            border-color: #667eea;
-            background: #f3f4f6;
-        }
-
-        .option-letter {
-            font-weight: 600;
-            color: #6b7280;
-            margin-right: 10px;
-        }
-
-        .option.selected .option-letter {
-            color: #667eea;
-        }
-
-        .navigation {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 15px;
-        }
-
-        .btn {
-            padding: 14px 24px;
-            border: none;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .btn-prev {
-            flex: 1;
-            background: white;
-            color: #667eea;
-            border: 2px solid #e5e7eb;
-        }
-
-        .btn-prev:disabled {
-            background: #e5e7eb;
-            color: #9ca3af;
-            cursor: not-allowed;
-        }
-
-        .btn-next {
-            flex: 2;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-
-        .btn-submit {
-            flex: 2;
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-            color: white;
-        }
-
-        .btn-reset {
-            width: 100%;
-            background: white;
-            color: #6b7280;
-            border: 2px solid #e5e7eb;
-        }
-
-        .btn:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        }
-
-        .results-container {
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .results-icon {
-            font-size: 80px;
-            margin-bottom: 20px;
-        }
-
-        .results-title {
-            font-size: 36px;
-            color: #1f2937;
-            margin-bottom: 10px;
-        }
-
-        .results-score {
-            font-size: 64px;
-            font-weight: bold;
-            margin: 20px 0;
-        }
-
-        .results-score.pass {
-            color: #10b981;
-        }
-
-        .results-score.fail {
-            color: #ef4444;
-        }
-
-        .results-percentage {
-            font-size: 28px;
-            color: #6b7280;
-            margin-bottom: 10px;
-        }
-
-        .results-message {
-            font-size: 18px;
-            color: #6b7280;
-            margin-top: 15px;
-        }
-
-        .review-section {
-            margin-top: 30px;
-        }
-
-        .review-item {
-            background: white;
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 15px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            text-align: left;
-        }
-
-        .review-item.correct {
-            border-left: 4px solid #10b981;
-        }
-
-        .review-item.incorrect {
-            border-left: 4px solid #ef4444;
-        }
-
-        .review-header {
-            display: flex;
-            align-items: flex-start;
-            gap: 15px;
-            margin-bottom: 15px;
-        }
-
-        .review-icon {
-            font-size: 24px;
-            flex-shrink: 0;
-        }
-
-        .review-topic {
-            font-size: 12px;
-            color: #6b7280;
-            text-transform: uppercase;
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-
-        .review-question {
-            font-size: 16px;
-            color: #1f2937;
-            font-weight: 500;
-            margin-bottom: 15px;
-        }
-
-        .review-answer {
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 14px;
-            margin-bottom: 10px;
-        }
-
-        .review-answer.user {
-            background: #fee2e2;
-            color: #991b1b;
-        }
-
-        .review-answer.user.correct {
-            background: #d1fae5;
-            color: #065f46;
-        }
-
-        .review-answer.correct-answer {
-            background: #d1fae5;
-            color: #065f46;
-        }
-
-        @media (max-width: 768px) {
-            body {
-                padding: 10px;
-            }
-
-            .header h1 {
-                font-size: 24px;
-            }
-
-            .question-text {
-                font-size: 18px;
-            }
-
-            .results-score {
-                font-size: 48px;
-            }
-        }
-    </style>
+  @media (max-width: 580px) {
+    .periods-grid { grid-template-columns: 1fr; }
+    header h1 { font-size: 1.6rem; }
+  }
+</style>
 </head>
 <body>
-    <div class="container" id="app"></div>
 
-    <script>
-        // Datos del examen
-        const questions = [
-            {
-                id: 1,
-                tema: "Propósitos de los Estudios Sociales",
-                pregunta: "¿Cuál es uno de los principales propósitos de los Estudios Sociales y Educación Cívica?",
-                opciones: [
-                    "Memorizar fechas históricas",
-                    "Brindar conocimientos históricos, geográficos y cívicos",
-                    "Aprender matemáticas aplicadas",
-                    "Estudiar únicamente la geografía mundial"
-                ],
-                respuestaCorrecta: 1
-            },
-            {
-                id: 2,
-                tema: "Importancia de los Estudios Sociales",
-                pregunta: "¿Por qué es importante promover valores en el hogar según los Estudios Sociales?",
-                opciones: [
-                    "Para obtener mejores calificaciones",
-                    "Para competir con otros estudiantes",
-                    "Para desarrollar ciudadanos responsables y éticos",
-                    "Para aprobar exámenes únicamente"
-                ],
-                respuestaCorrecta: 2
-            },
-            {
-                id: 3,
-                tema: "Papel del arte en Estudios Sociales",
-                pregunta: "¿Qué permite el arte en la materia de Estudios Sociales?",
-                opciones: [
-                    "Dibujar mejor que otros",
-                    "Conocer y comprender la historia y cultura del país",
-                    "Hacer manualidades en clase",
-                    "Decorar el salón de clases"
-                ],
-                respuestaCorrecta: 1
-            },
-            {
-                id: 4,
-                tema: "Ubicación hemisférica de Costa Rica",
-                pregunta: "¿En qué hemisferio se ubica Costa Rica según el ecuador?",
-                opciones: [
-                    "Hemisferio sur",
-                    "Hemisferio este",
-                    "Hemisferio norte",
-                    "En la línea del ecuador"
-                ],
-                respuestaCorrecta: 2
-            },
-            {
-                id: 5,
-                tema: "Océanos del mundo",
-                pregunta: "¿Cuál de los siguientes NO es un océano del planeta?",
-                opciones: [
-                    "Atlántico",
-                    "Mediterráneo",
-                    "Pacífico",
-                    "Índico"
-                ],
-                respuestaCorrecta: 1
-            },
-            {
-                id: 6,
-                tema: "América Central Ístmica",
-                pregunta: "¿Cuáles países integran América Central Ístmica junto con Costa Rica?",
-                opciones: [
-                    "México, Cuba y Jamaica",
-                    "Belice, Guatemala, Honduras, El Salvador, Nicaragua y Panamá",
-                    "Colombia, Venezuela y Ecuador",
-                    "Brasil, Argentina y Chile"
-                ],
-                respuestaCorrecta: 1
-            },
-            {
-                id: 7,
-                tema: "Ventajas de la ubicación de Costa Rica",
-                pregunta: "¿Cuál es una ventaja de que Costa Rica tenga costas en el océano Pacífico y mar Caribe?",
-                opciones: [
-                    "Tener más territorio",
-                    "Mayor población",
-                    "Acceso a recursos marinos y comercio",
-                    "Clima más frío"
-                ],
-                respuestaCorrecta: 2
-            },
-            {
-                id: 8,
-                tema: "Costa Rica como puente biológico",
-                pregunta: "¿Por qué se afirma que Costa Rica sirve como puente biológico y cultural?",
-                opciones: [
-                    "Por su tamaño pequeño",
-                    "Por su ubicación entre América del Norte y América del Sur permitiendo paso de animales, plantas y personas",
-                    "Por tener muchos puentes en carreteras",
-                    "Por estar cerca del ecuador"
-                ],
-                respuestaCorrecta: 1
-            },
-            {
-                id: 9,
-                tema: "Relaciones centroamericanas",
-                pregunta: "¿Qué tipo de relaciones mantiene Costa Rica con los países centroamericanos?",
-                opciones: [
-                    "Solo relaciones deportivas",
-                    "Relaciones políticas, culturales y económicas",
-                    "Ninguna relación",
-                    "Solo relaciones turísticas"
-                ],
-                respuestaCorrecta: 1
-            },
-            {
-                id: 10,
-                tema: "Acciones de ciudadanos globales",
-                pregunta: "¿Cuál es un ejemplo de acción que promueven los ciudadanos globales?",
-                opciones: [
-                    "Desperdiciar recursos naturales",
-                    "Ignorar otros países",
-                    "Utilizar de manera racional los recursos naturales",
-                    "Contaminar el ambiente"
-                ],
-                respuestaCorrecta: 2
-            },
-            {
-                id: 11,
-                tema: "Formas de relieve de Costa Rica",
-                pregunta: "¿Cuál es una de las principales formas de relieve de Costa Rica?",
-                opciones: [
-                    "Desiertos extensos",
-                    "Cordilleras: series de montañas unidas",
-                    "Tundra helada",
-                    "Grandes llanuras áridas"
-                ],
-                respuestaCorrecta: 1
-            },
-            {
-                id: 12,
-                tema: "Continentes del mundo",
-                pregunta: "¿Cuántos continentes principales hay en el planeta?",
-                opciones: [
-                    "Tres",
-                    "Cinco",
-                    "Seis (Asia, América, África, Europa, Oceanía y Antártida)",
-                    "Diez"
-                ],
-                respuestaCorrecta: 2
-            },
-            {
-                id: 13,
-                tema: "Océanos del planeta",
-                pregunta: "¿Cuáles son los cinco océanos del planeta?",
-                opciones: [
-                    "Atlántico, Pacífico, Índico, Ártico y Antártico",
-                    "Mediterráneo, Caribe, Rojo, Negro y Caspio",
-                    "Solo Pacífico y Atlántico",
-                    "Pacífico, Atlántico, Índico y Ártico"
-                ],
-                respuestaCorrecta: 0
-            },
-            {
-                id: 14,
-                tema: "Continentes - Asia",
-                pregunta: "¿Cuál es el continente más grande del planeta?",
-                opciones: [
-                    "América",
-                    "África",
-                    "Asia",
-                    "Europa"
-                ],
-                respuestaCorrecta: 2
-            },
-            {
-                id: 15,
-                tema: "Continentes - América",
-                pregunta: "¿Qué continente incluye a América del Norte, América Central y América del Sur?",
-                opciones: [
-                    "Oceanía",
-                    "América",
-                    "Europa",
-                    "Asia"
-                ],
-                respuestaCorrecta: 1
-            },
-            {
-                id: 16,
-                tema: "Ubicación de Costa Rica por meridianos",
-                pregunta: "Según el meridiano de Greenwich, ¿en qué hemisferio se encuentra Costa Rica?",
-                opciones: [
-                    "Hemisferio oriental",
-                    "Hemisferio occidental",
-                    "Hemisferio norte únicamente",
-                    "Sobre el meridiano"
-                ],
-                respuestaCorrecta: 1
-            },
-            {
-                id: 17,
-                tema: "Desventajas de la ubicación de Costa Rica",
-                pregunta: "¿Cuál es una desventaja de la ubicación de Costa Rica?",
-                opciones: [
-                    "Tener muchos vecinos",
-                    "Estar expuesto a fenómenos naturales como huracanes y terremotos",
-                    "No tener montañas",
-                    "Estar muy lejos del ecuador"
-                ],
-                respuestaCorrecta: 1
-            },
-            {
-                id: 18,
-                tema: "Mar Caribe",
-                pregunta: "¿Qué costa de Costa Rica está en el Mar Caribe?",
-                opciones: [
-                    "Costa oeste",
-                    "Costa este",
-                    "Costa norte",
-                    "Costa sur"
-                ],
-                respuestaCorrecta: 1
-            },
-            {
-                id: 19,
-                tema: "Océano Pacífico",
-                pregunta: "¿Qué costa de Costa Rica está en el Océano Pacífico?",
-                opciones: [
-                    "Costa este",
-                    "Costa oeste",
-                    "Costa norte",
-                    "No tiene costa en el Pacífico"
-                ],
-                respuestaCorrecta: 1
-            },
-            {
-                id: 20,
-                tema: "Celebración de la independencia",
-                pregunta: "Según el material, ¿qué celebran los países centroamericanos mediante el recorrido de la antorcha?",
-                opciones: [
-                    "El día del niño",
-                    "La navidad",
-                    "La independencia de los países de la región",
-                    "El año nuevo"
-                ],
-                respuestaCorrecta: 2
-            },
-            {
-                id: 21,
-                tema: "Diversidad cultural centroamericana",
-                pregunta: "¿Qué comparten culturalmente los países de América Central?",
-                opciones: [
-                    "El mismo idioma oficial únicamente",
-                    "Tradiciones, historia y lazos culturales",
-                    "La misma moneda",
-                    "El mismo presidente"
-                ],
-                respuestaCorrecta: 1
-            },
-            {
-                id: 22,
-                tema: "Concepto de océano",
-                pregunta: "¿Qué son los océanos?",
-                opciones: [
-                    "Ríos muy grandes",
-                    "Lagos salados",
-                    "Grandes masas de agua salada",
-                    "Mares pequeños"
-                ],
-                respuestaCorrecta: 2
-            },
-            {
-                id: 23,
-                tema: "Concepto de continente",
-                pregunta: "¿Qué es un continente?",
-                opciones: [
-                    "Una isla grande",
-                    "Una gran extensión de tierra",
-                    "Un país muy grande",
-                    "Un océano"
-                ],
-                respuestaCorrecta: 1
-            },
-            {
-                id: 24,
-                tema: "Ubicación de países centroamericanos",
-                pregunta: "¿Cuál de estos países NO forma parte de América Central Ístmica?",
-                opciones: [
-                    "Nicaragua",
-                    "Honduras",
-                    "México",
-                    "El Salvador"
-                ],
-                respuestaCorrecta: 2
-            },
-            {
-                id: 25,
-                tema: "Importancia de la educación cívica",
-                pregunta: "¿Para qué sirve la Educación Cívica?",
-                opciones: [
-                    "Solo para pasar exámenes",
-                    "Para formar ciudadanos responsables que conozcan sus derechos y deberes",
-                    "Para aprender a votar únicamente",
-                    "Para estudiar solo las leyes"
-                ],
-                respuestaCorrecta: 1
-            },
-            {
-                id: 26,
-                tema: "Conexión entre América del Norte y del Sur",
-                pregunta: "¿Qué región conecta América del Norte con América del Sur?",
-                opciones: [
-                    "América del Este",
-                    "América Central",
-                    "El Caribe",
-                    "Las Antillas"
-                ],
-                respuestaCorrecta: 1
-            },
-            {
-                id: 27,
-                tema: "Paralelo y meridiano",
-                pregunta: "¿Qué son los paralelos y meridianos?",
-                opciones: [
-                    "Montañas y ríos",
-                    "Líneas imaginarias que dividen la Tierra",
-                    "Tipos de climas",
-                    "Formas de relieve"
-                ],
-                respuestaCorrecta: 1
-            },
-            {
-                id: 28,
-                tema: "Responsabilidad ambiental",
-                pregunta: "¿Qué deben hacer los ciudadanos globales con el medio ambiente?",
-                opciones: [
-                    "Ignorarlo",
-                    "Explotarlo sin límites",
-                    "Cuidarlo y protegerlo",
-                    "Usarlo solo para beneficio económico"
-                ],
-                respuestaCorrecta: 2
-            },
-            {
-                id: 29,
-                tema: "Integración regional",
-                pregunta: "¿Por qué es importante la integración entre países centroamericanos?",
-                opciones: [
-                    "Para competir entre ellos",
-                    "Para fortalecer las relaciones económicas, políticas y culturales",
-                    "Para crear conflictos",
-                    "Solo para el turismo"
-                ],
-                respuestaCorrecta: 1
-            },
-            {
-                id: 30,
-                tema: "Historia y cultura nacional",
-                pregunta: "¿Por qué es importante conocer la historia y cultura del país?",
-                opciones: [
-                    "Solo para aprobar Estudios Sociales",
-                    "Para comprender nuestra identidad y valores como nación",
-                    "No es importante",
-                    "Solo para ser guía turístico"
-                ],
-                respuestaCorrecta: 1
-            },
-            {
-                id: 31,
-                tema: "Características geográficas de Costa Rica",
-                pregunta: "¿Qué característica geográfica hace especial a Costa Rica?",
-                opciones: [
-                    "Es el país más grande de Centroamérica",
-                    "No tiene montañas",
-                    "Tiene costas en dos océanos diferentes",
-                    "Es una isla"
-                ],
-                respuestaCorrecta: 2
-            },
-            {
-                id: 32,
-                tema: "Cordilleras de Costa Rica",
-                pregunta: "¿Qué es una cordillera?",
-                opciones: [
-                    "Un río muy largo",
-                    "Una serie de montañas unidas entre sí",
-                    "Un tipo de bosque",
-                    "Una playa extensa"
-                ],
-                respuestaCorrecta: 1
-            },
-            {
-                id: 33,
-                tema: "Biodiversidad de Costa Rica",
-                pregunta: "¿Qué significa que Costa Rica sea un puente biológico?",
-                opciones: [
-                    "Que tiene muchos puentes construidos",
-                    "Que permite el paso de especies animales y vegetales entre norte y sur de América",
-                    "Que es un país artificial",
-                    "Que solo tiene animales del norte"
-                ],
-                respuestaCorrecta: 1
-            },
-            {
-                id: 34,
-                tema: "Valores de la Educación Cívica",
-                pregunta: "¿Cuál de estos es un valor importante que promueve la Educación Cívica?",
-                opciones: [
-                    "El egoísmo",
-                    "La irresponsabilidad",
-                    "El respeto y la responsabilidad ciudadana",
-                    "La indiferencia"
-                ],
-                respuestaCorrecta: 2
-            },
-            {
-                id: 35,
-                tema: "Conocimientos geográficos",
-                pregunta: "¿Para qué sirven los conocimientos geográficos en Estudios Sociales?",
-                opciones: [
-                    "Solo para dibujar mapas",
-                    "Para comprender dónde estamos ubicados y cómo nos relacionamos con el mundo",
-                    "No sirven para nada",
-                    "Solo para memorizar nombres de países"
-                ],
-                respuestaCorrecta: 1
-            }
-        ];
+<header>
+  <span class="header-emoji">🎓</span>
+  <h1>Caleb's Exam Practice</h1>
+  <p>Study hard, do great — one exam at a time!</p>
+</header>
 
-        // Estado de la aplicación
-        let currentQuestion = 0;
-        let answers = {};
-        let showResults = false;
+<main>
+  <div class="grade-section">
+    <div class="grade-header">
+      <span class="grade-badge">4th Grade</span>
+      <span class="grade-title">School Year Exams</span>
+      <span class="grade-sub">2 periods · 2 exams each</span>
+    </div>
 
-        // Funciones de almacenamiento
-        function saveProgress() {
-            const data = {
-                currentQuestion,
-                answers,
-                showResults
-            };
-            localStorage.setItem('exam-progress', JSON.stringify(data));
-        }
+    <div class="periods-grid">
 
-        function loadProgress() {
-            const saved = localStorage.getItem('exam-progress');
-            if (saved) {
-                const data = JSON.parse(saved);
-                currentQuestion = data.currentQuestion || 0;
-                answers = data.answers || {};
-                showResults = data.showResults || false;
-            }
-        }
+      <!-- Period 1 -->
+      <div class="period-col">
+        <div class="period-label">📅 Period 1</div>
 
-        function resetExam() {
-            localStorage.removeItem('exam-progress');
-            currentQuestion = 0;
-            answers = {};
-            showResults = false;
-            render();
-        }
+        <a class="exam-card available" href="4th-grade/period1/exam1/index.html">
+          <div class="ec-top">
+            <span class="ec-number">Period 1 · Exam 1</span>
+            <span class="ec-status ready">✓ Ready</span>
+          </div>
+          <div class="ec-icon">🗺️</div>
+          <div class="ec-subject">Social Studies</div>
+          <div class="ec-topics">4th Grade · Social Studies practice</div>
+          <div class="ec-arrow">Start practicing →</div>
+        </a>
 
-        // Funciones del examen
-        function selectAnswer(questionId, answerIndex) {
-            answers[questionId] = answerIndex;
-            saveProgress();
-            render();
-        }
+        <a class="exam-card available" href="4th-grade/period1/exam2/index.html">
+          <div class="ec-top">
+            <span class="ec-number">Period 1 · Exam 2</span>
+            <span class="ec-status ready">✓ Ready</span>
+          </div>
+          <div class="ec-icon">🔬</div>
+          <div class="ec-subject">Science</div>
+          <div class="ec-topics">Sports · First Aid · Vertebrates · Animal Diet · Arthropods · Vocabulary</div>
+          <div class="ec-arrow">Start practicing →</div>
+        </a>
+      </div>
 
-        function previousQuestion() {
-            if (currentQuestion > 0) {
-                currentQuestion--;
-                saveProgress();
-                render();
-            }
-        }
+      <!-- Period 2 -->
+      <div class="period-col">
+        <div class="period-label">📅 Period 2</div>
 
-        function nextQuestion() {
-            if (currentQuestion < questions.length - 1) {
-                currentQuestion++;
-                saveProgress();
-                render();
-            }
-        }
+        <div class="exam-card placeholder">
+          <div class="ec-top">
+            <span class="ec-number">Period 2 · Exam 1</span>
+            <span class="ec-status soon">Coming soon</span>
+          </div>
+          <div class="ec-icon">📚</div>
+          <div class="ec-subject">Subject TBD</div>
+          <div class="ec-topics">Practice will be added here.</div>
+        </div>
 
-        function submitExam() {
-            showResults = true;
-            saveProgress();
-            render();
-            window.scrollTo(0, 0);
-        }
+        <div class="exam-card placeholder">
+          <div class="ec-top">
+            <span class="ec-number">Period 2 · Exam 2</span>
+            <span class="ec-status soon">Coming soon</span>
+          </div>
+          <div class="ec-icon">📚</div>
+          <div class="ec-subject">Subject TBD</div>
+          <div class="ec-topics">Practice will be added here.</div>
+        </div>
+      </div>
 
-        function calculateScore() {
-            let correct = 0;
-            questions.forEach(q => {
-                if (answers[q.id] === q.respuestaCorrecta) {
-                    correct++;
-                }
-            });
-            return correct;
-        }
+    </div>
+  </div>
+</main>
 
-        // Renderizado
-        function render() {
-            const app = document.getElementById('app');
-            
-            if (showResults) {
-                renderResults(app);
-            } else {
-                renderQuestion(app);
-            }
-        }
+<footer class="footer">
+  Caleb's Exam Practice · 4th Grade · Built with ❤️
+</footer>
 
-        function renderQuestion(app) {
-            const question = questions[currentQuestion];
-            const progress = ((currentQuestion + 1) / questions.length) * 100;
-            
-            app.innerHTML = `
-                <div class="header">
-                    <h1>📚 Examen de Estudios Sociales</h1>
-                    <p>Cuarto Grado - Primer Período</p>
-                </div>
-
-                <div class="progress-container">
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: ${progress}%"></div>
-                    </div>
-                    <div class="progress-text">Pregunta ${currentQuestion + 1} de ${questions.length}</div>
-                </div>
-
-                <div class="question-card">
-                    <div class="question-topic">${question.tema}</div>
-                    <div class="question-text">${question.pregunta}</div>
-                    <div class="options">
-                        ${question.opciones.map((opcion, index) => `
-                            <div class="option ${answers[question.id] === index ? 'selected' : ''}" 
-                                 onclick="selectAnswer(${question.id}, ${index})">
-                                <span class="option-letter">${String.fromCharCode(65 + index)}.</span>
-                                ${opcion}
-                            </div>
-                        `).join('')}
-                    </div>
-                </div>
-
-                <div class="navigation">
-                    <button class="btn btn-prev" onclick="previousQuestion()" ${currentQuestion === 0 ? 'disabled' : ''}>
-                        ← Anterior
-                    </button>
-                    ${currentQuestion === questions.length - 1 ? `
-                        <button class="btn btn-submit" onclick="submitExam()">
-                            Finalizar Examen
-                        </button>
-                    ` : `
-                        <button class="btn btn-next" onclick="nextQuestion()">
-                            Siguiente →
-                        </button>
-                    `}
-                </div>
-
-                <button class="btn btn-reset" onclick="resetExam()">
-                    🔄 Reiniciar Examen
-                </button>
-            `;
-        }
-
-        function renderResults(app) {
-            const score = calculateScore();
-            const percentage = ((score / questions.length) * 100).toFixed(1);
-            const passed = percentage >= 70;
-
-            let message = '';
-            if (percentage >= 90) message = '🌟 ¡Excelente trabajo!';
-            else if (percentage >= 70) message = '✅ ¡Buen trabajo!';
-            else message = '📚 Sigue practicando, ¡tú puedes!';
-
-            const reviewItems = questions.map((q, index) => {
-                const userAnswer = answers[q.id];
-                const isCorrect = userAnswer === q.respuestaCorrecta;
-                
-                return `
-                    <div class="review-item ${isCorrect ? 'correct' : 'incorrect'}">
-                        <div class="review-header">
-                            <div class="review-icon">${isCorrect ? '✅' : '❌'}</div>
-                            <div style="flex: 1;">
-                                <div class="review-topic">${q.tema}</div>
-                                <div class="review-question">${index + 1}. ${q.pregunta}</div>
-                                <div class="review-answer user ${isCorrect ? 'correct' : ''}">
-                                    <strong>Tu respuesta:</strong> ${userAnswer !== undefined ? q.opciones[userAnswer] : 'Sin responder'}
-                                </div>
-                                ${!isCorrect ? `
-                                    <div class="review-answer correct-answer">
-                                        <strong>Respuesta correcta:</strong> ${q.opciones[q.respuestaCorrecta]}
-                                    </div>
-                                ` : ''}
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-
-            app.innerHTML = `
-                <div class="header">
-                    <h1>📚 Examen de Estudios Sociales</h1>
-                    <p>Cuarto Grado - Primer Período</p>
-                </div>
-
-                <div class="results-container">
-                    <div class="results-icon">🏆</div>
-                    <div class="results-title">Resultados del Examen</div>
-                    <div class="results-score ${passed ? 'pass' : 'fail'}">${score}/${questions.length}</div>
-                    <div class="results-percentage">${percentage}% de aciertos</div>
-                    <div class="results-message">${message}</div>
-                </div>
-
-                <div class="review-section">
-                    ${reviewItems}
-                </div>
-
-                <button class="btn btn-reset" onclick="resetExam()" style="margin-top: 20px;">
-                    🔄 Reiniciar Examen
-                </button>
-            `;
-        }
-
-        // Inicializar
-        loadProgress();
-        render();
-    </script>
 </body>
 </html>

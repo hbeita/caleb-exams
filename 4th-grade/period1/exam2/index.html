@@ -1,0 +1,1299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Science Exam Practice</title>
+<style>
+  :root {
+    --primary: #4f46e5;
+    --primary-light: #eef2ff;
+    --success: #16a34a;
+    --success-light: #dcfce7;
+    --error: #dc2626;
+    --error-light: #fee2e2;
+    --warn: #d97706;
+    --warn-light: #fef3c7;
+    --border: #e5e7eb;
+    --text: #1f2937;
+    --muted: #6b7280;
+    --bg: #f9fafb;
+    --card: #ffffff;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); }
+
+  header {
+    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+    color: white; padding: 2rem 1rem; text-align: center;
+  }
+  header h1 { font-size: 2rem; font-weight: 800; }
+  header p { margin-top: .4rem; opacity: .85; font-size: 1rem; }
+
+  nav {
+    display: flex; flex-wrap: wrap; gap: .5rem; justify-content: center;
+    background: white; padding: .75rem 1rem; border-bottom: 1px solid var(--border);
+    position: sticky; top: 0; z-index: 10;
+  }
+  nav button {
+    padding: .4rem .9rem; border-radius: 999px; border: 2px solid var(--border);
+    background: white; cursor: pointer; font-size: .85rem; font-weight: 600;
+    transition: all .2s;
+  }
+  nav button.active { background: var(--primary); color: white; border-color: var(--primary); }
+  nav button:hover:not(.active):not(:disabled) { border-color: var(--primary); color: var(--primary); }
+  nav button:disabled { opacity: .4; cursor: not-allowed; color: var(--muted); }
+  nav button.study-btn { background: #fef3c7; border-color: #d97706; color: #92400e; }
+  nav button.study-btn.active { background: #d97706; border-color: #d97706; color: white; }
+
+  .lock-banner {
+    background: var(--warn-light); border: 1.5px solid #fbbf24; border-radius: 10px;
+    padding: .75rem 1rem; margin-bottom: 1.5rem; font-size: .9rem; color: #92400e;
+    display: flex; align-items: center; gap: .6rem;
+  }
+
+  main { max-width: 860px; margin: 0 auto; padding: 1.5rem 1rem 4rem; }
+
+  .section { display: none; }
+  .section.active { display: block; }
+
+  .card {
+    background: var(--card); border-radius: 12px; padding: 1.5rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,.07); margin-bottom: 1.5rem;
+  }
+  .card h2 { font-size: 1.1rem; font-weight: 700; margin-bottom: 1rem; color: var(--primary); display: flex; align-items: center; gap: .5rem; }
+  .card h2 span.badge {
+    background: var(--primary-light); color: var(--primary); font-size: .75rem;
+    padding: .2rem .55rem; border-radius: 999px;
+  }
+
+  /* ── Study section ── */
+  .study-topic {
+    border: 2px solid var(--border); border-radius: 14px; margin-bottom: 1.1rem;
+    overflow: hidden; transition: border-color .2s, box-shadow .2s;
+  }
+  .study-topic.done-topic { border-color: var(--success); }
+  .study-topic-header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1rem 1.1rem; cursor: pointer;
+    font-weight: 700; font-size: 1rem; user-select: none; transition: background .15s;
+  }
+  .study-topic-header:hover { background: var(--primary-light); }
+  .study-topic-header .left-label { display: flex; align-items: center; gap: .6rem; }
+  .study-topic-header .topic-icon { font-size: 1.5rem; }
+  .done-topic .study-topic-header { background: var(--success-light); }
+  .study-topic-header .check-badge {
+    background: var(--success); color: white; font-size: .75rem; font-weight: 700;
+    padding: .2rem .6rem; border-radius: 999px; display: none;
+  }
+  .done-topic .check-badge { display: inline; }
+  .study-topic-header .arrow { font-size: .8rem; transition: transform .2s; color: var(--muted); }
+  .study-topic-header.open .arrow { transform: rotate(90deg); }
+  .study-topic-body { display: none; padding: 1.2rem 1.2rem 1.4rem; border-top: 2px solid var(--border); background: white; }
+  .study-topic-body.open { display: block; }
+  .done-topic .study-topic-body { border-top-color: var(--success); }
+
+  /* Sport cards grid */
+  .sport-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: .75rem; margin-bottom: 1rem; }
+  .sport-card {
+    background: linear-gradient(135deg, #eef2ff, #e0e7ff);
+    border: 2px solid #c7d2fe; border-radius: 12px;
+    padding: .9rem .6rem; text-align: center; transition: transform .15s;
+  }
+  .sport-card:hover { transform: translateY(-2px); }
+  .sport-card .sc-icon { font-size: 2.2rem; display: block; margin-bottom: .4rem; }
+  .sport-card .sc-name { font-weight: 800; font-size: .9rem; color: #3730a3; display: block; margin-bottom: .3rem; }
+  .sport-card .sc-desc { font-size: .75rem; color: #6b7280; line-height: 1.3; }
+
+  /* First aid cards */
+  .aid-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: .8rem; margin-bottom: 1rem; }
+  .aid-card {
+    border-radius: 12px; padding: .9rem 1rem; display: flex; flex-direction: column; gap: .35rem;
+  }
+  .aid-card .ac-accident { font-weight: 800; font-size: .95rem; display: flex; align-items: center; gap: .4rem; }
+  .aid-card .ac-arrow { color: #6b7280; font-size: .8rem; }
+  .aid-card .ac-action { font-size: .88rem; color: #374151; }
+
+  /* Vertebrate visual groups */
+  .vert-split { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+  .vert-group { border-radius: 12px; padding: 1rem; }
+  .vert-group h3 { font-size: .9rem; font-weight: 800; margin-bottom: .6rem; display: flex; align-items: center; gap: .4rem; }
+  .vert-key-fact { font-size: .78rem; border-radius: 6px; padding: .2rem .5rem; display: inline-block; margin-bottom: .6rem; font-weight: 600; }
+  .animal-tile {
+    display: inline-flex; align-items: center; gap: .3rem;
+    border-radius: 8px; padding: .25rem .55rem; margin: .2rem; font-size: .85rem; font-weight: 600;
+  }
+
+  /* Diet columns */
+  .diet-columns { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: .75rem; margin-bottom: 1rem; }
+  .diet-col { border-radius: 12px; padding: .9rem .75rem; }
+  .diet-col h3 { font-size: .9rem; font-weight: 800; margin-bottom: .4rem; }
+  .diet-col .diet-eats { font-size: .78rem; margin-bottom: .6rem; opacity: .75; font-style: italic; }
+  .diet-col .animal-tile { display: block; margin: .2rem 0; }
+
+  /* Arthropod group boxes */
+  .arth-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .8rem; margin-bottom: 1rem; }
+  .arth-box { border-radius: 12px; padding: 1rem; }
+  .arth-box .ab-header { display: flex; align-items: center; gap: .5rem; margin-bottom: .5rem; }
+  .arth-box .ab-icon { font-size: 1.8rem; }
+  .arth-box .ab-name { font-weight: 800; font-size: .9rem; }
+  .arth-box .ab-legs { font-size: .75rem; opacity: .7; }
+  .arth-box .ab-examples { display: flex; flex-wrap: wrap; gap: .3rem; }
+  .arth-example { font-size: .82rem; font-weight: 600; border-radius: 6px; padding: .2rem .5rem; }
+
+  /* Vocab flashcards */
+  .vocab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: .75rem; margin-bottom: 1rem; }
+  .vocab-card {
+    border: 2px solid var(--border); border-radius: 12px; overflow: hidden;
+    transition: transform .15s; cursor: default;
+  }
+  .vocab-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,.08); }
+  .vocab-card .vc-top { padding: .7rem .8rem; display: flex; align-items: center; gap: .5rem; }
+  .vocab-card .vc-icon { font-size: 1.5rem; }
+  .vocab-card .vc-word { font-weight: 800; font-size: .95rem; }
+  .vocab-card .vc-body { padding: .5rem .8rem .8rem; border-top: 1px solid var(--border); }
+  .vocab-card .vc-def { font-size: .82rem; color: #374151; margin-bottom: .4rem; line-height: 1.35; }
+  .vocab-card .vc-example { font-size: .78rem; color: var(--muted); font-style: italic; }
+
+  .read-btn {
+    margin-top: .75rem; padding: .5rem 1.3rem; border-radius: 8px;
+    border: 2px solid var(--success); background: white; color: var(--success);
+    font-weight: 700; cursor: pointer; font-size: .9rem; transition: all .2s;
+    display: flex; align-items: center; gap: .4rem;
+  }
+  .read-btn:hover, .read-btn.done { background: var(--success); color: white; }
+
+  /* Progress header */
+  .study-header-bar {
+    background: white; border-radius: 14px; padding: 1.1rem 1.3rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,.08); margin-bottom: 1.5rem;
+  }
+  .study-header-bar h2 { font-size: 1rem; font-weight: 800; margin-bottom: .7rem; color: var(--text); }
+  .topic-dots { display: flex; gap: .5rem; flex-wrap: wrap; margin-bottom: .75rem; }
+  .topic-dot {
+    width: 36px; height: 36px; border-radius: 50%; background: var(--border);
+    display: flex; align-items: center; justify-content: center; font-size: 1.1rem;
+    transition: background .3s; position: relative;
+  }
+  .topic-dot.done { background: var(--success); }
+  .topic-dot.done::after {
+    content: '✓'; position: absolute; bottom: -2px; right: -2px;
+    background: white; color: var(--success); font-size: .6rem; font-weight: 900;
+    width: 14px; height: 14px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    border: 1.5px solid var(--success);
+  }
+  .study-progress-bar-wrap { background: var(--border); border-radius: 999px; height: 10px; }
+  .study-progress-bar { height: 10px; border-radius: 999px; background: linear-gradient(90deg,#4f46e5,#16a34a); transition: width .5s ease; }
+  .study-progress-label { display: flex; justify-content: space-between; font-size: .82rem; margin-top: .3rem; color: var(--muted); }
+
+  .unlock-btn {
+    display: block; width: 100%; padding: .85rem; border-radius: 12px;
+    border: none; background: linear-gradient(135deg, #16a34a, #15803d); color: white;
+    font-weight: 800; font-size: 1.05rem; cursor: pointer; margin-top: 1rem;
+    transition: all .2s; opacity: .35; pointer-events: none;
+    box-shadow: 0 4px 12px rgba(22,163,74,.3);
+  }
+  .unlock-btn.ready { opacity: 1; pointer-events: auto; animation: pulse-green 1.5s ease-in-out infinite; }
+  .unlock-btn.ready:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(22,163,74,.4); }
+  @keyframes pulse-green {
+    0%, 100% { box-shadow: 0 4px 12px rgba(22,163,74,.3); }
+    50% { box-shadow: 0 4px 22px rgba(22,163,74,.6); }
+  }
+
+  /* ── Fill in ── */
+  .fill-item { margin-bottom: .9rem; }
+  .fill-item label { display: block; margin-bottom: .3rem; font-size: .95rem; line-height: 1.5; }
+  .fill-item input[type=text] {
+    width: 100%; padding: .45rem .7rem; border: 2px solid var(--border);
+    border-radius: 8px; font-size: .95rem; transition: border-color .2s;
+  }
+  .fill-item input[type=text]:focus { outline: none; border-color: var(--primary); }
+  .fill-item input.correct { border-color: var(--success); background: var(--success-light); }
+  .fill-item input.wrong { border-color: var(--error); background: var(--error-light); }
+  .fill-item .hint { font-size: .8rem; color: var(--error); margin-top: .25rem; display: none; }
+  .fill-item input.wrong ~ .hint { display: block; }
+
+  /* ── Match ── */
+  .match-item { display: flex; align-items: center; gap: .5rem; font-size: .95rem; margin-bottom: .5rem; }
+  .match-item input[type=text] {
+    width: 50px; text-align: center; padding: .35rem .4rem;
+    border: 2px solid var(--border); border-radius: 8px; font-size: .95rem;
+  }
+
+  /* ── Classify table ── */
+  .classify-bank { background: var(--primary-light); border-radius: 8px; padding: .7rem 1rem; margin-bottom: 1rem; font-size: .9rem; }
+  .classify-bank strong { display: block; margin-bottom: .3rem; font-size: .8rem; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+  .classify-bank .word { display: inline-block; background: white; border: 1px solid var(--border); border-radius: 6px; padding: .2rem .55rem; margin: .2rem; font-weight: 600; }
+  .classify-table { width: 100%; border-collapse: collapse; }
+  .classify-table th { background: var(--primary); color: white; padding: .55rem .75rem; text-align: left; font-size: .9rem; }
+  .classify-table td { padding: .4rem .5rem; border: 1px solid var(--border); }
+  .classify-table td input[type=text] { width: 100%; border: none; background: transparent; font-size: .9rem; padding: .2rem; }
+  .classify-table td input[type=text]:focus { outline: none; }
+
+  /* ── Multiple choice ── */
+  .mc-item { margin-bottom: 1rem; }
+  .mc-item p { margin-bottom: .4rem; font-size: .95rem; font-weight: 600; }
+  .mc-options label { display: block; padding: .35rem .6rem; cursor: pointer; border-radius: 6px; font-size: .9rem; margin-bottom: .2rem; transition: background .15s; }
+  .mc-options label:hover { background: var(--primary-light); }
+  .mc-options input[type=radio] { margin-right: .5rem; accent-color: var(--primary); }
+  .mc-options label.correct-choice { background: var(--success-light); }
+  .mc-options label.wrong-choice { background: var(--error-light); }
+
+  /* ── True/False ── */
+  .tf-item { display: flex; align-items: center; gap: .75rem; margin-bottom: .75rem; font-size: .95rem; flex-wrap: wrap; }
+  .tf-item .statement { flex: 1; min-width: 200px; }
+  .tf-btn { padding: .3rem .9rem; border-radius: 999px; border: 2px solid var(--border); background: white; cursor: pointer; font-weight: 600; font-size: .85rem; }
+  .tf-btn.selected-T { background: #2563eb; color: white; border-color: #2563eb; }
+  .tf-btn.selected-F { background: var(--error); color: white; border-color: var(--error); }
+  .tf-btn.correct-T, .tf-btn.correct-F { background: var(--success); color: white; border-color: var(--success); }
+  .tf-btn.wrong-T, .tf-btn.wrong-F { background: var(--error); color: white; border-color: var(--error); }
+
+  /* ── Buttons ── */
+  .btn-row { display: flex; gap: .75rem; flex-wrap: wrap; margin-top: 1.2rem; }
+  .btn { padding: .55rem 1.3rem; border-radius: 8px; border: none; cursor: pointer; font-weight: 700; font-size: .95rem; transition: opacity .2s; }
+  .btn:hover { opacity: .85; }
+  .btn-primary { background: var(--primary); color: white; }
+  .btn-ghost { background: var(--border); color: var(--text); }
+
+  /* ── Score panel ── */
+  .score-panel { display: none; align-items: center; gap: 1rem; padding: .75rem 1rem; border-radius: 8px; background: var(--primary-light); margin-top: .75rem; flex-wrap: wrap; }
+  .score-panel.show { display: flex; }
+  .score-panel .score-num { font-size: 1.4rem; font-weight: 800; color: var(--primary); }
+  .score-panel .score-label { font-size: .9rem; color: var(--muted); }
+  .score-panel .grade { font-size: 1.2rem; font-weight: 800; }
+  .grade-A { color: var(--success); }
+  .grade-B { color: #0891b2; }
+  .grade-C { color: var(--warn); }
+  .grade-D { color: var(--error); }
+
+  /* ── Final score ── */
+  #final-score-section { text-align: center; padding: 2rem 1rem; }
+  .big-grade { font-size: 6rem; font-weight: 900; line-height: 1; }
+  .grade-ring { border-radius: 50%; width: 160px; height: 160px; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; border: 8px solid; }
+  .final-detail { font-size: 1rem; color: var(--muted); margin-top: .5rem; }
+  .section-scores { margin-top: 1.5rem; }
+  .section-score-row { display: flex; justify-content: space-between; align-items: center; padding: .6rem .75rem; border-bottom: 1px solid var(--border); font-size: .95rem; }
+  .progress-bar-wrap { background: var(--border); border-radius: 999px; height: 8px; flex: 1; margin: 0 1rem; }
+  .progress-bar { height: 8px; border-radius: 999px; background: var(--primary); transition: width .4s; }
+
+  @media (max-width: 600px) {
+    header h1 { font-size: 1.4rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🔬 Science Exam Practice</h1>
+  <p id="header-subtitle">Study first, then unlock the practice test!</p>
+</header>
+
+<nav id="main-nav">
+  <button class="study-btn active" onclick="showSection('study')">📚 Study</button>
+  <button disabled id="nav-sports" onclick="showSection('sports')">🏅 Sports</button>
+  <button disabled id="nav-firstaid" onclick="showSection('firstaid')">🩹 First Aid</button>
+  <button disabled id="nav-vertebrates" onclick="showSection('vertebrates')">🐾 Vertebrates</button>
+  <button disabled id="nav-diet" onclick="showSection('diet')">🍖 Animal Diet</button>
+  <button disabled id="nav-arthropods" onclick="showSection('arthropods')">🦟 Arthropods</button>
+  <button disabled id="nav-vocabulary" onclick="showSection('vocabulary')">📝 Vocabulary</button>
+  <button disabled id="nav-final" onclick="showSection('final')">🏆 Final Score</button>
+</nav>
+
+<main>
+
+<!-- ===================== STUDY ===================== -->
+<div id="study" class="section active">
+
+  <!-- Progress bar header -->
+  <div class="study-header-bar">
+    <h2>📖 Study all 6 topics to unlock the test</h2>
+    <div class="topic-dots">
+      <div class="topic-dot" id="dot-sports" title="Sports">🏅</div>
+      <div class="topic-dot" id="dot-firstaid" title="First Aid">🩹</div>
+      <div class="topic-dot" id="dot-vertebrates" title="Vertebrates">🐾</div>
+      <div class="topic-dot" id="dot-diet" title="Animal Diet">🍖</div>
+      <div class="topic-dot" id="dot-arthropods" title="Arthropods">🦟</div>
+      <div class="topic-dot" id="dot-vocabulary" title="Vocabulary">📝</div>
+    </div>
+    <div class="study-progress-bar-wrap">
+      <div class="study-progress-bar" id="study-bar" style="width:0%"></div>
+    </div>
+    <div class="study-progress-label">
+      <span id="study-pct-label">0 of 6 topics studied</span>
+      <span id="study-pct-pct">0%</span>
+    </div>
+  </div>
+
+  <!-- ── Topic 1: Sports ── -->
+  <div class="study-topic" id="topic-sports">
+    <div class="study-topic-header" onclick="toggleTopic('sports')">
+      <span class="left-label"><span class="topic-icon">🏅</span> Sports</span>
+      <span style="display:flex;align-items:center;gap:.5rem;">
+        <span class="check-badge">✔ Done</span>
+        <span class="arrow">▶</span>
+      </span>
+    </div>
+    <div class="study-topic-body" id="body-sports">
+      <p style="font-size:.85rem;color:var(--muted);margin-bottom:.9rem;">Read each card — learn the sport name and what it involves.</p>
+      <div class="sport-grid">
+        <div class="sport-card">
+          <span class="sc-icon">🚴</span>
+          <span class="sc-name">Bike Riding</span>
+          <span class="sc-desc">Riding a bicycle for fun or exercise.</span>
+        </div>
+        <div class="sport-card">
+          <span class="sc-icon">🏊</span>
+          <span class="sc-name">Swimming</span>
+          <span class="sc-desc">Moving through water using your body.</span>
+        </div>
+        <div class="sport-card">
+          <span class="sc-icon">⚽</span>
+          <span class="sc-name">Soccer</span>
+          <span class="sc-desc">Players kick a ball to score goals.</span>
+        </div>
+        <div class="sport-card">
+          <span class="sc-icon">🤸</span>
+          <span class="sc-name">Gymnastics</span>
+          <span class="sc-desc">Jumps, flips, and balance moves.</span>
+        </div>
+        <div class="sport-card">
+          <span class="sc-icon">🤺</span>
+          <span class="sc-name">Fencing</span>
+          <span class="sc-desc">Use swords to touch your opponent.</span>
+        </div>
+        <div class="sport-card">
+          <span class="sc-icon">🏐</span>
+          <span class="sc-name">Volleyball</span>
+          <span class="sc-desc">Hit a ball over a net with your hands.</span>
+        </div>
+      </div>
+      <button class="read-btn" id="btn-sports" onclick="markRead('sports')">✅ I've studied this!</button>
+    </div>
+  </div>
+
+  <!-- ── Topic 2: First Aid ── -->
+  <div class="study-topic" id="topic-firstaid">
+    <div class="study-topic-header" onclick="toggleTopic('firstaid')">
+      <span class="left-label"><span class="topic-icon">🩹</span> First Aid</span>
+      <span style="display:flex;align-items:center;gap:.5rem;">
+        <span class="check-badge">✔ Done</span>
+        <span class="arrow">▶</span>
+      </span>
+    </div>
+    <div class="study-topic-body" id="body-firstaid">
+      <p style="font-size:.85rem;color:var(--muted);margin-bottom:.9rem;">Each card shows an accident and exactly what to do. Study the arrow!</p>
+      <div class="aid-grid">
+        <div class="aid-card" style="background:#fef3c7;">
+          <div class="ac-accident">🔥 Burns</div>
+          <div class="ac-arrow">⬇ What to do:</div>
+          <div class="ac-action">💧 Cool with <strong>cold water</strong> immediately.</div>
+        </div>
+        <div class="aid-card" style="background:#fee2e2;">
+          <div class="ac-accident">🩸 Big Cuts</div>
+          <div class="ac-arrow">⬇ What to do:</div>
+          <div class="ac-action">🧻 <strong>Cover and press</strong> with a clean cloth.</div>
+        </div>
+        <div class="aid-card" style="background:#fce7f3;">
+          <div class="ac-accident">👃 Nosebleed</div>
+          <div class="ac-arrow">⬇ What to do:</div>
+          <div class="ac-action">✌️ <strong>Lean forward</strong> and pinch the nose.</div>
+        </div>
+        <div class="aid-card" style="background:#d1fae5;">
+          <div class="ac-accident">🦟 Insect Bite</div>
+          <div class="ac-arrow">⬇ What to do:</div>
+          <div class="ac-action">🧴 <strong>Wash</strong> the area and apply cream.</div>
+        </div>
+        <div class="aid-card" style="background:#e0e7ff;">
+          <div class="ac-accident">😮‍💨 Can't Breathe</div>
+          <div class="ac-arrow">⬇ What to do:</div>
+          <div class="ac-action">📞 <strong>Call for help</strong> immediately!</div>
+        </div>
+        <div class="aid-card" style="background:#fef9c3;">
+          <div class="ac-accident">🌡️ Heat Exhaustion</div>
+          <div class="ac-arrow">⬇ What to do:</div>
+          <div class="ac-action">🏠 Move to a <strong>cool place</strong> and drink water.</div>
+        </div>
+      </div>
+      <button class="read-btn" id="btn-firstaid" onclick="markRead('firstaid')">✅ I've studied this!</button>
+    </div>
+  </div>
+
+  <!-- ── Topic 3: Vertebrates ── -->
+  <div class="study-topic" id="topic-vertebrates">
+    <div class="study-topic-header" onclick="toggleTopic('vertebrates')">
+      <span class="left-label"><span class="topic-icon">🐾</span> Vertebrates &amp; Invertebrates</span>
+      <span style="display:flex;align-items:center;gap:.5rem;">
+        <span class="check-badge">✔ Done</span>
+        <span class="arrow">▶</span>
+      </span>
+    </div>
+    <div class="study-topic-body" id="body-vertebrates">
+      <p style="font-size:.85rem;color:var(--muted);margin-bottom:.9rem;">The key difference: vertebrates have a <strong>backbone (spine)</strong>. Invertebrates do NOT.</p>
+      <div class="vert-split">
+        <div class="vert-group" style="background:#dcfce7;border:2px solid #86efac;">
+          <h3>🦴 Vertebrates</h3>
+          <span class="vert-key-fact" style="background:#16a34a;color:white;">✓ Have a backbone</span>
+          <div>
+            <span class="animal-tile" style="background:white;border:1.5px solid #86efac;">🐕 Dog</span>
+            <span class="animal-tile" style="background:white;border:1.5px solid #86efac;">🐈 Cat</span>
+            <span class="animal-tile" style="background:white;border:1.5px solid #86efac;">🐸 Frog</span>
+            <span class="animal-tile" style="background:white;border:1.5px solid #86efac;">🐘 Elephant</span>
+            <span class="animal-tile" style="background:white;border:1.5px solid #86efac;">🦈 Shark</span>
+            <span class="animal-tile" style="background:white;border:1.5px solid #86efac;">🐍 Snake</span>
+            <span class="animal-tile" style="background:white;border:1.5px solid #86efac;">🦅 Eagle</span>
+          </div>
+        </div>
+        <div class="vert-group" style="background:#fee2e2;border:2px solid #fca5a5;">
+          <h3>🐌 Invertebrates</h3>
+          <span class="vert-key-fact" style="background:#dc2626;color:white;">✗ No backbone</span>
+          <div>
+            <span class="animal-tile" style="background:white;border:1.5px solid #fca5a5;">🐌 Snail</span>
+            <span class="animal-tile" style="background:white;border:1.5px solid #fca5a5;">🦋 Butterfly</span>
+            <span class="animal-tile" style="background:white;border:1.5px solid #fca5a5;">🐙 Octopus</span>
+            <span class="animal-tile" style="background:white;border:1.5px solid #fca5a5;">🪼 Jellyfish</span>
+            <span class="animal-tile" style="background:white;border:1.5px solid #fca5a5;">🕷️ Spider</span>
+          </div>
+        </div>
+      </div>
+      <button class="read-btn" id="btn-vertebrates" onclick="markRead('vertebrates')">✅ I've studied this!</button>
+    </div>
+  </div>
+
+  <!-- ── Topic 4: Animal Diet ── -->
+  <div class="study-topic" id="topic-diet">
+    <div class="study-topic-header" onclick="toggleTopic('diet')">
+      <span class="left-label"><span class="topic-icon">🍖</span> Carnivores, Herbivores &amp; Omnivores</span>
+      <span style="display:flex;align-items:center;gap:.5rem;">
+        <span class="check-badge">✔ Done</span>
+        <span class="arrow">▶</span>
+      </span>
+    </div>
+    <div class="study-topic-body" id="body-diet">
+      <p style="font-size:.85rem;color:var(--muted);margin-bottom:.9rem;">Three groups based on what animals eat. Learn the color for each!</p>
+      <div class="diet-columns">
+        <div class="diet-col" style="background:#fee2e2;border:2px solid #fca5a5;">
+          <h3>🥩 Carnivore</h3>
+          <div class="diet-eats">Eats only <strong>meat</strong></div>
+          <span class="animal-tile" style="background:white;border:1px solid #fca5a5;">🦁 Lion</span>
+          <span class="animal-tile" style="background:white;border:1px solid #fca5a5;">🐆 Leopard</span>
+          <span class="animal-tile" style="background:white;border:1px solid #fca5a5;">🐺 Wolf</span>
+          <span class="animal-tile" style="background:white;border:1px solid #fca5a5;">🐅 Tiger</span>
+        </div>
+        <div class="diet-col" style="background:#dcfce7;border:2px solid #86efac;">
+          <h3>🌿 Herbivore</h3>
+          <div class="diet-eats">Eats only <strong>plants</strong></div>
+          <span class="animal-tile" style="background:white;border:1px solid #86efac;">🐴 Horse</span>
+          <span class="animal-tile" style="background:white;border:1px solid #86efac;">🐇 Rabbit</span>
+          <span class="animal-tile" style="background:white;border:1px solid #86efac;">🦓 Zebra</span>
+          <span class="animal-tile" style="background:white;border:1px solid #86efac;">🐄 Cow</span>
+        </div>
+        <div class="diet-col" style="background:#fef3c7;border:2px solid #fcd34d;">
+          <h3>🍽️ Omnivore</h3>
+          <div class="diet-eats">Eats <strong>both</strong> plants &amp; meat</div>
+          <span class="animal-tile" style="background:white;border:1px solid #fcd34d;">🐔 Chicken</span>
+          <span class="animal-tile" style="background:white;border:1px solid #fcd34d;">🐻 Bear</span>
+          <span class="animal-tile" style="background:white;border:1px solid #fcd34d;">🦝 Raccoon</span>
+        </div>
+      </div>
+      <button class="read-btn" id="btn-diet" onclick="markRead('diet')">✅ I've studied this!</button>
+    </div>
+  </div>
+
+  <!-- ── Topic 5: Arthropods ── -->
+  <div class="study-topic" id="topic-arthropods">
+    <div class="study-topic-header" onclick="toggleTopic('arthropods')">
+      <span class="left-label"><span class="topic-icon">🦟</span> Arthropods</span>
+      <span style="display:flex;align-items:center;gap:.5rem;">
+        <span class="check-badge">✔ Done</span>
+        <span class="arrow">▶</span>
+      </span>
+    </div>
+    <div class="study-topic-body" id="body-arthropods">
+      <p style="font-size:.85rem;color:var(--muted);margin-bottom:.9rem;">Arthropods have exoskeletons and jointed legs. They are divided into 4 groups — pay attention to the <strong>number of legs</strong>!</p>
+      <div class="arth-grid">
+        <div class="arth-box" style="background:#eef2ff;border:2px solid #c7d2fe;">
+          <div class="ab-header">
+            <span class="ab-icon">🦟</span>
+            <div>
+              <div class="ab-name">Insects</div>
+              <div class="ab-legs">🦵🦵🦵 6 legs · 3 body parts</div>
+            </div>
+          </div>
+          <div class="ab-examples">
+            <span class="arth-example" style="background:#c7d2fe;">🦟 Mosquito</span>
+            <span class="arth-example" style="background:#c7d2fe;">🐜 Ant</span>
+          </div>
+        </div>
+        <div class="arth-box" style="background:#fef3c7;border:2px solid #fcd34d;">
+          <div class="ab-header">
+            <span class="ab-icon">🦀</span>
+            <div>
+              <div class="ab-name">Crustaceans</div>
+              <div class="ab-legs">🦵×10 10 legs · hard shell</div>
+            </div>
+          </div>
+          <div class="ab-examples">
+            <span class="arth-example" style="background:#fcd34d;">🍤 Shrimp</span>
+            <span class="arth-example" style="background:#fcd34d;">🦀 Crab</span>
+          </div>
+        </div>
+        <div class="arth-box" style="background:#fee2e2;border:2px solid #fca5a5;">
+          <div class="ab-header">
+            <span class="ab-icon">🕷️</span>
+            <div>
+              <div class="ab-name">Arachnids</div>
+              <div class="ab-legs">🦵🦵🦵🦵 8 legs · 2 body parts</div>
+            </div>
+          </div>
+          <div class="ab-examples">
+            <span class="arth-example" style="background:#fca5a5;">🕷️ Jumping spider</span>
+            <span class="arth-example" style="background:#fca5a5;">🕸️ House spider</span>
+          </div>
+        </div>
+        <div class="arth-box" style="background:#dcfce7;border:2px solid #86efac;">
+          <div class="ab-header">
+            <span class="ab-icon">🐛</span>
+            <div>
+              <div class="ab-name">Myriapods</div>
+              <div class="ab-legs">🦵🦵… Many legs · long body</div>
+            </div>
+          </div>
+          <div class="ab-examples">
+            <span class="arth-example" style="background:#86efac;">🐛 Centipede</span>
+            <span class="arth-example" style="background:#86efac;">🐛 Millipede</span>
+          </div>
+        </div>
+      </div>
+      <button class="read-btn" id="btn-arthropods" onclick="markRead('arthropods')">✅ I've studied this!</button>
+    </div>
+  </div>
+
+  <!-- ── Topic 6: Vocabulary ── -->
+  <div class="study-topic" id="topic-vocabulary">
+    <div class="study-topic-header" onclick="toggleTopic('vocabulary')">
+      <span class="left-label"><span class="topic-icon">📝</span> Vocabulary Words</span>
+      <span style="display:flex;align-items:center;gap:.5rem;">
+        <span class="check-badge">✔ Done</span>
+        <span class="arrow">▶</span>
+      </span>
+    </div>
+    <div class="study-topic-body" id="body-vocabulary">
+      <p style="font-size:.85rem;color:var(--muted);margin-bottom:.9rem;">Each card shows a word, its meaning, and an example sentence. Read them all!</p>
+      <div class="vocab-grid">
+        <div class="vocab-card">
+          <div class="vc-top" style="background:#eef2ff;"><span class="vc-icon">🏅</span><span class="vc-word">Sport</span></div>
+          <div class="vc-body"><div class="vc-def">A physical activity done for fun or competition.</div><div class="vc-example">"My favorite sport is swimming."</div></div>
+        </div>
+        <div class="vocab-card">
+          <div class="vc-top" style="background:#fee2e2;"><span class="vc-icon">⚠️</span><span class="vc-word">Accident</span></div>
+          <div class="vc-body"><div class="vc-def">An unplanned event that causes harm.</div><div class="vc-example">"She suffered an accident yesterday."</div></div>
+        </div>
+        <div class="vocab-card">
+          <div class="vc-top" style="background:#dcfce7;"><span class="vc-icon">🌳</span><span class="vc-word">Habitat</span></div>
+          <div class="vc-body"><div class="vc-def">The natural environment where an animal lives.</div><div class="vc-example">"The forest is the bear's habitat."</div></div>
+        </div>
+        <div class="vocab-card">
+          <div class="vc-top" style="background:#fce7f3;"><span class="vc-icon">🩹</span><span class="vc-word">First Aid</span></div>
+          <div class="vc-body"><div class="vc-def">Immediate help given after an injury.</div><div class="vc-example">"He learned first aid at school."</div></div>
+        </div>
+        <div class="vocab-card">
+          <div class="vc-top" style="background:#fef9c3;"><span class="vc-icon">🍔</span><span class="vc-word">Fast Food</span></div>
+          <div class="vc-body"><div class="vc-def">Quick, easy-to-prepare food.</div><div class="vc-example">"Fast food is delicious but unhealthy."</div></div>
+        </div>
+        <div class="vocab-card">
+          <div class="vc-top" style="background:#f3e8ff;"><span class="vc-icon">🔗</span><span class="vc-word">Consequence</span></div>
+          <div class="vc-body"><div class="vc-def">A result or effect of an action.</div><div class="vc-example">"A headache is a consequence of stress."</div></div>
+        </div>
+        <div class="vocab-card">
+          <div class="vc-top" style="background:#ffe4e6;"><span class="vc-icon">🤕</span><span class="vc-word">Headache</span></div>
+          <div class="vc-body"><div class="vc-def">A pain felt in the head.</div><div class="vc-example">"I got a headache from the noise."</div></div>
+        </div>
+        <div class="vocab-card">
+          <div class="vc-top" style="background:#e0f2fe;"><span class="vc-icon">🔄</span><span class="vc-word">Habits</span></div>
+          <div class="vc-body"><div class="vc-def">Things you do regularly.</div><div class="vc-example">"Brushing teeth is a good habit."</div></div>
+        </div>
+      </div>
+      <button class="read-btn" id="btn-vocabulary" onclick="markRead('vocabulary')">✅ I've studied this!</button>
+    </div>
+  </div>
+
+  <button class="unlock-btn" id="unlock-btn" onclick="unlockTest()">🔓 I'm ready — Unlock the Practice Test!</button>
+
+</div>
+
+<!-- ===================== SPORTS ===================== -->
+<div id="sports" class="section">
+  <div class="lock-banner" id="lock-sports" style="display:none">🔒 Complete the Study section first to unlock the test.</div>
+
+  <div class="card">
+    <h2>📖 Part 1 — Identify the Sport <span class="badge">Fill in</span></h2>
+    <div id="sports-fill"></div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="checkFill('sports-fill', sportsFill)">Check Answers</button>
+      <button class="btn btn-ghost" onclick="resetFill('sports-fill')">Reset</button>
+    </div>
+    <div class="score-panel" id="sports-fill-score"></div>
+  </div>
+
+  <div class="card">
+    <h2>🔘 Part 2 — Multiple Choice <span class="badge">4 questions</span></h2>
+    <div id="sports-mc"></div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="checkMC('sports-mc', sportsMC)">Check Answers</button>
+      <button class="btn btn-ghost" onclick="resetMC('sports-mc')">Reset</button>
+    </div>
+    <div class="score-panel" id="sports-mc-score"></div>
+  </div>
+
+  <div class="card">
+    <h2>✅ Part 3 — True or False <span class="badge">5 questions</span></h2>
+    <div id="sports-tf"></div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="checkTF('sports-tf', sportsTF)">Check Answers</button>
+      <button class="btn btn-ghost" onclick="resetTF('sports-tf')">Reset</button>
+    </div>
+    <div class="score-panel" id="sports-tf-score"></div>
+  </div>
+</div>
+
+<!-- ===================== FIRST AID ===================== -->
+<div id="firstaid" class="section">
+  <div class="card">
+    <h2>🩹 Part 1 — First Aid Procedures <span class="badge">Fill in</span></h2>
+    <div id="firstaid-fill"></div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="checkFill('firstaid-fill', firstaidFill)">Check Answers</button>
+      <button class="btn btn-ghost" onclick="resetFill('firstaid-fill')">Reset</button>
+    </div>
+    <div class="score-panel" id="firstaid-fill-score"></div>
+  </div>
+
+  <div class="card">
+    <h2>🔗 Part 2 — Match the Accident <span class="badge">Match</span></h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+      <div><strong style="font-size:.85rem;color:var(--muted);">Column A — Accidents</strong><div id="firstaid-match-left" style="margin-top:.5rem;"></div></div>
+      <div><strong style="font-size:.85rem;color:var(--muted);">Column B — First Aid</strong><div id="firstaid-match-right" style="margin-top:.5rem;font-size:.9rem;"></div></div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="checkMatch('firstaid-match', firstaidMatch)">Check Answers</button>
+      <button class="btn btn-ghost" onclick="resetMatch('firstaid-match')">Reset</button>
+    </div>
+    <div class="score-panel" id="firstaid-match-score"></div>
+  </div>
+
+  <div class="card">
+    <h2>✅ Part 3 — True or False <span class="badge">5 questions</span></h2>
+    <div id="firstaid-tf"></div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="checkTF('firstaid-tf', firstaidTF)">Check Answers</button>
+      <button class="btn btn-ghost" onclick="resetTF('firstaid-tf')">Reset</button>
+    </div>
+    <div class="score-panel" id="firstaid-tf-score"></div>
+  </div>
+</div>
+
+<!-- ===================== VERTEBRATES ===================== -->
+<div id="vertebrates" class="section">
+  <div class="card">
+    <h2>🐾 Part 1 — Vertebrate or Invertebrate? <span class="badge">Fill in</span></h2>
+    <div id="vert-fill"></div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="checkFill('vert-fill', vertFill)">Check Answers</button>
+      <button class="btn btn-ghost" onclick="resetFill('vert-fill')">Reset</button>
+    </div>
+    <div class="score-panel" id="vert-fill-score"></div>
+  </div>
+
+  <div class="card">
+    <h2>🔘 Part 2 — Multiple Choice <span class="badge">4 questions</span></h2>
+    <div id="vert-mc"></div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="checkMC('vert-mc', vertMC)">Check Answers</button>
+      <button class="btn btn-ghost" onclick="resetMC('vert-mc')">Reset</button>
+    </div>
+    <div class="score-panel" id="vert-mc-score"></div>
+  </div>
+</div>
+
+<!-- ===================== ANIMAL DIET ===================== -->
+<div id="diet" class="section">
+  <div class="card">
+    <h2>🍖 Part 1 — Classify by Diet <span class="badge">Table</span></h2>
+    <div class="classify-bank">
+      <strong>Word Bank</strong>
+      <span class="word">Lion</span><span class="word">Leopard</span><span class="word">Horse</span>
+      <span class="word">Chicken</span><span class="word">Raccoon</span><span class="word">Wolf</span>
+      <span class="word">Rabbit</span><span class="word">Zebra</span><span class="word">Bear</span>
+    </div>
+    <table class="classify-table">
+      <thead><tr><th>Carnivores 🥩</th><th>Herbivores 🌿</th><th>Omnivores 🍽️</th></tr></thead>
+      <tbody id="diet-table-body"></tbody>
+    </table>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="checkClassifyTable()">Check Answers</button>
+      <button class="btn btn-ghost" onclick="buildDietTable()">Reset</button>
+    </div>
+    <div class="score-panel" id="diet-table-score"></div>
+  </div>
+
+  <div class="card">
+    <h2>🔘 Part 2 — Multiple Choice <span class="badge">4 questions</span></h2>
+    <div id="diet-mc"></div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="checkMC('diet-mc', dietMC)">Check Answers</button>
+      <button class="btn btn-ghost" onclick="resetMC('diet-mc')">Reset</button>
+    </div>
+    <div class="score-panel" id="diet-mc-score"></div>
+  </div>
+
+  <div class="card">
+    <h2>✅ Part 3 — True or False <span class="badge">4 questions</span></h2>
+    <div id="diet-tf"></div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="checkTF('diet-tf', dietTF)">Check Answers</button>
+      <button class="btn btn-ghost" onclick="resetTF('diet-tf')">Reset</button>
+    </div>
+    <div class="score-panel" id="diet-tf-score"></div>
+  </div>
+</div>
+
+<!-- ===================== ARTHROPODS ===================== -->
+<div id="arthropods" class="section">
+  <div class="card">
+    <h2>🦟 Part 1 — Classify Arthropods <span class="badge">Table</span></h2>
+    <div class="classify-bank">
+      <strong>Word Bank</strong>
+      <span class="word">Mosquito</span><span class="word">Crab</span>
+      <span class="word">Jumping spider</span><span class="word">Millipedes</span>
+      <span class="word">Ant</span><span class="word">Shrimp</span>
+      <span class="word">House spider</span><span class="word">Centipede</span>
+    </div>
+    <table class="classify-table">
+      <thead><tr><th>Insects 🦟</th><th>Crustaceans 🦀</th><th>Arachnids 🕷️</th><th>Myriapods 🐛</th></tr></thead>
+      <tbody id="arth-table-body"></tbody>
+    </table>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="checkArthTable()">Check Answers</button>
+      <button class="btn btn-ghost" onclick="buildArthTable()">Reset</button>
+    </div>
+    <div class="score-panel" id="arth-table-score"></div>
+  </div>
+
+  <div class="card">
+    <h2>🔗 Part 2 — Match the Arthropod <span class="badge">Match</span></h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+      <div><strong style="font-size:.85rem;color:var(--muted);">Column A</strong><div id="arth-match-left" style="margin-top:.5rem;"></div></div>
+      <div><strong style="font-size:.85rem;color:var(--muted);">Column B</strong><div id="arth-match-right" style="margin-top:.5rem;font-size:.9rem;"></div></div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="checkMatch('arth-match', arthMatch)">Check Answers</button>
+      <button class="btn btn-ghost" onclick="resetMatch('arth-match')">Reset</button>
+    </div>
+    <div class="score-panel" id="arth-match-score"></div>
+  </div>
+
+  <div class="card">
+    <h2>✅ Part 3 — True or False <span class="badge">4 questions</span></h2>
+    <div id="arth-tf"></div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="checkTF('arth-tf', arthTF)">Check Answers</button>
+      <button class="btn btn-ghost" onclick="resetTF('arth-tf')">Reset</button>
+    </div>
+    <div class="score-panel" id="arth-tf-score"></div>
+  </div>
+</div>
+
+<!-- ===================== VOCABULARY ===================== -->
+<div id="vocabulary" class="section">
+  <div class="card">
+    <h2>📝 Part 1 — Complete the Sentence <span class="badge">Fill in</span></h2>
+    <div id="vocab-fill"></div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="checkFill('vocab-fill', vocabFill)">Check Answers</button>
+      <button class="btn btn-ghost" onclick="resetFill('vocab-fill')">Reset</button>
+    </div>
+    <div class="score-panel" id="vocab-fill-score"></div>
+  </div>
+
+  <div class="card">
+    <h2>🔘 Part 2 — Choose the Right Word <span class="badge">Multiple choice</span></h2>
+    <div id="vocab-mc"></div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="checkMC('vocab-mc', vocabMC)">Check Answers</button>
+      <button class="btn btn-ghost" onclick="resetMC('vocab-mc')">Reset</button>
+    </div>
+    <div class="score-panel" id="vocab-mc-score"></div>
+  </div>
+
+  <div class="card">
+    <h2>🔤 Part 3 — Definitions Match <span class="badge">Match</span></h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+      <div><strong style="font-size:.85rem;color:var(--muted);">Column A — Words</strong><div id="vocab-match-left" style="margin-top:.5rem;"></div></div>
+      <div><strong style="font-size:.85rem;color:var(--muted);">Column B — Definitions</strong><div id="vocab-match-right" style="margin-top:.5rem;font-size:.9rem;"></div></div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="checkMatch('vocab-match', vocabMatch)">Check Answers</button>
+      <button class="btn btn-ghost" onclick="resetMatch('vocab-match')">Reset</button>
+    </div>
+    <div class="score-panel" id="vocab-match-score"></div>
+  </div>
+</div>
+
+<!-- ===================== FINAL SCORE ===================== -->
+<div id="final" class="section">
+  <div class="card" id="final-score-section">
+    <h2 style="justify-content:center;">🏆 Final Score</h2>
+    <p style="color:var(--muted);margin-bottom:1.5rem;font-size:.9rem;">Make sure you've checked all sections before viewing your final grade.</p>
+    <button class="btn btn-primary" onclick="computeFinal()" style="font-size:1rem;padding:.7rem 2rem;">Calculate My Grade</button>
+    <div id="final-result" style="margin-top:1.5rem;display:none;">
+      <div class="grade-ring" id="grade-ring">
+        <span class="big-grade" id="big-grade"></span>
+      </div>
+      <div style="font-size:1.5rem;font-weight:800;" id="final-pct"></div>
+      <div class="final-detail" id="final-detail"></div>
+      <div class="section-scores" id="section-scores"></div>
+      <div style="margin-top:1.5rem;">
+        <button class="btn btn-ghost" onclick="resetAll()">🔄 Start Over</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<script>
+// ─── STUDY LOGIC ─────────────────────────────────────────────────────────────
+
+const topics = ['sports','firstaid','vertebrates','diet','arthropods','vocabulary'];
+const studied = {};
+
+function toggleTopic(id) {
+  const body = document.getElementById(`body-${id}`);
+  const header = body.previousElementSibling;
+  const isOpen = body.classList.contains('open');
+  // close all
+  topics.forEach(t => {
+    document.getElementById(`body-${t}`).classList.remove('open');
+    document.getElementById(`body-${t}`).previousElementSibling.classList.remove('open');
+  });
+  if (!isOpen) { body.classList.add('open'); header.classList.add('open'); }
+}
+
+function markRead(id) {
+  studied[id] = true;
+  const btn = document.getElementById(`btn-${id}`);
+  btn.classList.add('done');
+  btn.innerHTML = '✔ Studied!';
+  btn.disabled = true;
+  // mark topic card as done
+  document.getElementById(`topic-${id}`).classList.add('done-topic');
+  // mark dot
+  const dot = document.getElementById(`dot-${id}`);
+  if (dot) dot.classList.add('done');
+  updateStudyProgress();
+}
+
+function updateStudyProgress() {
+  const done = Object.keys(studied).length;
+  const total = topics.length;
+  const pct = Math.round(done / total * 100);
+  document.getElementById('study-bar').style.width = pct + '%';
+  document.getElementById('study-pct-label').textContent = `${done} of ${total} topics studied`;
+  document.getElementById('study-pct-pct').textContent = pct + '%';
+  const unlockBtn = document.getElementById('unlock-btn');
+  if (done === total) { unlockBtn.classList.add('ready'); }
+}
+
+function unlockTest() {
+  const navIds = ['nav-sports','nav-firstaid','nav-vertebrates','nav-diet','nav-arthropods','nav-vocabulary','nav-final'];
+  navIds.forEach(id => { document.getElementById(id).disabled = false; });
+  document.getElementById('header-subtitle').textContent = '🎉 Test unlocked! Good luck!';
+  showSection('sports');
+}
+
+// ─── DATA ────────────────────────────────────────────────────────────────────
+
+const sportsFill = [
+  { q: "Riding a bicycle for fun or exercise.", a: "bike riding" },
+  { q: "Moving through water using your body.", a: "swimming" },
+  { q: "A game where players kick a ball to score goals.", a: "soccer" },
+  { q: "Doing exercises like jumps, flips, and balance moves.", a: "gymnastics" },
+  { q: "A sport where people use swords to touch their opponent.", a: "fencing" },
+  { q: "A game where players hit a ball over a net with their hands.", a: "volleyball" },
+];
+const sportsMC = [
+  { q: "Which sport involves moving through water?", options: ["Fencing","Swimming","Gymnastics","Soccer"], answer: 1 },
+  { q: "Which sport uses a sword?", options: ["Volleyball","Bike riding","Fencing","Gymnastics"], answer: 2 },
+  { q: "What do you use to play volleyball?", options: ["A sword","Your feet","Your hands","A bicycle"], answer: 2 },
+  { q: "Which sport involves riding a bicycle?", options: ["Swimming","Bike riding","Soccer","Fencing"], answer: 1 },
+];
+const sportsTF = [
+  { s: "Swimming is a sport where you move through water.", a: true },
+  { s: "In soccer, players use their hands to score goals.", a: false },
+  { s: "Gymnastics includes jumps, flips, and balance moves.", a: true },
+  { s: "Fencing is a sport where you use a ball.", a: false },
+  { s: "Bike riding means riding a bicycle for fun or exercise.", a: true },
+];
+
+const firstaidFill = [
+  { q: "1. Burns:", a: "cool with cold water" },
+  { q: "2. Big cuts:", a: "cover and press with a clean cloth" },
+  { q: "3. Nosebleed:", a: "lean forward and pinch" },
+  { q: "4. Insect bite:", a: "wash and apply cream" },
+  { q: "5. Can't breathe:", a: "call for help" },
+  { q: "6. Heat exhaustion:", a: "move to a cool place and drink water" },
+];
+const firstaidMatch = {
+  left: ["Nosebleed","Big cut","Insect bite","Burns","Can't breathe"],
+  right: ["1. Cool with cold water","2. Call for help immediately","3. Lean forward and pinch","4. Cover and press with cloth","5. Wash and apply cream"],
+  answers: [3, 4, 5, 1, 2]
+};
+const firstaidTF = [
+  { s: "For a nosebleed, you should lean forward and pinch.", a: true },
+  { s: "Big cuts should be covered and pressure applied.", a: true },
+  { s: "For burns, you should put butter on the skin.", a: false },
+  { s: "Heat exhaustion means moving to a hot room.", a: false },
+  { s: "First aid is the immediate help given after an accident.", a: true },
+];
+
+const vertFill = [
+  { q: "Cat", a: "vertebrate" }, { q: "Snail", a: "invertebrate" },
+  { q: "Dog", a: "vertebrate" }, { q: "Shark", a: "vertebrate" },
+  { q: "Frog", a: "vertebrate" }, { q: "Snake", a: "vertebrate" },
+  { q: "Eagle", a: "vertebrate" }, { q: "Jellyfish", a: "invertebrate" },
+  { q: "Spider", a: "invertebrate" }, { q: "Octopus", a: "invertebrate" },
+  { q: "Butterfly", a: "invertebrate" }, { q: "Elephant", a: "vertebrate" },
+];
+const vertMC = [
+  { q: "Which of the following is a vertebrate?", options: ["Snail","Octopus","Frog","Butterfly"], answer: 2 },
+  { q: "What do vertebrate animals have?", options: ["Six legs","A backbone","An exoskeleton","Wings"], answer: 1 },
+  { q: "Which of the following is an invertebrate?", options: ["Dog","Eagle","Shark","Jellyfish"], answer: 3 },
+  { q: "Which group does a snake belong to?", options: ["Invertebrates","Insects","Vertebrates","Arachnids"], answer: 2 },
+];
+
+const dietClassify = {
+  carnivores: ["lion","wolf","leopard"],
+  herbivores: ["horse","rabbit","zebra"],
+  omnivores: ["chicken","raccoon","bear"],
+};
+const dietMC = [
+  { q: "What does a carnivore eat?", options: ["Only plants","Plants and animals","Only other animals","Fruits only"], answer: 2 },
+  { q: "Which animal is an herbivore?", options: ["Lion","Wolf","Rabbit","Bear"], answer: 2 },
+  { q: "Which animal is an omnivore?", options: ["Zebra","Horse","Leopard","Raccoon"], answer: 3 },
+  { q: "A bear eats both plants and animals. It is a(n):", options: ["Carnivore","Herbivore","Omnivore","Insectivore"], answer: 2 },
+];
+const dietTF = [
+  { s: "A lion is a carnivore because it eats only meat.", a: true },
+  { s: "A rabbit is an omnivore because it eats plants and animals.", a: false },
+  { s: "Omnivores eat both plants and animals.", a: true },
+  { s: "A zebra is a carnivore.", a: false },
+];
+
+const arthClassify = {
+  insects: ["mosquito","ant"],
+  crustaceans: ["crab","shrimp"],
+  arachnids: ["jumping spider","house spider"],
+  myriapods: ["centipede","millipedes"],
+};
+const arthMatch = {
+  left: ["Shrimp","Ant","House spider","Centipede"],
+  right: ["1. Arachnid","2. Crustacean","3. Insect","4. Myriapod"],
+  answers: [2, 3, 1, 4]
+};
+const arthTF = [
+  { s: "A mosquito is an insect.", a: true },
+  { s: "A crab is an arachnid.", a: false },
+  { s: "Spiders are arachnids.", a: true },
+  { s: "Centipedes are crustaceans.", a: false },
+];
+
+const vocabFill = [
+  { q: "1. Your cough is the __________ of smoking.", a: "consequence" },
+  { q: "2. Sleeping early and brushing your teeth are good __________.", a: "habits" },
+  { q: "3. I get a __________ whenever I use my cellphone for a long time.", a: "headache" },
+  { q: "4. __________ is delicious, however, you should eat only once a week.", a: "fast food" },
+  { q: "5. She likes to practice different __________ but her favorite is swimming.", a: "sports" },
+  { q: "6. At school, students are learning about __________ to attend accidents.", a: "first aid" },
+];
+const vocabMC = [
+  { q: "The natural place where an animal lives is called its:", options: ["Sport","Habitat","First aid","Consequence"], answer: 1 },
+  { q: "An unplanned event that causes injury is called a(n):", options: ["Sport","Habit","Accident","Headache"], answer: 2 },
+  { q: "A pain you feel in your head is called a:", options: ["Consequence","Headache","Fast food","Sport"], answer: 1 },
+  { q: "Immediate help given to an injured person is called:", options: ["Habit","Fast food","First aid","Consequence"], answer: 2 },
+];
+const vocabMatch = {
+  left: ["Sport","Accident","Habitat","First aid","Headache","Fast food"],
+  right: [
+    "1. Immediate help after an injury",
+    "2. A physical activity done for fun or competition",
+    "3. The natural environment of an animal",
+    "4. An unplanned event that causes harm",
+    "5. Quick, easy-to-prepare food",
+    "6. A pain felt in the head",
+  ],
+  answers: [2, 4, 3, 1, 6, 5]
+};
+
+// ─── SCORE TRACKING ──────────────────────────────────────────────────────────
+const scores = {};
+function recordScore(id, correct, total) { scores[id] = { correct, total }; }
+
+// ─── FILL IN ─────────────────────────────────────────────────────────────────
+function buildFill(containerId, data) {
+  const el = document.getElementById(containerId);
+  el.innerHTML = '';
+  data.forEach((item, i) => {
+    el.innerHTML += `<div class="fill-item">
+      <label>${item.q}</label>
+      <input type="text" id="${containerId}-${i}" autocomplete="off" placeholder="Your answer…">
+      <div class="hint">✗ Correct answer: <strong>${item.a}</strong></div>
+    </div>`;
+  });
+}
+function checkFill(containerId, data) {
+  let correct = 0;
+  data.forEach((item, i) => {
+    const inp = document.getElementById(`${containerId}-${i}`);
+    const val = inp.value.trim().toLowerCase();
+    inp.classList.remove('correct','wrong');
+    if (val === item.a.toLowerCase()) { inp.classList.add('correct'); correct++; }
+    else inp.classList.add('wrong');
+  });
+  showScore(`${containerId}-score`, correct, data.length, containerId);
+}
+function resetFill(containerId) {
+  document.querySelectorAll(`#${containerId} input`).forEach(inp => { inp.value=''; inp.classList.remove('correct','wrong'); });
+  document.getElementById(`${containerId}-score`).classList.remove('show');
+}
+
+// ─── MULTIPLE CHOICE ─────────────────────────────────────────────────────────
+function buildMC(containerId, data) {
+  const el = document.getElementById(containerId);
+  el.innerHTML = '';
+  data.forEach((item, i) => {
+    let opts = item.options.map((o,j) => `<label id="${containerId}-${i}-lbl-${j}"><input type="radio" name="${containerId}-${i}" value="${j}"> ${o}</label>`).join('');
+    el.innerHTML += `<div class="mc-item"><p>${i+1}. ${item.q}</p><div class="mc-options">${opts}</div></div>`;
+  });
+}
+function checkMC(containerId, data) {
+  let correct = 0;
+  data.forEach((item, i) => {
+    const chosen = document.querySelector(`input[name="${containerId}-${i}"]:checked`);
+    item.options.forEach((_,j) => document.getElementById(`${containerId}-${i}-lbl-${j}`).classList.remove('correct-choice','wrong-choice'));
+    if (!chosen) return;
+    const val = parseInt(chosen.value);
+    if (val === item.answer) { document.getElementById(`${containerId}-${i}-lbl-${val}`).classList.add('correct-choice'); correct++; }
+    else { document.getElementById(`${containerId}-${i}-lbl-${val}`).classList.add('wrong-choice'); document.getElementById(`${containerId}-${i}-lbl-${item.answer}`).classList.add('correct-choice'); }
+  });
+  showScore(`${containerId}-score`, correct, data.length, containerId);
+}
+function resetMC(containerId) {
+  document.querySelectorAll(`#${containerId} input[type=radio]`).forEach(r => r.checked=false);
+  document.querySelectorAll(`#${containerId} label`).forEach(l => l.classList.remove('correct-choice','wrong-choice'));
+  document.getElementById(`${containerId}-score`).classList.remove('show');
+}
+
+// ─── TRUE / FALSE ─────────────────────────────────────────────────────────────
+function buildTF(containerId, data) {
+  const el = document.getElementById(containerId);
+  el.innerHTML = '';
+  data.forEach((item, i) => {
+    el.innerHTML += `<div class="tf-item">
+      <span class="statement">${i+1}. ${item.s}</span>
+      <button class="tf-btn" id="${containerId}-T-${i}" onclick="selectTF('${containerId}',${i},'T')">TRUE</button>
+      <button class="tf-btn" id="${containerId}-F-${i}" onclick="selectTF('${containerId}',${i},'F')">FALSE</button>
+    </div>`;
+  });
+}
+function selectTF(containerId, i, choice) {
+  ['T','F'].forEach(c => document.getElementById(`${containerId}-${c}-${i}`).classList.remove('selected-T','selected-F'));
+  document.getElementById(`${containerId}-${choice}-${i}`).classList.add(`selected-${choice}`);
+}
+function checkTF(containerId, data) {
+  let correct = 0;
+  data.forEach((item, i) => {
+    const tBtn = document.getElementById(`${containerId}-T-${i}`);
+    const fBtn = document.getElementById(`${containerId}-F-${i}`);
+    const chosen = tBtn.classList.contains('selected-T') ? true : fBtn.classList.contains('selected-F') ? false : null;
+    ['T','F'].forEach(c => { const b=document.getElementById(`${containerId}-${c}-${i}`); b.classList.remove('selected-T','selected-F','correct-T','correct-F','wrong-T','wrong-F'); });
+    const correctBtn = item.a ? tBtn : fBtn;
+    correctBtn.classList.add(item.a ? 'correct-T' : 'correct-F');
+    if (chosen === null) return;
+    if (chosen === item.a) { correct++; }
+    else { (item.a ? fBtn : tBtn).classList.add(item.a ? 'wrong-F' : 'wrong-T'); }
+  });
+  showScore(`${containerId}-score`, correct, data.length, containerId);
+}
+function resetTF(containerId) {
+  document.querySelectorAll(`#${containerId} .tf-btn`).forEach(b => { b.className='tf-btn'; });
+  document.getElementById(`${containerId}-score`).classList.remove('show');
+}
+
+// ─── MATCH ───────────────────────────────────────────────────────────────────
+function buildMatch(matchId, data) {
+  const leftEl = document.getElementById(`${matchId}-left`);
+  const rightEl = document.getElementById(`${matchId}-right`);
+  leftEl.innerHTML = '';
+  data.left.forEach((item, i) => {
+    leftEl.innerHTML += `<div class="match-item"><input type="text" id="${matchId}-ans-${i}" maxlength="2" placeholder="#" autocomplete="off"><span>${item}</span></div>`;
+  });
+  rightEl.innerHTML = data.right.map(r => `<div style="padding:.3rem 0;">${r}</div>`).join('');
+}
+function checkMatch(matchId, data) {
+  let correct = 0;
+  data.left.forEach((_, i) => {
+    const inp = document.getElementById(`${matchId}-ans-${i}`);
+    const val = parseInt(inp.value.trim());
+    inp.style.borderColor=''; inp.style.background='';
+    if (val === data.answers[i]) { inp.style.borderColor='var(--success)'; inp.style.background='var(--success-light)'; correct++; }
+    else { inp.style.borderColor='var(--error)'; inp.style.background='var(--error-light)'; }
+  });
+  showScore(`${matchId}-score`, correct, data.left.length, matchId);
+}
+function resetMatch(matchId) {
+  document.querySelectorAll(`[id^="${matchId}-ans-"]`).forEach(inp => { inp.value=''; inp.style.borderColor=''; inp.style.background=''; });
+  document.getElementById(`${matchId}-score`).classList.remove('show');
+}
+
+// ─── CLASSIFY TABLES ─────────────────────────────────────────────────────────
+function buildDietTable() {
+  const tbody = document.getElementById('diet-table-body');
+  tbody.innerHTML = '';
+  for (let i=0;i<3;i++) {
+    tbody.innerHTML += `<tr>
+      <td><input type="text" id="diet-c-${i}" autocomplete="off" placeholder="…"></td>
+      <td><input type="text" id="diet-h-${i}" autocomplete="off" placeholder="…"></td>
+      <td><input type="text" id="diet-o-${i}" autocomplete="off" placeholder="…"></td>
+    </tr>`;
+  }
+  document.getElementById('diet-table-score').classList.remove('show');
+}
+function checkClassifyTable() {
+  const cols = { c: dietClassify.carnivores, h: dietClassify.herbivores, o: dietClassify.omnivores };
+  let correct=0, total=0;
+  ['c','h','o'].forEach(col => {
+    const vals = col==='c' ? cols.c : col==='h' ? cols.h : cols.o;
+    total += vals.length;
+    const entered = [];
+    for (let i=0;i<vals.length;i++) { const inp=document.getElementById(`diet-${col}-${i}`); if(inp) entered.push(inp.value.trim().toLowerCase()); }
+    vals.forEach((v,i) => {
+      const inp = document.getElementById(`diet-${col}-${i}`);
+      if(!inp) return;
+      inp.style.borderColor=''; inp.style.background='';
+      if (entered.includes(v)) { inp.style.borderColor='var(--success)'; inp.style.background='var(--success-light)'; correct++; }
+      else { inp.style.borderColor='var(--error)'; inp.style.background='var(--error-light)'; }
+    });
+  });
+  showScore('diet-table-score', correct, total, 'diet-table');
+}
+
+function buildArthTable() {
+  const tbody = document.getElementById('arth-table-body');
+  tbody.innerHTML = '';
+  for (let i=0;i<2;i++) {
+    tbody.innerHTML += `<tr>
+      <td><input type="text" id="arth-i-${i}" autocomplete="off" placeholder="…"></td>
+      <td><input type="text" id="arth-cr-${i}" autocomplete="off" placeholder="…"></td>
+      <td><input type="text" id="arth-ar-${i}" autocomplete="off" placeholder="…"></td>
+      <td><input type="text" id="arth-m-${i}" autocomplete="off" placeholder="…"></td>
+    </tr>`;
+  }
+  document.getElementById('arth-table-score').classList.remove('show');
+}
+function checkArthTable() {
+  const cols = {i:arthClassify.insects, cr:arthClassify.crustaceans, ar:arthClassify.arachnids, m:arthClassify.myriapods};
+  let correct=0, total=0;
+  Object.entries(cols).forEach(([key,vals]) => {
+    total += vals.length;
+    const entered = [];
+    for (let i=0;i<vals.length;i++) { const inp=document.getElementById(`arth-${key}-${i}`); if(inp) entered.push(inp.value.trim().toLowerCase()); }
+    vals.forEach((v,i) => {
+      const inp = document.getElementById(`arth-${key}-${i}`);
+      if(!inp) return;
+      inp.style.borderColor=''; inp.style.background='';
+      if (entered.includes(v)) { inp.style.borderColor='var(--success)'; inp.style.background='var(--success-light)'; correct++; }
+      else { inp.style.borderColor='var(--error)'; inp.style.background='var(--error-light)'; }
+    });
+  });
+  showScore('arth-table-score', correct, total, 'arth-table');
+}
+
+// ─── SCORE DISPLAY ───────────────────────────────────────────────────────────
+function showScore(panelId, correct, total, trackId) {
+  const pct = Math.round(correct/total*100);
+  const grade = getGrade(pct);
+  const panel = document.getElementById(panelId);
+  panel.className = 'score-panel show';
+  panel.innerHTML = `<span class="score-num">${correct}/${total}</span><span class="score-label">correct</span><span class="grade grade-${grade}">${grade} (${pct}%)</span>`;
+  if (trackId) recordScore(trackId, correct, total);
+}
+function getGrade(pct) {
+  if (pct>=90) return 'A'; if (pct>=80) return 'B'; if (pct>=70) return 'C'; return 'D';
+}
+
+// ─── FINAL SCORE ─────────────────────────────────────────────────────────────
+function computeFinal() {
+  let totalCorrect=0, totalItems=0;
+  const sectionData = {
+    'Sports': ['sports-fill','sports-mc','sports-tf'],
+    'First Aid': ['firstaid-fill','firstaid-match','firstaid-tf'],
+    'Vertebrates': ['vert-fill','vert-mc'],
+    'Animal Diet': ['diet-table','diet-mc','diet-tf'],
+    'Arthropods': ['arth-table','arth-match','arth-tf'],
+    'Vocabulary': ['vocab-fill','vocab-mc','vocab-match'],
+  };
+  let html = '';
+  for (const [name, ids] of Object.entries(sectionData)) {
+    let sc=0, tot=0;
+    ids.forEach(id => { if(scores[id]) { sc+=scores[id].correct; tot+=scores[id].total; } });
+    if (tot===0) { html+=`<div class="section-score-row"><span>${name}</span><span style="color:var(--muted);font-size:.85rem">Not yet checked</span></div>`; continue; }
+    const pct = Math.round(sc/tot*100);
+    totalCorrect+=sc; totalItems+=tot;
+    html+=`<div class="section-score-row"><span style="min-width:120px">${name}</span><div class="progress-bar-wrap"><div class="progress-bar" style="width:${pct}%"></div></div><span style="font-weight:700;min-width:70px;text-align:right">${sc}/${tot} (${pct}%)</span></div>`;
+  }
+  const finalPct = totalItems>0 ? Math.round(totalCorrect/totalItems*100) : 0;
+  const grade = getGrade(finalPct);
+  const gradeColors = {A:'#16a34a',B:'#0891b2',C:'#d97706',D:'#dc2626'};
+  const messages = {A:'🎉 Excellent! You are ready for the exam!',B:'👍 Great job! Review a few topics.',C:'📚 Good effort! More practice will help.',D:'💪 Keep studying — you can do it!'};
+  document.getElementById('grade-ring').style.borderColor = gradeColors[grade];
+  document.getElementById('big-grade').textContent = grade;
+  document.getElementById('big-grade').style.color = gradeColors[grade];
+  document.getElementById('final-pct').textContent = `${finalPct}% — ${totalCorrect}/${totalItems} correct`;
+  document.getElementById('final-detail').textContent = messages[grade];
+  document.getElementById('section-scores').innerHTML = html;
+  document.getElementById('final-result').style.display = 'block';
+}
+
+function resetAll() {
+  Object.keys(scores).forEach(k => delete scores[k]);
+  ['sports-fill','firstaid-fill','vert-fill','vocab-fill'].forEach(id => resetFill(id));
+  ['sports-mc','vert-mc','diet-mc','vocab-mc'].forEach(id => resetMC(id));
+  ['sports-tf','firstaid-tf','diet-tf','arth-tf'].forEach(id => resetTF(id));
+  ['firstaid-match','arth-match','vocab-match'].forEach(id => resetMatch(id));
+  buildDietTable(); buildArthTable();
+  document.getElementById('final-result').style.display='none';
+  showSection('study');
+}
+
+// ─── NAVIGATION ──────────────────────────────────────────────────────────────
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('#main-nav button').forEach(b => {
+    b.classList.toggle('active', b.getAttribute('onclick') && b.getAttribute('onclick').includes(`'${id}'`));
+  });
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ─── INIT ────────────────────────────────────────────────────────────────────
+window.onload = () => {
+  buildFill('sports-fill', sportsFill); buildMC('sports-mc', sportsMC); buildTF('sports-tf', sportsTF);
+  buildFill('firstaid-fill', firstaidFill); buildMatch('firstaid-match', firstaidMatch); buildTF('firstaid-tf', firstaidTF);
+  buildFill('vert-fill', vertFill); buildMC('vert-mc', vertMC);
+  buildDietTable(); buildMC('diet-mc', dietMC); buildTF('diet-tf', dietTF);
+  buildArthTable(); buildMatch('arth-match', arthMatch); buildTF('arth-tf', arthTF);
+  buildFill('vocab-fill', vocabFill); buildMC('vocab-mc', vocabMC); buildMatch('vocab-match', vocabMatch);
+};
+</script>
+</body>
+</html>
