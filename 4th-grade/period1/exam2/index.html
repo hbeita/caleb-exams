@@ -194,36 +194,16 @@
   }
   .vocab-complete.show { display: block; }
 
-  /* ── Tricky Words ── */
-  .tw-search-wrap { position: relative; margin-bottom: 1rem; }
-  .tw-search-wrap input {
-    width: 100%; padding: .55rem .75rem .55rem 2.2rem;
+  /* ── Vocab filter ── */
+  .vocab-filter-wrap { position: relative; margin-bottom: .8rem; }
+  .vocab-filter-wrap input {
+    width: 100%; padding: .5rem .75rem .5rem 2.1rem;
     border: 2px solid var(--border); border-radius: 8px;
-    font-size: .95rem; font-family: inherit; transition: border-color .2s;
+    font-size: .9rem; font-family: inherit; transition: border-color .2s;
   }
-  .tw-search-wrap input:focus { outline: none; border-color: var(--primary); }
-  .tw-search-wrap .tw-icon { position: absolute; left: .7rem; top: 50%; transform: translateY(-50%); font-size: 1rem; pointer-events: none; }
-  .tw-count { font-size: .8rem; color: var(--muted); margin-bottom: .75rem; }
-  .tw-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(175px, 1fr)); gap: .75rem; }
-  .tw-card {
-    border-radius: 12px; padding: .85rem .9rem;
-    border: 2px solid var(--border); background: white;
-    transition: transform .15s, box-shadow .15s;
-  }
-  .tw-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,.08); }
-  .tw-card .tc-word { font-size: 1rem; font-weight: 900; color: var(--primary); margin-bottom: .35rem; }
-  .tw-card .tc-def { font-size: .8rem; color: #374151; line-height: 1.4; margin-bottom: .4rem; }
-  .tw-card .tc-es { font-size: .78rem; font-weight: 700; color: var(--muted); display: flex; align-items: center; gap: .25rem; }
-  .tw-card.tw-sports   { border-top: 3px solid #6366f1; }
-  .tw-card.tw-firstaid { border-top: 3px solid #ef4444; }
-  .tw-card.tw-vert     { border-top: 3px solid #16a34a; }
-  .tw-card.tw-diet     { border-top: 3px solid #d97706; }
-  .tw-card.tw-arth     { border-top: 3px solid #0891b2; }
-  .tw-card.tw-vocab    { border-top: 3px solid #7c3aed; }
-  .tw-no-results { text-align: center; color: var(--muted); padding: 1.5rem; font-size: .95rem; display: none; }
-  .tw-legend { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1rem; }
-  .tw-dot { display: inline-flex; align-items: center; gap: .3rem; font-size: .75rem; font-weight: 700; }
-  .tw-dot span { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+  .vocab-filter-wrap input:focus { outline: none; border-color: var(--primary); }
+  .vocab-filter-wrap .vf-icon { position: absolute; left: .7rem; top: 50%; transform: translateY(-50%); font-size: .95rem; pointer-events: none; }
+  .vocab-card-count { font-size: .78rem; color: var(--muted); margin-bottom: .6rem; }
 
   /* ── Writing exercise ── */
   .writing-item { margin-bottom: 1.1rem; }
@@ -469,7 +449,6 @@
       <div class="topic-dot" id="dot-diet" title="Animal Diet">🍖</div>
       <div class="topic-dot" id="dot-arthropods" title="Arthropods">🦟</div>
       <div class="topic-dot" id="dot-vocabulary" title="Vocabulary">📝</div>
-      <div class="topic-dot" id="dot-tricky" title="Tricky Words">🧩</div>
     </div>
     <div class="study-progress-bar-wrap">
       <div class="study-progress-bar" id="study-bar" style="width:0%"></div>
@@ -736,6 +715,11 @@
     <div class="study-topic-body" id="body-vocabulary">
       <div class="flip-hint">👆 Tap each card to flip it and see the picture + Spanish!</div>
       <div class="vocab-complete" id="vocab-all-flipped">🎉 ¡Excelente! You've seen all the words!</div>
+      <div class="vocab-filter-wrap">
+        <span class="vf-icon">🔍</span>
+        <input type="text" id="vocab-filter" placeholder="Search a word…" oninput="filterVocab()">
+      </div>
+      <div class="vocab-card-count" id="vocab-card-count">27 cards</div>
       <div class="flip-grid" id="flip-grid">
 
         <div class="flip-card" onclick="flipCard(this)">
@@ -866,167 +850,143 @@
           </div>
         </div>
 
+        <!-- TRICKY WORDS — same flip card format -->
+        <div class="flip-card" onclick="flipCard(this)">
+          <div class="flip-card-inner">
+            <div class="flip-face flip-front"><span class="fc-label">English word</span><span class="fc-word">Exercise</span><span class="fc-tap">👆 tap to flip</span></div>
+            <div class="flip-face flip-back"><span class="fb-pic">🏃💪</span><span class="fb-es">Ejercicio</span><span class="fb-en">Physical activity to stay healthy and strong.</span><span class="fb-example">"Swimming is a great exercise."</span></div>
+          </div>
+        </div>
+
+        <div class="flip-card" onclick="flipCard(this)">
+          <div class="flip-card-inner">
+            <div class="flip-face flip-front"><span class="fc-label">English word</span><span class="fc-word">Opponent</span><span class="fc-tap">👆 tap to flip</span></div>
+            <div class="flip-face flip-back"><span class="fb-pic">🤺👤</span><span class="fb-es">Oponente</span><span class="fb-en">The person you compete against in a sport.</span><span class="fb-example">"She touched her opponent with the sword."</span></div>
+          </div>
+        </div>
+
+        <div class="flip-card" onclick="flipCard(this)">
+          <div class="flip-card-inner">
+            <div class="flip-face flip-front"><span class="fc-label">English word</span><span class="fc-word">Gymnastics</span><span class="fc-tap">👆 tap to flip</span></div>
+            <div class="flip-face flip-back"><span class="fb-pic">🤸🏅</span><span class="fb-es">Gimnasia</span><span class="fb-en">A sport with jumps, flips, and balance moves.</span><span class="fb-example">"She does gymnastics every Saturday."</span></div>
+          </div>
+        </div>
+
+        <div class="flip-card" onclick="flipCard(this)">
+          <div class="flip-card-inner">
+            <div class="flip-face flip-front"><span class="fc-label">English word</span><span class="fc-word">Procedure</span><span class="fc-tap">👆 tap to flip</span></div>
+            <div class="flip-face flip-back"><span class="fb-pic">📋✅</span><span class="fb-es">Procedimiento</span><span class="fb-en">The steps you follow to do something correctly.</span><span class="fb-example">"Follow the first aid procedure carefully."</span></div>
+          </div>
+        </div>
+
+        <div class="flip-card" onclick="flipCard(this)">
+          <div class="flip-card-inner">
+            <div class="flip-face flip-front"><span class="fc-label">English word</span><span class="fc-word">Pressure</span><span class="fc-tap">👆 tap to flip</span></div>
+            <div class="flip-face flip-back"><span class="fb-pic">🖐️🩹</span><span class="fb-es">Presión</span><span class="fb-en">Pushing firmly on a wound to stop bleeding.</span><span class="fb-example">"Apply pressure to the cut."</span></div>
+          </div>
+        </div>
+
+        <div class="flip-card" onclick="flipCard(this)">
+          <div class="flip-card-inner">
+            <div class="flip-face flip-front"><span class="fc-label">English word</span><span class="fc-word">Exhaustion</span><span class="fc-tap">👆 tap to flip</span></div>
+            <div class="flip-face flip-back"><span class="fb-pic">🌡️😵</span><span class="fb-es">Agotamiento</span><span class="fb-en">When the body is extremely tired, often from heat.</span><span class="fb-example">"Heat exhaustion is dangerous."</span></div>
+          </div>
+        </div>
+
+        <div class="flip-card" onclick="flipCard(this)">
+          <div class="flip-card-inner">
+            <div class="flip-face flip-front"><span class="fc-label">English word</span><span class="fc-word">Nosebleed</span><span class="fc-tap">👆 tap to flip</span></div>
+            <div class="flip-face flip-back"><span class="fb-pic">👃🩸</span><span class="fb-es">Sangrado nasal</span><span class="fb-en">When blood comes from the nose after an injury.</span><span class="fb-example">"Lean forward if you have a nosebleed."</span></div>
+          </div>
+        </div>
+
+        <div class="flip-card" onclick="flipCard(this)">
+          <div class="flip-card-inner">
+            <div class="flip-face flip-front"><span class="fc-label">English word</span><span class="fc-word">Vertebrate</span><span class="fc-tap">👆 tap to flip</span></div>
+            <div class="flip-face flip-back"><span class="fb-pic">🦴🐕</span><span class="fb-es">Vertebrado</span><span class="fb-en">An animal that HAS a backbone inside its body.</span><span class="fb-example">"A dog is a vertebrate."</span></div>
+          </div>
+        </div>
+
+        <div class="flip-card" onclick="flipCard(this)">
+          <div class="flip-card-inner">
+            <div class="flip-face flip-front"><span class="fc-label">English word</span><span class="fc-word">Invertebrate</span><span class="fc-tap">👆 tap to flip</span></div>
+            <div class="flip-face flip-back"><span class="fb-pic">🐌🦋</span><span class="fb-es">Invertebrado</span><span class="fb-en">An animal with NO backbone.</span><span class="fb-example">"A snail is an invertebrate."</span></div>
+          </div>
+        </div>
+
+        <div class="flip-card" onclick="flipCard(this)">
+          <div class="flip-card-inner">
+            <div class="flip-face flip-front"><span class="fc-label">English word</span><span class="fc-word">Backbone</span><span class="fc-tap">👆 tap to flip</span></div>
+            <div class="flip-face flip-back"><span class="fb-pic">🦴🔝</span><span class="fb-es">Columna vertebral</span><span class="fb-en">The column of bones running down the back. Also called spine.</span><span class="fb-example">"The backbone supports the body."</span></div>
+          </div>
+        </div>
+
+        <div class="flip-card" onclick="flipCard(this)">
+          <div class="flip-card-inner">
+            <div class="flip-face flip-front"><span class="fc-label">English word</span><span class="fc-word">Carnivore</span><span class="fc-tap">👆 tap to flip</span></div>
+            <div class="flip-face flip-back"><span class="fb-pic">🦁🥩</span><span class="fb-es">Carnívoro</span><span class="fb-en">An animal that eats ONLY meat.</span><span class="fb-example">"A lion is a carnivore."</span></div>
+          </div>
+        </div>
+
+        <div class="flip-card" onclick="flipCard(this)">
+          <div class="flip-card-inner">
+            <div class="flip-face flip-front"><span class="fc-label">English word</span><span class="fc-word">Herbivore</span><span class="fc-tap">👆 tap to flip</span></div>
+            <div class="flip-face flip-back"><span class="fb-pic">🐇🌿</span><span class="fb-es">Herbívoro</span><span class="fb-en">An animal that eats ONLY plants.</span><span class="fb-example">"A rabbit is an herbivore."</span></div>
+          </div>
+        </div>
+
+        <div class="flip-card" onclick="flipCard(this)">
+          <div class="flip-card-inner">
+            <div class="flip-face flip-front"><span class="fc-label">English word</span><span class="fc-word">Omnivore</span><span class="fc-tap">👆 tap to flip</span></div>
+            <div class="flip-face flip-back"><span class="fb-pic">🐻🍽️</span><span class="fb-es">Omnívoro</span><span class="fb-en">An animal that eats BOTH plants and meat.</span><span class="fb-example">"A bear is an omnivore."</span></div>
+          </div>
+        </div>
+
+        <div class="flip-card" onclick="flipCard(this)">
+          <div class="flip-card-inner">
+            <div class="flip-face flip-front"><span class="fc-label">English word</span><span class="fc-word">Arthropod</span><span class="fc-tap">👆 tap to flip</span></div>
+            <div class="flip-face flip-back"><span class="fb-pic">🦟🦀🕷️</span><span class="fb-es">Artrópodo</span><span class="fb-en">Animal with exoskeleton and jointed legs.</span><span class="fb-example">"Insects and spiders are arthropods."</span></div>
+          </div>
+        </div>
+
+        <div class="flip-card" onclick="flipCard(this)">
+          <div class="flip-card-inner">
+            <div class="flip-face flip-front"><span class="fc-label">English word</span><span class="fc-word">Exoskeleton</span><span class="fc-tap">👆 tap to flip</span></div>
+            <div class="flip-face flip-back"><span class="fb-pic">🦀🛡️</span><span class="fb-es">Exoesqueleto</span><span class="fb-en">Hard outer shell protecting the body from outside.</span><span class="fb-example">"A crab has an exoskeleton."</span></div>
+          </div>
+        </div>
+
+        <div class="flip-card" onclick="flipCard(this)">
+          <div class="flip-card-inner">
+            <div class="flip-face flip-front"><span class="fc-label">English word</span><span class="fc-word">Arachnid</span><span class="fc-tap">👆 tap to flip</span></div>
+            <div class="flip-face flip-back"><span class="fb-pic">🕷️8️⃣</span><span class="fb-es">Arácnido</span><span class="fb-en">Arthropod with 8 legs — like spiders.</span><span class="fb-example">"A spider is an arachnid."</span></div>
+          </div>
+        </div>
+
+        <div class="flip-card" onclick="flipCard(this)">
+          <div class="flip-card-inner">
+            <div class="flip-face flip-front"><span class="fc-label">English word</span><span class="fc-word">Crustacean</span><span class="fc-tap">👆 tap to flip</span></div>
+            <div class="flip-face flip-back"><span class="fb-pic">🦐🦀</span><span class="fb-es">Crustáceo</span><span class="fb-en">Arthropod with hard shell, usually lives in water.</span><span class="fb-example">"Shrimp and crabs are crustaceans."</span></div>
+          </div>
+        </div>
+
+        <div class="flip-card" onclick="flipCard(this)">
+          <div class="flip-card-inner">
+            <div class="flip-face flip-front"><span class="fc-label">English word</span><span class="fc-word">Myriapod</span><span class="fc-tap">👆 tap to flip</span></div>
+            <div class="flip-face flip-back"><span class="fb-pic">🐛〰️</span><span class="fb-es">Miriápodo</span><span class="fb-en">Arthropod with MANY legs and a long body.</span><span class="fb-example">"A centipede is a myriapod."</span></div>
+          </div>
+        </div>
+
+        <div class="flip-card" onclick="flipCard(this)">
+          <div class="flip-card-inner">
+            <div class="flip-face flip-front"><span class="fc-label">English word</span><span class="fc-word">Backbone</span><span class="fc-tap">👆 tap to flip</span></div>
+            <div class="flip-face flip-back"><span class="fb-pic">🦴↕️</span><span class="fb-es">Columna vertebral</span><span class="fb-en">The spine — row of bones down your back.</span><span class="fb-example">"Vertebrates have a backbone."</span></div>
+          </div>
+        </div>
+
       </div>
       </div>
       <button class="read-btn" id="btn-vocabulary" onclick="markRead('vocabulary')">✅ I've studied this!</button>
-    </div>
-  </div>
-
-  <!-- ── Topic 7: Tricky Words ── -->
-  <div class="study-topic" id="topic-tricky">
-    <div class="study-topic-header" onclick="toggleTopic('tricky')">
-      <span class="left-label"><span class="topic-icon">🧩</span> Tricky Words</span>
-      <span style="display:flex;align-items:center;gap:.5rem;">
-        <span class="check-badge">✔ Done</span>
-        <span class="arrow">▶</span>
-      </span>
-    </div>
-    <div class="study-topic-body" id="body-tricky">
-      <p style="font-size:.85rem;color:var(--muted);margin-bottom:.75rem;">All the hard words from every topic — English meaning + Spanish. Search any word!</p>
-
-      <div class="tw-legend">
-        <span class="tw-dot"><span style="background:#6366f1"></span>Sports</span>
-        <span class="tw-dot"><span style="background:#ef4444"></span>First Aid</span>
-        <span class="tw-dot"><span style="background:#16a34a"></span>Vertebrates</span>
-        <span class="tw-dot"><span style="background:#d97706"></span>Diet</span>
-        <span class="tw-dot"><span style="background:#0891b2"></span>Arthropods</span>
-        <span class="tw-dot"><span style="background:#7c3aed"></span>Vocabulary</span>
-      </div>
-
-      <div class="tw-search-wrap">
-        <span class="tw-icon">🔍</span>
-        <input type="text" id="tw-search" placeholder="Search a word…" oninput="filterTW()">
-      </div>
-      <div class="tw-count" id="tw-count">22 words</div>
-
-      <div class="tw-grid" id="tw-grid">
-
-        <!-- SPORTS -->
-        <div class="tw-card tw-sports">
-          <div class="tc-word">Exercise</div>
-          <div class="tc-def">Physical activity you do to stay healthy and strong.</div>
-          <div class="tc-es">🇪🇸 Ejercicio</div>
-        </div>
-        <div class="tw-card tw-sports">
-          <div class="tc-word">Opponent</div>
-          <div class="tc-def">The person or team you compete against in a sport.</div>
-          <div class="tc-es">🇪🇸 Oponente</div>
-        </div>
-        <div class="tw-card tw-sports">
-          <div class="tc-word">Gymnastics</div>
-          <div class="tc-def">A sport that includes jumps, flips, and balance moves.</div>
-          <div class="tc-es">🇪🇸 Gimnasia</div>
-        </div>
-        <div class="tw-card tw-sports">
-          <div class="tc-word">Fencing</div>
-          <div class="tc-def">A sport where two people fight using special swords.</div>
-          <div class="tc-es">🇪🇸 Esgrima</div>
-        </div>
-
-        <!-- FIRST AID -->
-        <div class="tw-card tw-firstaid">
-          <div class="tc-word">Procedure</div>
-          <div class="tc-def">The steps you follow to do something correctly.</div>
-          <div class="tc-es">🇪🇸 Procedimiento</div>
-        </div>
-        <div class="tw-card tw-firstaid">
-          <div class="tc-word">Pressure</div>
-          <div class="tc-def">Pushing firmly on something — like a cut — to stop bleeding.</div>
-          <div class="tc-es">🇪🇸 Presión</div>
-        </div>
-        <div class="tw-card tw-firstaid">
-          <div class="tc-word">Exhaustion</div>
-          <div class="tc-def">When your body is extremely tired, often from heat or effort.</div>
-          <div class="tc-es">🇪🇸 Agotamiento</div>
-        </div>
-        <div class="tw-card tw-firstaid">
-          <div class="tc-word">Nosebleed</div>
-          <div class="tc-def">When blood comes out of your nose after an injury or dryness.</div>
-          <div class="tc-es">🇪🇸 Sangrado nasal</div>
-        </div>
-
-        <!-- VERTEBRATES -->
-        <div class="tw-card tw-vert">
-          <div class="tc-word">Vertebrate</div>
-          <div class="tc-def">An animal that HAS a backbone (spine) inside its body.</div>
-          <div class="tc-es">🇪🇸 Vertebrado</div>
-        </div>
-        <div class="tw-card tw-vert">
-          <div class="tc-word">Invertebrate</div>
-          <div class="tc-def">An animal that does NOT have a backbone.</div>
-          <div class="tc-es">🇪🇸 Invertebrado</div>
-        </div>
-        <div class="tw-card tw-vert">
-          <div class="tc-word">Backbone</div>
-          <div class="tc-def">The column of bones running down the back. Also called spine.</div>
-          <div class="tc-es">🇪🇸 Columna vertebral</div>
-        </div>
-
-        <!-- DIET -->
-        <div class="tw-card tw-diet">
-          <div class="tc-word">Carnivore</div>
-          <div class="tc-def">An animal that eats ONLY meat.</div>
-          <div class="tc-es">🇪🇸 Carnívoro</div>
-        </div>
-        <div class="tw-card tw-diet">
-          <div class="tc-word">Herbivore</div>
-          <div class="tc-def">An animal that eats ONLY plants.</div>
-          <div class="tc-es">🇪🇸 Herbívoro</div>
-        </div>
-        <div class="tw-card tw-diet">
-          <div class="tc-word">Omnivore</div>
-          <div class="tc-def">An animal that eats BOTH plants and meat.</div>
-          <div class="tc-es">🇪🇸 Omnívoro</div>
-        </div>
-
-        <!-- ARTHROPODS -->
-        <div class="tw-card tw-arth">
-          <div class="tc-word">Arthropod</div>
-          <div class="tc-def">An animal with an exoskeleton and jointed legs (insects, spiders, crabs…).</div>
-          <div class="tc-es">🇪🇸 Artrópodo</div>
-        </div>
-        <div class="tw-card tw-arth">
-          <div class="tc-word">Exoskeleton</div>
-          <div class="tc-def">A hard outer shell on the outside of the body instead of inside.</div>
-          <div class="tc-es">🇪🇸 Exoesqueleto</div>
-        </div>
-        <div class="tw-card tw-arth">
-          <div class="tc-word">Arachnid</div>
-          <div class="tc-def">An arthropod with 8 legs — like spiders and scorpions.</div>
-          <div class="tc-es">🇪🇸 Arácnido</div>
-        </div>
-        <div class="tw-card tw-arth">
-          <div class="tc-word">Crustacean</div>
-          <div class="tc-def">An arthropod with a hard shell that usually lives in water — like crabs and shrimp.</div>
-          <div class="tc-es">🇪🇸 Crustáceo</div>
-        </div>
-        <div class="tw-card tw-arth">
-          <div class="tc-word">Myriapod</div>
-          <div class="tc-def">An arthropod with MANY legs and a long body — like centipedes.</div>
-          <div class="tc-es">🇪🇸 Miriápodo</div>
-        </div>
-
-        <!-- VOCABULARY -->
-        <div class="tw-card tw-vocab">
-          <div class="tc-word">Consequence</div>
-          <div class="tc-def">Something that happens as a result of an action — good or bad.</div>
-          <div class="tc-es">🇪🇸 Consecuencia</div>
-        </div>
-        <div class="tw-card tw-vocab">
-          <div class="tc-word">Habitat</div>
-          <div class="tc-def">The natural place where an animal lives and finds food.</div>
-          <div class="tc-es">🇪🇸 Hábitat</div>
-        </div>
-        <div class="tw-card tw-vocab">
-          <div class="tc-word">Habit</div>
-          <div class="tc-def">Something you do regularly, almost without thinking.</div>
-          <div class="tc-es">🇪🇸 Hábito</div>
-        </div>
-
-      </div>
-      <div class="tw-no-results" id="tw-no-results">No words found for "<span id="tw-search-term"></span>"</div>
-
-      <button class="read-btn" id="btn-tricky" onclick="markRead('tricky')">✅ I've reviewed the tricky words!</button>
     </div>
   </div>
 
@@ -1426,21 +1386,17 @@ function saveDadReview() {
   closeDadReview();
 }
 
-// ─── TRICKY WORDS SEARCH ─────────────────────────────────────────────────────
-function filterTW() {
-  const q = document.getElementById('tw-search').value.trim().toLowerCase();
-  const cards = document.querySelectorAll('#tw-grid .tw-card');
+// ─── VOCAB FILTER ────────────────────────────────────────────────────────────
+function filterVocab() {
+  const q = document.getElementById('vocab-filter').value.trim().toLowerCase();
+  const cards = document.querySelectorAll('#flip-grid .flip-card');
   let visible = 0;
   cards.forEach(card => {
-    const text = card.textContent.toLowerCase();
-    const show = !q || text.includes(q);
+    const show = !q || card.textContent.toLowerCase().includes(q);
     card.style.display = show ? '' : 'none';
     if (show) visible++;
   });
-  document.getElementById('tw-count').textContent = `${visible} word${visible !== 1 ? 's' : ''}`;
-  const noRes = document.getElementById('tw-no-results');
-  document.getElementById('tw-search-term').textContent = q;
-  noRes.style.display = visible === 0 ? 'block' : 'none';
+  document.getElementById('vocab-card-count').textContent = `${visible} card${visible !== 1 ? 's' : ''}`;
 }
 
 // ─── FLIP CARDS ──────────────────────────────────────────────────────────────
@@ -1455,7 +1411,7 @@ function flipCard(card) {
 
 // ─── STUDY LOGIC ─────────────────────────────────────────────────────────────
 
-const topics = ['sports','firstaid','vertebrates','diet','arthropods','vocabulary','tricky'];
+const topics = ['sports','firstaid','vertebrates','diet','arthropods','vocabulary'];
 const studied = {};
 
 function toggleTopic(id) {
