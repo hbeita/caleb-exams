@@ -141,19 +141,143 @@
   .arth-box .ab-examples { display: flex; flex-wrap: wrap; gap: .3rem; }
   .arth-example { font-size: .82rem; font-weight: 600; border-radius: 6px; padding: .2rem .5rem; }
 
-  /* Vocab flashcards */
-  .vocab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: .75rem; margin-bottom: 1rem; }
-  .vocab-card {
-    border: 2px solid var(--border); border-radius: 12px; overflow: hidden;
-    transition: transform .15s; cursor: default;
+  /* Vocab flip cards */
+  .flip-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
+    gap: 1rem; margin-bottom: 1rem;
   }
-  .vocab-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,.08); }
-  .vocab-card .vc-top { padding: .7rem .8rem; display: flex; align-items: center; gap: .5rem; }
-  .vocab-card .vc-icon { font-size: 1.5rem; }
-  .vocab-card .vc-word { font-weight: 800; font-size: .95rem; }
-  .vocab-card .vc-body { padding: .5rem .8rem .8rem; border-top: 1px solid var(--border); }
-  .vocab-card .vc-def { font-size: .82rem; color: #374151; margin-bottom: .4rem; line-height: 1.35; }
-  .vocab-card .vc-example { font-size: .78rem; color: var(--muted); font-style: italic; }
+  .flip-hint { font-size: .82rem; color: var(--muted); margin-bottom: .8rem; display: flex; align-items: center; gap: .4rem; }
+  .flip-card { height: 210px; perspective: 900px; cursor: pointer; }
+  .flip-card-inner {
+    position: relative; width: 100%; height: 100%;
+    transform-style: preserve-3d;
+    transition: transform .55s cubic-bezier(.4,0,.2,1);
+    border-radius: 14px;
+  }
+  .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
+  .flip-face {
+    position: absolute; inset: 0; border-radius: 14px;
+    backface-visibility: hidden; -webkit-backface-visibility: hidden;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 1rem; text-align: center;
+    box-shadow: 0 3px 12px rgba(0,0,0,.1);
+  }
+  .flip-front {
+    background: linear-gradient(135deg, #4f46e5, #7c3aed);
+    color: white; gap: .45rem;
+  }
+  .flip-front .fc-label { font-size: .63rem; opacity: .65; text-transform: uppercase; letter-spacing: .09em; }
+  .flip-front .fc-word { font-size: 1.25rem; font-weight: 900; line-height: 1.2; }
+  .flip-front .fc-tap { font-size: .68rem; opacity: .55; margin-top: .5rem; }
+  .flip-front::after {
+    content: ''; position: absolute; inset: 0; border-radius: 14px;
+    background: radial-gradient(circle at 28% 28%, rgba(255,255,255,.18), transparent 60%);
+    pointer-events: none;
+  }
+  .flip-back {
+    background: white; border: 2px solid #e0e7ff;
+    transform: rotateY(180deg); gap: .3rem;
+  }
+  .flip-back .fb-pic { font-size: 3.2rem; line-height: 1; }
+  .flip-back .fb-es { font-size: 1.1rem; font-weight: 900; color: var(--primary); margin-top: .1rem; }
+  .flip-back .fb-en { font-size: .75rem; color: var(--muted); font-style: italic; line-height: 1.3; }
+  .flip-back .fb-example {
+    font-size: .7rem; color: #374151; background: var(--bg);
+    border-radius: 6px; padding: .25rem .45rem; margin-top: .3rem;
+    line-height: 1.35; border: 1px solid var(--border);
+  }
+  .vocab-complete {
+    display: none; background: var(--success-light); border: 2px solid var(--success);
+    border-radius: 10px; padding: .75rem 1rem; text-align: center;
+    font-weight: 700; color: var(--success); font-size: .95rem; margin-bottom: .75rem;
+  }
+  .vocab-complete.show { display: block; }
+
+  /* ── Writing exercise ── */
+  .writing-item { margin-bottom: 1.1rem; }
+  .writing-item label {
+    display: flex; align-items: center; gap: .5rem;
+    font-weight: 700; font-size: .95rem; margin-bottom: .4rem;
+  }
+  .writing-item label .w-word {
+    background: var(--primary); color: white; font-size: .8rem;
+    padding: .2rem .6rem; border-radius: 999px;
+  }
+  .writing-item textarea {
+    width: 100%; padding: .6rem .75rem; border: 2px solid var(--border);
+    border-radius: 8px; font-size: .95rem; font-family: inherit;
+    resize: vertical; min-height: 68px; transition: border-color .2s; line-height: 1.5;
+  }
+  .writing-item textarea:focus { outline: none; border-color: var(--primary); }
+  .writing-item textarea.submitted { background: var(--success-light); border-color: var(--success); }
+  .submit-dad-btn {
+    display: flex; align-items: center; gap: .5rem;
+    padding: .6rem 1.4rem; border-radius: 8px; border: none;
+    background: linear-gradient(135deg,#f59e0b,#d97706); color: white;
+    font-weight: 800; font-size: .95rem; cursor: pointer; transition: opacity .2s;
+  }
+  .submit-dad-btn:hover { opacity: .88; }
+  .submit-dad-btn:disabled { opacity: .4; cursor: not-allowed; }
+  .submitted-notice {
+    display: none; background: var(--success-light); border: 2px solid var(--success);
+    border-radius: 8px; padding: .65rem 1rem; font-size: .88rem; font-weight: 700;
+    color: var(--success); margin-top: .75rem; align-items: center; gap: .5rem;
+  }
+  .submitted-notice.show { display: flex; }
+
+  /* ── Dad Review Modal ── */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0; background: rgba(0,0,0,.55);
+    z-index: 100; align-items: center; justify-content: center; padding: 1rem;
+  }
+  .modal-overlay.show { display: flex; }
+  .modal {
+    background: white; border-radius: 16px; width: 100%; max-width: 560px;
+    max-height: 90vh; overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0,0,0,.25);
+    animation: slideUp .25s ease;
+  }
+  @keyframes slideUp { from { transform: translateY(20px); opacity:0; } to { transform: translateY(0); opacity:1; } }
+  .modal-header {
+    padding: 1.2rem 1.4rem .9rem; border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .modal-header h3 { font-size: 1.1rem; font-weight: 800; display: flex; align-items: center; gap: .5rem; }
+  .modal-close { background: none; border: none; font-size: 1.3rem; cursor: pointer; color: var(--muted); padding: .2rem; }
+  .modal-body { padding: 1.2rem 1.4rem; }
+  .review-item { margin-bottom: 1.3rem; padding-bottom: 1.3rem; border-bottom: 1px solid var(--border); }
+  .review-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .review-item .ri-word { font-size: .75rem; font-weight: 800; text-transform: uppercase; letter-spacing: .07em; color: var(--primary); margin-bottom: .3rem; }
+  .review-item .ri-answer {
+    background: var(--bg); border-radius: 8px; padding: .6rem .8rem;
+    font-size: .95rem; line-height: 1.5; margin-bottom: .6rem;
+    border-left: 3px solid var(--primary);
+  }
+  .review-item .ri-grade { display: flex; gap: .5rem; align-items: center; flex-wrap: wrap; }
+  .grade-btn {
+    padding: .35rem .9rem; border-radius: 999px; border: 2px solid var(--border);
+    background: white; font-weight: 700; font-size: .85rem; cursor: pointer; transition: all .15s;
+  }
+  .grade-btn.good { border-color: var(--success); color: var(--success); }
+  .grade-btn.good.sel { background: var(--success); color: white; }
+  .grade-btn.ok { border-color: var(--warn); color: var(--warn); }
+  .grade-btn.ok.sel { background: var(--warn); color: white; }
+  .grade-btn.redo { border-color: var(--error); color: var(--error); }
+  .grade-btn.redo.sel { background: var(--error); color: white; }
+  .review-item .ri-comment { margin-top: .5rem; }
+  .review-item .ri-comment input {
+    width: 100%; border: 1.5px solid var(--border); border-radius: 6px;
+    padding: .35rem .6rem; font-size: .85rem; font-family: inherit;
+  }
+  .review-item .ri-comment input:focus { outline: none; border-color: var(--primary); }
+  .modal-footer { padding: .9rem 1.4rem; border-top: 1px solid var(--border); display: flex; gap: .75rem; justify-content: flex-end; }
+  .dad-score-banner {
+    display: none; margin-top: .75rem; padding: .7rem 1rem; border-radius: 8px;
+    background: #fef3c7; border: 2px solid #fbbf24; font-size: .9rem; font-weight: 700; color: #92400e;
+    align-items: center; gap: .5rem;
+  }
+  .dad-score-banner.show { display: flex; }
 
   .read-btn {
     margin-top: .75rem; padding: .5rem 1.3rem; border-radius: 8px;
@@ -578,40 +702,139 @@
       </span>
     </div>
     <div class="study-topic-body" id="body-vocabulary">
-      <p style="font-size:.85rem;color:var(--muted);margin-bottom:.9rem;">Each card shows a word, its meaning, and an example sentence. Read them all!</p>
-      <div class="vocab-grid">
-        <div class="vocab-card">
-          <div class="vc-top" style="background:#eef2ff;"><span class="vc-icon">🏅</span><span class="vc-word">Sport</span></div>
-          <div class="vc-body"><div class="vc-def">A physical activity done for fun or competition.</div><div class="vc-example">"My favorite sport is swimming."</div></div>
+      <div class="flip-hint">👆 Tap each card to flip it and see the picture + Spanish!</div>
+      <div class="vocab-complete" id="vocab-all-flipped">🎉 ¡Excelente! You've seen all the words!</div>
+      <div class="flip-grid" id="flip-grid">
+
+        <div class="flip-card" onclick="flipCard(this)">
+          <div class="flip-card-inner">
+            <div class="flip-face flip-front">
+              <span class="fc-label">English word</span>
+              <span class="fc-word">Sport</span>
+              <span class="fc-tap">👆 tap to flip</span>
+            </div>
+            <div class="flip-face flip-back">
+              <span class="fb-pic">⚽🏊🚴</span>
+              <span class="fb-es">Deporte</span>
+              <span class="fb-en">A physical activity for fun or competition.</span>
+              <span class="fb-example">"My favorite sport is swimming."</span>
+            </div>
+          </div>
         </div>
-        <div class="vocab-card">
-          <div class="vc-top" style="background:#fee2e2;"><span class="vc-icon">⚠️</span><span class="vc-word">Accident</span></div>
-          <div class="vc-body"><div class="vc-def">An unplanned event that causes harm.</div><div class="vc-example">"She suffered an accident yesterday."</div></div>
+
+        <div class="flip-card" onclick="flipCard(this)">
+          <div class="flip-card-inner">
+            <div class="flip-face flip-front">
+              <span class="fc-label">English word</span>
+              <span class="fc-word">Accident</span>
+              <span class="fc-tap">👆 tap to flip</span>
+            </div>
+            <div class="flip-face flip-back">
+              <span class="fb-pic">⚠️🤕</span>
+              <span class="fb-es">Accidente</span>
+              <span class="fb-en">An unplanned event that causes harm.</span>
+              <span class="fb-example">"She suffered an accident yesterday."</span>
+            </div>
+          </div>
         </div>
-        <div class="vocab-card">
-          <div class="vc-top" style="background:#dcfce7;"><span class="vc-icon">🌳</span><span class="vc-word">Habitat</span></div>
-          <div class="vc-body"><div class="vc-def">The natural environment where an animal lives.</div><div class="vc-example">"The forest is the bear's habitat."</div></div>
+
+        <div class="flip-card" onclick="flipCard(this)">
+          <div class="flip-card-inner">
+            <div class="flip-face flip-front">
+              <span class="fc-label">English word</span>
+              <span class="fc-word">Habitat</span>
+              <span class="fc-tap">👆 tap to flip</span>
+            </div>
+            <div class="flip-face flip-back">
+              <span class="fb-pic">🌳🐻🌊</span>
+              <span class="fb-es">Hábitat</span>
+              <span class="fb-en">The natural environment where an animal lives.</span>
+              <span class="fb-example">"The forest is the bear's habitat."</span>
+            </div>
+          </div>
         </div>
-        <div class="vocab-card">
-          <div class="vc-top" style="background:#fce7f3;"><span class="vc-icon">🩹</span><span class="vc-word">First Aid</span></div>
-          <div class="vc-body"><div class="vc-def">Immediate help given after an injury.</div><div class="vc-example">"He learned first aid at school."</div></div>
+
+        <div class="flip-card" onclick="flipCard(this)">
+          <div class="flip-card-inner">
+            <div class="flip-face flip-front">
+              <span class="fc-label">English word</span>
+              <span class="fc-word">First Aid</span>
+              <span class="fc-tap">👆 tap to flip</span>
+            </div>
+            <div class="flip-face flip-back">
+              <span class="fb-pic">🩹🚑</span>
+              <span class="fb-es">Primeros Auxilios</span>
+              <span class="fb-en">Immediate help given after an injury.</span>
+              <span class="fb-example">"He learned first aid at school."</span>
+            </div>
+          </div>
         </div>
-        <div class="vocab-card">
-          <div class="vc-top" style="background:#fef9c3;"><span class="vc-icon">🍔</span><span class="vc-word">Fast Food</span></div>
-          <div class="vc-body"><div class="vc-def">Quick, easy-to-prepare food.</div><div class="vc-example">"Fast food is delicious but unhealthy."</div></div>
+
+        <div class="flip-card" onclick="flipCard(this)">
+          <div class="flip-card-inner">
+            <div class="flip-face flip-front">
+              <span class="fc-label">English word</span>
+              <span class="fc-word">Fast Food</span>
+              <span class="fc-tap">👆 tap to flip</span>
+            </div>
+            <div class="flip-face flip-back">
+              <span class="fb-pic">🍔🍟🍕</span>
+              <span class="fb-es">Comida Rápida</span>
+              <span class="fb-en">Quick, easy-to-prepare food.</span>
+              <span class="fb-example">"Fast food is delicious but unhealthy."</span>
+            </div>
+          </div>
         </div>
-        <div class="vocab-card">
-          <div class="vc-top" style="background:#f3e8ff;"><span class="vc-icon">🔗</span><span class="vc-word">Consequence</span></div>
-          <div class="vc-body"><div class="vc-def">A result or effect of an action.</div><div class="vc-example">"A headache is a consequence of stress."</div></div>
+
+        <div class="flip-card" onclick="flipCard(this)">
+          <div class="flip-card-inner">
+            <div class="flip-face flip-front">
+              <span class="fc-label">English word</span>
+              <span class="fc-word">Consequence</span>
+              <span class="fc-tap">👆 tap to flip</span>
+            </div>
+            <div class="flip-face flip-back">
+              <span class="fb-pic">🔗➡️💥</span>
+              <span class="fb-es">Consecuencia</span>
+              <span class="fb-en">A result or effect of an action.</span>
+              <span class="fb-example">"A headache is a consequence of stress."</span>
+            </div>
+          </div>
         </div>
-        <div class="vocab-card">
-          <div class="vc-top" style="background:#ffe4e6;"><span class="vc-icon">🤕</span><span class="vc-word">Headache</span></div>
-          <div class="vc-body"><div class="vc-def">A pain felt in the head.</div><div class="vc-example">"I got a headache from the noise."</div></div>
+
+        <div class="flip-card" onclick="flipCard(this)">
+          <div class="flip-card-inner">
+            <div class="flip-face flip-front">
+              <span class="fc-label">English word</span>
+              <span class="fc-word">Headache</span>
+              <span class="fc-tap">👆 tap to flip</span>
+            </div>
+            <div class="flip-face flip-back">
+              <span class="fb-pic">🤯🤕</span>
+              <span class="fb-es">Dolor de Cabeza</span>
+              <span class="fb-en">A pain felt in the head.</span>
+              <span class="fb-example">"I got a headache from the noise."</span>
+            </div>
+          </div>
         </div>
-        <div class="vocab-card">
-          <div class="vc-top" style="background:#e0f2fe;"><span class="vc-icon">🔄</span><span class="vc-word">Habits</span></div>
-          <div class="vc-body"><div class="vc-def">Things you do regularly.</div><div class="vc-example">"Brushing teeth is a good habit."</div></div>
+
+        <div class="flip-card" onclick="flipCard(this)">
+          <div class="flip-card-inner">
+            <div class="flip-face flip-front">
+              <span class="fc-label">English word</span>
+              <span class="fc-word">Habits</span>
+              <span class="fc-tap">👆 tap to flip</span>
+            </div>
+            <div class="flip-face flip-back">
+              <span class="fb-pic">🦷😴🏃</span>
+              <span class="fb-es">Hábitos</span>
+              <span class="fb-en">Things you do regularly.</span>
+              <span class="fb-example">"Brushing teeth is a good habit."</span>
+            </div>
+          </div>
         </div>
+
+      </div>
       </div>
       <button class="read-btn" id="btn-vocabulary" onclick="markRead('vocabulary')">✅ I've studied this!</button>
     </div>
@@ -837,6 +1060,86 @@
     </div>
     <div class="score-panel" id="vocab-match-score"></div>
   </div>
+
+  <div class="card">
+    <h2>✍️ Part 4 — Write Your Own Sentences <span class="badge">Dad reviews</span></h2>
+    <p style="font-size:.88rem;color:var(--muted);margin-bottom:1.1rem;">Use each vocabulary word to write a meaningful sentence. Dad will read and grade these!</p>
+
+    <div class="writing-item">
+      <label><span class="w-word">Sport</span> Write a sentence using the word <em>sport</em>:</label>
+      <textarea id="write-sport" placeholder="Example: My favorite sport is…"></textarea>
+    </div>
+    <div class="writing-item">
+      <label><span class="w-word">Habitat</span> Write a sentence using the word <em>habitat</em>:</label>
+      <textarea id="write-habitat" placeholder="Example: The habitat of a fish is…"></textarea>
+    </div>
+    <div class="writing-item">
+      <label><span class="w-word">Accident</span> Write a sentence using the word <em>accident</em>:</label>
+      <textarea id="write-accident" placeholder="Example: She had an accident when…"></textarea>
+    </div>
+
+    <div class="btn-row">
+      <button class="submit-dad-btn" id="submit-dad-btn" onclick="openDadReview()">
+        👨 Submit to Dad for Review
+      </button>
+    </div>
+    <div class="submitted-notice" id="submitted-notice">
+      ✅ Submitted! Dad will review your sentences.
+    </div>
+    <div class="dad-score-banner" id="dad-score-banner">
+      📋 Dad's grade will appear here after review.
+    </div>
+  </div>
+</div>
+
+<!-- ===================== DAD REVIEW MODAL ===================== -->
+<div class="modal-overlay" id="dad-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>👨 Dad's Review Panel</h3>
+      <button class="modal-close" onclick="closeDadReview()">✕</button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:.85rem;color:var(--muted);margin-bottom:1.2rem;">Read each sentence and grade it. You can also leave a quick comment!</p>
+
+      <div class="review-item">
+        <div class="ri-word">✏️ Sport</div>
+        <div class="ri-answer" id="review-sport">—</div>
+        <div class="ri-grade">
+          <button class="grade-btn good" onclick="setGrade('sport','good',this)">✅ Great!</button>
+          <button class="grade-btn ok"   onclick="setGrade('sport','ok',this)">👍 Good try</button>
+          <button class="grade-btn redo" onclick="setGrade('sport','redo',this)">🔁 Try again</button>
+        </div>
+        <div class="ri-comment"><input type="text" id="comment-sport" placeholder="Optional comment for Caleb…"></div>
+      </div>
+
+      <div class="review-item">
+        <div class="ri-word">✏️ Habitat</div>
+        <div class="ri-answer" id="review-habitat">—</div>
+        <div class="ri-grade">
+          <button class="grade-btn good" onclick="setGrade('habitat','good',this)">✅ Great!</button>
+          <button class="grade-btn ok"   onclick="setGrade('habitat','ok',this)">👍 Good try</button>
+          <button class="grade-btn redo" onclick="setGrade('habitat','redo',this)">🔁 Try again</button>
+        </div>
+        <div class="ri-comment"><input type="text" id="comment-habitat" placeholder="Optional comment for Caleb…"></div>
+      </div>
+
+      <div class="review-item">
+        <div class="ri-word">✏️ Accident</div>
+        <div class="ri-answer" id="review-accident">—</div>
+        <div class="ri-grade">
+          <button class="grade-btn good" onclick="setGrade('accident','good',this)">✅ Great!</button>
+          <button class="grade-btn ok"   onclick="setGrade('accident','ok',this)">👍 Good try</button>
+          <button class="grade-btn redo" onclick="setGrade('accident','redo',this)">🔁 Try again</button>
+        </div>
+        <div class="ri-comment"><input type="text" id="comment-accident" placeholder="Optional comment for Caleb…"></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeDadReview()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveDadReview()">💾 Save Review</button>
+    </div>
+  </div>
 </div>
 
 <!-- ===================== FINAL SCORE ===================== -->
@@ -862,6 +1165,87 @@
 </main>
 
 <script>
+// ─── WRITING / DAD REVIEW ────────────────────────────────────────────────────
+const dadGrades = { sport: null, habitat: null, accident: null };
+const dadComments = {};
+
+function openDadReview() {
+  const sport    = document.getElementById('write-sport').value.trim();
+  const habitat  = document.getElementById('write-habitat').value.trim();
+  const accident = document.getElementById('write-accident').value.trim();
+  if (!sport && !habitat && !accident) {
+    alert('Please write at least one sentence before submitting!'); return;
+  }
+  document.getElementById('review-sport').textContent    = sport    || '(no answer)';
+  document.getElementById('review-habitat').textContent  = habitat  || '(no answer)';
+  document.getElementById('review-accident').textContent = accident || '(no answer)';
+  document.getElementById('dad-modal').classList.add('show');
+}
+
+function closeDadReview() {
+  document.getElementById('dad-modal').classList.remove('show');
+}
+
+function setGrade(word, grade, btn) {
+  // clear siblings
+  btn.closest('.ri-grade').querySelectorAll('.grade-btn').forEach(b => b.classList.remove('sel'));
+  btn.classList.add('sel');
+  dadGrades[word] = grade;
+}
+
+function saveDadReview() {
+  const graded = Object.values(dadGrades).filter(g => g !== null).length;
+  if (graded === 0) { alert('Please grade at least one sentence.'); return; }
+
+  // save comments
+  ['sport','habitat','accident'].forEach(w => {
+    dadComments[w] = document.getElementById(`comment-${w}`).value.trim();
+  });
+
+  // mark textareas as submitted
+  ['sport','habitat','accident'].forEach(w => {
+    document.getElementById(`write-${w}`).classList.add('submitted');
+    document.getElementById(`write-${w}`).disabled = true;
+  });
+
+  // score: good=1, ok=0.5, redo=0, null=0
+  const scoreMap = { good: 1, ok: 0.5, redo: 0 };
+  let total = 0, max = 3;
+  ['sport','habitat','accident'].forEach(w => {
+    total += dadGrades[w] ? scoreMap[dadGrades[w]] : 0;
+  });
+
+  // update banner
+  const labels = { good: '✅ Great!', ok: '👍 Good try', redo: '🔁 Try again', null: '—' };
+  const lines = ['sport','habitat','accident'].map(w => {
+    const g = dadGrades[w] ? labels[dadGrades[w]] : '—';
+    const c = dadComments[w] ? ` — "${dadComments[w]}"` : '';
+    return `<strong>${w.charAt(0).toUpperCase()+w.slice(1)}:</strong> ${g}${c}`;
+  }).join('<br>');
+
+  const banner = document.getElementById('dad-score-banner');
+  banner.innerHTML = `📋 <span>Dad's review:<br>${lines}</span>`;
+  banner.classList.add('show');
+
+  document.getElementById('submitted-notice').classList.add('show');
+  document.getElementById('submit-dad-btn').disabled = true;
+  document.getElementById('submit-dad-btn').textContent = '✅ Reviewed by Dad';
+
+  // record score
+  recordScore('writing', total, max);
+  closeDadReview();
+}
+
+// ─── FLIP CARDS ──────────────────────────────────────────────────────────────
+function flipCard(card) {
+  card.classList.toggle('flipped');
+  const total = document.querySelectorAll('#flip-grid .flip-card').length;
+  const flipped = document.querySelectorAll('#flip-grid .flip-card.flipped').length;
+  if (flipped === total) {
+    document.getElementById('vocab-all-flipped').classList.add('show');
+  }
+}
+
 // ─── STUDY LOGIC ─────────────────────────────────────────────────────────────
 
 const topics = ['sports','firstaid','vertebrates','diet','arthropods','vocabulary'];
@@ -1241,6 +1625,7 @@ function computeFinal() {
     'Animal Diet': ['diet-table','diet-mc','diet-tf'],
     'Arthropods': ['arth-table','arth-match','arth-tf'],
     'Vocabulary': ['vocab-fill','vocab-mc','vocab-match'],
+    'Writing (Dad graded)': ['writing'],
   };
   let html = '';
   for (const [name, ids] of Object.entries(sectionData)) {
