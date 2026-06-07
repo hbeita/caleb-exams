@@ -418,20 +418,30 @@
 </head>
 <body>
 
+<div style="background:#fff;border-bottom:1px solid #e5e7eb;padding:.45rem 1rem;font-size:.8rem;display:flex;align-items:center;gap:.4rem;flex-wrap:wrap;">
+  <a href="../../.." style="color:#4f46e5;font-weight:700;text-decoration:none;">🏠 All Exams</a>
+  <span style="color:#9ca3af;">›</span>
+  <span style="color:#6b7280;">4th Grade</span>
+  <span style="color:#9ca3af;">›</span>
+  <span style="color:#6b7280;">Period 1</span>
+  <span style="color:#9ca3af;">›</span>
+  <span style="color:#1f2937;font-weight:600;">Science</span>
+</div>
+
 <header>
   <h1>🔬 Science Exam Practice</h1>
-  <p id="header-subtitle">Study first, then unlock the practice test!</p>
+  <p id="header-subtitle">Study &amp; practice — jump between sections freely!</p>
 </header>
 
 <nav id="main-nav">
   <button class="study-btn active" onclick="showSection('study')">📚 Study</button>
-  <button disabled id="nav-sports" onclick="showSection('sports')">🏅 Sports</button>
-  <button disabled id="nav-firstaid" onclick="showSection('firstaid')">🩹 First Aid</button>
-  <button disabled id="nav-vertebrates" onclick="showSection('vertebrates')">🐾 Vertebrates</button>
-  <button disabled id="nav-diet" onclick="showSection('diet')">🍖 Animal Diet</button>
-  <button disabled id="nav-arthropods" onclick="showSection('arthropods')">🦟 Arthropods</button>
-  <button disabled id="nav-vocabulary" onclick="showSection('vocabulary')">📝 Vocabulary</button>
-  <button disabled id="nav-final" onclick="showSection('final')">🏆 Final Score</button>
+  <button id="nav-sports" onclick="showSection('sports')">🏅 Sports</button>
+  <button id="nav-firstaid" onclick="showSection('firstaid')">🩹 First Aid</button>
+  <button id="nav-vertebrates" onclick="showSection('vertebrates')">🐾 Vertebrates</button>
+  <button id="nav-diet" onclick="showSection('diet')">🍖 Animal Diet</button>
+  <button id="nav-arthropods" onclick="showSection('arthropods')">🦟 Arthropods</button>
+  <button id="nav-vocabulary" onclick="showSection('vocabulary')">📝 Vocabulary</button>
+  <button id="nav-final" onclick="showSection('final')">🏆 Final Score</button>
 </nav>
 
 <main>
@@ -990,7 +1000,7 @@
     </div>
   </div>
 
-  <button class="unlock-btn" id="unlock-btn" onclick="unlockTest()">🔓 I'm ready — Unlock the Practice Test!</button>
+  <button class="unlock-btn ready" id="unlock-btn" onclick="unlockTest()">▶ Jump to Practice Test</button>
 
 </div>
 

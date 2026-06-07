@@ -229,20 +229,30 @@
 </head>
 <body>
 
+<div style="background:#fff;border-bottom:1px solid #e5e7eb;padding:.45rem 1rem;font-size:.8rem;display:flex;align-items:center;gap:.4rem;flex-wrap:wrap;">
+  <a href="../../.." style="color:#4f46e5;font-weight:700;text-decoration:none;">🏠 All Exams</a>
+  <span style="color:#9ca3af;">›</span>
+  <span style="color:#6b7280;">4th Grade</span>
+  <span style="color:#9ca3af;">›</span>
+  <span style="color:#6b7280;">Period 2</span>
+  <span style="color:#9ca3af;">›</span>
+  <span style="color:#1f2937;font-weight:600;">Reading &amp; Spelling</span>
+</div>
+
 <header>
   <h1>📚 Reading &amp; Spelling Practice</h1>
-  <p id="hdr-sub">Study all topics first, then unlock the test!</p>
+  <p id="hdr-sub">Study &amp; practice — jump between sections freely!</p>
 </header>
 
 <nav id="main-nav">
   <button class="study-btn active" onclick="showSection('study')">📚 Study</button>
-  <button disabled id="nav-saveworld" onclick="showSection('saveworld')">🌍 Save Our World</button>
-  <button disabled id="nav-australia" onclick="showSection('australia')">🦘 Australia</button>
-  <button disabled id="nav-whendad" onclick="showSection('whendad')">👓 When Dad...</button>
-  <button disabled id="nav-vocab" onclick="showSection('vocab')">📝 Vocabulary</button>
-  <button disabled id="nav-spelling" onclick="showSection('spelling')">🔤 Spelling</button>
-  <button disabled id="nav-writing" onclick="showSection('writing')">✍️ Writing</button>
-  <button disabled id="nav-final" onclick="showSection('final')">🏆 Final Score</button>
+  <button id="nav-saveworld" onclick="showSection('saveworld')">🌍 Save Our World</button>
+  <button id="nav-australia" onclick="showSection('australia')">🦘 Australia</button>
+  <button id="nav-whendad" onclick="showSection('whendad')">👓 When Dad...</button>
+  <button id="nav-vocab" onclick="showSection('vocab')">📝 Vocabulary</button>
+  <button id="nav-spelling" onclick="showSection('spelling')">🔤 Spelling</button>
+  <button id="nav-writing" onclick="showSection('writing')">✍️ Writing</button>
+  <button id="nav-final" onclick="showSection('final')">🏆 Final Score</button>
 </nav>
 
 <main>
@@ -451,7 +461,7 @@
     </div>
   </div>
 
-  <button class="unlock-btn" id="unlock-btn" onclick="unlockTest()">🔓 I'm ready — Unlock the Practice Test!</button>
+  <button class="unlock-btn ready" id="unlock-btn" onclick="unlockTest()">▶ Jump to Practice Test</button>
 </div>
 
 <!-- ══════════════ SAVE OUR WORLD ══════════════ -->
