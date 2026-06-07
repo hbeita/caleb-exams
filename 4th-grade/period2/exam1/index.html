@@ -3,23 +3,1087 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Coming Soon — Caleb's Exam Practice</title>
+<title>Reading & Spelling — Exam Practice</title>
 <style>
-  body { font-family: 'Segoe UI', sans-serif; background: #f9fafb; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; }
-  .box { text-align: center; padding: 3rem 2rem; }
-  .icon { font-size: 4rem; margin-bottom: 1rem; }
-  h1 { font-size: 1.5rem; font-weight: 800; color: #1f2937; margin-bottom: .5rem; }
-  p { color: #6b7280; font-size: .95rem; margin-bottom: 1.5rem; }
-  a { display: inline-block; padding: .55rem 1.3rem; background: #4f46e5; color: white; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: .9rem; }
-  a:hover { opacity: .85; }
+  :root {
+    --primary: #4f46e5; --primary-light: #eef2ff;
+    --success: #16a34a; --success-light: #dcfce7;
+    --error: #dc2626; --error-light: #fee2e2;
+    --warn: #d97706; --warn-light: #fef3c7;
+    --border: #e5e7eb; --text: #1f2937; --muted: #6b7280; --bg: #f9fafb; --card: #fff;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); }
+
+  header { background: linear-gradient(135deg,#1e1b4b 0%,#4f46e5 55%,#0891b2 100%); color: white; padding: 2rem 1rem 1.75rem; text-align: center; position: relative; overflow: hidden; }
+  header::before { content:''; position:absolute; inset:0; background:radial-gradient(circle at 70% 50%,rgba(255,255,255,.08),transparent 60%); }
+  header h1 { font-size: 1.85rem; font-weight: 900; }
+  header p { margin-top: .4rem; opacity: .8; font-size: .92rem; }
+
+  nav { display:flex; flex-wrap:wrap; gap:.35rem; justify-content:center; background:white; padding:.6rem .75rem; border-bottom:1px solid var(--border); position:sticky; top:0; z-index:10; }
+  nav button { padding:.32rem .75rem; border-radius:999px; border:2px solid var(--border); background:white; cursor:pointer; font-size:.78rem; font-weight:600; transition:all .2s; }
+  nav button.active { background:var(--primary); color:white; border-color:var(--primary); }
+  nav button:hover:not(.active):not(:disabled) { border-color:var(--primary); color:var(--primary); }
+  nav button:disabled { opacity:.38; cursor:not-allowed; }
+  nav button.study-btn { background:#fef3c7; border-color:#d97706; color:#92400e; }
+  nav button.study-btn.active { background:#d97706; border-color:#d97706; color:white; }
+
+  main { max-width: 880px; margin: 0 auto; padding: 1.4rem 1rem 4rem; }
+  .section { display:none; } .section.active { display:block; }
+
+  .card { background:var(--card); border-radius:12px; padding:1.3rem; box-shadow:0 1px 4px rgba(0,0,0,.07); margin-bottom:1.3rem; }
+  .card h2 { font-size:1.02rem; font-weight:700; margin-bottom:.85rem; color:var(--primary); display:flex; align-items:center; gap:.45rem; flex-wrap:wrap; }
+  .badge { background:var(--primary-light); color:var(--primary); font-size:.7rem; padding:.17rem .48rem; border-radius:999px; }
+
+  .reading-text { background:#f8fafc; border:2px solid #e2e8f0; border-left:4px solid var(--primary); border-radius:10px; padding:.95rem 1.05rem; font-size:.9rem; line-height:1.75; margin-bottom:1rem; color:#334155; }
+
+  /* ── Study header ── */
+  .study-header-bar { background:white; border-radius:14px; padding:1.05rem 1.25rem; box-shadow:0 2px 8px rgba(0,0,0,.08); margin-bottom:1.4rem; }
+  .study-header-bar h2 { font-size:.97rem; font-weight:800; margin-bottom:.65rem; }
+  .topic-dots { display:flex; gap:.38rem; flex-wrap:wrap; margin-bottom:.7rem; }
+  .topic-dot { width:32px; height:32px; border-radius:50%; background:var(--border); display:flex; align-items:center; justify-content:center; font-size:.95rem; transition:background .3s; position:relative; }
+  .topic-dot.done { background:var(--success); }
+  .topic-dot.done::after { content:'✓'; position:absolute; bottom:-2px; right:-2px; background:white; color:var(--success); font-size:.52rem; font-weight:900; width:12px; height:12px; border-radius:50%; display:flex; align-items:center; justify-content:center; border:1.5px solid var(--success); }
+  .study-progress-bar-wrap { background:var(--border); border-radius:999px; height:9px; }
+  .study-progress-bar { height:9px; border-radius:999px; background:linear-gradient(90deg,#4f46e5,#0891b2); transition:width .5s ease; }
+  .study-progress-label { display:flex; justify-content:space-between; font-size:.78rem; margin-top:.28rem; color:var(--muted); }
+
+  /* ── Study accordion ── */
+  .study-topic { border:2px solid var(--border); border-radius:14px; margin-bottom:.95rem; overflow:hidden; transition:border-color .2s; }
+  .study-topic.done-topic { border-color:var(--success); }
+  .study-topic-header { display:flex; justify-content:space-between; align-items:center; padding:.85rem 1.05rem; cursor:pointer; font-weight:700; font-size:.93rem; user-select:none; transition:background .15s; }
+  .study-topic-header:hover { background:var(--primary-light); }
+  .done-topic .study-topic-header { background:var(--success-light); }
+  .left-label { display:flex; align-items:center; gap:.55rem; }
+  .topic-icon { font-size:1.35rem; }
+  .check-badge { background:var(--success); color:white; font-size:.7rem; font-weight:700; padding:.17rem .48rem; border-radius:999px; display:none; }
+  .done-topic .check-badge { display:inline; }
+  .arrow { font-size:.76rem; transition:transform .2s; color:var(--muted); }
+  .study-topic-header.open .arrow { transform:rotate(90deg); }
+  .study-topic-body { display:none; padding:1.05rem 1.1rem 1.2rem; border-top:2px solid var(--border); }
+  .study-topic-body.open { display:block; }
+  .done-topic .study-topic-body { border-top-color:var(--success); }
+
+  /* ── Icon cards ── */
+  .icon-cards { display:grid; grid-template-columns:repeat(auto-fill,minmax(130px,1fr)); gap:.65rem; margin-bottom:.85rem; }
+  .icon-card { background:linear-gradient(135deg,#eef2ff,#e0e7ff); border:2px solid #c7d2fe; border-radius:12px; padding:.75rem .55rem; text-align:center; transition:transform .15s; }
+  .icon-card:hover { transform:translateY(-2px); }
+  .ic-icon { font-size:1.9rem; display:block; margin-bottom:.3rem; }
+  .ic-word { font-weight:800; font-size:.85rem; color:#3730a3; display:block; margin-bottom:.22rem; }
+  .ic-def { font-size:.7rem; color:#6b7280; line-height:1.3; }
+
+  /* ── Spelling: 3-column ── */
+  .spell-3col { display:grid; grid-template-columns:1fr 1fr 1fr; gap:.65rem; margin-bottom:.85rem; }
+  .spell-col { border-radius:12px; padding:.85rem; }
+  .spell-col h3 { font-size:.88rem; font-weight:800; margin-bottom:.3rem; }
+  .spell-col .spell-rule { font-size:.7rem; margin-bottom:.45rem; opacity:.78; font-style:italic; line-height:1.35; }
+  .spell-word { display:inline-block; font-weight:700; font-size:.88rem; border-radius:6px; padding:.18rem .45rem; margin:.18rem; }
+
+  /* ── Silent E ── */
+  .se-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:.6rem; margin-bottom:.85rem; }
+  .se-card { border-radius:10px; padding:.7rem; text-align:center; background:#fef3c7; border:2px solid #fcd34d; }
+  .se-short { font-size:1.05rem; font-weight:700; color:#92400e; text-decoration:line-through; display:block; }
+  .se-arrow { font-size:.8rem; color:#6b7280; display:block; }
+  .se-long { font-size:1.2rem; font-weight:900; color:#d97706; display:block; }
+  .se-note { font-size:.65rem; color:#6b7280; display:block; margin-top:.18rem; }
+
+  /* ── Cluster grid ── */
+  .cluster-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(145px,1fr)); gap:.65rem; margin-bottom:.85rem; }
+  .cluster-box { border-radius:12px; padding:.8rem; }
+  .cb-cluster { font-size:1.35rem; font-weight:900; margin-bottom:.38rem; }
+  .cb-examples { display:flex; flex-wrap:wrap; gap:.28rem; }
+  .cluster-ex { font-size:.8rem; font-weight:600; border-setRadius:6px; padding:.18rem .42rem; border-radius:6px; }
+
+  /* ── V or B ── */
+  .vb-cols { display:grid; grid-template-columns:1fr 1fr; gap:.7rem; margin-bottom:.85rem; }
+  .vb-col { border-radius:12px; padding:.85rem; }
+  .vb-col h3 { font-size:.95rem; font-weight:900; margin-bottom:.42rem; }
+  .vb-item { font-size:.88rem; font-weight:600; padding:.18rem 0; display:block; }
+
+  /* ── Flip cards ── */
+  .flip-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(145px,1fr)); gap:.85rem; margin-bottom:.9rem; }
+  .flip-hint { font-size:.78rem; color:var(--muted); margin-bottom:.7rem; }
+  .flip-card { height:200px; perspective:900px; cursor:pointer; }
+  .flip-card-inner { position:relative; width:100%; height:100%; transform-style:preserve-3d; transition:transform .55s cubic-bezier(.4,0,.2,1); border-radius:14px; }
+  .flip-card.flipped .flip-card-inner { transform:rotateY(180deg); }
+  .flip-face { position:absolute; inset:0; border-radius:14px; backface-visibility:hidden; -webkit-backface-visibility:hidden; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:.85rem; text-align:center; box-shadow:0 3px 12px rgba(0,0,0,.1); }
+  .flip-front { background:linear-gradient(135deg,#4f46e5,#0891b2); color:white; gap:.38rem; }
+  .flip-front .fc-label { font-size:.58rem; opacity:.62; text-transform:uppercase; letter-spacing:.09em; }
+  .flip-front .fc-word { font-size:1.1rem; font-weight:900; line-height:1.2; }
+  .flip-front .fc-tap { font-size:.62rem; opacity:.52; margin-top:.45rem; }
+  .flip-front::after { content:''; position:absolute; inset:0; border-radius:14px; background:radial-gradient(circle at 28% 28%,rgba(255,255,255,.18),transparent 60%); pointer-events:none; }
+  .flip-back { background:white; border:2px solid #e0e7ff; transform:rotateY(180deg); gap:.25rem; }
+  .flip-back .fb-pic { font-size:2.6rem; line-height:1; }
+  .flip-back .fb-es { font-size:.95rem; font-weight:900; color:var(--primary); }
+  .flip-back .fb-en { font-size:.7rem; color:var(--muted); font-style:italic; line-height:1.3; }
+  .flip-back .fb-ex { font-size:.65rem; color:#374151; background:var(--bg); border-radius:6px; padding:.2rem .38rem; margin-top:.25rem; line-height:1.32; border:1px solid var(--border); }
+  .vocab-done { display:none; background:var(--success-light); border:2px solid var(--success); border-radius:10px; padding:.65rem 1rem; text-align:center; font-weight:700; color:var(--success); font-size:.9rem; margin-bottom:.65rem; }
+  .vocab-done.show { display:block; }
+  .vf-wrap { position:relative; margin-bottom:.7rem; }
+  .vf-wrap input { width:100%; padding:.46rem .7rem .46rem 1.9rem; border:2px solid var(--border); border-radius:8px; font-size:.88rem; font-family:inherit; transition:border-color .2s; }
+  .vf-wrap input:focus { outline:none; border-color:var(--primary); }
+  .vf-icon { position:absolute; left:.62rem; top:50%; transform:translateY(-50%); font-size:.88rem; pointer-events:none; }
+  .vc-count { font-size:.74rem; color:var(--muted); margin-bottom:.5rem; }
+
+  /* ── Read btn ── */
+  .read-btn { margin-top:.7rem; padding:.42rem 1.05rem; border-radius:8px; border:2px solid var(--success); background:white; color:var(--success); font-weight:700; cursor:pointer; font-size:.86rem; transition:all .2s; }
+  .read-btn:hover,.read-btn.done { background:var(--success); color:white; }
+
+  /* ── Unlock btn ── */
+  .unlock-btn { display:block; width:100%; padding:.78rem; border-radius:12px; border:none; background:linear-gradient(135deg,#16a34a,#15803d); color:white; font-weight:800; font-size:1rem; cursor:pointer; margin-top:.95rem; transition:all .2s; opacity:.35; pointer-events:none; box-shadow:0 4px 12px rgba(22,163,74,.3); }
+  .unlock-btn.ready { opacity:1; pointer-events:auto; animation:pulse-g 1.5s ease-in-out infinite; }
+  @keyframes pulse-g { 0%,100%{box-shadow:0 4px 12px rgba(22,163,74,.3);}50%{box-shadow:0 4px 22px rgba(22,163,74,.6);} }
+
+  /* ── Exercises ── */
+  .fill-item { margin-bottom:.82rem; }
+  .fill-item label { display:block; margin-bottom:.26rem; font-size:.92rem; line-height:1.5; }
+  .fill-item input { width:100%; padding:.4rem .66rem; border:2px solid var(--border); border-radius:8px; font-size:.92rem; transition:border-color .2s; }
+  .fill-item input:focus { outline:none; border-color:var(--primary); }
+  .fill-item input.correct { border-color:var(--success); background:var(--success-light); }
+  .fill-item input.wrong { border-color:var(--error); background:var(--error-light); }
+  .fill-item .hint { font-size:.76rem; color:var(--error); margin-top:.2rem; display:none; }
+  .fill-item input.wrong ~ .hint { display:block; }
+
+  .mc-item { margin-bottom:.9rem; }
+  .mc-item p { margin-bottom:.35rem; font-size:.92rem; font-weight:600; }
+  .mc-options label { display:block; padding:.3rem .52rem; cursor:pointer; border-radius:6px; font-size:.86rem; margin-bottom:.16rem; transition:background .15s; }
+  .mc-options label:hover { background:var(--primary-light); }
+  .mc-options input[type=radio] { margin-right:.42rem; accent-color:var(--primary); }
+  .mc-options label.correct-choice { background:var(--success-light); }
+  .mc-options label.wrong-choice { background:var(--error-light); }
+
+  .tf-item { display:flex; align-items:center; gap:.65rem; margin-bottom:.65rem; font-size:.92rem; flex-wrap:wrap; }
+  .tf-item .stmt { flex:1; min-width:180px; }
+  .tf-btn { padding:.26rem .82rem; border-radius:999px; border:2px solid var(--border); background:white; cursor:pointer; font-weight:600; font-size:.8rem; }
+  .tf-btn.sel-T { background:#2563eb; color:white; border-color:#2563eb; }
+  .tf-btn.sel-F { background:var(--error); color:white; border-color:var(--error); }
+  .tf-btn.ok-T,.tf-btn.ok-F { background:var(--success); color:white; border-color:var(--success); }
+  .tf-btn.no-T,.tf-btn.no-F { background:var(--error); color:white; border-color:var(--error); }
+
+  .btn-row { display:flex; gap:.65rem; flex-wrap:wrap; margin-top:1.05rem; }
+  .btn { padding:.48rem 1.15rem; border-radius:8px; border:none; cursor:pointer; font-weight:700; font-size:.92rem; transition:opacity .2s; }
+  .btn:hover { opacity:.85; }
+  .btn-primary { background:var(--primary); color:white; }
+  .btn-ghost { background:var(--border); color:var(--text); }
+
+  .score-panel { display:none; align-items:center; gap:.85rem; padding:.65rem .95rem; border-radius:8px; background:var(--primary-light); margin-top:.65rem; flex-wrap:wrap; }
+  .score-panel.show { display:flex; }
+  .sn { font-size:1.3rem; font-weight:800; color:var(--primary); }
+  .sl { font-size:.86rem; color:var(--muted); }
+  .sg { font-size:1.1rem; font-weight:800; }
+  .grade-A{color:var(--success);}.grade-B{color:#0891b2;}.grade-C{color:var(--warn);}.grade-D{color:var(--error);}
+
+  /* ── Writing / Dad review ── */
+  .writing-item { margin-bottom:.95rem; }
+  .writing-item label { display:flex; align-items:center; gap:.45rem; font-weight:700; font-size:.92rem; margin-bottom:.35rem; }
+  .w-pill { background:var(--primary); color:white; font-size:.76rem; padding:.16rem .52rem; border-radius:999px; }
+  .writing-item textarea { width:100%; padding:.52rem .68rem; border:2px solid var(--border); border-radius:8px; font-size:.92rem; font-family:inherit; resize:vertical; min-height:62px; transition:border-color .2s; line-height:1.5; }
+  .writing-item textarea:focus { outline:none; border-color:var(--primary); }
+  .writing-item textarea.submitted { background:var(--success-light); border-color:var(--success); }
+  .dad-btn { display:flex; align-items:center; gap:.45rem; padding:.52rem 1.25rem; border-radius:8px; border:none; background:linear-gradient(135deg,#f59e0b,#d97706); color:white; font-weight:800; font-size:.9rem; cursor:pointer; transition:opacity .2s; }
+  .dad-btn:hover { opacity:.88; }
+  .dad-btn:disabled { opacity:.38; cursor:not-allowed; }
+  .sub-notice { display:none; background:var(--success-light); border:2px solid var(--success); border-radius:8px; padding:.58rem .95rem; font-size:.84rem; font-weight:700; color:var(--success); margin-top:.65rem; align-items:center; gap:.45rem; }
+  .sub-notice.show { display:flex; }
+  .dad-banner { display:none; margin-top:.65rem; padding:.62rem .95rem; border-radius:8px; background:#fef3c7; border:2px solid #fbbf24; font-size:.86rem; font-weight:700; color:#92400e; }
+  .dad-banner.show { display:block; }
+
+  /* ── Modal ── */
+  .modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.55); z-index:100; align-items:center; justify-content:center; padding:1rem; }
+  .modal-overlay.show { display:flex; }
+  .modal { background:white; border-radius:16px; width:100%; max-width:530px; max-height:90vh; overflow-y:auto; box-shadow:0 20px 60px rgba(0,0,0,.25); animation:slideUp .25s ease; }
+  @keyframes slideUp{from{transform:translateY(20px);opacity:0;}to{transform:translateY(0);opacity:1;}}
+  .modal-hdr { padding:1.05rem 1.25rem .82rem; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; }
+  .modal-hdr h3 { font-size:1.02rem; font-weight:800; }
+  .modal-x { background:none; border:none; font-size:1.2rem; cursor:pointer; color:var(--muted); }
+  .modal-body { padding:1.05rem 1.25rem; }
+  .ri { margin-bottom:1.1rem; padding-bottom:1.1rem; border-bottom:1px solid var(--border); }
+  .ri:last-child { border-bottom:none; margin-bottom:0; padding-bottom:0; }
+  .ri-word { font-size:.7rem; font-weight:800; text-transform:uppercase; letter-spacing:.07em; color:var(--primary); margin-bottom:.25rem; }
+  .ri-ans { background:var(--bg); border-radius:8px; padding:.52rem .72rem; font-size:.92rem; line-height:1.5; margin-bottom:.52rem; border-left:3px solid var(--primary); }
+  .ri-grade { display:flex; gap:.42rem; flex-wrap:wrap; }
+  .gb { padding:.3rem .82rem; border-radius:999px; border:2px solid var(--border); background:white; font-weight:700; font-size:.8rem; cursor:pointer; transition:all .15s; }
+  .gb.good{border-color:var(--success);color:var(--success);}
+  .gb.good.sel{background:var(--success);color:white;}
+  .gb.ok{border-color:var(--warn);color:var(--warn);}
+  .gb.ok.sel{background:var(--warn);color:white;}
+  .gb.redo{border-color:var(--error);color:var(--error);}
+  .gb.redo.sel{background:var(--error);color:white;}
+  .ri-cmt { margin-top:.42rem; }
+  .ri-cmt input { width:100%; border:1.5px solid var(--border); border-radius:6px; padding:.3rem .52rem; font-size:.82rem; font-family:inherit; }
+  .ri-cmt input:focus { outline:none; border-color:var(--primary); }
+  .modal-ftr { padding:.82rem 1.25rem; border-top:1px solid var(--border); display:flex; gap:.65rem; justify-content:flex-end; }
+
+  /* ── Final ── */
+  #final-score-section { text-align:center; padding:1.75rem 1rem; }
+  .grade-ring { border-radius:50%; width:145px; height:145px; display:flex; align-items:center; justify-content:center; margin:0 auto .95rem; border:8px solid; }
+  .big-grade { font-size:5.2rem; font-weight:900; line-height:1; }
+  .final-detail { font-size:.92rem; color:var(--muted); margin-top:.42rem; }
+  .section-scores { margin-top:1.3rem; }
+  .ss-row { display:flex; justify-content:space-between; align-items:center; padding:.52rem .68rem; border-bottom:1px solid var(--border); font-size:.92rem; }
+  .pb-wrap { background:var(--border); border-radius:999px; height:7px; flex:1; margin:0 .85rem; }
+  .pb { height:7px; border-radius:999px; background:var(--primary); transition:width .4s; }
+
+  @media(max-width:580px){ header h1{font-size:1.35rem;} .spell-3col{grid-template-columns:1fr;} .vb-cols{grid-template-columns:1fr;} }
 </style>
 </head>
 <body>
-  <div class="box">
-    <div class="icon">🚧</div>
-    <h1>Practice coming soon!</h1>
-    <p>This exam's practice page hasn't been created yet.</p>
-    <a href="../../../..">← Back to all exams</a>
+
+<header>
+  <h1>📚 Reading &amp; Spelling Practice</h1>
+  <p id="hdr-sub">Study all topics first, then unlock the test!</p>
+</header>
+
+<nav id="main-nav">
+  <button class="study-btn active" onclick="showSection('study')">📚 Study</button>
+  <button disabled id="nav-saveworld" onclick="showSection('saveworld')">🌍 Save Our World</button>
+  <button disabled id="nav-australia" onclick="showSection('australia')">🦘 Australia</button>
+  <button disabled id="nav-whendad" onclick="showSection('whendad')">👓 When Dad...</button>
+  <button disabled id="nav-vocab" onclick="showSection('vocab')">📝 Vocabulary</button>
+  <button disabled id="nav-spelling" onclick="showSection('spelling')">🔤 Spelling</button>
+  <button disabled id="nav-writing" onclick="showSection('writing')">✍️ Writing</button>
+  <button disabled id="nav-final" onclick="showSection('final')">🏆 Final Score</button>
+</nav>
+
+<main>
+
+<!-- ══════════════ STUDY ══════════════ -->
+<div id="study" class="section active">
+
+  <div class="study-header-bar">
+    <h2>📖 Study all 7 topics to unlock the practice test</h2>
+    <div class="topic-dots">
+      <div class="topic-dot" id="dot-t1" title="Save Our World">🌍</div>
+      <div class="topic-dot" id="dot-t2" title="Animals in Australia">🦘</div>
+      <div class="topic-dot" id="dot-t3" title="When Dad Lost His Glasses">👓</div>
+      <div class="topic-dot" id="dot-t4" title="Vocabulary Flip Cards">🃏</div>
+      <div class="topic-dot" id="dot-t5" title="K / CK / C Spelling">🔤</div>
+      <div class="topic-dot" id="dot-t6" title="Silent E">🔇</div>
+      <div class="topic-dot" id="dot-t7" title="Consonant Clusters &amp; V or B">🔗</div>
+    </div>
+    <div class="study-progress-bar-wrap"><div class="study-progress-bar" id="study-bar" style="width:0%"></div></div>
+    <div class="study-progress-label"><span id="study-lbl">0 of 7 topics studied</span><span id="study-pct">0%</span></div>
   </div>
+
+  <!-- Topic 1: Save Our World -->
+  <div class="study-topic" id="topic-t1">
+    <div class="study-topic-header" onclick="toggleTopic('t1')">
+      <span class="left-label"><span class="topic-icon">🌍</span> Save Our World</span>
+      <span style="display:flex;align-items:center;gap:.45rem;"><span class="check-badge">✔ Done</span><span class="arrow">▶</span></span>
+    </div>
+    <div class="study-topic-body" id="body-t1">
+      <p style="font-size:.83rem;color:var(--muted);margin-bottom:.8rem;">Read the text, then study the vocabulary words.</p>
+      <div class="reading-text">"The list of endangered animals is very long and it includes <strong>polar bears</strong>, <strong>gorillas</strong>, <strong>rhinos</strong>, and <strong>elephants</strong>. Animals become endangered for many reasons. <strong>Pollution</strong> and <strong>climate change</strong> are serious problems for all living things, but there are other reasons why so many animals are endangered."</div>
+      <div class="icon-cards">
+        <div class="icon-card"><span class="ic-icon">🏔️</span><span class="ic-word">Hill</span><span class="ic-def">A raised area of land, smaller than a mountain.</span></div>
+        <div class="icon-card"><span class="ic-icon">⚠️</span><span class="ic-word">Endanger</span><span class="ic-def">To put an animal at risk of disappearing.</span></div>
+        <div class="icon-card"><span class="ic-icon">💀</span><span class="ic-word">Extinction</span><span class="ic-def">When a species completely disappears from Earth.</span></div>
+        <div class="icon-card"><span class="ic-icon">😢</span><span class="ic-word">Lose</span><span class="ic-def">To no longer have something.</span></div>
+        <div class="icon-card"><span class="ic-icon">🏹</span><span class="ic-word">Hunt</span><span class="ic-def">To chase and catch or kill animals.</span></div>
+        <div class="icon-card"><span class="ic-icon">🪸</span><span class="ic-word">Reef</span><span class="ic-def">An underwater structure made of coral or rock.</span></div>
+        <div class="icon-card"><span class="ic-icon">🌊</span><span class="ic-word">Disaster</span><span class="ic-def">A sudden event that causes great harm.</span></div>
+        <div class="icon-card"><span class="ic-icon">🐻</span><span class="ic-word">Fur</span><span class="ic-def">The thick coat of hair on an animal.</span></div>
+      </div>
+      <button class="read-btn" id="btn-t1" onclick="markRead('t1')">✅ I've studied this!</button>
+    </div>
+  </div>
+
+  <!-- Topic 2: Animals in Australia -->
+  <div class="study-topic" id="topic-t2">
+    <div class="study-topic-header" onclick="toggleTopic('t2')">
+      <span class="left-label"><span class="topic-icon">🦘</span> Animals in Australia</span>
+      <span style="display:flex;align-items:center;gap:.45rem;"><span class="check-badge">✔ Done</span><span class="arrow">▶</span></span>
+    </div>
+    <div class="study-topic-body" id="body-t2">
+      <div class="reading-text">Australia has lots of <strong>unusual</strong> animals and many of them only live there, for example kangaroos and koalas. These are both <strong>marsupials</strong> — animals that carry their babies in a <strong>pouch</strong>. There are many dangerous animals including spiders, scorpions, and snakes on land, and jellyfish in the oceans. The Tasmanian tiger was the largest <strong>carnivorous</strong> marsupial on earth. It <strong>hunted</strong> at night. Farmers hunted them and experts believe they're now <strong>extinct</strong>.</div>
+      <div class="icon-cards">
+        <div class="icon-card"><span class="ic-icon">🦘</span><span class="ic-word">Marsupials</span><span class="ic-def">Animals that carry their babies in a pouch.</span></div>
+        <div class="icon-card"><span class="ic-icon">👜</span><span class="ic-word">Pouch</span><span class="ic-def">A pocket-like part where marsupial babies live.</span></div>
+        <div class="icon-card"><span class="ic-icon">☠️</span><span class="ic-word">Venomous</span><span class="ic-def">Able to inject poison through a bite or sting.</span></div>
+        <div class="icon-card"><span class="ic-icon">🤔</span><span class="ic-word">Unusual</span><span class="ic-def">Different from what is normal or common.</span></div>
+        <div class="icon-card"><span class="ic-icon">🦓</span><span class="ic-word">Stripes</span><span class="ic-def">Long narrow lines of a different color on an animal.</span></div>
+      </div>
+      <button class="read-btn" id="btn-t2" onclick="markRead('t2')">✅ I've studied this!</button>
+    </div>
+  </div>
+
+  <!-- Topic 3: When Dad Lost His Glasses -->
+  <div class="study-topic" id="topic-t3">
+    <div class="study-topic-header" onclick="toggleTopic('t3')">
+      <span class="left-label"><span class="topic-icon">👓</span> When Dad Lost His Glasses</span>
+      <span style="display:flex;align-items:center;gap:.45rem;"><span class="check-badge">✔ Done</span><span class="arrow">▶</span></span>
+    </div>
+    <div class="study-topic-body" id="body-t3">
+      <div class="reading-text">On the first day of March, we <strong>arrived</strong> on a plane in Sydney, Australia, when there's not so much rain. It was too hot for me and too hot for my dad. And mom said, "this weather is the hottest we've had!" We walked and we talked in these Jenolan Caves, mom, dad, and I, and our guide Mr. Graves. "This is limestone," he said, with his hand to the <strong>wall</strong>, "and it makes all these shapes, so big and tall."</div>
+      <div class="icon-cards">
+        <div class="icon-card"><span class="ic-icon">✈️</span><span class="ic-word">Arrive</span><span class="ic-def">To reach a place after traveling.</span></div>
+        <div class="icon-card"><span class="ic-icon">🔝</span><span class="ic-word">High</span><span class="ic-def">Far above the ground; elevated.</span></div>
+        <div class="icon-card"><span class="ic-icon">🌑</span><span class="ic-word">Dark</span><span class="ic-def">Without light; difficult to see.</span></div>
+        <div class="icon-card"><span class="ic-icon">🥇</span><span class="ic-word">Gold</span><span class="ic-def">A precious yellow metal.</span></div>
+        <div class="icon-card"><span class="ic-icon">🧱</span><span class="ic-word">Wall</span><span class="ic-def">A solid vertical structure; a side of a room.</span></div>
+        <div class="icon-card"><span class="ic-icon">⛑️</span><span class="ic-word">Helmet</span><span class="ic-def">A hard hat worn to protect the head.</span></div>
+      </div>
+      <button class="read-btn" id="btn-t3" onclick="markRead('t3')">✅ I've studied this!</button>
+    </div>
+  </div>
+
+  <!-- Topic 4: Vocabulary Flip Cards -->
+  <div class="study-topic" id="topic-t4">
+    <div class="study-topic-header" onclick="toggleTopic('t4')">
+      <span class="left-label"><span class="topic-icon">🃏</span> Vocabulary Flip Cards</span>
+      <span style="display:flex;align-items:center;gap:.45rem;"><span class="check-badge">✔ Done</span><span class="arrow">▶</span></span>
+    </div>
+    <div class="study-topic-body" id="body-t4">
+      <div class="flip-hint">👆 Tap each card to flip it — see the picture + Spanish!</div>
+      <div class="vocab-done" id="vocab-done-banner">🎉 ¡Excelente! You've seen all the words!</div>
+      <div class="vf-wrap"><span class="vf-icon">🔍</span><input type="text" id="vc-filter" placeholder="Search a word…" oninput="filterCards()"></div>
+      <div class="vc-count" id="vc-count">22 cards</div>
+      <div class="flip-grid" id="flip-grid">
+        <!-- Save Our World vocab -->
+        <div class="flip-card" onclick="flipCard(this)"><div class="flip-card-inner"><div class="flip-face flip-front"><span class="fc-label">Vocabulary</span><span class="fc-word">Hill</span><span class="fc-tap">👆 tap to flip</span></div><div class="flip-face flip-back"><span class="fb-pic">🏔️</span><span class="fb-es">Colina</span><span class="fb-en">A raised area of land, smaller than a mountain.</span><span class="fb-ex">"We climbed up the hill."</span></div></div></div>
+        <div class="flip-card" onclick="flipCard(this)"><div class="flip-card-inner"><div class="flip-face flip-front"><span class="fc-label">Vocabulary</span><span class="fc-word">Endanger</span><span class="fc-tap">👆 tap to flip</span></div><div class="flip-face flip-back"><span class="fb-pic">⚠️🐘</span><span class="fb-es">Poner en peligro</span><span class="fb-en">To put an animal at risk of disappearing.</span><span class="fb-ex">"Pollution can endanger animals."</span></div></div></div>
+        <div class="flip-card" onclick="flipCard(this)"><div class="flip-card-inner"><div class="flip-face flip-front"><span class="fc-label">Vocabulary</span><span class="fc-word">Extinction</span><span class="fc-tap">👆 tap to flip</span></div><div class="flip-face flip-back"><span class="fb-pic">💀🦕</span><span class="fb-es">Extinción</span><span class="fb-en">When a species completely disappears from Earth.</span><span class="fb-ex">"Dinosaurs are extinct."</span></div></div></div>
+        <div class="flip-card" onclick="flipCard(this)"><div class="flip-card-inner"><div class="flip-face flip-front"><span class="fc-label">Vocabulary</span><span class="fc-word">Hunt</span><span class="fc-tap">👆 tap to flip</span></div><div class="flip-face flip-back"><span class="fb-pic">🏹🦌</span><span class="fb-es">Cazar</span><span class="fb-en">To chase and catch or kill animals.</span><span class="fb-ex">"Farmers hunted the Tasmanian tiger."</span></div></div></div>
+        <div class="flip-card" onclick="flipCard(this)"><div class="flip-card-inner"><div class="flip-face flip-front"><span class="fc-label">Vocabulary</span><span class="fc-word">Reef</span><span class="fc-tap">👆 tap to flip</span></div><div class="flip-face flip-back"><span class="fb-pic">🪸🐠</span><span class="fb-es">Arrecife</span><span class="fb-en">An underwater structure made of coral or rock.</span><span class="fb-ex">"Fish live near the reef."</span></div></div></div>
+        <div class="flip-card" onclick="flipCard(this)"><div class="flip-card-inner"><div class="flip-face flip-front"><span class="fc-label">Vocabulary</span><span class="fc-word">Disaster</span><span class="fc-tap">👆 tap to flip</span></div><div class="flip-face flip-back"><span class="fb-pic">🌊💥</span><span class="fb-es">Desastre</span><span class="fb-en">A sudden event that causes great harm or damage.</span><span class="fb-ex">"The flood was a disaster."</span></div></div></div>
+        <div class="flip-card" onclick="flipCard(this)"><div class="flip-card-inner"><div class="flip-face flip-front"><span class="fc-label">Vocabulary</span><span class="fc-word">Fur</span><span class="fc-tap">👆 tap to flip</span></div><div class="flip-face flip-back"><span class="fb-pic">🐻🧥</span><span class="fb-es">Pelaje</span><span class="fb-en">The thick coat of hair on an animal.</span><span class="fb-ex">"The bear has thick fur."</span></div></div></div>
+        <!-- Australia vocab -->
+        <div class="flip-card" onclick="flipCard(this)"><div class="flip-card-inner"><div class="flip-face flip-front"><span class="fc-label">Vocabulary</span><span class="fc-word">Marsupials</span><span class="fc-tap">👆 tap to flip</span></div><div class="flip-face flip-back"><span class="fb-pic">🦘👜</span><span class="fb-es">Marsupiales</span><span class="fb-en">Animals that carry their babies in a pouch.</span><span class="fb-ex">"Kangaroos are marsupials."</span></div></div></div>
+        <div class="flip-card" onclick="flipCard(this)"><div class="flip-card-inner"><div class="flip-face flip-front"><span class="fc-label">Vocabulary</span><span class="fc-word">Pouch</span><span class="fc-tap">👆 tap to flip</span></div><div class="flip-face flip-back"><span class="fb-pic">👜🐣</span><span class="fb-es">Bolsa / Marsupio</span><span class="fb-en">A pocket-like part where marsupial babies live.</span><span class="fb-ex">"The baby kangaroo is in the pouch."</span></div></div></div>
+        <div class="flip-card" onclick="flipCard(this)"><div class="flip-card-inner"><div class="flip-face flip-front"><span class="fc-label">Vocabulary</span><span class="fc-word">Venomous</span><span class="fc-tap">👆 tap to flip</span></div><div class="flip-face flip-back"><span class="fb-pic">🐍☠️</span><span class="fb-es">Venenoso</span><span class="fb-en">Able to inject poison through a bite or sting.</span><span class="fb-ex">"Some snakes are venomous."</span></div></div></div>
+        <div class="flip-card" onclick="flipCard(this)"><div class="flip-card-inner"><div class="flip-face flip-front"><span class="fc-label">Vocabulary</span><span class="fc-word">Unusual</span><span class="fc-tap">👆 tap to flip</span></div><div class="flip-face flip-back"><span class="fb-pic">🤔🦆</span><span class="fb-es">Inusual</span><span class="fb-en">Different from what is normal or common.</span><span class="fb-ex">"The platypus is an unusual animal."</span></div></div></div>
+        <div class="flip-card" onclick="flipCard(this)"><div class="flip-card-inner"><div class="flip-face flip-front"><span class="fc-label">Vocabulary</span><span class="fc-word">Stripes</span><span class="fc-tap">👆 tap to flip</span></div><div class="flip-face flip-back"><span class="fb-pic">🦓〰️</span><span class="fb-es">Rayas</span><span class="fb-en">Long narrow lines of a different color on an animal.</span><span class="fb-ex">"A zebra has black and white stripes."</span></div></div></div>
+        <!-- When Dad vocab -->
+        <div class="flip-card" onclick="flipCard(this)"><div class="flip-card-inner"><div class="flip-face flip-front"><span class="fc-label">Vocabulary</span><span class="fc-word">Arrive</span><span class="fc-tap">👆 tap to flip</span></div><div class="flip-face flip-back"><span class="fb-pic">✈️📍</span><span class="fb-es">Llegar</span><span class="fb-en">To reach a place after traveling.</span><span class="fb-ex">"We will arrive at school at 8:00."</span></div></div></div>
+        <div class="flip-card" onclick="flipCard(this)"><div class="flip-card-inner"><div class="flip-face flip-front"><span class="fc-label">Vocabulary</span><span class="fc-word">High</span><span class="fc-tap">👆 tap to flip</span></div><div class="flip-face flip-back"><span class="fb-pic">🔝☁️</span><span class="fb-es">Alto</span><span class="fb-en">Far above the ground; elevated.</span><span class="fb-ex">"The bird flew high in the sky."</span></div></div></div>
+        <div class="flip-card" onclick="flipCard(this)"><div class="flip-card-inner"><div class="flip-face flip-front"><span class="fc-label">Vocabulary</span><span class="fc-word">Dark</span><span class="fc-tap">👆 tap to flip</span></div><div class="flip-face flip-back"><span class="fb-pic">🌑🕯️</span><span class="fb-es">Oscuro</span><span class="fb-en">Without light; difficult to see in.</span><span class="fb-ex">"The room was very dark at night."</span></div></div></div>
+        <div class="flip-card" onclick="flipCard(this)"><div class="flip-card-inner"><div class="flip-face flip-front"><span class="fc-label">Vocabulary</span><span class="fc-word">Gold</span><span class="fc-tap">👆 tap to flip</span></div><div class="flip-face flip-back"><span class="fb-pic">🥇💛</span><span class="fb-es">Oro</span><span class="fb-en">A precious yellow metal; very valuable.</span><span class="fb-ex">"The king wore a crown made of gold."</span></div></div></div>
+        <div class="flip-card" onclick="flipCard(this)"><div class="flip-card-inner"><div class="flip-face flip-front"><span class="fc-label">Vocabulary</span><span class="fc-word">Wall</span><span class="fc-tap">👆 tap to flip</span></div><div class="flip-face flip-back"><span class="fb-pic">🧱🖼️</span><span class="fb-es">Pared</span><span class="fb-en">A solid vertical structure; the side of a room.</span><span class="fb-ex">"The picture hangs on the wall."</span></div></div></div>
+        <div class="flip-card" onclick="flipCard(this)"><div class="flip-card-inner"><div class="flip-face flip-front"><span class="fc-label">Vocabulary</span><span class="fc-word">Helmet</span><span class="fc-tap">👆 tap to flip</span></div><div class="flip-face flip-back"><span class="fb-pic">⛑️🚲</span><span class="fb-es">Casco</span><span class="fb-en">A hard hat worn to protect the head.</span><span class="fb-ex">"Always wear a helmet when riding a bike."</span></div></div></div>
+        <!-- Extra tricky words -->
+        <div class="flip-card" onclick="flipCard(this)"><div class="flip-card-inner"><div class="flip-face flip-front"><span class="fc-label">Vocabulary</span><span class="fc-word">Endangered</span><span class="fc-tap">👆 tap to flip</span></div><div class="flip-face flip-back"><span class="fb-pic">⚠️🦏</span><span class="fb-es">En peligro</span><span class="fb-en">An animal that may disappear if not protected.</span><span class="fb-ex">"Rhinos are endangered animals."</span></div></div></div>
+        <div class="flip-card" onclick="flipCard(this)"><div class="flip-card-inner"><div class="flip-face flip-front"><span class="fc-label">Vocabulary</span><span class="fc-word">Carnivorous</span><span class="fc-tap">👆 tap to flip</span></div><div class="flip-face flip-back"><span class="fb-pic">🦁🥩</span><span class="fb-es">Carnívoro</span><span class="fb-en">An animal that eats only meat.</span><span class="fb-ex">"The Tasmanian tiger was carnivorous."</span></div></div></div>
+        <div class="flip-card" onclick="flipCard(this)"><div class="flip-card-inner"><div class="flip-face flip-front"><span class="fc-label">Vocabulary</span><span class="fc-word">Extinct</span><span class="fc-tap">👆 tap to flip</span></div><div class="flip-face flip-back"><span class="fb-pic">💀🦕</span><span class="fb-es">Extinto</span><span class="fb-en">No longer existing anywhere on Earth.</span><span class="fb-ex">"The Tasmanian tiger is extinct."</span></div></div></div>
+        <div class="flip-card" onclick="flipCard(this)"><div class="flip-card-inner"><div class="flip-face flip-front"><span class="fc-label">Vocabulary</span><span class="fc-word">Pollution</span><span class="fc-tap">👆 tap to flip</span></div><div class="flip-face flip-back"><span class="fb-pic">🏭💨</span><span class="fb-es">Contaminación</span><span class="fb-en">Harmful substances added to the environment.</span><span class="fb-ex">"Pollution harms animals."</span></div></div></div>
+      </div>
+      <button class="read-btn" id="btn-t4" onclick="markRead('t4')">✅ I've studied all the words!</button>
+    </div>
+  </div>
+
+  <!-- Topic 5: K / CK / C -->
+  <div class="study-topic" id="topic-t5">
+    <div class="study-topic-header" onclick="toggleTopic('t5')">
+      <span class="left-label"><span class="topic-icon">🔤</span> Spelling: K / CK / C</span>
+      <span style="display:flex;align-items:center;gap:.45rem;"><span class="check-badge">✔ Done</span><span class="arrow">▶</span></span>
+    </div>
+    <div class="study-topic-body" id="body-t5">
+      <p style="font-size:.83rem;color:var(--muted);margin-bottom:.8rem;">All three spellings make the same /k/ sound — learn when to use each one!</p>
+      <div class="spell-3col">
+        <div class="spell-col" style="background:#eef2ff;border:2px solid #c7d2fe;">
+          <h3 style="color:#3730a3;">🔵 C</h3>
+          <p class="spell-rule">Used at the start or before a, o, u</p>
+          <span class="spell-word" style="background:#c7d2fe;">cake</span>
+          <span class="spell-word" style="background:#c7d2fe;">cook</span>
+          <span class="spell-word" style="background:#c7d2fe;">insect</span>
+        </div>
+        <div class="spell-col" style="background:#fef3c7;border:2px solid #fcd34d;">
+          <h3 style="color:#92400e;">🟡 K</h3>
+          <p class="spell-rule">Used before e, i, or at end after a consonant</p>
+          <span class="spell-word" style="background:#fcd34d;">take</span>
+          <span class="spell-word" style="background:#fcd34d;">fork</span>
+          <span class="spell-word" style="background:#fcd34d;">kite</span>
+        </div>
+        <div class="spell-col" style="background:#fce7f3;border:2px solid #f9a8d4;">
+          <h3 style="color:#9d174d;">🔴 CK</h3>
+          <p class="spell-rule">Used after a short vowel at the end of a word</p>
+          <span class="spell-word" style="background:#f9a8d4;">stick</span>
+          <span class="spell-word" style="background:#f9a8d4;">chick</span>
+          <span class="spell-word" style="background:#f9a8d4;">neck</span>
+        </div>
+      </div>
+      <button class="read-btn" id="btn-t5" onclick="markRead('t5')">✅ I've studied this!</button>
+    </div>
+  </div>
+
+  <!-- Topic 6: Silent E -->
+  <div class="study-topic" id="topic-t6">
+    <div class="study-topic-header" onclick="toggleTopic('t6')">
+      <span class="left-label"><span class="topic-icon">🔇</span> Spelling: Silent E</span>
+      <span style="display:flex;align-items:center;gap:.45rem;"><span class="check-badge">✔ Done</span><span class="arrow">▶</span></span>
+    </div>
+    <div class="study-topic-body" id="body-t6">
+      <p style="font-size:.83rem;color:var(--muted);margin-bottom:.8rem;">When a word ends in <strong>silent e</strong>, the vowel before it says its <em>long sound</em> (its name). The E is silent — you don't say it!</p>
+      <div class="se-grid">
+        <div class="se-card"><span class="se-short">fin</span><span class="se-arrow">+ e →</span><span class="se-long">fine</span><span class="se-note">i says "eye"</span></div>
+        <div class="se-card"><span class="se-short">bit</span><span class="se-arrow">+ e →</span><span class="se-long">bike</span><span class="se-note">i says "eye"</span></div>
+        <div class="se-card"><span class="se-short">hop</span><span class="se-arrow">+ e →</span><span class="se-long">hope</span><span class="se-note">o says "oh"</span></div>
+        <div class="se-card"><span class="se-short">nam</span><span class="se-arrow">+ e →</span><span class="se-long">name</span><span class="se-note">a says "ay"</span></div>
+        <div class="se-card"><span class="se-short">tim</span><span class="se-arrow">+ e →</span><span class="se-long">time</span><span class="se-note">i says "eye"</span></div>
+        <div class="se-card"><span class="se-short">kit</span><span class="se-arrow">+ e →</span><span class="se-long">kite</span><span class="se-note">i says "eye"</span></div>
+        <div class="se-card"><span class="se-short">cak</span><span class="se-arrow">+ e →</span><span class="se-long">cake</span><span class="se-note">a says "ay"</span></div>
+        <div class="se-card"><span class="se-short">mad</span><span class="se-arrow">+ e →</span><span class="se-long">made</span><span class="se-note">a says "ay"</span></div>
+      </div>
+      <button class="read-btn" id="btn-t6" onclick="markRead('t6')">✅ I've studied this!</button>
+    </div>
+  </div>
+
+  <!-- Topic 7: Consonant Clusters & V or B -->
+  <div class="study-topic" id="topic-t7">
+    <div class="study-topic-header" onclick="toggleTopic('t7')">
+      <span class="left-label"><span class="topic-icon">🔗</span> Clusters &amp; V or B</span>
+      <span style="display:flex;align-items:center;gap:.45rem;"><span class="check-badge">✔ Done</span><span class="arrow">▶</span></span>
+    </div>
+    <div class="study-topic-body" id="body-t7">
+      <p style="font-size:.83rem;color:var(--muted);margin-bottom:.75rem;"><strong>Consonant clusters</strong> are two consonants together at the start or end of a word.</p>
+      <div class="cluster-grid">
+        <div class="cluster-box" style="background:#eef2ff;border:2px solid #c7d2fe;"><div class="cb-cluster" style="color:#3730a3;">CR</div><div class="cb-examples"><span class="cluster-ex" style="background:#c7d2fe;">crab</span><span class="cluster-ex" style="background:#c7d2fe;">crocodile</span></div></div>
+        <div class="cluster-box" style="background:#fce7f3;border:2px solid #f9a8d4;"><div class="cb-cluster" style="color:#9d174d;">CK</div><div class="cb-examples"><span class="cluster-ex" style="background:#f9a8d4;">black</span><span class="cluster-ex" style="background:#f9a8d4;">clock</span><span class="cluster-ex" style="background:#f9a8d4;">check</span></div></div>
+        <div class="cluster-box" style="background:#dcfce7;border:2px solid #86efac;"><div class="cb-cluster" style="color:#15803d;">TR</div><div class="cb-examples"><span class="cluster-ex" style="background:#86efac;">train</span><span class="cluster-ex" style="background:#86efac;">tree</span></div></div>
+        <div class="cluster-box" style="background:#fef3c7;border:2px solid #fcd34d;"><div class="cb-cluster" style="color:#92400e;">FL</div><div class="cb-examples"><span class="cluster-ex" style="background:#fcd34d;">flag</span><span class="cluster-ex" style="background:#fcd34d;">flower</span></div></div>
+        <div class="cluster-box" style="background:#e0f2fe;border:2px solid #7dd3fc;"><div class="cb-cluster" style="color:#0369a1;">DR</div><div class="cb-examples"><span class="cluster-ex" style="background:#7dd3fc;">drum</span><span class="cluster-ex" style="background:#7dd3fc;">drove</span></div></div>
+      </div>
+      <p style="font-size:.83rem;color:var(--muted);margin:.8rem 0 .6rem;"><strong>V or B?</strong> These two letters can be confusing. Learn which is which!</p>
+      <div class="vb-cols">
+        <div class="vb-col" style="background:#eef2ff;border:2px solid #c7d2fe;"><h3 style="color:#3730a3;">🔵 B words</h3><span class="vb-item">🚲 Bike</span><span class="vb-item">📚 Book</span><span class="vb-item">🍌 Bananas</span><span class="vb-item">⚾ Baseball</span><span class="vb-item">🎂 Bake</span></div>
+        <div class="vb-col" style="background:#dcfce7;border:2px solid #86efac;"><h3 style="color:#15803d;">🟢 V words</h3><span class="vb-item">🌋 Volcano</span><span class="vb-item">🚐 Van</span><span class="vb-item">🥦 Vegetables</span><span class="vb-item">🏠 Visit</span><span class="vb-item">✨ Very</span><span class="vb-item">🏐 Volleyball</span></div>
+      </div>
+      <button class="read-btn" id="btn-t7" onclick="markRead('t7')">✅ I've studied this!</button>
+    </div>
+  </div>
+
+  <button class="unlock-btn" id="unlock-btn" onclick="unlockTest()">🔓 I'm ready — Unlock the Practice Test!</button>
+</div>
+
+<!-- ══════════════ SAVE OUR WORLD ══════════════ -->
+<div id="saveworld" class="section">
+  <div class="card">
+    <h2>🌍 Save Our World — Reading Text</h2>
+    <div class="reading-text">"The list of endangered animals is very long and it includes polar bears, gorillas, rhinos, and elephants. Animals become endangered for many reasons. Pollution and climate change are serious problems for all living things, but there are other reasons why so many animals are endangered."</div>
+  </div>
+  <div class="card">
+    <h2>🔘 Part 1 — Comprehension Questions <span class="badge">Multiple choice</span></h2>
+    <div id="sw-mc"></div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="checkMC('sw-mc',swMC)">Check Answers</button>
+      <button class="btn btn-ghost" onclick="resetMC('sw-mc')">Reset</button>
+    </div>
+    <div class="score-panel" id="sw-mc-score"></div>
+  </div>
+  <div class="card">
+    <h2>✅ Part 2 — True or False <span class="badge">5 questions</span></h2>
+    <div id="sw-tf"></div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="checkTF('sw-tf',swTF)">Check Answers</button>
+      <button class="btn btn-ghost" onclick="resetTF('sw-tf')">Reset</button>
+    </div>
+    <div class="score-panel" id="sw-tf-score"></div>
+  </div>
+</div>
+
+<!-- ══════════════ AUSTRALIA ══════════════ -->
+<div id="australia" class="section">
+  <div class="card">
+    <h2>🦘 Animals in Australia — Reading Text</h2>
+    <div class="reading-text">Australia has lots of unusual animals and many of them only live there, and nowhere else, for example kangaroos and koalas. These are both marsupials. Marsupials are animals that carry their babies in a pouch. There are many dangerous animals. These include spiders, scorpions, and snakes on land, and jellyfish in the oceans. The Tasmanian tiger walked on four legs, but it could also hop on two legs. It was the largest carnivorous marsupial on earth. A carnivorous animal eats meat. The Tasmanian tiger hunted at night. Unfortunately, Tasmanian tigers attacked sheep, so farmers hunted them and now experts believe that they're extinct.</div>
+  </div>
+  <div class="card">
+    <h2>✏️ Part 1 — Short Answer <span class="badge">Fill in</span></h2>
+    <div id="aus-fill"></div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="checkFill('aus-fill',ausFill)">Check Answers</button>
+      <button class="btn btn-ghost" onclick="resetFill('aus-fill')">Reset</button>
+    </div>
+    <div class="score-panel" id="aus-fill-score"></div>
+  </div>
+  <div class="card">
+    <h2>🔘 Part 2 — Multiple Choice <span class="badge">4 questions</span></h2>
+    <div id="aus-mc"></div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="checkMC('aus-mc',ausMC)">Check Answers</button>
+      <button class="btn btn-ghost" onclick="resetMC('aus-mc')">Reset</button>
+    </div>
+    <div class="score-panel" id="aus-mc-score"></div>
+  </div>
+  <div class="card">
+    <h2>✅ Part 3 — True or False <span class="badge">5 questions</span></h2>
+    <div id="aus-tf"></div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="checkTF('aus-tf',ausTF)">Check Answers</button>
+      <button class="btn btn-ghost" onclick="resetTF('aus-tf')">Reset</button>
+    </div>
+    <div class="score-panel" id="aus-tf-score"></div>
+  </div>
+</div>
+
+<!-- ══════════════ WHEN DAD ══════════════ -->
+<div id="whendad" class="section">
+  <div class="card">
+    <h2>👓 When Dad Lost His Glasses — Reading Text</h2>
+    <div class="reading-text">On the first day of March, we arrived on a plane in Sydney, Australia, when there's not so much rain. It was too hot for me and too hot for my dad. And mom said, "this weather is the hottest we've had!" We walked and we talked in these Jenolan Caves, mom, dad, and I, and our guide Mr. Graves. "This is limestone," he said, with his hand to the wall, "and it makes all these shapes, so big and tall."</div>
+  </div>
+  <div class="card">
+    <h2>✏️ Part 1 — Short Answer <span class="badge">Fill in</span></h2>
+    <div id="wd-fill"></div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="checkFill('wd-fill',wdFill)">Check Answers</button>
+      <button class="btn btn-ghost" onclick="resetFill('wd-fill')">Reset</button>
+    </div>
+    <div class="score-panel" id="wd-fill-score"></div>
+  </div>
+  <div class="card">
+    <h2>🔘 Part 2 — Multiple Choice <span class="badge">4 questions</span></h2>
+    <div id="wd-mc"></div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="checkMC('wd-mc',wdMC)">Check Answers</button>
+      <button class="btn btn-ghost" onclick="resetMC('wd-mc')">Reset</button>
+    </div>
+    <div class="score-panel" id="wd-mc-score"></div>
+  </div>
+  <div class="card">
+    <h2>✅ Part 3 — True or False <span class="badge">5 questions</span></h2>
+    <div id="wd-tf"></div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="checkTF('wd-tf',wdTF)">Check Answers</button>
+      <button class="btn btn-ghost" onclick="resetTF('wd-tf')">Reset</button>
+    </div>
+    <div class="score-panel" id="wd-tf-score"></div>
+  </div>
+</div>
+
+<!-- ══════════════ VOCABULARY ══════════════ -->
+<div id="vocab" class="section">
+  <div class="card">
+    <h2>📝 Part 1 — Complete the Sentences <span class="badge">Australia vocab</span></h2>
+    <p style="font-size:.83rem;color:var(--muted);margin-bottom:.85rem;">Word Bank: <strong>marsupials · pouch · venomous · unusual · stripes</strong></p>
+    <div id="v1-fill"></div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="checkFill('v1-fill',v1Fill)">Check Answers</button>
+      <button class="btn btn-ghost" onclick="resetFill('v1-fill')">Reset</button>
+    </div>
+    <div class="score-panel" id="v1-fill-score"></div>
+  </div>
+  <div class="card">
+    <h2>📝 Part 2 — Complete the Sentences <span class="badge">When Dad vocab</span></h2>
+    <p style="font-size:.83rem;color:var(--muted);margin-bottom:.85rem;">Word Bank: <strong>arrive · high · dark · gold · wall · helmet</strong></p>
+    <div id="v2-fill"></div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="checkFill('v2-fill',v2Fill)">Check Answers</button>
+      <button class="btn btn-ghost" onclick="resetFill('v2-fill')">Reset</button>
+    </div>
+    <div class="score-panel" id="v2-fill-score"></div>
+  </div>
+  <div class="card">
+    <h2>🔘 Part 3 — Vocabulary Multiple Choice <span class="badge">Extra</span></h2>
+    <div id="v3-mc"></div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="checkMC('v3-mc',v3MC)">Check Answers</button>
+      <button class="btn btn-ghost" onclick="resetMC('v3-mc')">Reset</button>
+    </div>
+    <div class="score-panel" id="v3-mc-score"></div>
+  </div>
+</div>
+
+<!-- ══════════════ SPELLING ══════════════ -->
+<div id="spelling" class="section">
+  <div class="card">
+    <h2>🔤 Part 1 — Complete with K, CK, or C <span class="badge">Fill in</span></h2>
+    <p style="font-size:.83rem;color:var(--muted);margin-bottom:.85rem;">Type <strong>c</strong>, <strong>k</strong>, or <strong>ck</strong> to complete each word.</p>
+    <div id="kcc-fill"></div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="checkFill('kcc-fill',kccFill)">Check Answers</button>
+      <button class="btn btn-ghost" onclick="resetFill('kcc-fill')">Reset</button>
+    </div>
+    <div class="score-panel" id="kcc-fill-score"></div>
+  </div>
+  <div class="card">
+    <h2>🔇 Part 2 — Silent E: Which word? <span class="badge">Multiple choice</span></h2>
+    <p style="font-size:.83rem;color:var(--muted);margin-bottom:.85rem;">In each group, which word has a silent e?</p>
+    <div id="se-mc"></div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="checkMC('se-mc',seMC)">Check Answers</button>
+      <button class="btn btn-ghost" onclick="resetMC('se-mc')">Reset</button>
+    </div>
+    <div class="score-panel" id="se-mc-score"></div>
+  </div>
+  <div class="card">
+    <h2>🔗 Part 3 — Consonant Clusters <span class="badge">Fill in</span></h2>
+    <p style="font-size:.83rem;color:var(--muted);margin-bottom:.85rem;">Type the word from each sentence that contains the consonant cluster shown.</p>
+    <div id="cl-fill"></div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="checkFill('cl-fill',clFill)">Check Answers</button>
+      <button class="btn btn-ghost" onclick="resetFill('cl-fill')">Reset</button>
+    </div>
+    <div class="score-panel" id="cl-fill-score"></div>
+  </div>
+  <div class="card">
+    <h2>🅱️ Part 4 — V or B? <span class="badge">Fill in</span></h2>
+    <p style="font-size:.83rem;color:var(--muted);margin-bottom:.85rem;">Type <strong>b</strong> or <strong>v</strong> to complete each word.</p>
+    <div id="vb-fill"></div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="checkFill('vb-fill',vbFill)">Check Answers</button>
+      <button class="btn btn-ghost" onclick="resetFill('vb-fill')">Reset</button>
+    </div>
+    <div class="score-panel" id="vb-fill-score"></div>
+  </div>
+  <div class="card">
+    <h2>✅ Part 5 — Spelling True or False <span class="badge">5 questions</span></h2>
+    <div id="sp-tf"></div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="checkTF('sp-tf',spTF)">Check Answers</button>
+      <button class="btn btn-ghost" onclick="resetTF('sp-tf')">Reset</button>
+    </div>
+    <div class="score-panel" id="sp-tf-score"></div>
+  </div>
+</div>
+
+<!-- ══════════════ WRITING (DAD REVIEW) ══════════════ -->
+<div id="writing" class="section">
+  <div class="card">
+    <h2>✍️ Write Sentences — Vocabulary Words <span class="badge">Dad reviews</span></h2>
+    <p style="font-size:.88rem;color:var(--muted);margin-bottom:1rem;">Write a meaningful sentence using each vocabulary word. Dad will read and grade these!</p>
+    <div class="writing-item"><label><span class="w-pill">Hill</span> Write a sentence using <em>hill</em>:</label><textarea id="w-hill" placeholder="The hill was…"></textarea></div>
+    <div class="writing-item"><label><span class="w-pill">Reef</span> Write a sentence using <em>reef</em>:</label><textarea id="w-reef" placeholder="The reef…"></textarea></div>
+    <div class="writing-item"><label><span class="w-pill">Extinction</span> Write a sentence using <em>extinction</em>:</label><textarea id="w-extinction" placeholder="Extinction happens when…"></textarea></div>
+    <div class="writing-item"><label><span class="w-pill">Fur</span> Write a sentence using <em>fur</em>:</label><textarea id="w-fur" placeholder="The animal's fur…"></textarea></div>
+    <div class="writing-item"><label><span class="w-pill">Endangered</span> Write a sentence using <em>endangered</em>:</label><textarea id="w-endangered" placeholder="Endangered animals…"></textarea></div>
+    <div class="btn-row">
+      <button class="dad-btn" id="dad-submit-btn" onclick="openDadModal()">👨 Submit to Dad for Review</button>
+    </div>
+    <div class="sub-notice" id="sub-notice">✅ Submitted! Dad will review your sentences.</div>
+    <div class="dad-banner" id="dad-banner">📋 Dad's grade will appear here after review.</div>
+  </div>
+</div>
+
+<!-- ══════════════ FINAL SCORE ══════════════ -->
+<div id="final" class="section">
+  <div class="card" id="final-score-section">
+    <h2 style="justify-content:center;">🏆 Final Score</h2>
+    <p style="color:var(--muted);margin-bottom:1.4rem;font-size:.88rem;">Make sure you've checked all sections before calculating your grade.</p>
+    <button class="btn btn-primary" onclick="computeFinal()" style="font-size:.97rem;padding:.65rem 1.9rem;">Calculate My Grade</button>
+    <div id="final-result" style="margin-top:1.4rem;display:none;">
+      <div class="grade-ring" id="grade-ring"><span class="big-grade" id="big-grade"></span></div>
+      <div style="font-size:1.4rem;font-weight:800;" id="final-pct"></div>
+      <div class="final-detail" id="final-msg"></div>
+      <div class="section-scores" id="section-scores"></div>
+      <div style="margin-top:1.4rem;"><button class="btn btn-ghost" onclick="resetAll()">🔄 Start Over</button></div>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<!-- ══════════════ DAD MODAL ══════════════ -->
+<div class="modal-overlay" id="dad-modal">
+  <div class="modal">
+    <div class="modal-hdr"><h3>👨 Dad's Review Panel</h3><button class="modal-x" onclick="closeDadModal()">✕</button></div>
+    <div class="modal-body">
+      <p style="font-size:.83rem;color:var(--muted);margin-bottom:1.1rem;">Read each sentence and give it a grade. You can also leave a quick comment!</p>
+      <div class="ri"><div class="ri-word">✏️ Hill</div><div class="ri-ans" id="rev-hill">—</div><div class="ri-grade"><button class="gb good" onclick="setGb('hill','good',this)">✅ Great!</button><button class="gb ok" onclick="setGb('hill','ok',this)">👍 Good try</button><button class="gb redo" onclick="setGb('hill','redo',this)">🔁 Try again</button></div><div class="ri-cmt"><input type="text" id="cmt-hill" placeholder="Optional comment…"></div></div>
+      <div class="ri"><div class="ri-word">✏️ Reef</div><div class="ri-ans" id="rev-reef">—</div><div class="ri-grade"><button class="gb good" onclick="setGb('reef','good',this)">✅ Great!</button><button class="gb ok" onclick="setGb('reef','ok',this)">👍 Good try</button><button class="gb redo" onclick="setGb('reef','redo',this)">🔁 Try again</button></div><div class="ri-cmt"><input type="text" id="cmt-reef" placeholder="Optional comment…"></div></div>
+      <div class="ri"><div class="ri-word">✏️ Extinction</div><div class="ri-ans" id="rev-extinction">—</div><div class="ri-grade"><button class="gb good" onclick="setGb('extinction','good',this)">✅ Great!</button><button class="gb ok" onclick="setGb('extinction','ok',this)">👍 Good try</button><button class="gb redo" onclick="setGb('extinction','redo',this)">🔁 Try again</button></div><div class="ri-cmt"><input type="text" id="cmt-extinction" placeholder="Optional comment…"></div></div>
+      <div class="ri"><div class="ri-word">✏️ Fur</div><div class="ri-ans" id="rev-fur">—</div><div class="ri-grade"><button class="gb good" onclick="setGb('fur','good',this)">✅ Great!</button><button class="gb ok" onclick="setGb('fur','ok',this)">👍 Good try</button><button class="gb redo" onclick="setGb('fur','redo',this)">🔁 Try again</button></div><div class="ri-cmt"><input type="text" id="cmt-fur" placeholder="Optional comment…"></div></div>
+      <div class="ri"><div class="ri-word">✏️ Endangered</div><div class="ri-ans" id="rev-endangered">—</div><div class="ri-grade"><button class="gb good" onclick="setGb('endangered','good',this)">✅ Great!</button><button class="gb ok" onclick="setGb('endangered','ok',this)">👍 Good try</button><button class="gb redo" onclick="setGb('endangered','redo',this)">🔁 Try again</button></div><div class="ri-cmt"><input type="text" id="cmt-endangered" placeholder="Optional comment…"></div></div>
+    </div>
+    <div class="modal-ftr"><button class="btn btn-ghost" onclick="closeDadModal()">Cancel</button><button class="btn btn-primary" onclick="saveDadReview()">💾 Save Review</button></div>
+  </div>
+</div>
+
+<script>
+// ── DATA ──────────────────────────────────────────────────────────────────────
+
+const swMC = [
+  { q:"1. Which animals are mentioned as endangered?", options:["Wolves, tigers, elephants, rhinos","Polar bears, gorillas, rhinos, elephants","Lions, cheetahs, pandas, bears","Dolphins, seals, whales, sharks"], answer:1 },
+  { q:"2. According to the text, why do animals become endangered?", options:["They eat too much food","They are too slow","Pollution and climate change","They cannot find water"], answer:2 },
+  { q:"3. How does the text describe the list of endangered animals?", options:["Very short","Not important","Very long","Only five animals"], answer:2 },
+  { q:"4. What kind of problem is climate change according to the text?", options:["A small problem","A funny challenge","A serious problem","Not a problem"], answer:2 },
+];
+const swTF = [
+  { s:"Gorillas are mentioned as endangered animals.", a:true },
+  { s:"The text says climate change is not a problem.", a:false },
+  { s:"Polar bears are on the endangered list.", a:true },
+  { s:"The text says there is only ONE reason animals become endangered.", a:false },
+  { s:"Elephants are mentioned as endangered in the text.", a:true },
+];
+
+const ausFill = [
+  { q:"1. What did the Tasmanian tiger eat?", a:"meat", hint:"It was carnivorous — it ate meat." },
+  { q:"2. When did the Tasmanian tiger hunt?", a:"at night", hint:"at night" },
+  { q:"3. Who hunted the Tasmanian tiger?", a:"farmers", hint:"farmers" },
+  { q:"5. Name two examples of marsupial animals.", a:"kangaroos and koalas", hint:"kangaroos and koalas" },
+];
+const ausMC = [
+  { q:"4. What is a marsupial animal?", options:["An animal that only lives in Australia","A carnivorous animal that eats sheep","An animal that carries its babies in a pouch","An endangered animal"], answer:2 },
+  { q:"6. Which is an example of a dangerous land animal in Australia?", options:["Jellyfish","Dolphin","Shark","Spider"], answer:3 },
+  { q:"7. What does 'carnivorous' mean?", options:["It eats plants","It eats meat","It only eats fish","It doesn't eat anything"], answer:1 },
+  { q:"8. Why did farmers hunt the Tasmanian tiger?", options:["For its fur","Because it was cute","Because it attacked their sheep","To put it in a zoo"], answer:2 },
+];
+const ausTF = [
+  { s:"Kangaroos and koalas are marsupials.", a:true },
+  { s:"The Tasmanian tiger ate only plants.", a:false },
+  { s:"Australia has lots of unusual animals.", a:true },
+  { s:"The Tasmanian tiger hunted during the day.", a:false },
+  { s:"Jellyfish are dangerous in the oceans.", a:true },
+];
+
+const wdFill = [
+  { q:"3. What is the name of the caves the family visited?", a:"jenolan caves", hint:"Jenolan Caves" },
+];
+const wdMC = [
+  { q:"1. Which continent is Sydney located in?", options:["Asia","Africa","Europe","Australia"], answer:3 },
+  { q:"2. Who considered the weather hot?", options:["Only mom","Only the narrator","Only dad","The narrator, dad, and mom"], answer:3 },
+  { q:"4. The guide said the cave shapes are...", options:["Small and round","Big and tall","Dark and scary","Wet and slippery"], answer:1 },
+  { q:"5. What is the name of the guide?", options:["Mr. Jenolan","Mr. Sidney","Mr. Graves","Mr. March"], answer:2 },
+];
+const wdTF = [
+  { s:"The family arrived in Sydney by plane.", a:true },
+  { s:"The weather in Sydney was very cold.", a:false },
+  { s:"Mr. Graves was their guide in the caves.", a:true },
+  { s:"The caves are made of limestone.", a:true },
+  { s:"The family visited Sydney in December.", a:false },
+];
+
+const v1Fill = [
+  { q:"1. Kangaroos are __________ that carry their babies in a pouch.", a:"marsupials" },
+  { q:"2. A baby kangaroo stays safe inside its mother's __________.", a:"pouch" },
+  { q:"3. Some snakes are __________ and can inject poison with a bite.", a:"venomous" },
+  { q:"4. A zebra has black and white __________ on its body.", a:"stripes" },
+  { q:"5. The platypus is an __________ animal because it lays eggs and has a bill.", a:"unusual" },
+];
+const v2Fill = [
+  { q:"1. We will __________ at school at 8:00.", a:"arrive" },
+  { q:"2. The bird flew __________ in the sky.", a:"high" },
+  { q:"3. The room was very __________ at night.", a:"dark" },
+  { q:"4. The king wore a crown made of __________.", a:"gold" },
+  { q:"5. The picture hangs on the __________.", a:"wall" },
+  { q:"6. Always wear a __________ when riding a bike.", a:"helmet" },
+];
+const v3MC = [
+  { q:"A marsupial carries its babies in a ___.", options:["nest","pouch","pocket","den"], answer:1 },
+  { q:"A venomous animal is dangerous because...", options:["it is very big","it can inject poison","it runs very fast","it has stripes"], answer:1 },
+  { q:"Which word means 'different from what is normal'?", options:["venomous","marsupial","unusual","stripes"], answer:2 },
+  { q:"When you 'arrive' somewhere, you...", options:["leave the place","reach the place","call the place","clean the place"], answer:1 },
+  { q:"A 'helmet' is worn to protect your...", options:["feet","hands","head","arms"], answer:2 },
+];
+
+const kccFill = [
+  { q:"1. ___ake", a:"c", hint:"cake — starts with C" },
+  { q:"2. inse___t", a:"c", hint:"insect — uses C" },
+  { q:"3. ___ook", a:"c", hint:"cook — starts with C" },
+  { q:"4. chi___", a:"ck", hint:"chick — ends with CK" },
+  { q:"5. ne___", a:"ck", hint:"neck — ends with CK" },
+  { q:"6. sti___", a:"ck", hint:"stick — ends with CK" },
+  { q:"7. ta___e", a:"k", hint:"take — uses K" },
+  { q:"8. for___", a:"k", hint:"fork — ends with K" },
+  { q:"9. ca___e", a:"k", hint:"cake — uses K in middle" },
+];
+const seMC = [
+  { q:"A) Which word has a silent e?", options:["fin","dog","hope"], answer:2 },
+  { q:"B) Which word has a silent e?", options:["bike","cat","sun"], answer:0 },
+  { q:"C) Which word has a silent e?", options:["name","pig","hat"], answer:0 },
+  { q:"D) Which word has a silent e?", options:["red","time","box"], answer:1 },
+  { q:"E) Which word has a silent e?", options:["kite","jam","rug"], answer:0 },
+  { q:"F) Which word has a silent e?", options:["cake","bed","fox"], answer:0 },
+  { q:"G) Which word has a silent e?", options:["pen","made","lid"], answer:1 },
+  { q:"H) What does silent e do to the vowel before it?", options:["Makes it silent too","Makes it say its long sound","Removes it","Has no effect"], answer:1 },
+  { q:"I) Which word does NOT have a silent e?", options:["kite","hope","name","sun"], answer:3 },
+];
+const clFill = [
+  { q:"The _____ walked across the sand. (CR)", a:"crab" },
+  { q:"The _____ dog ran fast. (CK)", a:"black" },
+  { q:"The _____ is on the wall. (CK)", a:"clock" },
+  { q:"The _____ arrived at the station. (TR)", a:"train" },
+  { q:"A _____ swam in the river. (CR)", a:"crocodile" },
+  { q:"Mom will _____ my homework. (CK)", a:"check" },
+  { q:"A bird sat in the _____. (TR)", a:"tree" },
+  { q:"The _____ smells sweet. (FL)", a:"flower" },
+  { q:"Dad _____ to the store. (DR)", a:"drove" },
+  { q:"The boy played the _____ loudly. (DR)", a:"drum" },
+  { q:"The _____ waved in the wind. (FL)", a:"flag" },
+];
+const vbFill = [
+  { q:"I rode my ___ike to school.", a:"b", hint:"bike — B" },
+  { q:"We read a ___ook in class today.", a:"b", hint:"book — B" },
+  { q:"I like eating ___ananas after lunch.", a:"b", hint:"bananas — B" },
+  { q:"We played ___olleyball at recess.", a:"v", hint:"volleyball — V" },
+  { q:"Mom will ___ake a cake for my birthday.", a:"b", hint:"bake — B" },
+  { q:"The ___olcano erupted with smoke and lava.", a:"v", hint:"volcano — V" },
+  { q:"We traveled in a ___an to the park.", a:"v", hint:"van — V" },
+  { q:"Eating ___egetables is healthy for your body.", a:"v", hint:"vegetables — V" },
+  { q:"I will ___isit my grandma this weekend.", a:"v", hint:"visit — V" },
+  { q:"It is ___ery hot outside today.", a:"v", hint:"very — V" },
+];
+const spTF = [
+  { s:"The word 'chick' ends with CK.", a:true },
+  { s:"CK is used after a long vowel.", a:false },
+  { s:"Silent e makes the vowel before it say its long sound.", a:true },
+  { s:"The word 'tree' starts with the TR consonant cluster.", a:true },
+  { s:"The word 'volcano' starts with the letter B.", a:false },
+];
+
+// ── STUDY ─────────────────────────────────────────────────────────────────────
+const topics = ['t1','t2','t3','t4','t5','t6','t7'];
+const studied = {};
+const scores = {};
+
+function toggleTopic(id) {
+  const body = document.getElementById(`body-${id}`);
+  const hdr = body.previousElementSibling;
+  const open = body.classList.contains('open');
+  topics.forEach(t => {
+    document.getElementById(`body-${t}`).classList.remove('open');
+    document.getElementById(`body-${t}`).previousElementSibling.classList.remove('open');
+  });
+  if (!open) { body.classList.add('open'); hdr.classList.add('open'); }
+}
+
+function markRead(id) {
+  studied[id] = true;
+  const btn = document.getElementById(`btn-${id}`);
+  btn.classList.add('done'); btn.innerHTML='✔ Studied!'; btn.disabled=true;
+  document.getElementById(`topic-${id}`).classList.add('done-topic');
+  const dot = document.getElementById(`dot-${id}`);
+  if (dot) dot.classList.add('done');
+  updateProgress();
+}
+
+function updateProgress() {
+  const done = Object.keys(studied).length, total = topics.length;
+  const pct = Math.round(done/total*100);
+  document.getElementById('study-bar').style.width = pct+'%';
+  document.getElementById('study-lbl').textContent = `${done} of ${total} topics studied`;
+  document.getElementById('study-pct').textContent = pct+'%';
+  if (done === total) document.getElementById('unlock-btn').classList.add('ready');
+}
+
+function unlockTest() {
+  ['nav-saveworld','nav-australia','nav-whendad','nav-vocab','nav-spelling','nav-writing','nav-final'].forEach(id => {
+    document.getElementById(id).disabled = false;
+  });
+  document.getElementById('hdr-sub').textContent = '🎉 Test unlocked! Good luck!';
+  showSection('saveworld');
+}
+
+// ── FLIP CARDS ────────────────────────────────────────────────────────────────
+function flipCard(card) {
+  card.classList.toggle('flipped');
+  const total = document.querySelectorAll('#flip-grid .flip-card').length;
+  const flipped = document.querySelectorAll('#flip-grid .flip-card.flipped').length;
+  if (flipped === total) document.getElementById('vocab-done-banner').classList.add('show');
+}
+
+function filterCards() {
+  const q = document.getElementById('vc-filter').value.trim().toLowerCase();
+  const cards = document.querySelectorAll('#flip-grid .flip-card');
+  let v = 0;
+  cards.forEach(c => { const show = !q || c.textContent.toLowerCase().includes(q); c.style.display=show?'':'none'; if(show)v++; });
+  document.getElementById('vc-count').textContent = `${v} card${v!==1?'s':''}`;
+}
+
+// ── EXERCISES ─────────────────────────────────────────────────────────────────
+function buildFill(id, data) {
+  const el = document.getElementById(id); el.innerHTML='';
+  data.forEach((item,i) => {
+    el.innerHTML += `<div class="fill-item"><label>${item.q}</label><input type="text" id="${id}-${i}" autocomplete="off" placeholder="Your answer…"><div class="hint">✗ Answer: <strong>${item.hint||item.a}</strong></div></div>`;
+  });
+}
+function checkFill(id, data) {
+  let c=0;
+  data.forEach((item,i) => {
+    const inp=document.getElementById(`${id}-${i}`);
+    const val=inp.value.trim().toLowerCase();
+    inp.classList.remove('correct','wrong');
+    if (val===item.a.toLowerCase()){inp.classList.add('correct');c++;}
+    else inp.classList.add('wrong');
+  });
+  showScore(`${id}-score`,c,data.length,id);
+}
+function resetFill(id) {
+  document.querySelectorAll(`#${id} input`).forEach(i=>{i.value='';i.classList.remove('correct','wrong');});
+  const sp=document.getElementById(`${id}-score`); if(sp) sp.classList.remove('show');
+}
+
+function buildMC(id, data) {
+  const el=document.getElementById(id); el.innerHTML='';
+  data.forEach((item,i) => {
+    let opts=item.options.map((o,j)=>`<label id="${id}-${i}-l${j}"><input type="radio" name="${id}-${i}" value="${j}"> ${o}</label>`).join('');
+    el.innerHTML+=`<div class="mc-item"><p>${i+1}. ${item.q}</p><div class="mc-options">${opts}</div></div>`;
+  });
+}
+function checkMC(id, data) {
+  let c=0;
+  data.forEach((item,i)=>{
+    const chosen=document.querySelector(`input[name="${id}-${i}"]:checked`);
+    item.options.forEach((_,j)=>document.getElementById(`${id}-${i}-l${j}`).classList.remove('correct-choice','wrong-choice'));
+    if(!chosen)return;
+    const val=parseInt(chosen.value);
+    if(val===item.answer){document.getElementById(`${id}-${i}-l${val}`).classList.add('correct-choice');c++;}
+    else{document.getElementById(`${id}-${i}-l${val}`).classList.add('wrong-choice');document.getElementById(`${id}-${i}-l${item.answer}`).classList.add('correct-choice');}
+  });
+  showScore(`${id}-score`,c,data.length,id);
+}
+function resetMC(id) {
+  document.querySelectorAll(`#${id} input[type=radio]`).forEach(r=>r.checked=false);
+  document.querySelectorAll(`#${id} label`).forEach(l=>l.classList.remove('correct-choice','wrong-choice'));
+  const sp=document.getElementById(`${id}-score`); if(sp)sp.classList.remove('show');
+}
+
+function buildTF(id, data) {
+  const el=document.getElementById(id); el.innerHTML='';
+  data.forEach((item,i)=>{
+    el.innerHTML+=`<div class="tf-item"><span class="stmt">${i+1}. ${item.s}</span><button class="tf-btn" id="${id}-T-${i}" onclick="selTF('${id}',${i},'T')">TRUE</button><button class="tf-btn" id="${id}-F-${i}" onclick="selTF('${id}',${i},'F')">FALSE</button></div>`;
+  });
+}
+function selTF(id,i,c){
+  ['T','F'].forEach(x=>document.getElementById(`${id}-${x}-${i}`).classList.remove('sel-T','sel-F'));
+  document.getElementById(`${id}-${c}-${i}`).classList.add(`sel-${c}`);
+}
+function checkTF(id,data){
+  let c=0;
+  data.forEach((item,i)=>{
+    const tB=document.getElementById(`${id}-T-${i}`),fB=document.getElementById(`${id}-F-${i}`);
+    const chosen=tB.classList.contains('sel-T')?true:fB.classList.contains('sel-F')?false:null;
+    ['T','F'].forEach(x=>{const b=document.getElementById(`${id}-${x}-${i}`);b.classList.remove('sel-T','sel-F','ok-T','ok-F','no-T','no-F');});
+    (item.a?tB:fB).classList.add(item.a?'ok-T':'ok-F');
+    if(chosen===null)return;
+    if(chosen===item.a)c++;
+    else(item.a?fB:tB).classList.add(item.a?'no-F':'no-T');
+  });
+  showScore(`${id}-score`,c,data.length,id);
+}
+function resetTF(id){
+  document.querySelectorAll(`#${id} .tf-btn`).forEach(b=>b.className='tf-btn');
+  const sp=document.getElementById(`${id}-score`);if(sp)sp.classList.remove('show');
+}
+
+// ── SCORE ─────────────────────────────────────────────────────────────────────
+function recordScore(id,c,t){scores[id]={correct:c,total:t};}
+function showScore(panelId,c,t,trackId){
+  const pct=Math.round(c/t*100),g=getGrade(pct);
+  const p=document.getElementById(panelId);
+  p.className='score-panel show';
+  p.innerHTML=`<span class="sn">${c}/${t}</span><span class="sl">correct</span><span class="sg grade-${g}">${g} (${pct}%)</span>`;
+  if(trackId)recordScore(trackId,c,t);
+}
+function getGrade(p){return p>=90?'A':p>=80?'B':p>=70?'C':'D';}
+
+// ── DAD REVIEW ────────────────────────────────────────────────────────────────
+const dadGrades={hill:null,reef:null,extinction:null,fur:null,endangered:null};
+const dadCmts={};
+function openDadModal(){
+  const words=['hill','reef','extinction','fur','endangered'];
+  const vals=words.map(w=>document.getElementById(`w-${w}`).value.trim());
+  if(!vals.some(v=>v)){alert('Please write at least one sentence first!');return;}
+  words.forEach(w=>{document.getElementById(`rev-${w}`).textContent=document.getElementById(`w-${w}`).value.trim()||'(no answer)';});
+  document.getElementById('dad-modal').classList.add('show');
+}
+function closeDadModal(){document.getElementById('dad-modal').classList.remove('show');}
+function setGb(word,grade,btn){
+  btn.closest('.ri-grade').querySelectorAll('.gb').forEach(b=>b.classList.remove('sel'));
+  btn.classList.add('sel');dadGrades[word]=grade;
+}
+function saveDadReview(){
+  const graded=Object.values(dadGrades).filter(g=>g!==null).length;
+  if(graded===0){alert('Please grade at least one sentence.');return;}
+  const words=['hill','reef','extinction','fur','endangered'];
+  words.forEach(w=>{dadCmts[w]=document.getElementById(`cmt-${w}`).value.trim();document.getElementById(`w-${w}`).classList.add('submitted');document.getElementById(`w-${w}`).disabled=true;});
+  const map={good:1,ok:0.5,redo:0};
+  let total=0;words.forEach(w=>{total+=dadGrades[w]?map[dadGrades[w]]:0;});
+  const lbl={good:'✅ Great!',ok:'👍 Good try',redo:'🔁 Try again'};
+  const lines=words.map(w=>{const g=dadGrades[w]?lbl[dadGrades[w]]:'—';const c=dadCmts[w]?` — "${dadCmts[w]}"`:'';\nreturn `<strong>${w.charAt(0).toUpperCase()+w.slice(1)}:</strong> ${g}${c}`;}).join('<br>');
+  document.getElementById('dad-banner').innerHTML=`📋 Dad's review:<br>${lines}`;
+  document.getElementById('dad-banner').classList.add('show');
+  document.getElementById('sub-notice').classList.add('show');
+  document.getElementById('dad-submit-btn').disabled=true;
+  document.getElementById('dad-submit-btn').textContent='✅ Reviewed by Dad';
+  recordScore('writing',total,words.length);
+  closeDadModal();
+}
+
+// ── FINAL SCORE ───────────────────────────────────────────────────────────────
+function computeFinal(){
+  const sections={
+    'Save Our World':['sw-mc','sw-tf'],
+    'Australia':['aus-fill','aus-mc','aus-tf'],
+    'When Dad...':['wd-fill','wd-mc','wd-tf'],
+    'Vocabulary':['v1-fill','v2-fill','v3-mc'],
+    'Spelling':['kcc-fill','se-mc','cl-fill','vb-fill','sp-tf'],
+    'Writing (Dad)':['writing'],
+  };
+  let totalC=0,totalT=0,html='';
+  for(const[name,ids] of Object.entries(sections)){
+    let sc=0,tot=0;
+    ids.forEach(id=>{if(scores[id]){sc+=scores[id].correct;tot+=scores[id].total;}});
+    if(tot===0){html+=`<div class="ss-row"><span>${name}</span><span style="color:var(--muted);font-size:.83rem">Not yet checked</span></div>`;continue;}
+    const pct=Math.round(sc/tot*100);
+    totalC+=sc;totalT+=tot;
+    html+=`<div class="ss-row"><span style="min-width:120px">${name}</span><div class="pb-wrap"><div class="pb" style="width:${pct}%"></div></div><span style="font-weight:700;min-width:65px;text-align:right">${sc}/${tot} (${pct}%)</span></div>`;
+  }
+  const fp=totalT>0?Math.round(totalC/totalT*100):0;
+  const g=getGrade(fp);
+  const colors={A:'#16a34a',B:'#0891b2',C:'#d97706',D:'#dc2626'};
+  const msgs={A:'🎉 Excellent! You are ready for the exam!',B:'👍 Great job! Review a few topics.',C:'📚 Good effort! More practice will help.',D:'💪 Keep studying — you can do it!'};
+  document.getElementById('grade-ring').style.borderColor=colors[g];
+  document.getElementById('big-grade').textContent=g;
+  document.getElementById('big-grade').style.color=colors[g];
+  document.getElementById('final-pct').textContent=`${fp}% — ${totalC}/${totalT} correct`;
+  document.getElementById('final-msg').textContent=msgs[g];
+  document.getElementById('section-scores').innerHTML=html;
+  document.getElementById('final-result').style.display='block';
+}
+
+function resetAll(){
+  Object.keys(scores).forEach(k=>delete scores[k]);
+  Object.keys(studied).forEach(k=>delete studied[k]);
+  Object.keys(dadGrades).forEach(k=>dadGrades[k]=null);
+  ['sw-mc','aus-mc','wd-mc','v3-mc','se-mc'].forEach(id=>resetMC(id));
+  ['sw-tf','aus-tf','wd-tf','sp-tf'].forEach(id=>resetTF(id));
+  ['aus-fill','wd-fill','v1-fill','v2-fill','kcc-fill','cl-fill','vb-fill'].forEach(id=>resetFill(id));
+  document.getElementById('final-result').style.display='none';
+  // Reset writing
+  ['hill','reef','extinction','fur','endangered'].forEach(w=>{
+    const ta=document.getElementById(`w-${w}`);
+    ta.value='';ta.classList.remove('submitted');ta.disabled=false;
+  });
+  document.getElementById('sub-notice').classList.remove('show');
+  document.getElementById('dad-banner').classList.remove('show');
+  document.getElementById('dad-submit-btn').disabled=false;
+  document.getElementById('dad-submit-btn').textContent='👨 Submit to Dad for Review';
+  // Reset study progress
+  topics.forEach(t=>{
+    document.getElementById(`topic-${t}`).classList.remove('done-topic');
+    document.getElementById(`dot-${t}`).classList.remove('done');
+    const btn=document.getElementById(`btn-${t}`);
+    btn.classList.remove('done');btn.innerHTML='✅ I\'ve studied this!';btn.disabled=false;
+    document.getElementById(`body-${t}`).classList.remove('open');
+    document.getElementById(`body-${t}`).previousElementSibling.classList.remove('open');
+  });
+  document.getElementById('study-bar').style.width='0%';
+  document.getElementById('study-lbl').textContent='0 of 7 topics studied';
+  document.getElementById('study-pct').textContent='0%';
+  document.getElementById('unlock-btn').classList.remove('ready');
+  ['nav-saveworld','nav-australia','nav-whendad','nav-vocab','nav-spelling','nav-writing','nav-final'].forEach(id=>document.getElementById(id).disabled=true);
+  document.getElementById('hdr-sub').textContent='Study all topics first, then unlock the test!';
+  document.getElementById('vocab-done-banner').classList.remove('show');
+  document.querySelectorAll('.flip-card.flipped').forEach(c=>c.classList.remove('flipped'));
+  showSection('study');
+}
+
+// ── NAV ───────────────────────────────────────────────────────────────────────
+function showSection(id){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('#main-nav button').forEach(b=>b.classList.toggle('active',b.getAttribute('onclick')&&b.getAttribute('onclick').includes(`'${id}'`)));
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+window.onload = () => {
+  buildMC('sw-mc',swMC); buildTF('sw-tf',swTF);
+  buildFill('aus-fill',ausFill); buildMC('aus-mc',ausMC); buildTF('aus-tf',ausTF);
+  buildFill('wd-fill',wdFill); buildMC('wd-mc',wdMC); buildTF('wd-tf',wdTF);
+  buildFill('v1-fill',v1Fill); buildFill('v2-fill',v2Fill); buildMC('v3-mc',v3MC);
+  buildFill('kcc-fill',kccFill); buildMC('se-mc',seMC); buildFill('cl-fill',clFill); buildFill('vb-fill',vbFill); buildTF('sp-tf',spTF);
+};
+</script>
 </body>
 </html>
