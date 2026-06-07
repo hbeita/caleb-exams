@@ -989,7 +989,8 @@ function saveDadReview(){
   const map={good:1,ok:0.5,redo:0};
   let total=0;words.forEach(w=>{total+=dadGrades[w]?map[dadGrades[w]]:0;});
   const lbl={good:'✅ Great!',ok:'👍 Good try',redo:'🔁 Try again'};
-  const lines=words.map(w=>{const g=dadGrades[w]?lbl[dadGrades[w]]:'—';const c=dadCmts[w]?` — "${dadCmts[w]}"`:'';\nreturn `<strong>${w.charAt(0).toUpperCase()+w.slice(1)}:</strong> ${g}${c}`;}).join('<br>');
+  const lines=words.map(w=>{const g=dadGrades[w]?lbl[dadGrades[w]]:'—';const c=dadCmts[w]?` — "${dadCmts[w]}"`:'';
+return `<strong>${w.charAt(0).toUpperCase()+w.slice(1)}:</strong> ${g}${c}`;}).join('<br>');
   document.getElementById('dad-banner').innerHTML=`📋 Dad's review:<br>${lines}`;
   document.getElementById('dad-banner').classList.add('show');
   document.getElementById('sub-notice').classList.add('show');
