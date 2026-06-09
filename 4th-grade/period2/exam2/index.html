@@ -3,23 +3,912 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Coming Soon — Caleb's Exam Practice</title>
+<title>Language Arts — Exam Practice</title>
 <style>
-  body { font-family: 'Segoe UI', sans-serif; background: #f9fafb; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; }
-  .box { text-align: center; padding: 3rem 2rem; }
-  .icon { font-size: 4rem; margin-bottom: 1rem; }
-  h1 { font-size: 1.5rem; font-weight: 800; color: #1f2937; margin-bottom: .5rem; }
-  p { color: #6b7280; font-size: .95rem; margin-bottom: 1.5rem; }
-  a { display: inline-block; padding: .55rem 1.3rem; background: #4f46e5; color: white; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: .9rem; }
-  a:hover { opacity: .85; }
+:root{--primary:#7c3aed;--primary-light:#f5f3ff;--success:#16a34a;--success-light:#dcfce7;--error:#dc2626;--error-light:#fee2e2;--warn:#d97706;--warn-light:#fef3c7;--border:#e5e7eb;--text:#1f2937;--muted:#6b7280;--bg:#f9fafb;--card:#fff;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Segoe UI',sans-serif;background:var(--bg);color:var(--text);}
+header{background:linear-gradient(135deg,#1e1b4b 0%,#7c3aed 55%,#a855f7 100%);color:white;padding:2rem 1rem 1.75rem;text-align:center;position:relative;overflow:hidden;}
+header::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 70% 50%,rgba(255,255,255,.08),transparent 60%);}
+header h1{font-size:1.85rem;font-weight:900;}
+header p{margin-top:.4rem;opacity:.8;font-size:.92rem;}
+nav{display:flex;flex-wrap:wrap;gap:.35rem;justify-content:center;background:white;padding:.6rem .75rem;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:10;}
+nav button{padding:.32rem .75rem;border-radius:999px;border:2px solid var(--border);background:white;cursor:pointer;font-size:.78rem;font-weight:600;transition:all .2s;}
+nav button.active{background:var(--primary);color:white;border-color:var(--primary);}
+nav button:hover:not(.active):not(:disabled){border-color:var(--primary);color:var(--primary);}
+nav button:disabled{opacity:.38;cursor:not-allowed;}
+nav button.study-btn{background:#fef3c7;border-color:#d97706;color:#92400e;}
+nav button.study-btn.active{background:#d97706;border-color:#d97706;color:white;}
+main{max-width:880px;margin:0 auto;padding:1.4rem 1rem 4rem;}
+.section{display:none;}.section.active{display:block;}
+.card{background:var(--card);border-radius:12px;padding:1.3rem;box-shadow:0 1px 4px rgba(0,0,0,.07);margin-bottom:1.3rem;}
+.card h2{font-size:1.02rem;font-weight:700;margin-bottom:.85rem;color:var(--primary);display:flex;align-items:center;gap:.45rem;flex-wrap:wrap;}
+.badge{background:var(--primary-light);color:var(--primary);font-size:.7rem;padding:.17rem .48rem;border-radius:999px;}
+.study-hdr{background:white;border-radius:14px;padding:1.05rem 1.25rem;box-shadow:0 2px 8px rgba(0,0,0,.08);margin-bottom:1.4rem;}
+.study-hdr h2{font-size:.97rem;font-weight:800;margin-bottom:.65rem;}
+.topic-dots{display:flex;gap:.38rem;flex-wrap:wrap;margin-bottom:.7rem;}
+.topic-dot{width:32px;height:32px;border-radius:50%;background:var(--border);display:flex;align-items:center;justify-content:center;font-size:.95rem;transition:background .3s;position:relative;}
+.topic-dot.done{background:var(--success);}
+.topic-dot.done::after{content:'\2713';position:absolute;bottom:-2px;right:-2px;background:white;color:var(--success);font-size:.52rem;font-weight:900;width:12px;height:12px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:1.5px solid var(--success);}
+.prg-wrap{background:var(--border);border-radius:999px;height:9px;}
+.prg-bar{height:9px;border-radius:999px;background:linear-gradient(90deg,#7c3aed,#a855f7);transition:width .5s ease;}
+.prg-lbl{display:flex;justify-content:space-between;font-size:.78rem;margin-top:.28rem;color:var(--muted);}
+.st-topic{border:2px solid var(--border);border-radius:14px;margin-bottom:.95rem;overflow:hidden;transition:border-color .2s;}
+.st-topic.done-t{border-color:var(--success);}
+.st-hdr{display:flex;justify-content:space-between;align-items:center;padding:.85rem 1.05rem;cursor:pointer;font-weight:700;font-size:.93rem;user-select:none;transition:background .15s;}
+.st-hdr:hover{background:var(--primary-light);}
+.done-t .st-hdr{background:var(--success-light);}
+.left-lbl{display:flex;align-items:center;gap:.55rem;}
+.t-icon{font-size:1.35rem;}
+.ck-badge{background:var(--success);color:white;font-size:.7rem;font-weight:700;padding:.17rem .48rem;border-radius:999px;display:none;}
+.done-t .ck-badge{display:inline;}
+.arrow{font-size:.76rem;transition:transform .2s;color:var(--muted);}
+.st-hdr.open .arrow{transform:rotate(90deg);}
+.st-body{display:none;padding:1.05rem 1.1rem 1.2rem;border-top:2px solid var(--border);}
+.st-body.open{display:block;}
+.done-t .st-body{border-top-color:var(--success);}
+.icon-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:.65rem;margin-bottom:.85rem;}
+.icon-card{background:linear-gradient(135deg,#f5f3ff,#ede9fe);border:2px solid #c4b5fd;border-radius:12px;padding:.75rem .55rem;text-align:center;transition:transform .15s;}
+.icon-card:hover{transform:translateY(-2px);}
+.ic-icon{font-size:1.9rem;display:block;margin-bottom:.3rem;}
+.ic-word{font-weight:800;font-size:.85rem;color:#5b21b6;display:block;margin-bottom:.22rem;}
+.ic-def{font-size:.7rem;color:#6b7280;line-height:1.3;}
+.verb-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(115px,1fr));gap:.55rem;margin-bottom:.85rem;}
+.verb-pair{border-radius:10px;padding:.6rem .7rem;display:flex;flex-direction:column;align-items:center;text-align:center;background:#f5f3ff;border:2px solid #c4b5fd;}
+.verb-base{font-size:.78rem;color:var(--muted);text-decoration:underline dashed;}
+.verb-arrow{font-size:.7rem;color:var(--muted);margin:.1rem 0;}
+.verb-past{font-size:.95rem;font-weight:900;color:#5b21b6;}
+.rule-boxes{display:grid;grid-template-columns:1fr 1fr;gap:.65rem;margin-bottom:.85rem;}
+.rule-box{border-radius:12px;padding:.85rem;}
+.rule-box h4{font-size:.85rem;font-weight:800;margin-bottom:.3rem;}
+.rule-text{font-size:.72rem;margin-bottom:.42rem;opacity:.8;font-style:italic;line-height:1.35;}
+.rule-eg{display:inline-flex;align-items:center;gap:.3rem;font-size:.8rem;font-weight:600;background:rgba(255,255,255,.6);border-radius:6px;padding:.15rem .42rem;margin:.15rem;}
+.pattern-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:.85rem;}
+.pattern-box{border-radius:12px;padding:1rem;}
+.pattern-box h3{font-size:.92rem;font-weight:800;margin-bottom:.45rem;}
+.pat-formula{font-size:.8rem;font-weight:700;margin-bottom:.4rem;font-family:monospace;background:rgba(0,0,0,.06);border-radius:6px;padding:.28rem .52rem;display:inline-block;}
+.pat-ex{font-size:.78rem;font-style:italic;color:#374151;margin-top:.2rem;}
+.cn-cols{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:.85rem;}
+.cn-col{border-radius:12px;padding:.85rem;}
+.cn-col h3{font-size:.9rem;font-weight:800;margin-bottom:.4rem;}
+.cn-it{font-size:.86rem;font-weight:600;padding:.18rem 0;display:block;}
+.qty-grid{display:grid;grid-template-columns:1fr 1fr;gap:.65rem;margin-bottom:.85rem;}
+.qty-box{border-radius:12px;padding:.85rem;}
+.qty-word{font-size:1.35rem;font-weight:900;display:block;margin-bottom:.25rem;}
+.qty-rule{font-size:.72rem;margin-bottom:.4rem;opacity:.8;}
+.qty-ex{font-size:.78rem;font-style:italic;border-radius:6px;padding:.22rem .42rem;background:rgba(255,255,255,.55);}
+.flip-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:.85rem;margin-bottom:.9rem;}
+.flip-hint{font-size:.78rem;color:var(--muted);margin-bottom:.65rem;}
+.flip-card{height:195px;perspective:900px;cursor:pointer;}
+.flip-card-inner{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.4,0,.2,1);border-radius:14px;}
+.flip-card.flipped .flip-card-inner{transform:rotateY(180deg);}
+.flip-face{position:absolute;inset:0;border-radius:14px;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:.85rem;text-align:center;box-shadow:0 3px 12px rgba(0,0,0,.1);}
+.flip-front{background:linear-gradient(135deg,#7c3aed,#a855f7);color:white;gap:.35rem;}
+.fc-label{font-size:.58rem;opacity:.62;text-transform:uppercase;letter-spacing:.09em;}
+.fc-word{font-size:1.05rem;font-weight:900;line-height:1.2;}
+.fc-tap{font-size:.6rem;opacity:.5;margin-top:.4rem;}
+.flip-front::after{content:'';position:absolute;inset:0;border-radius:14px;background:radial-gradient(circle at 28% 28%,rgba(255,255,255,.18),transparent 60%);pointer-events:none;}
+.flip-back{background:white;border:2px solid #e9d5ff;transform:rotateY(180deg);gap:.22rem;}
+.fb-pic{font-size:2.4rem;line-height:1;}
+.fb-es{font-size:.9rem;font-weight:900;color:var(--primary);}
+.fb-en{font-size:.68rem;color:var(--muted);font-style:italic;line-height:1.3;}
+.fb-ex{font-size:.63rem;color:#374151;background:var(--bg);border-radius:6px;padding:.18rem .35rem;margin-top:.22rem;line-height:1.3;border:1px solid var(--border);}
+.vc-done{display:none;background:var(--success-light);border:2px solid var(--success);border-radius:10px;padding:.6rem 1rem;text-align:center;font-weight:700;color:var(--success);font-size:.88rem;margin-bottom:.6rem;}
+.vc-done.show{display:block;}
+.read-btn{margin-top:.7rem;padding:.42rem 1.05rem;border-radius:8px;border:2px solid var(--success);background:white;color:var(--success);font-weight:700;cursor:pointer;font-size:.86rem;transition:all .2s;}
+.read-btn:hover,.read-btn.done{background:var(--success);color:white;}
+.unlock-btn{display:block;width:100%;padding:.78rem;border-radius:12px;border:none;background:linear-gradient(135deg,#16a34a,#15803d);color:white;font-weight:800;font-size:1rem;cursor:pointer;margin-top:.95rem;transition:all .2s;opacity:.35;pointer-events:none;box-shadow:0 4px 12px rgba(22,163,74,.3);}
+.unlock-btn.ready{opacity:1;pointer-events:auto;animation:pg 1.5s ease-in-out infinite;}
+@keyframes pg{0%,100%{box-shadow:0 4px 12px rgba(22,163,74,.3);}50%{box-shadow:0 4px 22px rgba(22,163,74,.6);}}
+.fill-item{margin-bottom:.82rem;}
+.fill-item label{display:block;margin-bottom:.26rem;font-size:.92rem;line-height:1.55;}
+.fill-item input{width:100%;padding:.4rem .66rem;border:2px solid var(--border);border-radius:8px;font-size:.92rem;transition:border-color .2s;}
+.fill-item input:focus{outline:none;border-color:var(--primary);}
+.fill-item input.correct{border-color:var(--success);background:var(--success-light);}
+.fill-item input.wrong{border-color:var(--error);background:var(--error-light);}
+.hint{font-size:.76rem;color:var(--error);margin-top:.2rem;display:none;}
+.fill-item input.wrong~.hint{display:block;}
+.passage-box{background:#f8fafc;border:2px solid #e2e8f0;border-left:4px solid var(--primary);border-radius:10px;padding:1rem 1.1rem;font-size:.93rem;line-height:2.2;margin-bottom:1rem;color:#334155;}
+.passage-box input{width:125px;padding:.22rem .45rem;border:none;border-bottom:2px solid var(--primary);background:transparent;font-size:.9rem;text-align:center;}
+.passage-box input:focus{outline:none;}
+.passage-box input.correct{border-bottom-color:var(--success);color:var(--success);}
+.passage-box input.wrong{border-bottom-color:var(--error);color:var(--error);}
+.mc-item{margin-bottom:.9rem;}
+.mc-item p{margin-bottom:.35rem;font-size:.92rem;font-weight:600;}
+.mc-opts label{display:block;padding:.3rem .52rem;cursor:pointer;border-radius:6px;font-size:.86rem;margin-bottom:.16rem;transition:background .15s;}
+.mc-opts label:hover{background:var(--primary-light);}
+.mc-opts input[type=radio]{margin-right:.42rem;accent-color:var(--primary);}
+.mc-opts label.cc{background:var(--success-light);}
+.mc-opts label.wc{background:var(--error-light);}
+.tf-item{display:flex;align-items:center;gap:.65rem;margin-bottom:.65rem;font-size:.92rem;flex-wrap:wrap;}
+.tf-item .stmt{flex:1;min-width:180px;}
+.tf-btn{padding:.26rem .82rem;border-radius:999px;border:2px solid var(--border);background:white;cursor:pointer;font-weight:600;font-size:.8rem;}
+.tf-btn.sT{background:#2563eb;color:white;border-color:#2563eb;}
+.tf-btn.sF{background:var(--error);color:white;border-color:var(--error);}
+.tf-btn.okT,.tf-btn.okF{background:var(--success);color:white;border-color:var(--success);}
+.tf-btn.noT,.tf-btn.noF{background:var(--error);color:white;border-color:var(--error);}
+.cn-grid{display:grid;grid-template-columns:1fr 1fr;gap:.55rem;margin-bottom:.85rem;}
+.cn-item-ex{display:flex;align-items:center;justify-content:space-between;background:var(--bg);border:2px solid var(--border);border-radius:8px;padding:.42rem .75rem;font-size:.9rem;}
+.cn-item-ex input{width:42px;text-align:center;border:2px solid var(--border);border-radius:6px;padding:.25rem;font-size:.88rem;font-weight:700;text-transform:uppercase;}
+.cn-item-ex input:focus{outline:none;border-color:var(--primary);}
+.cn-item-ex input.correct{border-color:var(--success);background:var(--success-light);}
+.cn-item-ex input.wrong{border-color:var(--error);background:var(--error-light);}
+.btn-row{display:flex;gap:.65rem;flex-wrap:wrap;margin-top:1.05rem;}
+.btn{padding:.48rem 1.15rem;border-radius:8px;border:none;cursor:pointer;font-weight:700;font-size:.92rem;transition:opacity .2s;}
+.btn:hover{opacity:.85;}
+.btn-p{background:var(--primary);color:white;}
+.btn-g{background:var(--border);color:var(--text);}
+.score-panel{display:none;align-items:center;gap:.85rem;padding:.65rem .95rem;border-radius:8px;background:var(--primary-light);margin-top:.65rem;flex-wrap:wrap;}
+.score-panel.show{display:flex;}
+.sn{font-size:1.3rem;font-weight:800;color:var(--primary);}
+.sl{font-size:.86rem;color:var(--muted);}
+.sg{font-size:1.1rem;font-weight:800;}
+.gA{color:var(--success);}.gB{color:#0891b2;}.gC{color:var(--warn);}.gD{color:var(--error);}
+.writing-item{margin-bottom:.95rem;}
+.writing-item label{display:flex;align-items:center;gap:.45rem;font-weight:700;font-size:.92rem;margin-bottom:.35rem;}
+.w-pill{background:var(--primary);color:white;font-size:.76rem;padding:.16rem .52rem;border-radius:999px;}
+.writing-item textarea{width:100%;padding:.52rem .68rem;border:2px solid var(--border);border-radius:8px;font-size:.92rem;font-family:inherit;resize:vertical;min-height:60px;transition:border-color .2s;line-height:1.5;}
+.writing-item textarea:focus{outline:none;border-color:var(--primary);}
+.writing-item textarea.submitted{background:var(--success-light);border-color:var(--success);}
+.dad-btn{display:flex;align-items:center;gap:.45rem;padding:.52rem 1.25rem;border-radius:8px;border:none;background:linear-gradient(135deg,#f59e0b,#d97706);color:white;font-weight:800;font-size:.9rem;cursor:pointer;transition:opacity .2s;}
+.dad-btn:hover{opacity:.88;}
+.dad-btn:disabled{opacity:.38;cursor:not-allowed;}
+.sub-ok{display:none;background:var(--success-light);border:2px solid var(--success);border-radius:8px;padding:.58rem .95rem;font-size:.84rem;font-weight:700;color:var(--success);margin-top:.65rem;align-items:center;gap:.45rem;}
+.sub-ok.show{display:flex;}
+.dad-result{display:none;margin-top:.65rem;padding:.62rem .95rem;border-radius:8px;background:#fef3c7;border:2px solid #fbbf24;font-size:.86rem;font-weight:700;color:#92400e;line-height:1.7;}
+.dad-result.show{display:block;}
+.modal-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:100;align-items:center;justify-content:center;padding:1rem;}
+.modal-ov.show{display:flex;}
+.modal{background:white;border-radius:16px;width:100%;max-width:520px;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.25);animation:su .25s ease;}
+@keyframes su{from{transform:translateY(20px);opacity:0;}to{transform:translateY(0);opacity:1;}}
+.m-hdr{padding:1.05rem 1.25rem .82rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.m-hdr h3{font-size:1.02rem;font-weight:800;}
+.m-x{background:none;border:none;font-size:1.2rem;cursor:pointer;color:var(--muted);}
+.m-body{padding:1.05rem 1.25rem;}
+.ri{margin-bottom:1.1rem;padding-bottom:1.1rem;border-bottom:1px solid var(--border);}
+.ri:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+.ri-lbl{font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--primary);margin-bottom:.25rem;}
+.ri-ans{background:var(--bg);border-radius:8px;padding:.52rem .72rem;font-size:.92rem;line-height:1.5;margin-bottom:.52rem;border-left:3px solid var(--primary);}
+.ri-grade{display:flex;gap:.42rem;flex-wrap:wrap;}
+.gb{padding:.3rem .82rem;border-radius:999px;border:2px solid var(--border);background:white;font-weight:700;font-size:.8rem;cursor:pointer;transition:all .15s;}
+.gb.good{border-color:var(--success);color:var(--success);}
+.gb.good.sel{background:var(--success);color:white;}
+.gb.ok{border-color:var(--warn);color:var(--warn);}
+.gb.ok.sel{background:var(--warn);color:white;}
+.gb.redo{border-color:var(--error);color:var(--error);}
+.gb.redo.sel{background:var(--error);color:white;}
+.ri-cmt{margin-top:.42rem;}
+.ri-cmt input{width:100%;border:1.5px solid var(--border);border-radius:6px;padding:.3rem .52rem;font-size:.82rem;font-family:inherit;}
+.ri-cmt input:focus{outline:none;border-color:var(--primary);}
+.m-ftr{padding:.82rem 1.25rem;border-top:1px solid var(--border);display:flex;gap:.65rem;justify-content:flex-end;}
+#final-inner{text-align:center;padding:1.75rem 1rem;}
+.grade-ring{border-radius:50%;width:145px;height:145px;display:flex;align-items:center;justify-content:center;margin:0 auto .95rem;border:8px solid;}
+.big-grade{font-size:5.2rem;font-weight:900;line-height:1;}
+.final-detail{font-size:.92rem;color:var(--muted);margin-top:.42rem;}
+.ss-list{margin-top:1.3rem;}
+.ss-row{display:flex;justify-content:space-between;align-items:center;padding:.52rem .68rem;border-bottom:1px solid var(--border);font-size:.92rem;}
+.pb-wrap{background:var(--border);border-radius:999px;height:7px;flex:1;margin:0 .85rem;}
+.pb{height:7px;border-radius:999px;background:var(--primary);transition:width .4s;}
+@media(max-width:580px){header h1{font-size:1.35rem;}.rule-boxes,.pattern-grid,.cn-cols,.qty-grid,.cn-grid{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
-  <div class="box">
-    <div class="icon">🚧</div>
-    <h1>Practice coming soon!</h1>
-    <p>This exam's practice page hasn't been created yet.</p>
-    <a href="../../..">← Back to all exams</a>
+<header>
+  <h1>&#128218; Language Arts Practice</h1>
+  <p id="hdr-sub">Study all topics first, then unlock the test!</p>
+</header>
+<nav id="main-nav">
+  <button class="study-btn active" onclick="go('study')">&#128218; Study</button>
+  <button disabled id="nav-animals" onclick="go('animals')">&#129381; Animals</button>
+  <button disabled id="nav-irr" onclick="go('irr')">&#9201; Irregular</button>
+  <button disabled id="nav-reg" onclick="go('reg')">&#128221; Regular</button>
+  <button disabled id="nav-sent" onclick="go('sent')">&#9989; Sentences</button>
+  <button disabled id="nav-nouns" onclick="go('nouns')">&#128290; Nouns</button>
+  <button disabled id="nav-qty" onclick="go('qty')">&#128202; Quantities</button>
+  <button disabled id="nav-writing" onclick="go('writing')">&#9998; Writing</button>
+  <button disabled id="nav-final" onclick="go('final')">&#127942; Final</button>
+</nav>
+<main>
+
+<!-- STUDY -->
+<div id="study" class="section active">
+<div class="study-hdr">
+  <h2>Study all 6 topics to unlock the practice test</h2>
+  <div class="topic-dots">
+    <div class="topic-dot" id="dot-s1">&#129381;</div>
+    <div class="topic-dot" id="dot-s2">&#9201;</div>
+    <div class="topic-dot" id="dot-s3">&#128221;</div>
+    <div class="topic-dot" id="dot-s4">&#9989;</div>
+    <div class="topic-dot" id="dot-s5">&#128290;</div>
+    <div class="topic-dot" id="dot-s6">&#128202;</div>
   </div>
+  <div class="prg-wrap"><div class="prg-bar" id="prg" style="width:0%"></div></div>
+  <div class="prg-lbl"><span id="prg-lbl">0 of 6 topics studied</span><span id="prg-pct">0%</span></div>
+</div>
+
+<!-- S1: Animals -->
+<div class="st-topic" id="tp-s1">
+  <div class="st-hdr" onclick="toggle('s1')">
+    <span class="left-lbl"><span class="t-icon">&#129381;</span> Animals Vocabulary</span>
+    <span style="display:flex;align-items:center;gap:.45rem;"><span class="ck-badge">Done</span><span class="arrow">&#9658;</span></span>
+  </div>
+  <div class="st-body" id="bd-s1">
+    <p style="font-size:.83rem;color:var(--muted);margin-bottom:.8rem;">Learn each animal and its description. Then flip the cards!</p>
+    <div class="icon-cards">
+      <div class="icon-card"><span class="ic-icon">&#129419;</span><span class="ic-word">Butterfly</span><span class="ic-def">Beautiful insect with 4 colorful wings.</span></div>
+      <div class="icon-card"><span class="ic-icon">&#129429;</span><span class="ic-word">Dinosaur</span><span class="ic-def">Extinct. Lived long ago. Found in museums.</span></div>
+      <div class="icon-card"><span class="ic-icon">&#129413;</span><span class="ic-word">Eagle</span><span class="ic-def">Very large strong bird. Lives in mountains.</span></div>
+      <div class="icon-card"><span class="ic-icon">&#129450;</span><span class="ic-word">Swan</span><span class="ic-def">Big white/black bird, long neck, near rivers.</span></div>
+      <div class="icon-card"><span class="ic-icon">&#128025;</span><span class="ic-word">Octopus</span><span class="ic-def">Lives in the ocean. Has eight arms.</span></div>
+      <div class="icon-card"><span class="ic-icon">&#128034;</span><span class="ic-word">Turtle</span><span class="ic-def">Green, slow, has a shell on its back.</span></div>
+    </div>
+    <div class="vc-done" id="vc-done">All cards flipped! Great job!</div>
+    <p class="flip-hint">Tap each card to flip it and see the Spanish!</p>
+    <div class="flip-grid" id="flip-grid">
+      <div class="flip-card" onclick="flipCard(this)"><div class="flip-card-inner"><div class="flip-face flip-front"><span class="fc-label">Animal</span><span class="fc-word">Butterfly</span><span class="fc-tap">tap to flip</span></div><div class="flip-face flip-back"><span class="fb-pic">&#129419;</span><span class="fb-es">Mariposa</span><span class="fb-en">Colorful insect with 4 wings.</span><span class="fb-ex">"The butterfly is beautiful."</span></div></div></div>
+      <div class="flip-card" onclick="flipCard(this)"><div class="flip-card-inner"><div class="flip-face flip-front"><span class="fc-label">Animal</span><span class="fc-word">Dinosaur</span><span class="fc-tap">tap to flip</span></div><div class="flip-face flip-back"><span class="fb-pic">&#129429;</span><span class="fb-es">Dinosaurio</span><span class="fb-en">Extinct, lived long ago.</span><span class="fb-ex">"I saw dinosaur bones at the museum."</span></div></div></div>
+      <div class="flip-card" onclick="flipCard(this)"><div class="flip-card-inner"><div class="flip-face flip-front"><span class="fc-label">Animal</span><span class="fc-word">Eagle</span><span class="fc-tap">tap to flip</span></div><div class="flip-face flip-back"><span class="fb-pic">&#129413;</span><span class="fb-es">Aguila</span><span class="fb-en">Large bird that lives in mountains.</span><span class="fb-ex">"The eagle flew over the mountain."</span></div></div></div>
+      <div class="flip-card" onclick="flipCard(this)"><div class="flip-card-inner"><div class="flip-face flip-front"><span class="fc-label">Animal</span><span class="fc-word">Swan</span><span class="fc-tap">tap to flip</span></div><div class="flip-face flip-back"><span class="fb-pic">&#129450;</span><span class="fb-es">Cisne</span><span class="fb-en">Big white/black bird near rivers.</span><span class="fb-ex">"The swan swam in the river."</span></div></div></div>
+      <div class="flip-card" onclick="flipCard(this)"><div class="flip-card-inner"><div class="flip-face flip-front"><span class="fc-label">Animal</span><span class="fc-word">Octopus</span><span class="fc-tap">tap to flip</span></div><div class="flip-face flip-back"><span class="fb-pic">&#128025;</span><span class="fb-es">Pulpo</span><span class="fb-en">Ocean animal with eight arms.</span><span class="fb-ex">"The octopus hid under a rock."</span></div></div></div>
+      <div class="flip-card" onclick="flipCard(this)"><div class="flip-card-inner"><div class="flip-face flip-front"><span class="fc-label">Animal</span><span class="fc-word">Turtle</span><span class="fc-tap">tap to flip</span></div><div class="flip-face flip-back"><span class="fb-pic">&#128034;</span><span class="fb-es">Tortuga</span><span class="fb-en">Slow animal with a shell on its back.</span><span class="fb-ex">"The turtle walked very slowly."</span></div></div></div>
+    </div>
+    <button class="read-btn" id="btn-s1" onclick="markRead('s1')">I have studied this!</button>
+  </div>
+</div>
+
+<!-- S2: Irregular Verbs -->
+<div class="st-topic" id="tp-s2">
+  <div class="st-hdr" onclick="toggle('s2')">
+    <span class="left-lbl"><span class="t-icon">&#9201;</span> Irregular Verbs in Past Tense</span>
+    <span style="display:flex;align-items:center;gap:.45rem;"><span class="ck-badge">Done</span><span class="arrow">&#9658;</span></span>
+  </div>
+  <div class="st-body" id="bd-s2">
+    <p style="font-size:.83rem;color:var(--muted);margin-bottom:.8rem;">These verbs do NOT follow the normal rule. You must memorize them!</p>
+    <div class="verb-grid">
+      <div class="verb-pair"><span class="verb-base">buy</span><span class="verb-arrow">to</span><span class="verb-past">bought</span></div>
+      <div class="verb-pair"><span class="verb-base">draw</span><span class="verb-arrow">to</span><span class="verb-past">drew</span></div>
+      <div class="verb-pair"><span class="verb-base">drink</span><span class="verb-arrow">to</span><span class="verb-past">drank</span></div>
+      <div class="verb-pair"><span class="verb-base">take</span><span class="verb-arrow">to</span><span class="verb-past">took</span></div>
+      <div class="verb-pair"><span class="verb-base">beat</span><span class="verb-arrow">to</span><span class="verb-past">beat</span></div>
+      <div class="verb-pair"><span class="verb-base">am/is</span><span class="verb-arrow">to</span><span class="verb-past">was</span></div>
+      <div class="verb-pair"><span class="verb-base">are</span><span class="verb-arrow">to</span><span class="verb-past">were</span></div>
+      <div class="verb-pair"><span class="verb-base">choose</span><span class="verb-arrow">to</span><span class="verb-past">chose</span></div>
+      <div class="verb-pair"><span class="verb-base">break</span><span class="verb-arrow">to</span><span class="verb-past">broke</span></div>
+      <div class="verb-pair"><span class="verb-base">forget</span><span class="verb-arrow">to</span><span class="verb-past">forgot</span></div>
+      <div class="verb-pair"><span class="verb-base">feel</span><span class="verb-arrow">to</span><span class="verb-past">felt</span></div>
+      <div class="verb-pair"><span class="verb-base">eat</span><span class="verb-arrow">to</span><span class="verb-past">ate</span></div>
+    </div>
+    <button class="read-btn" id="btn-s2" onclick="markRead('s2')">I have studied this!</button>
+  </div>
+</div>
+
+<!-- S3: Regular Verbs -->
+<div class="st-topic" id="tp-s3">
+  <div class="st-hdr" onclick="toggle('s3')">
+    <span class="left-lbl"><span class="t-icon">&#128221;</span> Regular Verbs in Past Tense</span>
+    <span style="display:flex;align-items:center;gap:.45rem;"><span class="ck-badge">Done</span><span class="arrow">&#9658;</span></span>
+  </div>
+  <div class="st-body" id="bd-s3">
+    <p style="font-size:.83rem;color:var(--muted);margin-bottom:.8rem;">Regular verbs follow rules. Learn the 4 rules!</p>
+    <div class="rule-boxes">
+      <div class="rule-box" style="background:#f5f3ff;border:2px solid #c4b5fd;">
+        <h4 style="color:#5b21b6;">Rule 1: Ends in E</h4>
+        <p class="rule-text">Just add -d</p>
+        <span class="rule-eg">live - lived</span><span class="rule-eg">love - loved</span>
+      </div>
+      <div class="rule-box" style="background:#fce7f3;border:2px solid #f9a8d4;">
+        <h4 style="color:#9d174d;">Rule 2: Consonant + Y</h4>
+        <p class="rule-text">Change Y to I, add -ed</p>
+        <span class="rule-eg">try - tried</span><span class="rule-eg">study - studied</span>
+      </div>
+      <div class="rule-box" style="background:#dcfce7;border:2px solid #86efac;">
+        <h4 style="color:#15803d;">Rule 3: Vowel + Y</h4>
+        <p class="rule-text">Keep the Y, add -ed</p>
+        <span class="rule-eg">play - played</span><span class="rule-eg">enjoy - enjoyed</span>
+      </div>
+      <div class="rule-box" style="background:#fef3c7;border:2px solid #fcd34d;">
+        <h4 style="color:#92400e;">Rule 4: Other verbs</h4>
+        <p class="rule-text">Just add -ed</p>
+        <span class="rule-eg">walk - walked</span><span class="rule-eg">clean - cleaned</span>
+      </div>
+    </div>
+    <button class="read-btn" id="btn-s3" onclick="markRead('s3')">I have studied this!</button>
+  </div>
+</div>
+
+<!-- S4: Affirmative & Negative -->
+<div class="st-topic" id="tp-s4">
+  <div class="st-hdr" onclick="toggle('s4')">
+    <span class="left-lbl"><span class="t-icon">&#9989;</span> Affirmative and Negative Sentences</span>
+    <span style="display:flex;align-items:center;gap:.45rem;"><span class="ck-badge">Done</span><span class="arrow">&#9658;</span></span>
+  </div>
+  <div class="st-body" id="bd-s4">
+    <div class="pattern-grid">
+      <div class="pattern-box" style="background:#dcfce7;border:2px solid #86efac;">
+        <h3 style="color:#15803d;">Affirmative</h3>
+        <div class="pat-formula">Subject + past verb + complement</div>
+        <p class="pat-ex">"I ate pizza last night."</p>
+        <p class="pat-ex">"She watched a movie yesterday."</p>
+        <p class="pat-ex">"They played soccer after school."</p>
+      </div>
+      <div class="pattern-box" style="background:#fee2e2;border:2px solid #fca5a5;">
+        <h3 style="color:#dc2626;">Negative</h3>
+        <div class="pat-formula">Subject + didn't + base verb</div>
+        <p class="pat-ex">"I didn't eat pizza last night."</p>
+        <p class="pat-ex">"She didn't watch a movie yesterday."</p>
+        <p class="pat-ex">"They didn't play soccer after school."</p>
+      </div>
+    </div>
+    <div style="background:#fef3c7;border:2px solid #fcd34d;border-radius:10px;padding:.75rem 1rem;font-size:.85rem;margin-top:.5rem;">
+      <strong>Key rule:</strong> After "didn't", always use the BASE form of the verb — NOT the past form!<br>
+      Correct: She didn't finish. Wrong: She didn't finished.
+    </div>
+    <button class="read-btn" id="btn-s4" onclick="markRead('s4')" style="margin-top:.85rem;">I have studied this!</button>
+  </div>
+</div>
+
+<!-- S5: Nouns -->
+<div class="st-topic" id="tp-s5">
+  <div class="st-hdr" onclick="toggle('s5')">
+    <span class="left-lbl"><span class="t-icon">&#128290;</span> Countable and Noncountable Nouns</span>
+    <span style="display:flex;align-items:center;gap:.45rem;"><span class="ck-badge">Done</span><span class="arrow">&#9658;</span></span>
+  </div>
+  <div class="st-body" id="bd-s5">
+    <div class="cn-cols">
+      <div class="cn-col" style="background:#dcfce7;border:2px solid #86efac;">
+        <h3 style="color:#15803d;">Countable (C)</h3>
+        <p style="font-size:.75rem;margin-bottom:.45rem;color:var(--muted);">You can count them one by one.</p>
+        <span class="cn-it">apple - 1 apple, 2 apples</span>
+        <span class="cn-it">pencil, lemon, pineapple</span>
+        <span class="cn-it">student, chair, book</span>
+      </div>
+      <div class="cn-col" style="background:#fef3c7;border:2px solid #fcd34d;">
+        <h3 style="color:#92400e;">Noncountable (N)</h3>
+        <p style="font-size:.75rem;margin-bottom:.45rem;color:var(--muted);">You cannot count them. No "s" form.</p>
+        <span class="cn-it">water (not "2 waters")</span>
+        <span class="cn-it">sugar, salt, bread</span>
+        <span class="cn-it">sand, air, milk</span>
+      </div>
+    </div>
+    <button class="read-btn" id="btn-s5" onclick="markRead('s5')">I have studied this!</button>
+  </div>
+</div>
+
+<!-- S6: Quantity Words -->
+<div class="st-topic" id="tp-s6">
+  <div class="st-hdr" onclick="toggle('s6')">
+    <span class="left-lbl"><span class="t-icon">&#128202;</span> Quantity Words: too, much, many, enough</span>
+    <span style="display:flex;align-items:center;gap:.45rem;"><span class="ck-badge">Done</span><span class="arrow">&#9658;</span></span>
+  </div>
+  <div class="st-body" id="bd-s6">
+    <div class="qty-grid">
+      <div class="qty-box" style="background:#fee2e2;border:2px solid #fca5a5;">
+        <span class="qty-word" style="color:#dc2626;">TOO</span>
+        <p class="qty-rule">More than needed (negative meaning)</p>
+        <p class="qty-ex">"The pasta is too hot to eat."</p>
+      </div>
+      <div class="qty-box" style="background:#fef3c7;border:2px solid #fcd34d;">
+        <span class="qty-word" style="color:#92400e;">MUCH</span>
+        <p class="qty-rule">Used with NONCOUNTABLE nouns</p>
+        <p class="qty-ex">"My coffee has much sugar."</p>
+      </div>
+      <div class="qty-box" style="background:#dcfce7;border:2px solid #86efac;">
+        <span class="qty-word" style="color:#15803d;">MANY</span>
+        <p class="qty-rule">Used with COUNTABLE nouns</p>
+        <p class="qty-ex">"I have many apples at home."</p>
+      </div>
+      <div class="qty-box" style="background:#eef2ff;border:2px solid #c7d2fe;">
+        <span class="qty-word" style="color:#3730a3;">ENOUGH</span>
+        <p class="qty-rule">The right amount you need</p>
+        <p class="qty-ex">"I don't have enough money."</p>
+      </div>
+    </div>
+    <button class="read-btn" id="btn-s6" onclick="markRead('s6')">I have studied this!</button>
+  </div>
+</div>
+
+<button class="unlock-btn" id="unlock-btn" onclick="unlockTest()">Unlock the Practice Test!</button>
+</div>
+
+<!-- ANIMALS TEST -->
+<div id="animals" class="section">
+  <div class="card"><h2>Animals Part 1 - Identify the Animal <span class="badge">Fill in</span></h2>
+    <p style="font-size:.83rem;color:var(--muted);margin-bottom:.85rem;">Word Bank: butterfly, turtle, eagle, dinosaurs, swan, octopus</p>
+    <div id="a-fill"></div>
+    <div class="btn-row"><button class="btn btn-p" onclick="checkFill('a-fill',aFill)">Check Answers</button><button class="btn btn-g" onclick="resetFill('a-fill')">Reset</button></div>
+    <div class="score-panel" id="a-fill-sc"></div>
+  </div>
+  <div class="card"><h2>Animals Part 2 - Multiple Choice <span class="badge">4 questions</span></h2>
+    <div id="a-mc"></div>
+    <div class="btn-row"><button class="btn btn-p" onclick="checkMC('a-mc',aMC)">Check Answers</button><button class="btn btn-g" onclick="resetMC('a-mc')">Reset</button></div>
+    <div class="score-panel" id="a-mc-sc"></div>
+  </div>
+  <div class="card"><h2>Animals Part 3 - True or False <span class="badge">4 questions</span></h2>
+    <div id="a-tf"></div>
+    <div class="btn-row"><button class="btn btn-p" onclick="checkTF('a-tf',aTF)">Check Answers</button><button class="btn btn-g" onclick="resetTF('a-tf')">Reset</button></div>
+    <div class="score-panel" id="a-tf-sc"></div>
+  </div>
+</div>
+
+<!-- IRREGULAR VERBS TEST -->
+<div id="irr" class="section">
+  <div class="card"><h2>Irregular Verbs Part 1 - Complete the Sentences <span class="badge">Fill in</span></h2>
+    <div id="irr-fill"></div>
+    <div class="btn-row"><button class="btn btn-p" onclick="checkFill('irr-fill',irrFill)">Check Answers</button><button class="btn btn-g" onclick="resetFill('irr-fill')">Reset</button></div>
+    <div class="score-panel" id="irr-fill-sc"></div>
+  </div>
+  <div class="card"><h2>Irregular Verbs Part 2 - Complete the Passage <span class="badge">Passage</span></h2>
+    <div class="passage-box">Yesterday, I <input type="text" id="ip1" autocomplete="off" placeholder="am"> at the museum with my friends. The statues <input type="text" id="ip2" autocomplete="off" placeholder="are"> big, and we had a lot of fun. I accidentally <input type="text" id="ip3" autocomplete="off" placeholder="break"> my glass while walking.</div>
+    <div class="btn-row"><button class="btn btn-p" onclick="checkPassage('irr')">Check Answers</button><button class="btn btn-g" onclick="resetPassage('irr')">Reset</button></div>
+    <div class="score-panel" id="irr-pass-sc"></div>
+  </div>
+  <div class="card"><h2>Irregular Verbs Part 3 - Multiple Choice <span class="badge">4 questions</span></h2>
+    <div id="irr-mc"></div>
+    <div class="btn-row"><button class="btn btn-p" onclick="checkMC('irr-mc',irrMC)">Check Answers</button><button class="btn btn-g" onclick="resetMC('irr-mc')">Reset</button></div>
+    <div class="score-panel" id="irr-mc-sc"></div>
+  </div>
+  <div class="card"><h2>Irregular Verbs Part 4 - True or False <span class="badge">4 questions</span></h2>
+    <div id="irr-tf"></div>
+    <div class="btn-row"><button class="btn btn-p" onclick="checkTF('irr-tf',irrTF)">Check Answers</button><button class="btn btn-g" onclick="resetTF('irr-tf')">Reset</button></div>
+    <div class="score-panel" id="irr-tf-sc"></div>
+  </div>
+</div>
+
+<!-- REGULAR VERBS TEST -->
+<div id="reg" class="section">
+  <div class="card"><h2>Regular Verbs Part 1 - Complete the Sentences <span class="badge">Fill in</span></h2>
+    <div id="reg-fill"></div>
+    <div class="btn-row"><button class="btn btn-p" onclick="checkFill('reg-fill',regFill)">Check Answers</button><button class="btn btn-g" onclick="resetFill('reg-fill')">Reset</button></div>
+    <div class="score-panel" id="reg-fill-sc"></div>
+  </div>
+  <div class="card"><h2>Regular Verbs Part 2 - Complete the Passage <span class="badge">Passage</span></h2>
+    <div class="passage-box">Yesterday, I went to a restaurant with my family. We <input type="text" id="rp1" autocomplete="off" placeholder="order"> pasta and juice for lunch. After eating, we went to the park. My sister <input type="text" id="rp2" autocomplete="off" placeholder="jump"> on the playground. When we got home, I <input type="text" id="rp3" autocomplete="off" placeholder="relax"> on the sofa before studying for my exam.</div>
+    <div class="btn-row"><button class="btn btn-p" onclick="checkPassage('reg')">Check Answers</button><button class="btn btn-g" onclick="resetPassage('reg')">Reset</button></div>
+    <div class="score-panel" id="reg-pass-sc"></div>
+  </div>
+  <div class="card"><h2>Regular Verbs Part 3 - Multiple Choice <span class="badge">4 questions</span></h2>
+    <div id="reg-mc"></div>
+    <div class="btn-row"><button class="btn btn-p" onclick="checkMC('reg-mc',regMC)">Check Answers</button><button class="btn btn-g" onclick="resetMC('reg-mc')">Reset</button></div>
+    <div class="score-panel" id="reg-mc-sc"></div>
+  </div>
+  <div class="card"><h2>Regular Verbs Part 4 - True or False <span class="badge">4 questions</span></h2>
+    <div id="reg-tf"></div>
+    <div class="btn-row"><button class="btn btn-p" onclick="checkTF('reg-tf',regTF)">Check Answers</button><button class="btn btn-g" onclick="resetTF('reg-tf')">Reset</button></div>
+    <div class="score-panel" id="reg-tf-sc"></div>
+  </div>
+</div>
+
+<!-- SENTENCES TEST -->
+<div id="sent" class="section">
+  <div class="card"><h2>Sentences Part 1 - Rewrite in Negative Form <span class="badge">Fill in</span></h2>
+    <p style="font-size:.83rem;color:var(--muted);margin-bottom:.85rem;">Rewrite each sentence in negative form: Subject + didn't + base verb + complement</p>
+    <div id="neg-fill"></div>
+    <div class="btn-row"><button class="btn btn-p" onclick="checkFill('neg-fill',negFill)">Check Answers</button><button class="btn btn-g" onclick="resetFill('neg-fill')">Reset</button></div>
+    <div class="score-panel" id="neg-fill-sc"></div>
+  </div>
+  <div class="card"><h2>Sentences Part 2 - Multiple Choice <span class="badge">4 questions</span></h2>
+    <div id="sent-mc"></div>
+    <div class="btn-row"><button class="btn btn-p" onclick="checkMC('sent-mc',sentMC)">Check Answers</button><button class="btn btn-g" onclick="resetMC('sent-mc')">Reset</button></div>
+    <div class="score-panel" id="sent-mc-sc"></div>
+  </div>
+  <div class="card"><h2>Sentences Part 3 - True or False <span class="badge">4 questions</span></h2>
+    <div id="sent-tf"></div>
+    <div class="btn-row"><button class="btn btn-p" onclick="checkTF('sent-tf',sentTF)">Check Answers</button><button class="btn btn-g" onclick="resetTF('sent-tf')">Reset</button></div>
+    <div class="score-panel" id="sent-tf-sc"></div>
+  </div>
+</div>
+
+<!-- NOUNS TEST -->
+<div id="nouns" class="section">
+  <div class="card"><h2>Nouns Part 1 - C or N? <span class="badge">8 words</span></h2>
+    <p style="font-size:.83rem;color:var(--muted);margin-bottom:.85rem;">Write C for countable and N for noncountable.</p>
+    <div class="cn-grid" id="cn-grid"></div>
+    <div class="btn-row"><button class="btn btn-p" onclick="checkCN()">Check Answers</button><button class="btn btn-g" onclick="buildCN()">Reset</button></div>
+    <div class="score-panel" id="cn-sc"></div>
+  </div>
+  <div class="card"><h2>Nouns Part 2 - Identify in Sentences <span class="badge">5 sentences</span></h2>
+    <p style="font-size:.83rem;color:var(--muted);margin-bottom:.85rem;">Read and write C or N for the underlined word.</p>
+    <div id="cn2-fill"></div>
+    <div class="btn-row"><button class="btn btn-p" onclick="checkFill('cn2-fill',cn2Fill)">Check Answers</button><button class="btn btn-g" onclick="resetFill('cn2-fill')">Reset</button></div>
+    <div class="score-panel" id="cn2-fill-sc"></div>
+  </div>
+  <div class="card"><h2>Nouns Part 3 - Multiple Choice <span class="badge">3 questions</span></h2>
+    <div id="noun-mc"></div>
+    <div class="btn-row"><button class="btn btn-p" onclick="checkMC('noun-mc',nounMC)">Check Answers</button><button class="btn btn-g" onclick="resetMC('noun-mc')">Reset</button></div>
+    <div class="score-panel" id="noun-mc-sc"></div>
+  </div>
+  <div class="card"><h2>Nouns Part 4 - True or False <span class="badge">4 questions</span></h2>
+    <div id="noun-tf"></div>
+    <div class="btn-row"><button class="btn btn-p" onclick="checkTF('noun-tf',nounTF)">Check Answers</button><button class="btn btn-g" onclick="resetTF('noun-tf')">Reset</button></div>
+    <div class="score-panel" id="noun-tf-sc"></div>
+  </div>
+</div>
+
+<!-- QUANTITIES TEST -->
+<div id="qty" class="section">
+  <div class="card"><h2>Quantities Part 1 - Too or Enough? <span class="badge">Fill in</span></h2>
+    <div id="te-fill"></div>
+    <div class="btn-row"><button class="btn btn-p" onclick="checkFill('te-fill',teFill)">Check Answers</button><button class="btn btn-g" onclick="resetFill('te-fill')">Reset</button></div>
+    <div class="score-panel" id="te-fill-sc"></div>
+  </div>
+  <div class="card"><h2>Quantities Part 2 - Many or Much? <span class="badge">Fill in</span></h2>
+    <div id="mm-fill"></div>
+    <div class="btn-row"><button class="btn btn-p" onclick="checkFill('mm-fill',mmFill)">Check Answers</button><button class="btn btn-g" onclick="resetFill('mm-fill')">Reset</button></div>
+    <div class="score-panel" id="mm-fill-sc"></div>
+  </div>
+  <div class="card"><h2>Quantities Part 3 - Multiple Choice <span class="badge">4 questions</span></h2>
+    <div id="qty-mc"></div>
+    <div class="btn-row"><button class="btn btn-p" onclick="checkMC('qty-mc',qtyMC)">Check Answers</button><button class="btn btn-g" onclick="resetMC('qty-mc')">Reset</button></div>
+    <div class="score-panel" id="qty-mc-sc"></div>
+  </div>
+  <div class="card"><h2>Quantities Part 4 - True or False <span class="badge">4 questions</span></h2>
+    <div id="qty-tf"></div>
+    <div class="btn-row"><button class="btn btn-p" onclick="checkTF('qty-tf',qtyTF)">Check Answers</button><button class="btn btn-g" onclick="resetTF('qty-tf')">Reset</button></div>
+    <div class="score-panel" id="qty-tf-sc"></div>
+  </div>
+</div>
+
+<!-- WRITING -->
+<div id="writing" class="section">
+  <div class="card"><h2>Write 5 Affirmative Sentences <span class="badge">Dad reviews</span></h2>
+    <p style="font-size:.88rem;color:var(--muted);margin-bottom:1rem;">Write 5 original sentences in simple past tense, affirmative form. Use a different verb for each one!</p>
+    <div class="writing-item"><label><span class="w-pill">Sentence 1</span> Write a sentence in simple past:</label><textarea id="ws1" placeholder="Yesterday I..."></textarea></div>
+    <div class="writing-item"><label><span class="w-pill">Sentence 2</span> Write a sentence in simple past:</label><textarea id="ws2" placeholder="Last night she..."></textarea></div>
+    <div class="writing-item"><label><span class="w-pill">Sentence 3</span> Write a sentence in simple past:</label><textarea id="ws3" placeholder="We..."></textarea></div>
+    <div class="writing-item"><label><span class="w-pill">Sentence 4</span> Write a sentence in simple past:</label><textarea id="ws4" placeholder="He..."></textarea></div>
+    <div class="writing-item"><label><span class="w-pill">Sentence 5</span> Write a sentence in simple past:</label><textarea id="ws5" placeholder="They..."></textarea></div>
+    <div class="btn-row"><button class="dad-btn" id="dad-btn" onclick="openModal()">Dad Review</button></div>
+    <div class="sub-ok" id="sub-ok">Submitted! Dad will review your sentences.</div>
+    <div class="dad-result" id="dad-result">Dad's grade will appear here after review.</div>
+  </div>
+</div>
+
+<!-- FINAL SCORE -->
+<div id="final" class="section">
+  <div class="card" id="final-inner">
+    <h2 style="justify-content:center;">Final Score</h2>
+    <p style="color:var(--muted);margin-bottom:1.4rem;font-size:.88rem;">Make sure you have checked all sections before calculating your grade.</p>
+    <button class="btn btn-p" onclick="computeFinal()" style="font-size:.97rem;padding:.65rem 1.9rem;">Calculate My Grade</button>
+    <div id="final-result" style="margin-top:1.4rem;display:none;">
+      <div class="grade-ring" id="grade-ring"><span class="big-grade" id="big-grade"></span></div>
+      <div style="font-size:1.4rem;font-weight:800;" id="final-pct"></div>
+      <div class="final-detail" id="final-msg"></div>
+      <div class="ss-list" id="ss-list"></div>
+      <div style="margin-top:1.4rem;"><button class="btn btn-g" onclick="resetAll()">Start Over</button></div>
+    </div>
+  </div>
+</div>
+</main>
+
+<!-- DAD MODAL -->
+<div class="modal-ov" id="dad-modal">
+  <div class="modal">
+    <div class="m-hdr"><h3>Dad Review Panel</h3><button class="m-x" onclick="closeModal()">X</button></div>
+    <div class="m-body">
+      <p style="font-size:.83rem;color:var(--muted);margin-bottom:1.1rem;">Read each sentence and give it a grade!</p>
+      <div class="ri"><div class="ri-lbl">Sentence 1</div><div class="ri-ans" id="rev1">-</div><div class="ri-grade"><button class="gb good" onclick="grd(1,'good',this)">Great!</button><button class="gb ok" onclick="grd(1,'ok',this)">Good try</button><button class="gb redo" onclick="grd(1,'redo',this)">Try again</button></div><div class="ri-cmt"><input type="text" id="cmt1" placeholder="Optional comment..."></div></div>
+      <div class="ri"><div class="ri-lbl">Sentence 2</div><div class="ri-ans" id="rev2">-</div><div class="ri-grade"><button class="gb good" onclick="grd(2,'good',this)">Great!</button><button class="gb ok" onclick="grd(2,'ok',this)">Good try</button><button class="gb redo" onclick="grd(2,'redo',this)">Try again</button></div><div class="ri-cmt"><input type="text" id="cmt2" placeholder="Optional comment..."></div></div>
+      <div class="ri"><div class="ri-lbl">Sentence 3</div><div class="ri-ans" id="rev3">-</div><div class="ri-grade"><button class="gb good" onclick="grd(3,'good',this)">Great!</button><button class="gb ok" onclick="grd(3,'ok',this)">Good try</button><button class="gb redo" onclick="grd(3,'redo',this)">Try again</button></div><div class="ri-cmt"><input type="text" id="cmt3" placeholder="Optional comment..."></div></div>
+      <div class="ri"><div class="ri-lbl">Sentence 4</div><div class="ri-ans" id="rev4">-</div><div class="ri-grade"><button class="gb good" onclick="grd(4,'good',this)">Great!</button><button class="gb ok" onclick="grd(4,'ok',this)">Good try</button><button class="gb redo" onclick="grd(4,'redo',this)">Try again</button></div><div class="ri-cmt"><input type="text" id="cmt4" placeholder="Optional comment..."></div></div>
+      <div class="ri"><div class="ri-lbl">Sentence 5</div><div class="ri-ans" id="rev5">-</div><div class="ri-grade"><button class="gb good" onclick="grd(5,'good',this)">Great!</button><button class="gb ok" onclick="grd(5,'ok',this)">Good try</button><button class="gb redo" onclick="grd(5,'redo',this)">Try again</button></div><div class="ri-cmt"><input type="text" id="cmt5" placeholder="Optional comment..."></div></div>
+    </div>
+    <div class="m-ftr"><button class="btn btn-g" onclick="closeModal()">Cancel</button><button class="btn btn-p" onclick="saveReview()">Save Review</button></div>
+  </div>
+</div>
+
+<script>
+var aFill=[{q:"1. These animals are extinct. They lived long ago and we can find out about them in museums.",a:"dinosaurs"},{q:"2. This green and brown animal is very slow. It has a shell on its back.",a:"turtle"},{q:"3. This animal lives in the ocean. It has eight arms.",a:"octopus"},{q:"4. This beautiful insect has many colors. It has four wings.",a:"butterfly"},{q:"5. These very large strong birds live in tall trees or at the tops of mountains.",a:"eagle"},{q:"6. This big bird is white and black, with a very long neck. It lives close to streams or rivers.",a:"swan"}];
+var aMC=[{q:"Which animal has eight arms and lives in the ocean?",options:["Eagle","Swan","Octopus","Turtle"],answer:2},{q:"Which animal is extinct?",options:["Butterfly","Swan","Turtle","Dinosaur"],answer:3},{q:"Which animal has a shell on its back?",options:["Eagle","Turtle","Swan","Octopus"],answer:1},{q:"Which is a beautiful insect with colorful wings?",options:["Swan","Eagle","Turtle","Butterfly"],answer:3}];
+var aTF=[{s:"A turtle has a shell on its back.",a:true},{s:"A swan has four wings like a butterfly.",a:false},{s:"Eagles are very small birds.",a:false},{s:"Dinosaurs are extinct animals.",a:true}];
+var irrFill=[{q:"1. My father __________ (buy) a new ball last year.",a:"bought",hint:"buy to bought"},{q:"2. The soccer team __________ (beat) their opponents yesterday.",a:"beat",hint:"beat stays beat"},{q:"3. Sarah __________ (draw) a beautiful picture of a butterfly.",a:"drew",hint:"draw to drew"},{q:"4. We __________ (drink) lemonade at the restaurant.",a:"drank",hint:"drink to drank"}];
+var irrPassage=[{id:"ip1",answer:"was",hint:"am to was"},{id:"ip2",answer:"were",hint:"are to were"},{id:"ip3",answer:"broke",hint:"break to broke"}];
+var irrMC=[{q:"What is the past tense of 'forget'?",options:["forgetted","forgotten","forgot","forgetten"],answer:2},{q:"What is the past tense of 'choose'?",options:["choosed","chosen","chosed","chose"],answer:3},{q:"What is the past tense of 'feel'?",options:["feeled","felled","felt","feeling"],answer:2},{q:"What is the past tense of 'eat'?",options:["eated","eaten","aten","ate"],answer:3}];
+var irrTF=[{s:"The past tense of 'drink' is 'drank'.",a:true},{s:"The past tense of 'buy' is 'buyed'.",a:false},{s:"'Was' is the past tense of 'am/is'.",a:true},{s:"The past tense of 'draw' is 'drawed'.",a:false}];
+var regFill=[{q:"1. I __________ (play) football after school yesterday.",a:"played",hint:"play to played"},{q:"2. She __________ (watch) a movie last night.",a:"watched",hint:"watch to watched"},{q:"3. We __________ (clean) the classroom on Monday.",a:"cleaned",hint:"clean to cleaned"},{q:"4. My father __________ (work) in the garden last weekend.",a:"worked",hint:"work to worked"},{q:"5. They __________ (visit) their grandparents last Sunday.",a:"visited",hint:"visit to visited"}];
+var regPassage=[{id:"rp1",answer:"ordered",hint:"order to ordered"},{id:"rp2",answer:"jumped",hint:"jump to jumped"},{id:"rp3",answer:"relaxed",hint:"relax to relaxed"}];
+var regMC=[{q:"Past tense of 'try' (consonant + y)?",options:["tryed","tryied","tried","triied"],answer:2},{q:"Past tense of 'study'?",options:["studyed","studiyed","studied","studed"],answer:2},{q:"Past tense of 'enjoy' (vowel + y)?",options:["enjoied","enjoyd","enjoied","enjoyed"],answer:3},{q:"For verbs ending in 'e', you add:",options:["-ed","-d","-ied","-ing"],answer:1}];
+var regTF=[{s:"For verbs ending in consonant + Y, you change Y to I and add -ed.",a:true},{s:"'Walked' is the past tense of 'walk'.",a:true},{s:"For verbs ending in 'e', you add '-ed'.",a:false},{s:"'Played' is the past tense of 'play'.",a:true}];
+var negFill=[{q:"Affirmative: She finished her homework yesterday. Write the negative form:",a:"she didn't finish her homework yesterday",hint:"She didn't finish her homework yesterday."},{q:"Affirmative: She organized her bedroom. Write the negative form:",a:"she didn't organize her bedroom",hint:"She didn't organize her bedroom."},{q:"Affirmative: Maria took a beautiful picture of her sister. Write the negative form:",a:"maria didn't take a beautiful picture of her sister",hint:"Maria didn't take a beautiful picture of her sister."},{q:"Affirmative: I studied for the math test. Write the negative form:",a:"i didn't study for the math test",hint:"I didn't study for the math test."},{q:"Affirmative: He chose a beautiful ball. Write the negative form:",a:"he didn't choose a beautiful ball",hint:"He didn't choose a beautiful ball."}];
+var sentMC=[{q:"Which is the correct negative sentence?",options:["She didn't finished her homework.","She not finished her homework.","She didn't finish her homework.","She no finish her homework."],answer:2},{q:"What comes after 'didn't' in a negative sentence?",options:["Past tense verb","Base form of verb","The subject","-ing verb"],answer:1},{q:"Negative of 'I ate pizza last night':",options:["I not ate pizza last night.","I didn't ate pizza last night.","I didn't eat pizza last night.","I not eat pizza last night."],answer:2},{q:"Negative of 'He chose a book':",options:["He didn't chose a book.","He didn't choose a book.","He not chose a book.","He no choose a book."],answer:1}];
+var sentTF=[{s:"Negative simple past uses 'didn't' + base form of verb.",a:true},{s:"'She didn't went to school' is a correct sentence.",a:false},{s:"After 'didn't', the verb goes back to its base form.",a:true},{s:"'I didn't eat' is correct negative past tense.",a:true}];
+var cnWords=[{word:"lemons",answer:"c"},{word:"sugar",answer:"n"},{word:"water",answer:"n"},{word:"pencils",answer:"c"},{word:"pineapples",answer:"c"},{word:"bread",answer:"n"},{word:"students",answer:"c"},{word:"apples",answer:"c"}];
+var cn2Fill=[{q:"I have a lot of oranges. Write C or N for 'oranges':",a:"c",hint:"C - oranges are countable"},{q:"My mom likes bananas. Write C or N for 'bananas':",a:"c",hint:"C - bananas are countable"},{q:"I drink a lot of water. Write C or N for 'water':",a:"n",hint:"N - water is noncountable"},{q:"My cousins like to play in the sand. Write C or N for 'sand':",a:"n",hint:"N - sand is noncountable"},{q:"I have chairs for my party. Write C or N for 'chairs':",a:"c",hint:"C - chairs are countable"}];
+var nounMC=[{q:"Which is a noncountable noun?",options:["Apple","Pencil","Milk","Chair"],answer:2},{q:"Which is a countable noun?",options:["Sugar","Water","Salt","Pencil"],answer:3},{q:"Why can't we say 'two waters'?",options:["Water is very heavy","Water is a noncountable noun","Water is too common","Water is not a noun"],answer:1}];
+var nounTF=[{s:"'Sugar' is a noncountable noun.",a:true},{s:"'Students' is a countable noun.",a:true},{s:"Countable nouns can be counted one by one.",a:true},{s:"'Bread' is a countable noun.",a:false}];
+var teFill=[{q:"1. I don't have __________ money to buy a new computer.",a:"enough",hint:"enough - the right amount"},{q:"2. The pasta is __________ hot to eat right now.",a:"too",hint:"too - more than needed"},{q:"3. We don't have __________ apples for everyone.",a:"enough",hint:"enough - not the right amount"}];
+var mmFill=[{q:"1. There are __________ students.",a:"many",hint:"many - students are countable"},{q:"2. My coffee has __________ sugar.",a:"much",hint:"much - sugar is noncountable"},{q:"3. I like to have __________ pencils.",a:"many",hint:"many - pencils are countable"},{q:"4. I have __________ oranges to share.",a:"many",hint:"many - oranges are countable"}];
+var qtyMC=[{q:"Complete: 'There is ___ milk in the fridge.'",options:["many","much","enough","too"],answer:1},{q:"Complete: 'She has ___ books.'",options:["much","too","many","enough"],answer:2},{q:"Complete: 'The music is ___ loud.'",options:["enough","many","much","too"],answer:3},{q:"'Much' is used with which type of noun?",options:["Countable","Noncountable","Both","Neither"],answer:1}];
+var qtyTF=[{s:"'Much' is used with noncountable nouns.",a:true},{s:"'Many' is used with countable nouns.",a:true},{s:"'Too' means there is a positive, helpful amount.",a:false},{s:"'Enough' means the right amount that you need.",a:true}];
+
+var topics6=['s1','s2','s3','s4','s5','s6'];
+var studied={};
+var scores={};
+
+function toggle(id){
+  var bd=document.getElementById('bd-'+id);
+  var hdr=bd.previousElementSibling;
+  var open=bd.classList.contains('open');
+  topics6.forEach(function(t){document.getElementById('bd-'+t).classList.remove('open');document.getElementById('bd-'+t).previousElementSibling.classList.remove('open');});
+  if(!open){bd.classList.add('open');hdr.classList.add('open');}
+}
+
+function markRead(id){
+  studied[id]=true;
+  var btn=document.getElementById('btn-'+id);
+  btn.classList.add('done');btn.textContent='Studied!';btn.disabled=true;
+  document.getElementById('tp-'+id).classList.add('done-t');
+  var dot=document.getElementById('dot-'+id);if(dot)dot.classList.add('done');
+  updatePrg();
+}
+
+function updatePrg(){
+  var done=Object.keys(studied).length,total=6;
+  var pct=Math.round(done/total*100);
+  document.getElementById('prg').style.width=pct+'%';
+  document.getElementById('prg-lbl').textContent=done+' of '+total+' topics studied';
+  document.getElementById('prg-pct').textContent=pct+'%';
+  if(done===total)document.getElementById('unlock-btn').classList.add('ready');
+}
+
+function unlockTest(){
+  ['nav-animals','nav-irr','nav-reg','nav-sent','nav-nouns','nav-qty','nav-writing','nav-final'].forEach(function(id){document.getElementById(id).disabled=false;});
+  document.getElementById('hdr-sub').textContent='Test unlocked! Good luck!';
+  go('animals');
+}
+
+function flipCard(card){
+  card.classList.toggle('flipped');
+  var total=document.querySelectorAll('#flip-grid .flip-card').length;
+  var flipped=document.querySelectorAll('#flip-grid .flip-card.flipped').length;
+  if(flipped===total)document.getElementById('vc-done').classList.add('show');
+}
+
+function buildFill(id,data){
+  var el=document.getElementById(id);el.innerHTML='';
+  data.forEach(function(item,i){
+    el.innerHTML+='<div class="fill-item"><label>'+item.q+'</label><input type="text" id="'+id+'-'+i+'" autocomplete="off" placeholder="Your answer"><div class="hint">Answer: '+(item.hint||item.a)+'</div></div>';
+  });
+}
+
+function checkFill(id,data){
+  var c=0;
+  data.forEach(function(item,i){
+    var inp=document.getElementById(id+'-'+i);
+    var val=inp.value.trim().toLowerCase();
+    inp.classList.remove('correct','wrong');
+    if(val===item.a.toLowerCase()){inp.classList.add('correct');c++;}
+    else inp.classList.add('wrong');
+  });
+  showScore(id+'-sc',c,data.length,id);
+}
+
+function resetFill(id){
+  document.querySelectorAll('#'+id+' input').forEach(function(i){i.value='';i.classList.remove('correct','wrong');});
+  var sp=document.getElementById(id+'-sc');if(sp)sp.classList.remove('show');
+}
+
+function buildMC(id,data){
+  var el=document.getElementById(id);el.innerHTML='';
+  data.forEach(function(item,i){
+    var opts=item.options.map(function(o,j){return '<label id="'+id+'-'+i+'-l'+j+'"><input type="radio" name="'+id+'-'+i+'" value="'+j+'"> '+o+'</label>';}).join('');
+    el.innerHTML+='<div class="mc-item"><p>'+(i+1)+'. '+item.q+'</p><div class="mc-opts">'+opts+'</div></div>';
+  });
+}
+
+function checkMC(id,data){
+  var c=0;
+  data.forEach(function(item,i){
+    var chosen=document.querySelector('input[name="'+id+'-'+i+'"]:checked');
+    item.options.forEach(function(_,j){document.getElementById(id+'-'+i+'-l'+j).classList.remove('cc','wc');});
+    if(!chosen)return;
+    var val=parseInt(chosen.value);
+    if(val===item.answer){document.getElementById(id+'-'+i+'-l'+val).classList.add('cc');c++;}
+    else{document.getElementById(id+'-'+i+'-l'+val).classList.add('wc');document.getElementById(id+'-'+i+'-l'+item.answer).classList.add('cc');}
+  });
+  showScore(id+'-sc',c,data.length,id);
+}
+
+function resetMC(id){
+  document.querySelectorAll('#'+id+' input[type=radio]').forEach(function(r){r.checked=false;});
+  document.querySelectorAll('#'+id+' label').forEach(function(l){l.classList.remove('cc','wc');});
+  var sp=document.getElementById(id+'-sc');if(sp)sp.classList.remove('show');
+}
+
+function buildTF(id,data){
+  var el=document.getElementById(id);el.innerHTML='';
+  data.forEach(function(item,i){
+    el.innerHTML+='<div class="tf-item"><span class="stmt">'+(i+1)+'. '+item.s+'</span><button class="tf-btn" id="'+id+'-T-'+i+'" onclick="selTF(\''+id+'\','+i+',\'T\')">TRUE</button><button class="tf-btn" id="'+id+'-F-'+i+'" onclick="selTF(\''+id+'\','+i+',\'F\')">FALSE</button></div>';
+  });
+}
+
+function selTF(id,i,c){
+  ['T','F'].forEach(function(x){document.getElementById(id+'-'+x+'-'+i).classList.remove('sT','sF');});
+  document.getElementById(id+'-'+c+'-'+i).classList.add('s'+c);
+}
+
+function checkTF(id,data){
+  var c=0;
+  data.forEach(function(item,i){
+    var tB=document.getElementById(id+'-T-'+i),fB=document.getElementById(id+'-F-'+i);
+    var chosen=tB.classList.contains('sT')?true:fB.classList.contains('sF')?false:null;
+    ['T','F'].forEach(function(x){var b=document.getElementById(id+'-'+x+'-'+i);b.classList.remove('sT','sF','okT','okF','noT','noF');});
+    (item.a?tB:fB).classList.add(item.a?'okT':'okF');
+    if(chosen===null)return;
+    if(chosen===item.a)c++;
+    else(item.a?fB:tB).classList.add(item.a?'noF':'noT');
+  });
+  showScore(id+'-sc',c,data.length,id);
+}
+
+function resetTF(id){
+  document.querySelectorAll('#'+id+' .tf-btn').forEach(function(b){b.className='tf-btn';});
+  var sp=document.getElementById(id+'-sc');if(sp)sp.classList.remove('show');
+}
+
+function checkPassage(type){
+  var data=type==='irr'?irrPassage:regPassage;
+  var c=0;
+  data.forEach(function(item){
+    var inp=document.getElementById(item.id);
+    var val=inp.value.trim().toLowerCase();
+    inp.classList.remove('correct','wrong');
+    if(val===item.answer){inp.classList.add('correct');c++;}
+    else inp.classList.add('wrong');
+  });
+  showScore(type+'-pass-sc',c,data.length,type+'-pass');
+}
+
+function resetPassage(type){
+  var data=type==='irr'?irrPassage:regPassage;
+  data.forEach(function(item){var inp=document.getElementById(item.id);inp.value='';inp.classList.remove('correct','wrong');});
+  var sp=document.getElementById(type+'-pass-sc');if(sp)sp.classList.remove('show');
+}
+
+function buildCN(){
+  var el=document.getElementById('cn-grid');el.innerHTML='';
+  cnWords.forEach(function(item,i){
+    el.innerHTML+='<div class="cn-item-ex"><span>'+item.word+'</span><input type="text" id="cn-'+i+'" maxlength="1" autocomplete="off" placeholder="C/N"></div>';
+  });
+  document.getElementById('cn-sc').classList.remove('show');
+}
+
+function checkCN(){
+  var c=0;
+  cnWords.forEach(function(item,i){
+    var inp=document.getElementById('cn-'+i);
+    var val=inp.value.trim().toLowerCase();
+    inp.classList.remove('correct','wrong');
+    if(val===item.answer){inp.classList.add('correct');c++;}
+    else inp.classList.add('wrong');
+  });
+  showScore('cn-sc',c,cnWords.length,'cn');
+}
+
+function rec(id,c,t){scores[id]={correct:c,total:t};}
+
+function showScore(panelId,c,t,trackId){
+  var pct=Math.round(c/t*100),g=getGrade(pct);
+  var p=document.getElementById(panelId);
+  p.className='score-panel show';
+  p.innerHTML='<span class="sn">'+c+'/'+t+'</span><span class="sl">correct</span><span class="sg g'+g+'">'+g+' ('+pct+'%)</span>';
+  if(trackId)rec(trackId,c,t);
+}
+
+function getGrade(p){return p>=90?'A':p>=80?'B':p>=70?'C':'D';}
+
+var dadG={1:null,2:null,3:null,4:null,5:null};
+
+function openModal(){
+  var vals=[1,2,3,4,5].map(function(n){return document.getElementById('ws'+n).value.trim();});
+  if(!vals.some(function(v){return v;})){alert('Please write at least one sentence first!');return;}
+  [1,2,3,4,5].forEach(function(n){document.getElementById('rev'+n).textContent=document.getElementById('ws'+n).value.trim()||'(no answer)';});
+  document.getElementById('dad-modal').classList.add('show');
+}
+
+function closeModal(){document.getElementById('dad-modal').classList.remove('show');}
+
+function grd(n,grade,btn){
+  btn.closest('.ri-grade').querySelectorAll('.gb').forEach(function(b){b.classList.remove('sel');});
+  btn.classList.add('sel');dadG[n]=grade;
+}
+
+function saveReview(){
+  var graded=Object.values(dadG).filter(function(g){return g!==null;}).length;
+  if(!graded){alert('Please grade at least one sentence.');return;}
+  var map={good:1,ok:0.5,redo:0};
+  var lbl={good:'Great!',ok:'Good try',redo:'Try again'};
+  var total=0;
+  var lines=[];
+  [1,2,3,4,5].forEach(function(n){
+    var g=dadG[n];
+    if(g)total+=map[g];
+    var cmt=document.getElementById('cmt'+n).value.trim();
+    var txt='Sentence '+n+': '+(g?lbl[g]:'-')+(cmt?' - "'+cmt+'"':'');
+    lines.push(txt);
+    document.getElementById('ws'+n).classList.add('submitted');
+    document.getElementById('ws'+n).disabled=true;
+  });
+  document.getElementById('dad-result').innerHTML='Dad review:<br>'+lines.join('<br>');
+  document.getElementById('dad-result').classList.add('show');
+  document.getElementById('sub-ok').classList.add('show');
+  document.getElementById('dad-btn').disabled=true;
+  document.getElementById('dad-btn').textContent='Reviewed by Dad';
+  rec('writing',total,5);
+  closeModal();
+}
+
+function computeFinal(){
+  var sections={'Animals':['a-fill','a-mc','a-tf'],'Irregular Verbs':['irr-fill','irr-pass','irr-mc','irr-tf'],'Regular Verbs':['reg-fill','reg-pass','reg-mc','reg-tf'],'Sentences':['neg-fill','sent-mc','sent-tf'],'Nouns':['cn','cn2-fill','noun-mc','noun-tf'],'Quantities':['te-fill','mm-fill','qty-mc','qty-tf'],'Writing (Dad)':['writing']};
+  var totalC=0,totalT=0,html='';
+  for(var name in sections){
+    var ids=sections[name];var sc=0,tot=0;
+    ids.forEach(function(id){if(scores[id]){sc+=scores[id].correct;tot+=scores[id].total;}});
+    if(tot===0){html+='<div class="ss-row"><span>'+name+'</span><span style="color:var(--muted);font-size:.83rem">Not yet checked</span></div>';continue;}
+    var pct=Math.round(sc/tot*100);
+    totalC+=sc;totalT+=tot;
+    html+='<div class="ss-row"><span style="min-width:130px">'+name+'</span><div class="pb-wrap"><div class="pb" style="width:'+pct+'%"></div></div><span style="font-weight:700;min-width:70px;text-align:right">'+sc+'/'+tot+' ('+pct+'%)</span></div>';
+  }
+  var fp=totalT>0?Math.round(totalC/totalT*100):0;
+  var g=getGrade(fp);
+  var colors={A:'#16a34a',B:'#0891b2',C:'#d97706',D:'#dc2626'};
+  var msgs={A:'Excellent! You are ready for the exam!',B:'Great job! Review a few topics.',C:'Good effort! More practice will help.',D:'Keep studying - you can do it!'};
+  document.getElementById('grade-ring').style.borderColor=colors[g];
+  document.getElementById('big-grade').textContent=g;
+  document.getElementById('big-grade').style.color=colors[g];
+  document.getElementById('final-pct').textContent=fp+'% - '+totalC+'/'+totalT+' correct';
+  document.getElementById('final-msg').textContent=msgs[g];
+  document.getElementById('ss-list').innerHTML=html;
+  document.getElementById('final-result').style.display='block';
+}
+
+function resetAll(){
+  Object.keys(scores).forEach(function(k){delete scores[k];});
+  Object.keys(studied).forEach(function(k){delete studied[k];});
+  Object.keys(dadG).forEach(function(k){dadG[k]=null;});
+  ['a-fill','irr-fill','reg-fill','neg-fill','cn2-fill','te-fill','mm-fill'].forEach(function(id){resetFill(id);});
+  ['a-mc','irr-mc','reg-mc','sent-mc','noun-mc','qty-mc'].forEach(function(id){resetMC(id);});
+  ['a-tf','irr-tf','reg-tf','sent-tf','noun-tf','qty-tf'].forEach(function(id){resetTF(id);});
+  resetPassage('irr');resetPassage('reg');buildCN();
+  [1,2,3,4,5].forEach(function(n){var ta=document.getElementById('ws'+n);ta.value='';ta.classList.remove('submitted');ta.disabled=false;});
+  document.getElementById('sub-ok').classList.remove('show');
+  document.getElementById('dad-result').classList.remove('show');
+  document.getElementById('dad-btn').disabled=false;
+  document.getElementById('dad-btn').textContent='Dad Review';
+  topics6.forEach(function(t){
+    document.getElementById('tp-'+t).classList.remove('done-t');
+    document.getElementById('dot-'+t).classList.remove('done');
+    var btn=document.getElementById('btn-'+t);
+    btn.classList.remove('done');btn.textContent="I have studied this!";btn.disabled=false;
+    document.getElementById('bd-'+t).classList.remove('open');
+    document.getElementById('bd-'+t).previousElementSibling.classList.remove('open');
+  });
+  document.getElementById('prg').style.width='0%';
+  document.getElementById('prg-lbl').textContent='0 of 6 topics studied';
+  document.getElementById('prg-pct').textContent='0%';
+  document.getElementById('unlock-btn').classList.remove('ready');
+  ['nav-animals','nav-irr','nav-reg','nav-sent','nav-nouns','nav-qty','nav-writing','nav-final'].forEach(function(id){document.getElementById(id).disabled=true;});
+  document.getElementById('hdr-sub').textContent='Study all topics first, then unlock the test!';
+  document.getElementById('vc-done').classList.remove('show');
+  document.querySelectorAll('.flip-card.flipped').forEach(function(c){c.classList.remove('flipped');});
+  document.getElementById('final-result').style.display='none';
+  go('study');
+}
+
+function go(id){
+  document.querySelectorAll('.section').forEach(function(s){s.classList.remove('active');});
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('#main-nav button').forEach(function(b){var oc=b.getAttribute('onclick');b.classList.toggle('active',oc&&oc.indexOf("'"+id+"'")!==-1);});
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+window.onload=function(){
+  buildFill('a-fill',aFill);buildMC('a-mc',aMC);buildTF('a-tf',aTF);
+  buildFill('irr-fill',irrFill);buildMC('irr-mc',irrMC);buildTF('irr-tf',irrTF);
+  buildFill('reg-fill',regFill);buildMC('reg-mc',regMC);buildTF('reg-tf',regTF);
+  buildFill('neg-fill',negFill);buildMC('sent-mc',sentMC);buildTF('sent-tf',sentTF);
+  buildCN();buildFill('cn2-fill',cn2Fill);buildMC('noun-mc',nounMC);buildTF('noun-tf',nounTF);
+  buildFill('te-fill',teFill);buildFill('mm-fill',mmFill);buildMC('qty-mc',qtyMC);buildTF('qty-tf',qtyTF);
+};
+</script>
 </body>
 </html>
