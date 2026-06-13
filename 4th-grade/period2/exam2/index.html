@@ -199,14 +199,14 @@ main{max-width:880px;margin:0 auto;padding:1.4rem 1rem 4rem;}
 </header>
 <nav id="main-nav">
   <button class="study-btn active" onclick="go('study')">&#128218; Study</button>
-  <button disabled id="nav-animals" onclick="go('animals')">&#129381; Animals</button>
-  <button disabled id="nav-irr" onclick="go('irr')">&#9201; Irregular</button>
-  <button disabled id="nav-reg" onclick="go('reg')">&#128221; Regular</button>
-  <button disabled id="nav-sent" onclick="go('sent')">&#9989; Sentences</button>
-  <button disabled id="nav-nouns" onclick="go('nouns')">&#128290; Nouns</button>
-  <button disabled id="nav-qty" onclick="go('qty')">&#128202; Quantities</button>
-  <button disabled id="nav-writing" onclick="go('writing')">&#9998; Writing</button>
-  <button disabled id="nav-final" onclick="go('final')">&#127942; Final</button>
+  <button id="nav-animals" onclick="go('animals')">&#129381; Animals</button>
+  <button id="nav-irr" onclick="go('irr')">&#9201; Irregular</button>
+  <button id="nav-reg" onclick="go('reg')">&#128221; Regular</button>
+  <button id="nav-sent" onclick="go('sent')">&#9989; Sentences</button>
+  <button id="nav-nouns" onclick="go('nouns')">&#128290; Nouns</button>
+  <button id="nav-qty" onclick="go('qty')">&#128202; Quantities</button>
+  <button id="nav-writing" onclick="go('writing')">&#9998; Writing</button>
+  <button id="nav-final" onclick="go('final')">&#127942; Final</button>
 </nav>
 <main>
 
@@ -886,7 +886,7 @@ function resetAll(){
   document.getElementById('prg-lbl').textContent='0 of 6 topics studied';
   document.getElementById('prg-pct').textContent='0%';
   document.getElementById('unlock-btn').classList.remove('ready');
-  ['nav-animals','nav-irr','nav-reg','nav-sent','nav-nouns','nav-qty','nav-writing','nav-final'].forEach(function(id){document.getElementById(id).disabled=true;});
+  // practice sections remain accessible after reset
   document.getElementById('hdr-sub').textContent='Study all topics first, then unlock the test!';
   document.getElementById('vc-done').classList.remove('show');
   document.querySelectorAll('.flip-card.flipped').forEach(function(c){c.classList.remove('flipped');});

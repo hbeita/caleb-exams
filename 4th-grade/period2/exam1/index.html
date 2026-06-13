@@ -1072,7 +1072,7 @@ function resetAll(){
   document.getElementById('study-lbl').textContent='0 of 7 topics studied';
   document.getElementById('study-pct').textContent='0%';
   document.getElementById('unlock-btn').classList.remove('ready');
-  ['nav-saveworld','nav-australia','nav-whendad','nav-vocab','nav-spelling','nav-writing','nav-final'].forEach(id=>document.getElementById(id).disabled=true);
+  // practice sections remain accessible after reset
   document.getElementById('hdr-sub').textContent='Study all topics first, then unlock the test!';
   document.getElementById('vocab-done-banner').classList.remove('show');
   document.querySelectorAll('.flip-card.flipped').forEach(c=>c.classList.remove('flipped'));

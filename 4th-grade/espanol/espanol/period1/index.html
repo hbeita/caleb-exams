@@ -1,0 +1,1523 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Español · 4to Grado · Período 1</title>
+<style>
+:root{--primary:#16a34a;--primary-dark:#15803d;--primary-light:#f0fdf4;--accent:#4ade80;--text:#1f2937;--muted:#6b7280;--border:#e5e7eb;--bg:#f9fafb;--card:#fff;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Segoe UI',sans-serif;background:var(--bg);color:var(--text);}
+
+header{background:linear-gradient(135deg,#052e16 0%,#16a34a 60%,#4ade80 100%);color:#fff;padding:2.5rem 1rem 2rem;text-align:center;position:relative;overflow:hidden;}
+header::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 70% 50%,rgba(255,255,255,.07) 0%,transparent 60%);}
+.header-emoji{font-size:2.8rem;display:block;margin-bottom:.4rem;}
+header h1{font-size:2rem;font-weight:900;letter-spacing:-.02em;}
+header p{margin-top:.3rem;opacity:.8;font-size:.95rem;}
+
+.nav-wrapper{background:#fff;border-bottom:2px solid var(--border);position:sticky;top:0;z-index:100;padding:.5rem 1rem;}
+.nav-group{max-width:1000px;margin:0 auto;display:flex;flex-wrap:wrap;gap:.4rem;align-items:center;}
+.nav-label{font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:.2rem .5rem;white-space:nowrap;}
+.nav-divider{width:1px;height:24px;background:var(--border);margin:0 .2rem;}
+.nav-btn{padding:.4rem .85rem;border-radius:8px;border:2px solid var(--border);background:var(--bg);color:var(--muted);font-size:.78rem;font-weight:700;cursor:pointer;transition:all .15s;white-space:nowrap;}
+.nav-btn:hover{border-color:var(--primary);color:var(--primary);}
+.nav-btn.active{background:var(--primary);border-color:var(--primary);color:#fff;}
+
+main{max-width:860px;margin:0 auto;padding:2rem 1rem 4rem;}
+.section{display:none;}
+.section.active{display:block;}
+
+/* Study cards */
+.section-title{font-size:1.4rem;font-weight:900;margin-bottom:.3rem;color:var(--primary-dark);}
+.section-sub{color:var(--muted);font-size:.9rem;margin-bottom:1.5rem;}
+
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.5rem;}
+.info-card{background:var(--card);border:2px solid var(--border);border-radius:14px;padding:1.2rem;}
+.info-card.green{border-color:#bbf7d0;background:#f0fdf4;}
+.info-card.blue{border-color:#bfdbfe;background:#eff6ff;}
+.info-card.yellow{border-color:#fde68a;background:#fffbeb;}
+.info-card.purple{border-color:#ddd6fe;background:#f5f3ff;}
+.info-card h3{font-size:1rem;font-weight:800;margin-bottom:.6rem;}
+.info-card h3.green{color:#15803d;}
+.info-card h3.blue{color:#1d4ed8;}
+.info-card h3.yellow{color:#92400e;}
+.info-card h3.purple{color:#6d28d9;}
+.info-card p{font-size:.88rem;line-height:1.5;color:var(--text);}
+.info-card .tag-row{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.6rem;}
+.tag{display:inline-block;padding:.25rem .65rem;border-radius:999px;font-size:.82rem;font-weight:700;}
+.tag.green{background:#bbf7d0;color:#15803d;}
+.tag.blue{background:#bfdbfe;color:#1e40af;}
+
+.rule-box{background:var(--card);border:2px solid var(--border);border-radius:12px;padding:1rem 1.2rem;margin-bottom:1rem;}
+.rule-box h4{font-size:.9rem;font-weight:800;color:var(--primary-dark);margin-bottom:.5rem;}
+
+.example-box{background:#f0fdf4;border-left:4px solid var(--primary);border-radius:0 10px 10px 0;padding:.8rem 1rem;margin-top:.6rem;font-size:.9rem;font-style:italic;}
+.highlight{background:#bbf7d0;border-radius:4px;padding:0 .25rem;font-weight:700;font-style:normal;}
+
+.article-table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.9rem;}
+.article-table th{background:var(--primary);color:#fff;padding:.5rem .8rem;text-align:center;font-weight:800;}
+.article-table td{padding:.45rem .8rem;text-align:center;border:1px solid #d1fae5;}
+.article-table tr:nth-child(even) td{background:#f0fdf4;}
+.article-table .art-def{color:#15803d;font-weight:700;}
+.article-table .art-ind{color:#1d4ed8;font-weight:700;}
+
+.book-diagram{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1rem 0;}
+.book-side{border-radius:12px;padding:1rem;border:2px solid;}
+.book-side.external{border-color:#fcd34d;background:#fffbeb;}
+.book-side.internal{border-color:#6ee7b7;background:#ecfdf5;}
+.book-side h4{font-size:.9rem;font-weight:800;margin-bottom:.6rem;}
+.book-side h4.ext{color:#92400e;}
+.book-side h4.int{color:#065f46;}
+.book-part{display:flex;align-items:center;gap:.5rem;padding:.35rem 0;border-bottom:1px solid rgba(0,0,0,.06);font-size:.88rem;}
+.book-part:last-child{border-bottom:none;}
+.book-part .bp-icon{font-size:1.1rem;}
+
+.news-diagram{background:var(--card);border:2px solid #d1d5db;border-radius:14px;overflow:hidden;margin:1rem 0;}
+.news-part{padding:.7rem 1.2rem;border-bottom:1px solid var(--border);display:flex;gap:.8rem;align-items:flex-start;}
+.news-part:last-child{border-bottom:none;}
+.news-part .np-label{font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;min-width:90px;padding:.2rem .5rem;border-radius:6px;text-align:center;}
+.news-part .np-desc{font-size:.87rem;color:var(--text);}
+.np-titular .np-label{background:#fef08a;color:#713f12;}
+.np-subtitulo .np-label{background:#e0e7ff;color:#3730a3;}
+.np-entradilla .np-label{background:#d1fae5;color:#065f46;}
+.np-graficos .np-label{background:#fce7f3;color:#9d174d;}
+.np-cuerpo .np-label{background:#f3f4f6;color:#374151;}
+
+.summary-card{background:var(--card);border:2px solid var(--border);border-radius:14px;padding:1.3rem;margin-bottom:1rem;}
+.summary-card h4{font-size:1rem;font-weight:800;color:var(--primary-dark);margin-bottom:.8rem;display:flex;align-items:center;gap:.5rem;}
+.summary-card ul{list-style:none;display:flex;flex-direction:column;gap:.4rem;}
+.summary-card li{font-size:.88rem;padding:.3rem 0 .3rem .8rem;border-left:3px solid #6ee7b7;color:var(--text);}
+
+/* Test exercises */
+.test-block{background:var(--card);border:2px solid var(--border);border-radius:14px;padding:1.4rem;margin-bottom:1.2rem;}
+.test-block h3{font-size:1rem;font-weight:800;color:var(--primary-dark);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border);}
+.q-row{margin-bottom:.8rem;}
+.q-row label{display:block;font-size:.9rem;font-weight:600;margin-bottom:.3rem;}
+.fill-input{border:none;border-bottom:2px solid var(--primary);background:transparent;padding:.25rem .4rem;font-size:.9rem;width:180px;outline:none;color:var(--text);}
+.fill-input:focus{border-bottom-color:var(--primary-dark);}
+.fill-input.correct{border-bottom-color:#15803d;color:#15803d;}
+.fill-input.wrong{border-bottom-color:#dc2626;color:#dc2626;}
+
+.mc-options{display:flex;flex-direction:column;gap:.35rem;margin-top:.35rem;}
+.mc-opt{display:flex;align-items:center;gap:.5rem;padding:.4rem .6rem;border-radius:8px;border:2px solid var(--border);cursor:pointer;font-size:.88rem;transition:all .15s;}
+.mc-opt:hover{border-color:var(--primary);}
+.mc-opt input[type=radio]{accent-color:var(--primary);}
+.mc-opt.selected{border-color:var(--primary);background:var(--primary-light);}
+.mc-opt.correct-ans{border-color:#16a34a;background:#dcfce7;}
+.mc-opt.wrong-ans{border-color:#dc2626;background:#fee2e2;}
+
+.tf-row{display:flex;gap:.6rem;margin-top:.35rem;}
+.tf-btn{padding:.4rem 1.2rem;border-radius:999px;border:2px solid var(--border);background:var(--bg);font-size:.85rem;font-weight:700;cursor:pointer;transition:all .15s;}
+.tf-btn:hover{border-color:var(--primary);}
+.tf-btn.selected{border-color:var(--primary);background:var(--primary);color:#fff;}
+.tf-btn.correct-ans{border-color:#16a34a;background:#16a34a;color:#fff;}
+.tf-btn.wrong-ans{border-color:#dc2626;background:#dc2626;color:#fff;}
+
+/* Classify (Internal/External) */
+.classify-grid{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-top:.5rem;}
+.classify-item{display:flex;justify-content:space-between;align-items:center;padding:.5rem .8rem;border:2px solid var(--border);border-radius:10px;background:var(--bg);font-size:.88rem;}
+.classify-item .ci-word{font-weight:700;}
+.classify-btns{display:flex;gap:.4rem;}
+.ci-btn{padding:.25rem .7rem;border-radius:999px;border:2px solid var(--border);background:#fff;font-size:.75rem;font-weight:700;cursor:pointer;transition:all .14s;}
+.ci-btn:hover{border-color:var(--primary);}
+.ci-btn.selected{border-color:var(--primary);background:var(--primary);color:#fff;}
+.ci-btn.correct-ans{border-color:#16a34a;background:#16a34a;color:#fff;}
+.ci-btn.wrong-ans{border-color:#dc2626;background:#dc2626;color:#fff;}
+
+.check-btn{padding:.55rem 1.4rem;border-radius:10px;background:var(--primary);color:#fff;border:none;font-size:.9rem;font-weight:700;cursor:pointer;margin-top:1rem;transition:background .15s;}
+.check-btn:hover{background:var(--primary-dark);}
+.score-badge{display:inline-block;margin-left:.8rem;font-size:.85rem;font-weight:700;color:var(--primary-dark);}
+
+/* Dad review */
+.dad-section{margin-bottom:1rem;}
+.dad-label{font-size:.9rem;font-weight:700;margin-bottom:.4rem;color:var(--text);}
+.dad-textarea{width:100%;min-height:70px;border:2px solid var(--border);border-radius:10px;padding:.6rem .8rem;font-size:.88rem;font-family:inherit;resize:vertical;outline:none;}
+.dad-textarea:focus{border-color:var(--primary);}
+.dad-grade-row{display:flex;gap:.5rem;margin-top:.4rem;flex-wrap:wrap;}
+.dad-grade-btn{padding:.3rem .9rem;border-radius:999px;border:2px solid var(--border);background:#fff;font-size:.78rem;font-weight:700;cursor:pointer;transition:all .14s;}
+.dad-grade-btn:hover{border-color:var(--primary);}
+.dad-grade-btn.great{border-color:#16a34a;}
+.dad-grade-btn.great.selected{background:#16a34a;color:#fff;}
+.dad-grade-btn.good{border-color:#f59e0b;}
+.dad-grade-btn.good.selected{background:#f59e0b;color:#fff;}
+.dad-grade-btn.try{border-color:#ef4444;}
+.dad-grade-btn.try.selected{background:#ef4444;color:#fff;}
+.dad-comment{width:100%;border:1px solid var(--border);border-radius:8px;padding:.4rem .7rem;font-size:.82rem;font-family:inherit;margin-top:.4rem;outline:none;}
+
+/* Final score */
+.final-card{background:var(--card);border:2px solid var(--border);border-radius:16px;padding:2rem;text-align:center;margin-bottom:1.5rem;}
+.grade-display{font-size:4rem;font-weight:900;color:var(--primary);}
+.grade-pct{font-size:1.4rem;font-weight:700;color:var(--muted);}
+.score-table{width:100%;border-collapse:collapse;font-size:.88rem;margin-top:1.2rem;text-align:left;}
+.score-table th{background:var(--primary);color:#fff;padding:.5rem .8rem;font-weight:700;}
+.score-table td{padding:.45rem .8rem;border-bottom:1px solid var(--border);}
+.score-table tr:last-child td{border-bottom:none;font-weight:800;}
+
+@media(max-width:600px){
+  .info-grid,.book-diagram,.classify-grid{grid-template-columns:1fr;}
+  .nav-btn{font-size:.72rem;padding:.35rem .65rem;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <span class="header-emoji">📝</span>
+  <h1>Español · 4to Grado</h1>
+  <p>Período 1 · Segunda Prueba</p>
+</header>
+
+<div class="nav-wrapper">
+  <div class="nav-group">
+    <span class="nav-label">Estudio</span>
+    <button class="nav-btn active" onclick="showSection('s-arts')">Artículos</button>
+    <button class="nav-btn" onclick="showSection('s-adj')">Adjetivos</button>
+    <button class="nav-btn" onclick="showSection('s-conc')">Concordancia</button>
+    <button class="nav-btn" onclick="showSection('s-libro')">El Libro</button>
+    <button class="nav-btn" onclick="showSection('s-noticia')">La Noticia</button>
+    <button class="nav-btn" onclick="showSection('s-david3')">David Cap.III</button>
+    <button class="nav-btn" onclick="showSection('s-david4')">David Cap.IV</button>
+    <div class="nav-divider"></div>
+    <span class="nav-label">Práctica</span>
+    <button class="nav-btn" onclick="showSection('t-arts')">Test: Artículos</button>
+    <button class="nav-btn" onclick="showSection('t-adj')">Test: Adjetivos</button>
+    <button class="nav-btn" onclick="showSection('t-conc')">Test: Concordancia</button>
+    <button class="nav-btn" onclick="showSection('t-libro')">Test: El Libro</button>
+    <button class="nav-btn" onclick="showSection('t-noticia')">Test: La Noticia</button>
+    <button class="nav-btn" onclick="showSection('t-david')">Test: David</button>
+    <button class="nav-btn" onclick="showSection('t-escritura')">✍️ Escritura</button>
+    <button class="nav-btn" onclick="showSection('t-final')">🏆 Calificación</button>
+  </div>
+</div>
+
+<main>
+
+<!-- ══════════════════════════════════
+     STUDY: ARTÍCULOS
+══════════════════════════════════ -->
+<div class="section active" id="s-arts">
+  <h2 class="section-title">Artículos Definidos e Indefinidos</h2>
+  <p class="section-sub">Los artículos acompañan al sustantivo e indican si es algo conocido o desconocido.</p>
+
+  <div class="info-grid">
+    <div class="info-card green">
+      <h3 class="green">✅ Artículos Definidos</h3>
+      <p>Se usan cuando hablamos de algo conocido o específico.</p>
+      <div class="tag-row">
+        <span class="tag green">el</span><span class="tag green">la</span>
+        <span class="tag green">los</span><span class="tag green">las</span>
+      </div>
+      <div class="example-box">
+        <em><span class="highlight">El</span> gato duerme. <span class="highlight">La</span> niña canta.</em>
+      </div>
+    </div>
+    <div class="info-card blue">
+      <h3 class="blue">🔵 Artículos Indefinidos</h3>
+      <p>Se usan cuando hablamos de algo desconocido o no específico.</p>
+      <div class="tag-row">
+        <span class="tag blue">un</span><span class="tag blue">una</span>
+        <span class="tag blue">unos</span><span class="tag blue">unas</span>
+      </div>
+      <div class="example-box">
+        <em><span class="highlight">Un</span> perro llegó. <span class="highlight">Una</span> flor creció.</em>
+      </div>
+    </div>
+  </div>
+
+  <table class="article-table">
+    <tr><th></th><th>Masculino singular</th><th>Femenino singular</th><th>Masculino plural</th><th>Femenino plural</th></tr>
+    <tr><td><strong>Definidos</strong></td><td class="art-def">el</td><td class="art-def">la</td><td class="art-def">los</td><td class="art-def">las</td></tr>
+    <tr><td><strong>Indefinidos</strong></td><td class="art-ind">un</td><td class="art-ind">una</td><td class="art-ind">unos</td><td class="art-ind">unas</td></tr>
+  </table>
+
+  <div class="rule-box">
+    <h4>💡 ¿Cómo saber cuál usar?</h4>
+    <p>Definidos → algo que ya conocemos: "<em>el libro que tengo</em>".<br>
+    Indefinidos → algo nuevo o cualquiera: "<em>un libro interesante</em>".</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     STUDY: ADJETIVOS
+══════════════════════════════════ -->
+<div class="section" id="s-adj">
+  <h2 class="section-title">Adjetivos Calificativos</h2>
+  <p class="section-sub">Los adjetivos describen las características o cualidades de un sustantivo.</p>
+
+  <div class="rule-box">
+    <h4>📌 ¿Qué es un adjetivo calificativo?</h4>
+    <p>Es la palabra que dice <strong>cómo es</strong> un sustantivo (persona, animal, lugar o cosa). Puede ir antes o después del sustantivo.</p>
+  </div>
+
+  <div class="info-grid">
+    <div class="info-card green">
+      <h3 class="green">Ejemplos en oraciones</h3>
+      <div class="example-box">El tigre <span class="highlight">negro</span> es <span class="highlight">feroz</span> y <span class="highlight">vigoroso</span>.</div>
+      <div class="example-box">La casa <span class="highlight">grande</span> tiene jardín <span class="highlight">bonito</span>.</div>
+      <div class="example-box">Los <span class="highlight">hermosos</span> papalotes volaron alto.</div>
+    </div>
+    <div class="info-card yellow">
+      <h3 class="yellow">Tipos de adjetivos</h3>
+      <p style="font-size:.87rem;margin-bottom:.5rem;">Los adjetivos pueden indicar:</p>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:.3rem;font-size:.85rem;">
+        <li>🎨 <strong>Color:</strong> rojo, azul, verde</li>
+        <li>📏 <strong>Tamaño:</strong> grande, pequeño</li>
+        <li>😊 <strong>Estado:</strong> feliz, triste, enfermo</li>
+        <li>✨ <strong>Calidad:</strong> bonito, feo, brillante</li>
+        <li>🦁 <strong>Carácter:</strong> feroz, manso, travieso</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="rule-box">
+    <h4>🔎 ¿Cómo identificar el adjetivo?</h4>
+    <p>Pregúntale al sustantivo: ¿<em>cómo es?</em> La respuesta es el adjetivo.<br>
+    Ejemplo: "El cielo <strong>azul</strong>" → ¿Cómo es el cielo? → azul ✅</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     STUDY: CONCORDANCIA
+══════════════════════════════════ -->
+<div class="section" id="s-conc">
+  <h2 class="section-title">Concordancia en Género y Número</h2>
+  <p class="section-sub">El artículo, el sustantivo y el adjetivo deben coincidir en género (masc/fem) y número (sing/plur).</p>
+
+  <table class="article-table">
+    <tr><th></th><th>Masculino singular</th><th>Femenino singular</th><th>Masculino plural</th><th>Femenino plural</th></tr>
+    <tr><td><strong>Ejemplo</strong></td>
+      <td>el niño bonito</td><td>la niña bonita</td><td>los niños bonitos</td><td>las niñas bonitas</td></tr>
+    <tr><td><strong>Ejemplo 2</strong></td>
+      <td>un gato negro</td><td>una gata negra</td><td>unos gatos negros</td><td>unas gatas negras</td></tr>
+  </table>
+
+  <div class="info-grid">
+    <div class="rule-box" style="margin-bottom:0">
+      <h4>📌 Regla de Género</h4>
+      <p style="font-size:.88rem">Si el sustantivo es <strong>masculino</strong> → artículo y adjetivo masculinos.<br>
+      Si es <strong>femenino</strong> → todos femeninos.<br>
+      Generalmente: -o = masc, -a = fem.</p>
+      <div class="example-box">El gato <strong>negro</strong> ✅ / La gata <strong>negra</strong> ✅</div>
+    </div>
+    <div class="rule-box" style="margin-bottom:0">
+      <h4>📌 Regla de Número</h4>
+      <p style="font-size:.88rem">Si el sustantivo es <strong>singular</strong> → artículo y adjetivo singulares.<br>
+      Si es <strong>plural</strong> → todos plurales.<br>
+      Para pluralizar: agrega -s o -es.</p>
+      <div class="example-box">Los gatos <strong>negros</strong> ✅ / Las gatas <strong>negras</strong> ✅</div>
+    </div>
+  </div>
+
+  <div class="rule-box" style="margin-top:1rem">
+    <h4>⚠️ Casos especiales</h4>
+    <p style="font-size:.88rem">Adjetivos terminados en -z cambian a -ces en plural: feliz → felices.<br>
+    Adjetivos sin género fijo: grande → grandes (solo cambia en número).</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     STUDY: EL LIBRO
+══════════════════════════════════ -->
+<div class="section" id="s-libro">
+  <h2 class="section-title">El Libro y sus Partes</h2>
+  <p class="section-sub">Los libros tienen partes externas (se ven por fuera) e internas (están dentro del libro).</p>
+
+  <div class="book-diagram">
+    <div class="book-side external">
+      <h4 class="ext">📦 Partes Externas</h4>
+      <div class="book-part"><span class="bp-icon">📗</span><span><strong>Cubierta:</strong> la tapa del libro, protege las páginas</span></div>
+      <div class="book-part"><span class="bp-icon">🏷️</span><span><strong>Portada:</strong> muestra el título, autor y editorial</span></div>
+      <div class="book-part"><span class="bp-icon">📐</span><span><strong>Lomo:</strong> el canto del libro, lleva el título y autor</span></div>
+      <div class="book-part"><span class="bp-icon">🔙</span><span><strong>Contraportada:</strong> parte trasera, resumen e info adicional</span></div>
+    </div>
+    <div class="book-side internal">
+      <h4 class="int">📋 Partes Internas</h4>
+      <div class="book-part"><span class="bp-icon">📑</span><span><strong>Índice:</strong> lista los temas y páginas donde se encuentran</span></div>
+      <div class="book-part"><span class="bp-icon">📄</span><span><strong>Contenido:</strong> el texto principal del libro</span></div>
+      <div class="book-part"><span class="bp-icon">📚</span><span><strong>Bibliografía:</strong> lista las fuentes y libros consultados</span></div>
+      <div class="book-part"><span class="bp-icon">📝</span><span><strong>Prólogo:</strong> presentación o introducción al libro</span></div>
+    </div>
+  </div>
+
+  <div class="info-grid" style="margin-top:1rem">
+    <div class="info-card green">
+      <h3 class="green">📑 Función del Índice</h3>
+      <p>Permite encontrar rápidamente los temas. Está al inicio (o al final) del libro. Muestra el <strong>nombre del capítulo</strong> y el <strong>número de página</strong>.</p>
+    </div>
+    <div class="info-card purple">
+      <h3 class="purple">📚 Función de la Bibliografía</h3>
+      <p>Lista los libros, artículos y fuentes que el autor consultó. Va al <strong>final del libro</strong>. Permite verificar la información y buscar más sobre el tema.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     STUDY: PARTES DE LA NOTICIA
+══════════════════════════════════ -->
+<div class="section" id="s-noticia">
+  <h2 class="section-title">Partes de la Noticia</h2>
+  <p class="section-sub">Una noticia informa sobre un hecho real y reciente. Sus partes están organizadas para captar la atención del lector.</p>
+
+  <div class="news-diagram">
+    <div class="news-part np-titular">
+      <span class="np-label">Titular</span>
+      <div class="np-desc"><strong>El título principal de la noticia.</strong> Debe ser llamativo, claro y resumir el hecho más importante. Es lo primero que el lector ve.</div>
+    </div>
+    <div class="news-part np-subtitulo">
+      <span class="np-label">Subtítulo</span>
+      <div class="np-desc"><strong>Complementa el titular.</strong> Da más detalles sobre la noticia y ayuda al lector a decidir si la quiere leer completa.</div>
+    </div>
+    <div class="news-part np-entradilla">
+      <span class="np-label">Entradilla</span>
+      <div class="np-desc"><strong>Párrafo inicial de la noticia.</strong> Responde las preguntas básicas: ¿Qué? ¿Quién? ¿Cuándo? ¿Dónde? Es un resumen breve del hecho.</div>
+    </div>
+    <div class="news-part np-graficos">
+      <span class="np-label">Elementos gráficos</span>
+      <div class="np-desc"><strong>Fotos, imágenes, infografías o ilustraciones</strong> que acompañan la noticia. Hacen la noticia más visual y atractiva.</div>
+    </div>
+    <div class="news-part np-cuerpo">
+      <span class="np-label">Cuerpo</span>
+      <div class="np-desc"><strong>Desarrollo completo de la noticia.</strong> Da todos los detalles del hecho: causas, consecuencias, declaraciones. Es la parte más larga.</div>
+    </div>
+  </div>
+
+  <div class="rule-box">
+    <h4>💡 Dato importante: Las 5 W</h4>
+    <p style="font-size:.88rem">Una buena noticia debe responder: <strong>¿Qué?</strong> pasó, <strong>¿Quién?</strong> lo hizo o lo vivió, <strong>¿Cuándo?</strong> ocurrió, <strong>¿Dónde?</strong> fue y <strong>¿Por qué?</strong> sucedió.</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     STUDY: DAVID CAP. III
+══════════════════════════════════ -->
+<div class="section" id="s-david3">
+  <h2 class="section-title">David de Julieta Pinto — Capítulo III</h2>
+  <p class="section-sub">Comprensión lectora. Lee el capítulo y repasa los eventos principales.</p>
+
+  <div class="summary-card">
+    <h4>📖 Resumen — Capítulo III</h4>
+    <ul>
+      <li>Es un día lluvioso. La Niña duerme en el almohadón rojo y Richard juega con sus tucos de colores.</li>
+      <li>David observa las gotas de lluvia en la ventana y las imagina formando la figura de un anciano: el señor Invierno.</li>
+      <li>David "atraviesa" el vidrio y sube a volar con el Invierno entre las nubes. Se siente liviano y la lluvia no lo moja.</li>
+      <li>El viento le cuenta que los ríos han crecido y arrastran sembrados. David le pide al Invierno que proteja el tomatal de su papá.</li>
+      <li>El Invierno explica que él hace que las gotas caigan en el lugar correcto, y que el viento a veces quiere ser más fuerte.</li>
+      <li>David quisiera llevar un pedazo de nube para mostrarle a Richard, pero el Invierno le dice que no puede: se escurre entre los dedos.</li>
+      <li>La voz de mamá interrumpe el sueño de David. Cuando despierta, ya dejó de llover.</li>
+    </ul>
+  </div>
+
+  <div class="rule-box">
+    <h4>🔎 Comprensión inferencial</h4>
+    <p style="font-size:.88rem">¿Por qué crees que la voz del Invierno se parece a la voz del papá de David cuando está contento?<br>
+    ¿Qué nos dice sobre David el hecho de que convierta las gotas de lluvia en un personaje con quien hablar?</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     STUDY: DAVID CAP. IV
+══════════════════════════════════ -->
+<div class="section" id="s-david4">
+  <h2 class="section-title">David de Julieta Pinto — Capítulo IV</h2>
+  <p class="section-sub">Comprensión lectora. Lee el capítulo y repasa los eventos principales.</p>
+
+  <div class="summary-card">
+    <h4>📖 Resumen — Capítulo IV</h4>
+    <ul>
+      <li>Amy le cuenta a David el cuento de un rayito de sol travieso que se fue a explorar el bosque.</li>
+      <li>El rayito pasa el día iluminando todo: el sendero, las flores, los animales, y crea un arco iris en un arroyo.</li>
+      <li>Distraído jugando, el rayito no se da cuenta que el sol (su padre) comenzó a ponerse en el horizonte.</li>
+      <li>Al darse cuenta de que quedó solo en la oscuridad, el rayito siente un gran miedo: de pequeño le dijeron que la noche lo devoraría.</li>
+      <li>Para salvarse, el rayito decide llorar hasta opacar su propia luz y parecerse a una candelilla, para que la noche no lo vea.</li>
+      <li>A la mañana siguiente, el sol nace triste porque cree que la noche devoró a su hijo. Pero al bajar, lo encuentra débil al borde de un camino.</li>
+      <li>El sol lo rescata entre sus brazos y lo devuelve a su seno. Desde entonces, cuando hay nubes fuertes, se ve al rayito jugando en el arroyo.</li>
+    </ul>
+  </div>
+
+  <div class="rule-box">
+    <h4>🔎 Comprensión inferencial</h4>
+    <p style="font-size:.88rem">¿Qué mensaje o enseñanza nos da el cuento del rayito?<br>
+    ¿Por qué crees que el rayito tuvo que llorar para salvarse? ¿Qué nos dice eso sobre el miedo?</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     TEST: ARTÍCULOS
+══════════════════════════════════ -->
+<div class="section" id="t-arts">
+  <h2 class="section-title">Test: Artículos Definidos e Indefinidos</h2>
+  <p class="section-sub">Completa, elige y responde. Cuando termines presiona Revisar.</p>
+
+  <div class="test-block">
+    <h3>Parte A — Completa con el artículo correcto</h3>
+    <div class="q-row"><label>1. ___ niño juega en el patio.</label>
+      <input class="fill-input" id="af1" placeholder="artículo..."></div>
+    <div class="q-row"><label>2. ___ mariposas son coloridas.</label>
+      <input class="fill-input" id="af2" placeholder="artículo..."></div>
+    <div class="q-row"><label>3. Quiero ___ vaso de agua.</label>
+      <input class="fill-input" id="af3" placeholder="artículo..."></div>
+    <div class="q-row"><label>4. ___ gatos son traviesos.</label>
+      <input class="fill-input" id="af4" placeholder="artículo..."></div>
+    <div class="q-row"><label>5. Hay ___ flores en el jardín.</label>
+      <input class="fill-input" id="af5" placeholder="artículo..."></div>
+    <div class="q-row"><label>6. ___ elefante es el animal más grande.</label>
+      <input class="fill-input" id="af6" placeholder="artículo..."></div>
+    <div class="q-row"><label>7. Vi ___ película muy buena ayer.</label>
+      <input class="fill-input" id="af7" placeholder="artículo..."></div>
+    <div class="q-row"><label>8. ___ luna brilla en la noche.</label>
+      <input class="fill-input" id="af8" placeholder="artículo..."></div>
+    <button class="check-btn" onclick="checkArtsF()">Revisar Parte A <span id="arts-f-score" class="score-badge"></span></button>
+  </div>
+
+  <div class="test-block">
+    <h3>Parte B — Selección múltiple</h3>
+    <div class="q-row">
+      <label>9. ¿Cuál de estos es un artículo <strong>definido</strong>?</label>
+      <div class="mc-options" id="mc-arts1">
+        <label class="mc-opt"><input type="radio" name="arts1" value="a"> a) un</label>
+        <label class="mc-opt"><input type="radio" name="arts1" value="b"> b) la ✅</label>
+        <label class="mc-opt"><input type="radio" name="arts1" value="c"> c) unas</label>
+        <label class="mc-opt"><input type="radio" name="arts1" value="d"> d) unos</label>
+      </div>
+    </div>
+    <div class="q-row">
+      <label>10. ¿Cuántos artículos definidos hay en español?</label>
+      <div class="mc-options" id="mc-arts2">
+        <label class="mc-opt"><input type="radio" name="arts2" value="a"> a) 2</label>
+        <label class="mc-opt"><input type="radio" name="arts2" value="b"> b) 3</label>
+        <label class="mc-opt"><input type="radio" name="arts2" value="c"> c) 4 ✅</label>
+        <label class="mc-opt"><input type="radio" name="arts2" value="d"> d) 6</label>
+      </div>
+    </div>
+    <div class="q-row">
+      <label>11. ¿Con qué sustantivo va el artículo "unas"?</label>
+      <div class="mc-options" id="mc-arts3">
+        <label class="mc-opt"><input type="radio" name="arts3" value="a"> a) niño</label>
+        <label class="mc-opt"><input type="radio" name="arts3" value="b"> b) libro</label>
+        <label class="mc-opt"><input type="radio" name="arts3" value="c"> c) flores ✅</label>
+        <label class="mc-opt"><input type="radio" name="arts3" value="d"> d) gato</label>
+      </div>
+    </div>
+    <div class="q-row">
+      <label>12. "Unos" es un artículo…</label>
+      <div class="mc-options" id="mc-arts4">
+        <label class="mc-opt"><input type="radio" name="arts4" value="a"> a) definido masculino plural</label>
+        <label class="mc-opt"><input type="radio" name="arts4" value="b"> b) indefinido masculino plural ✅</label>
+        <label class="mc-opt"><input type="radio" name="arts4" value="c"> c) definido femenino plural</label>
+        <label class="mc-opt"><input type="radio" name="arts4" value="d"> d) indefinido femenino plural</label>
+      </div>
+    </div>
+    <button class="check-btn" onclick="checkArtsMC()">Revisar Parte B <span id="arts-mc-score" class="score-badge"></span></button>
+  </div>
+
+  <div class="test-block">
+    <h3>Parte C — Verdadero o Falso</h3>
+    <div class="q-row">
+      <label>13. "El" y "la" son artículos indefinidos.</label>
+      <div class="tf-row">
+        <button class="tf-btn" onclick="selectTF(this,'arts-tf1')">Verdadero</button>
+        <button class="tf-btn" onclick="selectTF(this,'arts-tf1')">Falso</button>
+      </div>
+    </div>
+    <div class="q-row">
+      <label>14. El artículo "las" se usa con sustantivos femeninos plurales.</label>
+      <div class="tf-row">
+        <button class="tf-btn" onclick="selectTF(this,'arts-tf2')">Verdadero</button>
+        <button class="tf-btn" onclick="selectTF(this,'arts-tf2')">Falso</button>
+      </div>
+    </div>
+    <div class="q-row">
+      <label>15. Los artículos indefinidos son: un, una, unos, unas.</label>
+      <div class="tf-row">
+        <button class="tf-btn" onclick="selectTF(this,'arts-tf3')">Verdadero</button>
+        <button class="tf-btn" onclick="selectTF(this,'arts-tf3')">Falso</button>
+      </div>
+    </div>
+    <div class="q-row">
+      <label>16. "Los" se usa con sustantivos femeninos.</label>
+      <div class="tf-row">
+        <button class="tf-btn" onclick="selectTF(this,'arts-tf4')">Verdadero</button>
+        <button class="tf-btn" onclick="selectTF(this,'arts-tf4')">Falso</button>
+      </div>
+    </div>
+    <button class="check-btn" onclick="checkArtsTF()">Revisar Parte C <span id="arts-tf-score" class="score-badge"></span></button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     TEST: ADJETIVOS
+══════════════════════════════════ -->
+<div class="section" id="t-adj">
+  <h2 class="section-title">Test: Adjetivos Calificativos</h2>
+  <p class="section-sub">Identifica y usa los adjetivos correctamente.</p>
+
+  <div class="test-block">
+    <h3>Parte A — Escribe el adjetivo de la oración</h3>
+    <div class="q-row"><label>1. "Los hermosos papalotes volaron alto." — ¿Cuál es el adjetivo?</label>
+      <input class="fill-input" id="adjf1" placeholder="adjetivo..."></div>
+    <div class="q-row"><label>2. "María tiene ojos verdes." — ¿Cuál es el adjetivo?</label>
+      <input class="fill-input" id="adjf2" placeholder="adjetivo..."></div>
+    <div class="q-row"><label>3. "El perro viejo duerme en la alfombra." — ¿Cuál es el adjetivo?</label>
+      <input class="fill-input" id="adjf3" placeholder="adjetivo..."></div>
+    <div class="q-row"><label>4. "La pequeña ardilla subió al árbol." — ¿Cuál es el adjetivo?</label>
+      <input class="fill-input" id="adjf4" placeholder="adjetivo..."></div>
+    <div class="q-row"><label>5. "El estudiante fue muy aplicado." — ¿Cuál es el adjetivo?</label>
+      <input class="fill-input" id="adjf5" placeholder="adjetivo..."></div>
+    <div class="q-row"><label>6. "Había una noche oscura y fría." — Escribe UN adjetivo.</label>
+      <input class="fill-input" id="adjf6" placeholder="adjetivo..."></div>
+    <button class="check-btn" onclick="checkAdjF()">Revisar Parte A <span id="adj-f-score" class="score-badge"></span></button>
+  </div>
+
+  <div class="test-block">
+    <h3>Parte B — Selección múltiple</h3>
+    <div class="q-row">
+      <label>7. ¿Qué función tiene un adjetivo calificativo?</label>
+      <div class="mc-options" id="mc-adj1">
+        <label class="mc-opt"><input type="radio" name="adj1" value="a"> a) Nombrar personas</label>
+        <label class="mc-opt"><input type="radio" name="adj1" value="b"> b) Describir características del sustantivo ✅</label>
+        <label class="mc-opt"><input type="radio" name="adj1" value="c"> c) Reemplazar al sustantivo</label>
+        <label class="mc-opt"><input type="radio" name="adj1" value="d"> d) Expresar una acción</label>
+      </div>
+    </div>
+    <div class="q-row">
+      <label>8. ¿Cuál de estas palabras es un adjetivo?</label>
+      <div class="mc-options" id="mc-adj2">
+        <label class="mc-opt"><input type="radio" name="adj2" value="a"> a) correr</label>
+        <label class="mc-opt"><input type="radio" name="adj2" value="b"> b) casa</label>
+        <label class="mc-opt"><input type="radio" name="adj2" value="c"> c) hermoso ✅</label>
+        <label class="mc-opt"><input type="radio" name="adj2" value="d"> d) ella</label>
+      </div>
+    </div>
+    <div class="q-row">
+      <label>9. En "La flor roja huele bien", el adjetivo es:</label>
+      <div class="mc-options" id="mc-adj3">
+        <label class="mc-opt"><input type="radio" name="adj3" value="a"> a) La</label>
+        <label class="mc-opt"><input type="radio" name="adj3" value="b"> b) flor</label>
+        <label class="mc-opt"><input type="radio" name="adj3" value="c"> c) roja ✅</label>
+        <label class="mc-opt"><input type="radio" name="adj3" value="d"> d) huele</label>
+      </div>
+    </div>
+    <div class="q-row">
+      <label>10. ¿Cuántos adjetivos hay en "El gato negro y gordo durmió"?</label>
+      <div class="mc-options" id="mc-adj4">
+        <label class="mc-opt"><input type="radio" name="adj4" value="a"> a) 1</label>
+        <label class="mc-opt"><input type="radio" name="adj4" value="b"> b) 2 ✅</label>
+        <label class="mc-opt"><input type="radio" name="adj4" value="c"> c) 3</label>
+        <label class="mc-opt"><input type="radio" name="adj4" value="d"> d) 4</label>
+      </div>
+    </div>
+    <button class="check-btn" onclick="checkAdjMC()">Revisar Parte B <span id="adj-mc-score" class="score-badge"></span></button>
+  </div>
+
+  <div class="test-block">
+    <h3>Parte C — Verdadero o Falso</h3>
+    <div class="q-row">
+      <label>11. Los adjetivos calificativos describen las características de un sustantivo.</label>
+      <div class="tf-row">
+        <button class="tf-btn" onclick="selectTF(this,'adj-tf1')">Verdadero</button>
+        <button class="tf-btn" onclick="selectTF(this,'adj-tf1')">Falso</button>
+      </div>
+    </div>
+    <div class="q-row">
+      <label>12. En "El libro rojo es mío", la palabra "rojo" es un sustantivo.</label>
+      <div class="tf-row">
+        <button class="tf-btn" onclick="selectTF(this,'adj-tf2')">Verdadero</button>
+        <button class="tf-btn" onclick="selectTF(this,'adj-tf2')">Falso</button>
+      </div>
+    </div>
+    <div class="q-row">
+      <label>13. Los adjetivos pueden ir antes o después del sustantivo.</label>
+      <div class="tf-row">
+        <button class="tf-btn" onclick="selectTF(this,'adj-tf3')">Verdadero</button>
+        <button class="tf-btn" onclick="selectTF(this,'adj-tf3')">Falso</button>
+      </div>
+    </div>
+    <div class="q-row">
+      <label>14. "Feliz", "triste" y "bonito" son adjetivos calificativos.</label>
+      <div class="tf-row">
+        <button class="tf-btn" onclick="selectTF(this,'adj-tf4')">Verdadero</button>
+        <button class="tf-btn" onclick="selectTF(this,'adj-tf4')">Falso</button>
+      </div>
+    </div>
+    <button class="check-btn" onclick="checkAdjTF()">Revisar Parte C <span id="adj-tf-score" class="score-badge"></span></button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     TEST: CONCORDANCIA
+══════════════════════════════════ -->
+<div class="section" id="t-conc">
+  <h2 class="section-title">Test: Concordancia en Género y Número</h2>
+  <p class="section-sub">Escribe el adjetivo en la forma correcta.</p>
+
+  <div class="test-block">
+    <h3>Parte A — Escribe el adjetivo en la forma correcta</h3>
+    <div class="q-row"><label>1. Los niños ___ (pequeño) corrieron rápido.</label>
+      <input class="fill-input" id="cf1" placeholder="forma correcta..."></div>
+    <div class="q-row"><label>2. La flor ___ (rojo) es muy bonita.</label>
+      <input class="fill-input" id="cf2" placeholder="forma correcta..."></div>
+    <div class="q-row"><label>3. Los libros ___ (nuevo) llegaron hoy.</label>
+      <input class="fill-input" id="cf3" placeholder="forma correcta..."></div>
+    <div class="q-row"><label>4. La mariposa ___ (hermoso) voló alto.</label>
+      <input class="fill-input" id="cf4" placeholder="forma correcta..."></div>
+    <div class="q-row"><label>5. Las niñas ___ (feliz) cantaron juntas.</label>
+      <input class="fill-input" id="cf5" placeholder="forma correcta..."></div>
+    <div class="q-row"><label>6. Unas flores ___ (amarillo) decoraron la mesa.</label>
+      <input class="fill-input" id="cf6" placeholder="forma correcta..."></div>
+    <button class="check-btn" onclick="checkConcF()">Revisar Parte A <span id="conc-f-score" class="score-badge"></span></button>
+  </div>
+
+  <div class="test-block">
+    <h3>Parte B — Selección múltiple</h3>
+    <div class="q-row">
+      <label>7. ¿Cuál oración tiene concordancia correcta?</label>
+      <div class="mc-options" id="mc-conc1">
+        <label class="mc-opt"><input type="radio" name="conc1" value="a"> a) El niñas bonitas</label>
+        <label class="mc-opt"><input type="radio" name="conc1" value="b"> b) Las niña bonita</label>
+        <label class="mc-opt"><input type="radio" name="conc1" value="c"> c) Las niñas bonitas ✅</label>
+        <label class="mc-opt"><input type="radio" name="conc1" value="d"> d) Los niñas bonitas</label>
+      </div>
+    </div>
+    <div class="q-row">
+      <label>8. ¿Cómo se dice "hermosas flores" en forma correcta?</label>
+      <div class="mc-options" id="mc-conc2">
+        <label class="mc-opt"><input type="radio" name="conc2" value="a"> a) flor hermoso</label>
+        <label class="mc-opt"><input type="radio" name="conc2" value="b"> b) flores hermosas ✅</label>
+        <label class="mc-opt"><input type="radio" name="conc2" value="c"> c) flores hermoso</label>
+        <label class="mc-opt"><input type="radio" name="conc2" value="d"> d) flor hermosas</label>
+      </div>
+    </div>
+    <div class="q-row">
+      <label>9. El adjetivo "grande" con "los árboles" queda:</label>
+      <div class="mc-options" id="mc-conc3">
+        <label class="mc-opt"><input type="radio" name="conc3" value="a"> a) grande</label>
+        <label class="mc-opt"><input type="radio" name="conc3" value="b"> b) grandes ✅</label>
+        <label class="mc-opt"><input type="radio" name="conc3" value="c"> c) granda</label>
+        <label class="mc-opt"><input type="radio" name="conc3" value="d"> d) grandas</label>
+      </div>
+    </div>
+    <div class="q-row">
+      <label>10. "Un cielo ___": ¿qué forma del adjetivo azul es correcta?</label>
+      <div class="mc-options" id="mc-conc4">
+        <label class="mc-opt"><input type="radio" name="conc4" value="a"> a) azules</label>
+        <label class="mc-opt"><input type="radio" name="conc4" value="b"> b) azula</label>
+        <label class="mc-opt"><input type="radio" name="conc4" value="c"> c) azul ✅</label>
+        <label class="mc-opt"><input type="radio" name="conc4" value="d"> d) azulos</label>
+      </div>
+    </div>
+    <button class="check-btn" onclick="checkConcMC()">Revisar Parte B <span id="conc-mc-score" class="score-badge"></span></button>
+  </div>
+
+  <div class="test-block">
+    <h3>Parte C — Verdadero o Falso</h3>
+    <div class="q-row">
+      <label>11. El artículo, el sustantivo y el adjetivo deben concordar en género y número.</label>
+      <div class="tf-row">
+        <button class="tf-btn" onclick="selectTF(this,'conc-tf1')">Verdadero</button>
+        <button class="tf-btn" onclick="selectTF(this,'conc-tf1')">Falso</button>
+      </div>
+    </div>
+    <div class="q-row">
+      <label>12. "Los gatas bonitas" es gramaticalmente correcto.</label>
+      <div class="tf-row">
+        <button class="tf-btn" onclick="selectTF(this,'conc-tf2')">Verdadero</button>
+        <button class="tf-btn" onclick="selectTF(this,'conc-tf2')">Falso</button>
+      </div>
+    </div>
+    <div class="q-row">
+      <label>13. Si el sustantivo es femenino plural, el adjetivo también debe ser femenino plural.</label>
+      <div class="tf-row">
+        <button class="tf-btn" onclick="selectTF(this,'conc-tf3')">Verdadero</button>
+        <button class="tf-btn" onclick="selectTF(this,'conc-tf3')">Falso</button>
+      </div>
+    </div>
+    <div class="q-row">
+      <label>14. "El libro nuevo" tiene concordancia correcta.</label>
+      <div class="tf-row">
+        <button class="tf-btn" onclick="selectTF(this,'conc-tf4')">Verdadero</button>
+        <button class="tf-btn" onclick="selectTF(this,'conc-tf4')">Falso</button>
+      </div>
+    </div>
+    <button class="check-btn" onclick="checkConcTF()">Revisar Parte C <span id="conc-tf-score" class="score-badge"></span></button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     TEST: EL LIBRO
+══════════════════════════════════ -->
+<div class="section" id="t-libro">
+  <h2 class="section-title">Test: El Libro y sus Partes</h2>
+  <p class="section-sub">Clasifica cada parte como Interna o Externa.</p>
+
+  <div class="test-block">
+    <h3>Parte A — ¿Es parte interna o externa del libro?</h3>
+    <p style="font-size:.85rem;color:var(--muted);margin-bottom:.8rem">Haz clic en el botón correcto para cada parte.</p>
+    <div class="classify-grid" id="libro-classify">
+      <div class="classify-item" id="lci-1"><span class="ci-word">Índice</span><div class="classify-btns"><button class="ci-btn" onclick="classifyLibro(this,'lci-1','interna')">Interna</button><button class="ci-btn" onclick="classifyLibro(this,'lci-1','externa')">Externa</button></div></div>
+      <div class="classify-item" id="lci-2"><span class="ci-word">Portada</span><div class="classify-btns"><button class="ci-btn" onclick="classifyLibro(this,'lci-2','interna')">Interna</button><button class="ci-btn" onclick="classifyLibro(this,'lci-2','externa')">Externa</button></div></div>
+      <div class="classify-item" id="lci-3"><span class="ci-word">Cubierta</span><div class="classify-btns"><button class="ci-btn" onclick="classifyLibro(this,'lci-3','interna')">Interna</button><button class="ci-btn" onclick="classifyLibro(this,'lci-3','externa')">Externa</button></div></div>
+      <div class="classify-item" id="lci-4"><span class="ci-word">Bibliografía</span><div class="classify-btns"><button class="ci-btn" onclick="classifyLibro(this,'lci-4','interna')">Interna</button><button class="ci-btn" onclick="classifyLibro(this,'lci-4','externa')">Externa</button></div></div>
+      <div class="classify-item" id="lci-5"><span class="ci-word">Lomo</span><div class="classify-btns"><button class="ci-btn" onclick="classifyLibro(this,'lci-5','interna')">Interna</button><button class="ci-btn" onclick="classifyLibro(this,'lci-5','externa')">Externa</button></div></div>
+      <div class="classify-item" id="lci-6"><span class="ci-word">Contenido</span><div class="classify-btns"><button class="ci-btn" onclick="classifyLibro(this,'lci-6','interna')">Interna</button><button class="ci-btn" onclick="classifyLibro(this,'lci-6','externa')">Externa</button></div></div>
+      <div class="classify-item" id="lci-7"><span class="ci-word">Contraportada</span><div class="classify-btns"><button class="ci-btn" onclick="classifyLibro(this,'lci-7','interna')">Interna</button><button class="ci-btn" onclick="classifyLibro(this,'lci-7','externa')">Externa</button></div></div>
+      <div class="classify-item" id="lci-8"><span class="ci-word">Prólogo</span><div class="classify-btns"><button class="ci-btn" onclick="classifyLibro(this,'lci-8','interna')">Interna</button><button class="ci-btn" onclick="classifyLibro(this,'lci-8','externa')">Externa</button></div></div>
+    </div>
+    <button class="check-btn" onclick="checkLibroClassify()">Revisar Parte A <span id="libro-c-score" class="score-badge"></span></button>
+  </div>
+
+  <div class="test-block">
+    <h3>Parte B — Selección múltiple</h3>
+    <div class="q-row">
+      <label>9. ¿Cuál es una parte <strong>interna</strong> del libro?</label>
+      <div class="mc-options" id="mc-libro1">
+        <label class="mc-opt"><input type="radio" name="libro1" value="a"> a) Lomo</label>
+        <label class="mc-opt"><input type="radio" name="libro1" value="b"> b) Cubierta</label>
+        <label class="mc-opt"><input type="radio" name="libro1" value="c"> c) Índice ✅</label>
+        <label class="mc-opt"><input type="radio" name="libro1" value="d"> d) Portada</label>
+      </div>
+    </div>
+    <div class="q-row">
+      <label>10. ¿Qué parte del libro lleva el título y el autor en el canto?</label>
+      <div class="mc-options" id="mc-libro2">
+        <label class="mc-opt"><input type="radio" name="libro2" value="a"> a) Índice</label>
+        <label class="mc-opt"><input type="radio" name="libro2" value="b"> b) Lomo ✅</label>
+        <label class="mc-opt"><input type="radio" name="libro2" value="c"> c) Bibliografía</label>
+        <label class="mc-opt"><input type="radio" name="libro2" value="d"> d) Prólogo</label>
+      </div>
+    </div>
+    <div class="q-row">
+      <label>11. Si quieres saber en qué página empieza el Capítulo 5, ¿dónde lo buscas?</label>
+      <div class="mc-options" id="mc-libro3">
+        <label class="mc-opt"><input type="radio" name="libro3" value="a"> a) En la bibliografía</label>
+        <label class="mc-opt"><input type="radio" name="libro3" value="b"> b) En el lomo</label>
+        <label class="mc-opt"><input type="radio" name="libro3" value="c"> c) En el índice ✅</label>
+        <label class="mc-opt"><input type="radio" name="libro3" value="d"> d) En la cubierta</label>
+      </div>
+    </div>
+    <div class="q-row">
+      <label>12. ¿Para qué sirve la bibliografía?</label>
+      <div class="mc-options" id="mc-libro4">
+        <label class="mc-opt"><input type="radio" name="libro4" value="a"> a) Para mostrar el título del libro</label>
+        <label class="mc-opt"><input type="radio" name="libro4" value="b"> b) Para que los lectores encuentren las fuentes consultadas ✅</label>
+        <label class="mc-opt"><input type="radio" name="libro4" value="c"> c) Para decorar el libro</label>
+        <label class="mc-opt"><input type="radio" name="libro4" value="d"> d) Para indicar el precio</label>
+      </div>
+    </div>
+    <button class="check-btn" onclick="checkLibroMC()">Revisar Parte B <span id="libro-mc-score" class="score-badge"></span></button>
+  </div>
+
+  <div class="test-block">
+    <h3>Parte C — Verdadero o Falso</h3>
+    <div class="q-row">
+      <label>13. El índice ayuda a encontrar información rápidamente.</label>
+      <div class="tf-row">
+        <button class="tf-btn" onclick="selectTF(this,'libro-tf1')">Verdadero</button>
+        <button class="tf-btn" onclick="selectTF(this,'libro-tf1')">Falso</button>
+      </div>
+    </div>
+    <div class="q-row">
+      <label>14. La bibliografía se encuentra siempre al inicio del libro.</label>
+      <div class="tf-row">
+        <button class="tf-btn" onclick="selectTF(this,'libro-tf2')">Verdadero</button>
+        <button class="tf-btn" onclick="selectTF(this,'libro-tf2')">Falso</button>
+      </div>
+    </div>
+    <div class="q-row">
+      <label>15. El índice y la bibliografía son partes internas del libro.</label>
+      <div class="tf-row">
+        <button class="tf-btn" onclick="selectTF(this,'libro-tf3')">Verdadero</button>
+        <button class="tf-btn" onclick="selectTF(this,'libro-tf3')">Falso</button>
+      </div>
+    </div>
+    <div class="q-row">
+      <label>16. La portada es parte externa del libro y muestra el título e información principal.</label>
+      <div class="tf-row">
+        <button class="tf-btn" onclick="selectTF(this,'libro-tf4')">Verdadero</button>
+        <button class="tf-btn" onclick="selectTF(this,'libro-tf4')">Falso</button>
+      </div>
+    </div>
+    <button class="check-btn" onclick="checkLibroTF()">Revisar Parte C <span id="libro-tf-score" class="score-badge"></span></button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     TEST: LA NOTICIA
+══════════════════════════════════ -->
+<div class="section" id="t-noticia">
+  <h2 class="section-title">Test: Partes de la Noticia</h2>
+  <p class="section-sub">Identifica y aplica las partes de una noticia.</p>
+
+  <div class="test-block">
+    <h3>Parte A — Escribe el nombre de la parte de la noticia</h3>
+    <div class="q-row"><label>1. Es el título principal, llamativo y resume el hecho más importante.</label>
+      <input class="fill-input" id="nf1" placeholder="parte de la noticia..."></div>
+    <div class="q-row"><label>2. Desarrolla todos los detalles del hecho: causas, consecuencias y declaraciones. Es la parte más larga.</label>
+      <input class="fill-input" id="nf2" placeholder="parte de la noticia..."></div>
+    <div class="q-row"><label>3. Párrafo inicial que responde ¿qué?, ¿quién?, ¿cuándo?, ¿dónde?</label>
+      <input class="fill-input" id="nf3" placeholder="parte de la noticia..."></div>
+    <div class="q-row"><label>4. Fotos, imágenes o infografías que acompañan la noticia.</label>
+      <input class="fill-input" id="nf4" placeholder="parte de la noticia..."></div>
+    <div class="q-row"><label>5. Complementa el titular con más información sobre la noticia.</label>
+      <input class="fill-input" id="nf5" placeholder="parte de la noticia..."></div>
+    <button class="check-btn" onclick="checkNoticiaF()">Revisar Parte A <span id="noticia-f-score" class="score-badge"></span></button>
+  </div>
+
+  <div class="test-block">
+    <h3>Parte B — Selección múltiple</h3>
+    <div class="q-row">
+      <label>6. ¿Qué es el titular de una noticia?</label>
+      <div class="mc-options" id="mc-not1">
+        <label class="mc-opt"><input type="radio" name="not1" value="a"> a) El resumen final</label>
+        <label class="mc-opt"><input type="radio" name="not1" value="b"> b) El título principal y llamativo ✅</label>
+        <label class="mc-opt"><input type="radio" name="not1" value="c"> c) La firma del periodista</label>
+        <label class="mc-opt"><input type="radio" name="not1" value="d"> d) La foto principal</label>
+      </div>
+    </div>
+    <div class="q-row">
+      <label>7. La entradilla de una noticia...</label>
+      <div class="mc-options" id="mc-not2">
+        <label class="mc-opt"><input type="radio" name="not2" value="a"> a) Desarrolla todos los detalles</label>
+        <label class="mc-opt"><input type="radio" name="not2" value="b"> b) Es la foto principal</label>
+        <label class="mc-opt"><input type="radio" name="not2" value="c"> c) Responde las preguntas básicas: qué, quién, cuándo, dónde ✅</label>
+        <label class="mc-opt"><input type="radio" name="not2" value="d"> d) Es lo mismo que el subtítulo</label>
+      </div>
+    </div>
+    <div class="q-row">
+      <label>8. ¿Qué parte de la noticia da todos los detalles del hecho?</label>
+      <div class="mc-options" id="mc-not3">
+        <label class="mc-opt"><input type="radio" name="not3" value="a"> a) Titular</label>
+        <label class="mc-opt"><input type="radio" name="not3" value="b"> b) Subtítulo</label>
+        <label class="mc-opt"><input type="radio" name="not3" value="c"> c) Entradilla</label>
+        <label class="mc-opt"><input type="radio" name="not3" value="d"> d) Cuerpo ✅</label>
+      </div>
+    </div>
+    <div class="q-row">
+      <label>9. ¿Qué son los elementos gráficos?</label>
+      <div class="mc-options" id="mc-not4">
+        <label class="mc-opt"><input type="radio" name="not4" value="a"> a) El texto principal</label>
+        <label class="mc-opt"><input type="radio" name="not4" value="b"> b) Las imágenes y fotos ✅</label>
+        <label class="mc-opt"><input type="radio" name="not4" value="c"> c) Los títulos</label>
+        <label class="mc-opt"><input type="radio" name="not4" value="d"> d) Los subtítulos</label>
+      </div>
+    </div>
+    <button class="check-btn" onclick="checkNoticiaMC()">Revisar Parte B <span id="noticia-mc-score" class="score-badge"></span></button>
+  </div>
+
+  <div class="test-block">
+    <h3>Parte C — Verdadero o Falso</h3>
+    <div class="q-row">
+      <label>10. El titular es la primera parte de la noticia y debe ser llamativo.</label>
+      <div class="tf-row">
+        <button class="tf-btn" onclick="selectTF(this,'not-tf1')">Verdadero</button>
+        <button class="tf-btn" onclick="selectTF(this,'not-tf1')">Falso</button>
+      </div>
+    </div>
+    <div class="q-row">
+      <label>11. El cuerpo de la noticia es un resumen muy breve.</label>
+      <div class="tf-row">
+        <button class="tf-btn" onclick="selectTF(this,'not-tf2')">Verdadero</button>
+        <button class="tf-btn" onclick="selectTF(this,'not-tf2')">Falso</button>
+      </div>
+    </div>
+    <div class="q-row">
+      <label>12. Los elementos gráficos pueden ser fotos o infografías.</label>
+      <div class="tf-row">
+        <button class="tf-btn" onclick="selectTF(this,'not-tf3')">Verdadero</button>
+        <button class="tf-btn" onclick="selectTF(this,'not-tf3')">Falso</button>
+      </div>
+    </div>
+    <div class="q-row">
+      <label>13. La entradilla es el desarrollo completo de la noticia.</label>
+      <div class="tf-row">
+        <button class="tf-btn" onclick="selectTF(this,'not-tf4')">Verdadero</button>
+        <button class="tf-btn" onclick="selectTF(this,'not-tf4')">Falso</button>
+      </div>
+    </div>
+    <button class="check-btn" onclick="checkNoticiaTF()">Revisar Parte C <span id="noticia-tf-score" class="score-badge"></span></button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     TEST: DAVID
+══════════════════════════════════ -->
+<div class="section" id="t-david">
+  <h2 class="section-title">Test: Comprensión Lectora — David (Cap. III y IV)</h2>
+  <p class="section-sub">Responde las preguntas sobre el libro de Julieta Pinto.</p>
+
+  <div class="test-block">
+    <h3>Parte A — Comprensión Literal (Cap. III)</h3>
+    <div class="q-row">
+      <label>1. ¿Qué hace La Niña mientras llueve en casa?</label>
+      <div class="mc-options" id="mc-dav1">
+        <label class="mc-opt"><input type="radio" name="dav1" value="a"> a) Juega con tucos de colores</label>
+        <label class="mc-opt"><input type="radio" name="dav1" value="b"> b) Duerme sobre el almohadón rojo ✅</label>
+        <label class="mc-opt"><input type="radio" name="dav1" value="c"> c) Mira por la ventana</label>
+        <label class="mc-opt"><input type="radio" name="dav1" value="d"> d) Sale a jugar bajo la lluvia</label>
+      </div>
+    </div>
+    <div class="q-row">
+      <label>2. ¿En qué se convierte la figura que forman las gotas en la ventana?</label>
+      <div class="mc-options" id="mc-dav2">
+        <label class="mc-opt"><input type="radio" name="dav2" value="a"> a) Un pájaro</label>
+        <label class="mc-opt"><input type="radio" name="dav2" value="b"> b) Un niño</label>
+        <label class="mc-opt"><input type="radio" name="dav2" value="c"> c) Un anciano (el señor Invierno) ✅</label>
+        <label class="mc-opt"><input type="radio" name="dav2" value="d"> d) Un árbol</label>
+      </div>
+    </div>
+    <div class="q-row">
+      <label>3. ¿Qué le pide David al señor Invierno mientras vuelan?</label>
+      <div class="mc-options" id="mc-dav3">
+        <label class="mc-opt"><input type="radio" name="dav3" value="a"> a) Que lo lleve más alto</label>
+        <label class="mc-opt"><input type="radio" name="dav3" value="b"> b) Que proteja el tomatal de su papá ✅</label>
+        <label class="mc-opt"><input type="radio" name="dav3" value="c"> c) Que traiga a Richard</label>
+        <label class="mc-opt"><input type="radio" name="dav3" value="d"> d) Que deje de llover</label>
+      </div>
+    </div>
+    <div class="q-row">
+      <label>4. ¿Por qué David no puede llevarse un pedazo de nube para Richard?</label>
+      <div class="mc-options" id="mc-dav4">
+        <label class="mc-opt"><input type="radio" name="dav4" value="a"> a) Porque el Invierno no lo permite</label>
+        <label class="mc-opt"><input type="radio" name="dav4" value="b"> b) Porque las nubes son muy pesadas</label>
+        <label class="mc-opt"><input type="radio" name="dav4" value="c"> c) Porque se le escurre entre los dedos ✅</label>
+        <label class="mc-opt"><input type="radio" name="dav4" value="d"> d) Porque su mamá lo llama</label>
+      </div>
+    </div>
+    <button class="check-btn" onclick="checkDavLiteral()">Revisar Parte A <span id="dav-lit-score" class="score-badge"></span></button>
+  </div>
+
+  <div class="test-block">
+    <h3>Parte B — Comprensión Literal (Cap. IV)</h3>
+    <div class="q-row">
+      <label>5. ¿Quién le cuenta el cuento del rayito a David?</label>
+      <div class="mc-options" id="mc-dav5">
+        <label class="mc-opt"><input type="radio" name="dav5" value="a"> a) La Niña</label>
+        <label class="mc-opt"><input type="radio" name="dav5" value="b"> b) Su mamá</label>
+        <label class="mc-opt"><input type="radio" name="dav5" value="c"> c) Richard</label>
+        <label class="mc-opt"><input type="radio" name="dav5" value="d"> d) Amy ✅</label>
+      </div>
+    </div>
+    <div class="q-row">
+      <label>6. ¿Qué fabricó el rayito cuando llegó al arroyo?</label>
+      <div class="mc-options" id="mc-dav6">
+        <label class="mc-opt"><input type="radio" name="dav6" value="a"> a) Una candelilla</label>
+        <label class="mc-opt"><input type="radio" name="dav6" value="b"> b) Un arco iris ✅</label>
+        <label class="mc-opt"><input type="radio" name="dav6" value="c"> c) Una tormenta</label>
+        <label class="mc-opt"><input type="radio" name="dav6" value="d"> d) Un nido</label>
+      </div>
+    </div>
+    <div class="q-row">
+      <label>7. ¿Por qué el rayito decide llorar para opacar su luz?</label>
+      <div class="mc-options" id="mc-dav7">
+        <label class="mc-opt"><input type="radio" name="dav7" value="a"> a) Porque extrañaba a su padre</label>
+        <label class="mc-opt"><input type="radio" name="dav7" value="b"> b) Para parecerse a una candelilla y que la noche no lo devorara ✅</label>
+        <label class="mc-opt"><input type="radio" name="dav7" value="c"> c) Para llamar la atención del sol</label>
+        <label class="mc-opt"><input type="radio" name="dav7" value="d"> d) Porque los animales lo asustaron</label>
+      </div>
+    </div>
+    <div class="q-row">
+      <label>8. ¿Por qué el sol nació triste al día siguiente?</label>
+      <div class="mc-options" id="mc-dav8">
+        <label class="mc-opt"><input type="radio" name="dav8" value="a"> a) Porque hacía mal tiempo</label>
+        <label class="mc-opt"><input type="radio" name="dav8" value="b"> b) Porque el rayito no quería regresar</label>
+        <label class="mc-opt"><input type="radio" name="dav8" value="c"> c) Porque creía que la noche había devorado a su hijo ✅</label>
+        <label class="mc-opt"><input type="radio" name="dav8" value="d"> d) Porque las nubes lo tapaban</label>
+      </div>
+    </div>
+    <button class="check-btn" onclick="checkDavLiteral2()">Revisar Parte B <span id="dav-lit2-score" class="score-badge"></span></button>
+  </div>
+
+  <div class="test-block">
+    <h3>Parte C — Comprensión Inferencial</h3>
+    <div class="q-row">
+      <label>9. ¿Qué nos dice sobre David el hecho de que convierta las gotas de lluvia en el señor Invierno?</label>
+      <div class="mc-options" id="mc-dav9">
+        <label class="mc-opt"><input type="radio" name="dav9" value="a"> a) Que le tiene miedo a la lluvia</label>
+        <label class="mc-opt"><input type="radio" name="dav9" value="b"> b) Que tiene una imaginación muy activa y creativa ✅</label>
+        <label class="mc-opt"><input type="radio" name="dav9" value="c"> c) Que no puede dormir</label>
+        <label class="mc-opt"><input type="radio" name="dav9" value="d"> d) Que le gusta el invierno</label>
+      </div>
+    </div>
+    <div class="q-row">
+      <label>10. ¿Qué enseñanza principal deja el cuento del rayito de sol?</label>
+      <div class="mc-options" id="mc-dav10">
+        <label class="mc-opt"><input type="radio" name="dav10" value="a"> a) Que no hay que explorar el bosque</label>
+        <label class="mc-opt"><input type="radio" name="dav10" value="b"> b) Que el amor de los padres siempre rescata a los hijos ✅</label>
+        <label class="mc-opt"><input type="radio" name="dav10" value="c"> c) Que la noche es más fuerte que la luz</label>
+        <label class="mc-opt"><input type="radio" name="dav10" value="d"> d) Que los rayos de sol no deben alejarse</label>
+      </div>
+    </div>
+    <button class="check-btn" onclick="checkDavInf()">Revisar Parte C <span id="dav-inf-score" class="score-badge"></span></button>
+  </div>
+
+  <div class="test-block">
+    <h3>Parte D — Verdadero o Falso</h3>
+    <div class="q-row">
+      <label>11. David sueña que vuela junto al señor Invierno mientras llueve afuera.</label>
+      <div class="tf-row">
+        <button class="tf-btn" onclick="selectTF(this,'dav-tf1')">Verdadero</button>
+        <button class="tf-btn" onclick="selectTF(this,'dav-tf1')">Falso</button>
+      </div>
+    </div>
+    <div class="q-row">
+      <label>12. Richard logró volar exitosamente desde la rama del árbol de mango.</label>
+      <div class="tf-row">
+        <button class="tf-btn" onclick="selectTF(this,'dav-tf2')">Verdadero</button>
+        <button class="tf-btn" onclick="selectTF(this,'dav-tf2')">Falso</button>
+      </div>
+    </div>
+    <div class="q-row">
+      <label>13. El rayito se salvó de la noche llorando para opacar su propia luz.</label>
+      <div class="tf-row">
+        <button class="tf-btn" onclick="selectTF(this,'dav-tf3')">Verdadero</button>
+        <button class="tf-btn" onclick="selectTF(this,'dav-tf3')">Falso</button>
+      </div>
+    </div>
+    <div class="q-row">
+      <label>14. El sol encontró a su hijo muerto al día siguiente.</label>
+      <div class="tf-row">
+        <button class="tf-btn" onclick="selectTF(this,'dav-tf4')">Verdadero</button>
+        <button class="tf-btn" onclick="selectTF(this,'dav-tf4')">Falso</button>
+      </div>
+    </div>
+    <button class="check-btn" onclick="checkDavTF()">Revisar Parte D <span id="dav-tf-score" class="score-badge"></span></button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     ESCRITURA — DAD REVIEW
+══════════════════════════════════ -->
+<div class="section" id="t-escritura">
+  <h2 class="section-title">✍️ Escritura: Construye una Noticia</h2>
+  <p class="section-sub">Escribe una noticia completa sobre el siguiente evento. Papá revisará y calificará cada parte.</p>
+
+  <div class="rule-box" style="margin-bottom:1.5rem">
+    <h4>📰 El evento</h4>
+    <p style="font-size:.9rem;margin-top:.4rem">Un grupo de estudiantes de 4to grado de tu escuela ganó el <strong>primer lugar</strong> en un concurso nacional de ciencias celebrado en San José el pasado viernes. Los estudiantes presentaron un proyecto sobre el reciclaje del agua.</p>
+    <p style="font-size:.85rem;color:var(--muted);margin-top:.5rem">Escribe una noticia completa con todas sus partes. Recuerda incluir: Titular, Subtítulo, Entradilla y Cuerpo.</p>
+  </div>
+
+  <div class="test-block">
+    <div class="dad-section">
+      <div class="dad-label">1. 📰 Titular — Escribe el título llamativo de tu noticia</div>
+      <textarea class="dad-textarea" id="esc1" placeholder="Ej: Estudiantes de 4to grado conquistan concurso nacional..."></textarea>
+      <div class="dad-grade-row">
+        <span style="font-size:.8rem;color:var(--muted);font-weight:700">Papá califica:</span>
+        <button class="dad-grade-btn great" onclick="dadGrade(this,'esc1-grade',1)">🌟 Excelente (1 pt)</button>
+        <button class="dad-grade-btn good" onclick="dadGrade(this,'esc1-grade',0.5)">👍 Buen intento (0.5 pt)</button>
+        <button class="dad-grade-btn try" onclick="dadGrade(this,'esc1-grade',0)">🔄 Intenta de nuevo (0 pt)</button>
+      </div>
+      <input class="dad-comment" id="esc1-comment" placeholder="Comentario de Papá (opcional)..." style="display:none">
+      <span id="esc1-grade"></span>
+    </div>
+
+    <div class="dad-section" style="margin-top:1rem">
+      <div class="dad-label">2. 📋 Subtítulo — Complementa el titular con más detalles</div>
+      <textarea class="dad-textarea" id="esc2" placeholder="Escribe el subtítulo..."></textarea>
+      <div class="dad-grade-row">
+        <span style="font-size:.8rem;color:var(--muted);font-weight:700">Papá califica:</span>
+        <button class="dad-grade-btn great" onclick="dadGrade(this,'esc2-grade',1)">🌟 Excelente (1 pt)</button>
+        <button class="dad-grade-btn good" onclick="dadGrade(this,'esc2-grade',0.5)">👍 Buen intento (0.5 pt)</button>
+        <button class="dad-grade-btn try" onclick="dadGrade(this,'esc2-grade',0)">🔄 Intenta de nuevo (0 pt)</button>
+      </div>
+      <input class="dad-comment" id="esc2-comment" placeholder="Comentario de Papá (opcional)..." style="display:none">
+      <span id="esc2-grade"></span>
+    </div>
+
+    <div class="dad-section" style="margin-top:1rem">
+      <div class="dad-label">3. 🔍 Entradilla — Responde ¿qué?, ¿quién?, ¿cuándo?, ¿dónde?</div>
+      <textarea class="dad-textarea" id="esc3" placeholder="Escribe el párrafo inicial que responde las preguntas básicas..."></textarea>
+      <div class="dad-grade-row">
+        <span style="font-size:.8rem;color:var(--muted);font-weight:700">Papá califica:</span>
+        <button class="dad-grade-btn great" onclick="dadGrade(this,'esc3-grade',1)">🌟 Excelente (1 pt)</button>
+        <button class="dad-grade-btn good" onclick="dadGrade(this,'esc3-grade',0.5)">👍 Buen intento (0.5 pt)</button>
+        <button class="dad-grade-btn try" onclick="dadGrade(this,'esc3-grade',0)">🔄 Intenta de nuevo (0 pt)</button>
+      </div>
+      <input class="dad-comment" id="esc3-comment" placeholder="Comentario de Papá (opcional)..." style="display:none">
+      <span id="esc3-grade"></span>
+    </div>
+
+    <div class="dad-section" style="margin-top:1rem">
+      <div class="dad-label">4. 📄 Cuerpo — Desarrolla todos los detalles de la noticia</div>
+      <textarea class="dad-textarea" id="esc4" placeholder="Escribe el cuerpo de la noticia con todos los detalles..." style="min-height:100px"></textarea>
+      <div class="dad-grade-row">
+        <span style="font-size:.8rem;color:var(--muted);font-weight:700">Papá califica:</span>
+        <button class="dad-grade-btn great" onclick="dadGrade(this,'esc4-grade',1)">🌟 Excelente (1 pt)</button>
+        <button class="dad-grade-btn good" onclick="dadGrade(this,'esc4-grade',0.5)">👍 Buen intento (0.5 pt)</button>
+        <button class="dad-grade-btn try" onclick="dadGrade(this,'esc4-grade',0)">🔄 Intenta de nuevo (0 pt)</button>
+      </div>
+      <input class="dad-comment" id="esc4-comment" placeholder="Comentario de Papá (opcional)..." style="display:none">
+      <span id="esc4-grade"></span>
+    </div>
+
+    <button class="check-btn" style="margin-top:1rem" onclick="saveDadReview()">💾 Guardar calificación de escritura <span id="escritura-score" class="score-badge"></span></button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     CALIFICACIÓN FINAL
+══════════════════════════════════ -->
+<div class="section" id="t-final">
+  <h2 class="section-title">🏆 Calificación Final</h2>
+  <p class="section-sub">Resumen de todos los ejercicios completados.</p>
+
+  <div class="final-card">
+    <div class="grade-display" id="final-grade-letter">—</div>
+    <div class="grade-pct" id="final-grade-pct">Completa los ejercicios para ver tu nota</div>
+  </div>
+
+  <table class="score-table">
+    <tr><th>Sección</th><th>Obtenido</th><th>Total</th></tr>
+    <tr><td>Artículos — Fill-in</td><td id="sc-arts-f">—</td><td>8</td></tr>
+    <tr><td>Artículos — Selección múltiple</td><td id="sc-arts-mc">—</td><td>4</td></tr>
+    <tr><td>Artículos — V/F</td><td id="sc-arts-tf">—</td><td>4</td></tr>
+    <tr><td>Adjetivos — Identificar</td><td id="sc-adj-f">—</td><td>6</td></tr>
+    <tr><td>Adjetivos — Selección múltiple</td><td id="sc-adj-mc">—</td><td>4</td></tr>
+    <tr><td>Adjetivos — V/F</td><td id="sc-adj-tf">—</td><td>4</td></tr>
+    <tr><td>Concordancia — Fill-in</td><td id="sc-conc-f">—</td><td>6</td></tr>
+    <tr><td>Concordancia — Selección múltiple</td><td id="sc-conc-mc">—</td><td>4</td></tr>
+    <tr><td>Concordancia — V/F</td><td id="sc-conc-tf">—</td><td>4</td></tr>
+    <tr><td>El Libro — Clasificar</td><td id="sc-libro-c">—</td><td>8</td></tr>
+    <tr><td>El Libro — Selección múltiple</td><td id="sc-libro-mc">—</td><td>4</td></tr>
+    <tr><td>El Libro — V/F</td><td id="sc-libro-tf">—</td><td>4</td></tr>
+    <tr><td>La Noticia — Fill-in</td><td id="sc-noticia-f">—</td><td>5</td></tr>
+    <tr><td>La Noticia — Selección múltiple</td><td id="sc-noticia-mc">—</td><td>4</td></tr>
+    <tr><td>La Noticia — V/F</td><td id="sc-noticia-tf">—</td><td>4</td></tr>
+    <tr><td>David — Literal Cap.III</td><td id="sc-dav-lit">—</td><td>4</td></tr>
+    <tr><td>David — Literal Cap.IV</td><td id="sc-dav-lit2">—</td><td>4</td></tr>
+    <tr><td>David — Inferencial</td><td id="sc-dav-inf">—</td><td>2</td></tr>
+    <tr><td>David — V/F</td><td id="sc-dav-tf">—</td><td>4</td></tr>
+    <tr><td>Escritura (Papá revisa)</td><td id="sc-escritura">—</td><td>4</td></tr>
+    <tr style="background:#f0fdf4"><td><strong>TOTAL</strong></td><td id="sc-total"><strong>—</strong></td><td><strong>91</strong></td></tr>
+  </table>
+
+  <button class="check-btn" onclick="calcFinal()" style="margin-top:1.5rem;width:100%;font-size:1rem">Calcular Calificación Final 🎓</button>
+</div>
+
+</main>
+
+<script>
+// ── Navigation ──
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(b => {
+    b.classList.toggle('active', b.getAttribute('onclick') && b.getAttribute('onclick').includes("'" + id + "'"));
+  });
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+// ── Scores ──
+var scores = {};
+function recordScore(key, correct, total) {
+  scores[key] = {correct: correct, total: total};
+  var el = document.getElementById('sc-' + key);
+  if (el) el.textContent = correct + ' / ' + total;
+}
+
+// ── TF State ──
+var tfState = {};
+function selectTF(btn, key) {
+  var row = btn.parentElement;
+  row.querySelectorAll('.tf-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  tfState[key] = btn.textContent.trim();
+}
+
+// ── MC style ──
+document.addEventListener('change', function(e) {
+  if (e.target.type === 'radio') {
+    var name = e.target.name;
+    document.querySelectorAll('input[name="' + name + '"]').forEach(r => {
+      r.closest('.mc-opt').classList.toggle('selected', r.checked);
+    });
+  }
+});
+
+// ── Classify Libro ──
+var libroState = {};
+function classifyLibro(btn, itemId, val) {
+  var item = document.getElementById(itemId);
+  item.querySelectorAll('.ci-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  libroState[itemId] = val;
+}
+
+// ══════════════════════
+// CHECK FUNCTIONS
+// ══════════════════════
+
+// Artículos Fill-in
+var artsAnswers = {af1:'el',af2:'las',af3:'un',af4:'los',af5:'unas',af6:'el',af7:'una',af8:'la'};
+function checkArtsF() {
+  var correct = 0;
+  Object.keys(artsAnswers).forEach(id => {
+    var el = document.getElementById(id);
+    var val = el.value.trim().toLowerCase();
+    if (val === artsAnswers[id]) { el.classList.add('correct'); el.classList.remove('wrong'); correct++; }
+    else { el.classList.add('wrong'); el.classList.remove('correct'); }
+  });
+  recordScore('arts-f', correct, 8);
+  document.getElementById('arts-f-score').textContent = correct + '/8';
+}
+
+// Artículos MC
+var artsMCAnswers = {arts1:'b', arts2:'c', arts3:'c', arts4:'b'};
+function checkArtsMC() {
+  var correct = checkMCGroup(artsMCAnswers, 'mc-arts');
+  recordScore('arts-mc', correct, 4);
+  document.getElementById('arts-mc-score').textContent = correct + '/4';
+}
+
+// Artículos TF
+var artsTFAnswers = {'arts-tf1':'Falso','arts-tf2':'Verdadero','arts-tf3':'Verdadero','arts-tf4':'Falso'};
+function checkArtsTF() {
+  var correct = checkTFGroup(artsTFAnswers);
+  recordScore('arts-tf', correct, 4);
+  document.getElementById('arts-tf-score').textContent = correct + '/4';
+}
+
+// Adjetivos Fill-in
+var adjAnswers = {adjf1:'hermosos',adjf2:'verdes',adjf3:'viejo',adjf4:'pequeña',adjf5:'aplicado',adjf6:['oscura','fría','fria']};
+function checkAdjF() {
+  var correct = 0;
+  Object.keys(adjAnswers).forEach(id => {
+    var el = document.getElementById(id);
+    var val = el.value.trim().toLowerCase();
+    var ans = adjAnswers[id];
+    var ok = Array.isArray(ans) ? ans.includes(val) : val === ans;
+    if (ok) { el.classList.add('correct'); el.classList.remove('wrong'); correct++; }
+    else { el.classList.add('wrong'); el.classList.remove('correct'); }
+  });
+  recordScore('adj-f', correct, 6);
+  document.getElementById('adj-f-score').textContent = correct + '/6';
+}
+
+// Adjetivos MC
+var adjMCAnswers = {adj1:'b', adj2:'c', adj3:'c', adj4:'b'};
+function checkAdjMC() {
+  var correct = checkMCGroup(adjMCAnswers, 'mc-adj');
+  recordScore('adj-mc', correct, 4);
+  document.getElementById('adj-mc-score').textContent = correct + '/4';
+}
+
+// Adjetivos TF
+var adjTFAnswers = {'adj-tf1':'Verdadero','adj-tf2':'Falso','adj-tf3':'Verdadero','adj-tf4':'Verdadero'};
+function checkAdjTF() {
+  var correct = checkTFGroup(adjTFAnswers);
+  recordScore('adj-tf', correct, 4);
+  document.getElementById('adj-tf-score').textContent = correct + '/4';
+}
+
+// Concordancia Fill-in
+var concAnswers = {cf1:'pequeños',cf2:'roja',cf3:'nuevos',cf4:'hermosa',cf5:'felices',cf6:'amarillas'};
+function checkConcF() {
+  var correct = 0;
+  Object.keys(concAnswers).forEach(id => {
+    var el = document.getElementById(id);
+    var val = el.value.trim().toLowerCase();
+    if (val === concAnswers[id]) { el.classList.add('correct'); el.classList.remove('wrong'); correct++; }
+    else { el.classList.add('wrong'); el.classList.remove('correct'); }
+  });
+  recordScore('conc-f', correct, 6);
+  document.getElementById('conc-f-score').textContent = correct + '/6';
+}
+
+// Concordancia MC
+var concMCAnswers = {conc1:'c', conc2:'b', conc3:'b', conc4:'c'};
+function checkConcMC() {
+  var correct = checkMCGroup(concMCAnswers, 'mc-conc');
+  recordScore('conc-mc', correct, 4);
+  document.getElementById('conc-mc-score').textContent = correct + '/4';
+}
+
+// Concordancia TF
+var concTFAnswers = {'conc-tf1':'Verdadero','conc-tf2':'Falso','conc-tf3':'Verdadero','conc-tf4':'Verdadero'};
+function checkConcTF() {
+  var correct = checkTFGroup(concTFAnswers);
+  recordScore('conc-tf', correct, 4);
+  document.getElementById('conc-tf-score').textContent = correct + '/4';
+}
+
+// Libro Classify
+var libroCorrect = {
+  'lci-1':'interna','lci-2':'externa','lci-3':'externa','lci-4':'interna',
+  'lci-5':'externa','lci-6':'interna','lci-7':'externa','lci-8':'interna'
+};
+function checkLibroClassify() {
+  var correct = 0;
+  Object.keys(libroCorrect).forEach(id => {
+    var item = document.getElementById(id);
+    var btns = item.querySelectorAll('.ci-btn');
+    var chosen = libroState[id];
+    var isCorrect = chosen === libroCorrect[id];
+    if (isCorrect) correct++;
+    btns.forEach(btn => {
+      var btnVal = btn.onclick.toString().match(/'([^']+)'\)$/)?.[1] || '';
+      btn.classList.remove('correct-ans','wrong-ans');
+      if (btnVal === libroCorrect[id]) btn.classList.add('correct-ans');
+      else if (btnVal === chosen && !isCorrect) btn.classList.add('wrong-ans');
+    });
+  });
+  recordScore('libro-c', correct, 8);
+  document.getElementById('libro-c-score').textContent = correct + '/8';
+}
+
+// Libro MC
+var libroMCAnswers = {libro1:'c', libro2:'b', libro3:'c', libro4:'b'};
+function checkLibroMC() {
+  var correct = checkMCGroup(libroMCAnswers, 'mc-libro');
+  recordScore('libro-mc', correct, 4);
+  document.getElementById('libro-mc-score').textContent = correct + '/4';
+}
+
+// Libro TF
+var libroTFAnswers = {'libro-tf1':'Verdadero','libro-tf2':'Falso','libro-tf3':'Verdadero','libro-tf4':'Verdadero'};
+function checkLibroTF() {
+  var correct = checkTFGroup(libroTFAnswers);
+  recordScore('libro-tf', correct, 4);
+  document.getElementById('libro-tf-score').textContent = correct + '/4';
+}
+
+// Noticia Fill-in
+var noticiaAnswers = {nf1:'titular',nf2:'cuerpo',nf3:'entradilla',nf4:['elementos gráficos','elementos graficos'],nf5:'subtítulo'};
+function checkNoticiaF() {
+  var correct = 0;
+  Object.keys(noticiaAnswers).forEach(id => {
+    var el = document.getElementById(id);
+    var val = el.value.trim().toLowerCase()
+      .normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+    var ans = noticiaAnswers[id];
+    var normalize = s => s.normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+    var ok = Array.isArray(ans) ? ans.map(normalize).includes(val) : normalize(ans) === val;
+    if (ok) { el.classList.add('correct'); el.classList.remove('wrong'); correct++; }
+    else { el.classList.add('wrong'); el.classList.remove('correct'); }
+  });
+  recordScore('noticia-f', correct, 5);
+  document.getElementById('noticia-f-score').textContent = correct + '/5';
+}
+
+// Noticia MC
+var noticiaMCAnswers = {not1:'b', not2:'c', not3:'d', not4:'b'};
+function checkNoticiaMC() {
+  var correct = checkMCGroup(noticiaMCAnswers, 'mc-not');
+  recordScore('noticia-mc', correct, 4);
+  document.getElementById('noticia-mc-score').textContent = correct + '/4';
+}
+
+// Noticia TF
+var noticiaTFAnswers = {'not-tf1':'Verdadero','not-tf2':'Falso','not-tf3':'Verdadero','not-tf4':'Falso'};
+function checkNoticiaTF() {
+  var correct = checkTFGroup(noticiaTFAnswers);
+  recordScore('noticia-tf', correct, 4);
+  document.getElementById('noticia-tf-score').textContent = correct + '/4';
+}
+
+// David MC
+var davMCAnswers1 = {dav1:'b',dav2:'c',dav3:'b',dav4:'c'};
+var davMCAnswers2 = {dav5:'d',dav6:'b',dav7:'b',dav8:'c'};
+var davMCAnswersInf = {dav9:'b',dav10:'b'};
+function checkDavLiteral() {
+  var correct = checkMCGroup(davMCAnswers1, 'mc-dav');
+  recordScore('dav-lit', correct, 4);
+  document.getElementById('dav-lit-score').textContent = correct + '/4';
+}
+function checkDavLiteral2() {
+  var correct = checkMCGroup(davMCAnswers2, 'mc-dav');
+  recordScore('dav-lit2', correct, 4);
+  document.getElementById('dav-lit2-score').textContent = correct + '/4';
+}
+function checkDavInf() {
+  var correct = checkMCGroup(davMCAnswersInf, 'mc-dav');
+  recordScore('dav-inf', correct, 2);
+  document.getElementById('dav-inf-score').textContent = correct + '/2';
+}
+
+// David TF
+var davTFAnswers = {'dav-tf1':'Verdadero','dav-tf2':'Falso','dav-tf3':'Verdadero','dav-tf4':'Falso'};
+function checkDavTF() {
+  var correct = checkTFGroup(davTFAnswers);
+  recordScore('dav-tf', correct, 4);
+  document.getElementById('dav-tf-score').textContent = correct + '/4';
+}
+
+// Dad Review
+var dadScores = {};
+function dadGrade(btn, gradeId, pts) {
+  var row = btn.parentElement;
+  row.querySelectorAll('.dad-grade-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  dadScores[gradeId] = pts;
+  var commentId = gradeId.replace('-grade','-comment');
+  var commentEl = document.getElementById(commentId);
+  if (commentEl) commentEl.style.display = 'block';
+}
+
+function saveDadReview() {
+  var total = (dadScores['esc1-grade']||0) + (dadScores['esc2-grade']||0) +
+              (dadScores['esc3-grade']||0) + (dadScores['esc4-grade']||0);
+  recordScore('escritura', total, 4);
+  document.getElementById('escritura-score').textContent = total + '/4 pts guardado ✓';
+}
+
+// ── Helpers ──
+function checkMCGroup(answersObj, prefix) {
+  var correct = 0;
+  Object.keys(answersObj).forEach(name => {
+    var sel = document.querySelector('input[name="' + name + '"]:checked');
+    var correctVal = answersObj[name];
+    var containerId = 'mc-' + name.replace(/\d+$/,'') + name.match(/\d+$/)?.[0];
+    document.querySelectorAll('input[name="' + name + '"]').forEach(r => {
+      var opt = r.closest('.mc-opt');
+      opt.classList.remove('correct-ans','wrong-ans','selected');
+      if (r.value === correctVal) opt.classList.add('correct-ans');
+      else if (sel && r === sel && r.value !== correctVal) opt.classList.add('wrong-ans');
+    });
+    if (sel && sel.value === correctVal) correct++;
+  });
+  return correct;
+}
+
+function checkTFGroup(answersObj) {
+  var correct = 0;
+  Object.keys(answersObj).forEach(key => {
+    var chosen = tfState[key];
+    var correctAns = answersObj[key];
+    var isCorrect = chosen === correctAns;
+    if (isCorrect) correct++;
+    // Find the buttons for this key
+    document.querySelectorAll('.tf-btn').forEach(btn => {
+      if (btn.getAttribute('onclick') && btn.getAttribute('onclick').includes("'" + key + "'")) {
+        btn.classList.remove('correct-ans','wrong-ans','selected');
+        if (btn.textContent.trim() === correctAns) btn.classList.add('correct-ans');
+        else if (btn.textContent.trim() === chosen && !isCorrect) btn.classList.add('wrong-ans');
+      }
+    });
+  });
+  return correct;
+}
+
+// ── Final Score ──
+function calcFinal() {
+  var keys = [
+    {k:'arts-f',t:8},{k:'arts-mc',t:4},{k:'arts-tf',t:4},
+    {k:'adj-f',t:6},{k:'adj-mc',t:4},{k:'adj-tf',t:4},
+    {k:'conc-f',t:6},{k:'conc-mc',t:4},{k:'conc-tf',t:4},
+    {k:'libro-c',t:8},{k:'libro-mc',t:4},{k:'libro-tf',t:4},
+    {k:'noticia-f',t:5},{k:'noticia-mc',t:4},{k:'noticia-tf',t:4},
+    {k:'dav-lit',t:4},{k:'dav-lit2',t:4},{k:'dav-inf',t:2},{k:'dav-tf',t:4},
+    {k:'escritura',t:4}
+  ];
+  var totalPts = 0, earnedPts = 0;
+  keys.forEach(item => {
+    totalPts += item.t;
+    if (scores[item.k]) earnedPts += scores[item.k].correct;
+  });
+  var pct = totalPts > 0 ? Math.round((earnedPts / totalPts) * 100) : 0;
+  var letter = pct >= 90 ? 'A' : pct >= 80 ? 'B' : pct >= 70 ? 'C' : 'D';
+  document.getElementById('final-grade-letter').textContent = letter;
+  document.getElementById('final-grade-pct').textContent = earnedPts + ' / ' + totalPts + ' puntos — ' + pct + '%';
+  document.getElementById('sc-total').innerHTML = '<strong>' + earnedPts + ' / ' + totalPts + '</strong>';
+}
+</script>
+</body>
+</html>

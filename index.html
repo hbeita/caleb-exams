@@ -7,7 +7,6 @@
 <style>
   :root {
     --primary: #4f46e5;
-    --primary-light: #eef2ff;
     --success: #16a34a;
     --success-light: #dcfce7;
     --muted: #6b7280;
@@ -18,163 +17,124 @@
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
-
   header {
     background: linear-gradient(135deg, #1e1b4b 0%, #4f46e5 60%, #7c3aed 100%);
     color: white; padding: 3rem 1rem 2.5rem; text-align: center; position: relative; overflow: hidden;
   }
-  header::before {
-    content: ''; position: absolute; inset: 0;
-    background: radial-gradient(circle at 70% 50%, rgba(255,255,255,.07) 0%, transparent 60%);
-  }
+  header::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 70% 50%, rgba(255,255,255,.07) 0%, transparent 60%); }
   .header-emoji { font-size: 3rem; display: block; margin-bottom: .5rem; }
   header h1 { font-size: 2.2rem; font-weight: 900; letter-spacing: -.02em; }
   header p { margin-top: .4rem; opacity: .8; font-size: 1rem; }
-
-  main { max-width: 900px; margin: 0 auto; padding: 2rem 1rem 4rem; }
-
-  .grade-section { margin-bottom: 3rem; }
-  .grade-header {
-    display: flex; align-items: center; gap: .75rem;
-    margin-bottom: 1.5rem; padding-bottom: .75rem;
-    border-bottom: 2px solid var(--border);
-  }
-  .grade-badge {
-    background: var(--primary); color: white;
-    font-weight: 800; font-size: .8rem; padding: .35rem .8rem; border-radius: 999px;
-  }
-  .grade-title { font-size: 1.3rem; font-weight: 800; }
-  .grade-sub { font-size: .85rem; color: var(--muted); margin-left: auto; }
-
-  .periods-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
-
-  .period-col { display: flex; flex-direction: column; gap: .75rem; }
-  .period-label {
-    font-size: .75rem; font-weight: 800; text-transform: uppercase; letter-spacing: .08em;
-    color: var(--muted); padding: .2rem 0;
-  }
-
-  .exam-card {
-    background: var(--card); border-radius: 14px; padding: 1.2rem 1.3rem;
-    border: 2px solid var(--border); text-decoration: none; color: var(--text);
-    display: flex; flex-direction: column; gap: .4rem;
-    transition: all .2s; position: relative; overflow: hidden;
-  }
-  .exam-card.available:hover { border-color: var(--primary); box-shadow: 0 4px 16px rgba(79,70,229,.12); transform: translateY(-2px); }
-  .exam-card.placeholder { cursor: default; opacity: .6; }
-
-  .exam-card .ec-top { display: flex; justify-content: space-between; align-items: flex-start; }
-  .exam-card .ec-number { font-size: .75rem; font-weight: 700; color: var(--muted); }
-  .exam-card .ec-status { font-size: .7rem; font-weight: 700; padding: .2rem .55rem; border-radius: 999px; }
-  .ec-status.ready { background: var(--success-light); color: var(--success); }
-  .ec-status.soon { background: #f3f4f6; color: var(--muted); }
-
-  .exam-card .ec-icon { font-size: 2rem; margin: .3rem 0; }
-  .exam-card .ec-subject { font-size: 1.05rem; font-weight: 800; }
-  .exam-card .ec-topics { font-size: .8rem; color: var(--muted); line-height: 1.4; }
-
-  .exam-card .ec-arrow {
-    margin-top: .6rem; font-size: .82rem; font-weight: 700; color: var(--primary);
-  }
-  .exam-card.placeholder .ec-arrow { display: none; }
-
-  .exam-card::before {
-    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-    background: linear-gradient(90deg, var(--primary), #7c3aed);
-    opacity: 0; transition: opacity .2s;
-  }
-  .exam-card.available:hover::before { opacity: 1; }
-
-  .footer {
-    text-align: center; padding: 1.5rem; font-size: .8rem; color: var(--muted);
-    border-top: 1px solid var(--border); margin-top: 2rem;
-  }
-
-  @media (max-width: 580px) {
-    .periods-grid { grid-template-columns: 1fr; }
+  main { max-width: 860px; margin: 0 auto; padding: 2rem 1rem 4rem; display: flex; flex-direction: column; gap: 2.5rem; }
+  .lang-section { background: var(--card); border-radius: 18px; border: 2px solid var(--border); overflow: hidden; }
+  .lang-header { display: flex; align-items: center; gap: .6rem; padding: 1rem 1.4rem; font-size: 1rem; font-weight: 800; border-bottom: 2px solid var(--border); }
+  .lang-header.english { background: #eef2ff; color: #3730a3; }
+  .lang-header.espanol { background: #f0fdf4; color: #15803d; }
+  .lang-header .flag { font-size: 1.3rem; }
+  .lang-header .exam-count { margin-left: auto; font-size: .75rem; font-weight: 600; color: var(--muted); }
+  .subject-grid { display: table; width: 100%; border-collapse: collapse; }
+  .col-headers { display: table-row; }
+  .col-headers > div { display: table-cell; padding: .5rem 1rem; font-size: .7rem; font-weight: 800; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); border-bottom: 1px solid var(--border); }
+  .col-headers .ch-p { text-align: center; width: 32%; }
+  .subject-row { display: table-row; }
+  .subject-row:not(:last-child) > .cell { border-bottom: 1px solid var(--border); }
+  .cell { display: table-cell; padding: .75rem 1rem; vertical-align: middle; }
+  .cell.subject-name { font-size: .9rem; font-weight: 700; white-space: nowrap; width: 36%; }
+  .cell.period-cell { text-align: center; width: 32%; }
+  .period-card { display: inline-flex; flex-direction: column; align-items: center; gap: .2rem; padding: .55rem .9rem; border-radius: 10px; text-decoration: none; border: 2px solid var(--border); background: var(--bg); transition: all .18s; min-width: 110px; color: var(--text); }
+  .period-card.ready { border-color: #bbf7d0; background: #f0fdf4; }
+  .period-card.ready:hover { border-color: var(--success); box-shadow: 0 3px 12px rgba(22,163,74,.15); transform: translateY(-2px); }
+  .period-card.soon { opacity: .55; cursor: default; }
+  .period-card .pc-period { font-size: .65rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+  .period-card.ready .pc-period { color: #15803d; }
+  .period-card .pc-status { font-size: .72rem; font-weight: 700; }
+  .period-card.ready .pc-status { color: var(--success); }
+  .period-card.soon .pc-status { color: var(--muted); }
+  .period-card .pc-arrow { font-size: .7rem; color: var(--success); font-weight: 700; }
+  .footer { text-align: center; padding: 1.5rem; font-size: .8rem; color: var(--muted); border-top: 1px solid var(--border); }
+  @media (max-width: 560px) {
+    .cell.subject-name { font-size: .8rem; }
+    .period-card { min-width: 80px; padding: .45rem .6rem; }
     header h1 { font-size: 1.6rem; }
   }
 </style>
 </head>
 <body>
-
 <header>
   <span class="header-emoji">🎓</span>
   <h1>Caleb's Exam Practice</h1>
   <p>Study hard, do great — one exam at a time!</p>
 </header>
-
 <main>
-  <div class="grade-section">
-    <div class="grade-header">
-      <span class="grade-badge">4th Grade</span>
-      <span class="grade-title">School Year Exams</span>
-      <span class="grade-sub">2 periods · 2 exams each</span>
+
+  <!-- ENGLISH -->
+  <div class="lang-section">
+    <div class="lang-header english">
+      <span class="flag">🇺🇸</span>
+      <span>English Subjects</span>
+      <span class="exam-count">3 subjects · 2 periods each</span>
     </div>
-
-    <div class="periods-grid">
-
-      <!-- Period 1 -->
-      <div class="period-col">
-        <div class="period-label">📅 Period 1</div>
-
-        <a class="exam-card available" href="4th-grade/period1/exam1/index.html">
-          <div class="ec-top">
-            <span class="ec-number">Period 1 · Exam 1</span>
-            <span class="ec-status ready">✓ Ready</span>
-          </div>
-          <div class="ec-icon">🗺️</div>
-          <div class="ec-subject">Social Studies</div>
-          <div class="ec-topics">4th Grade · Social Studies practice</div>
-          <div class="ec-arrow">Start practicing →</div>
-        </a>
-
-        <a class="exam-card available" href="4th-grade/period1/exam2/index.html">
-          <div class="ec-top">
-            <span class="ec-number">Period 1 · Exam 2</span>
-            <span class="ec-status ready">✓ Ready</span>
-          </div>
-          <div class="ec-icon">🔬</div>
-          <div class="ec-subject">Science</div>
-          <div class="ec-topics">Sports · First Aid · Vertebrates · Animal Diet · Arthropods · Vocabulary</div>
-          <div class="ec-arrow">Start practicing →</div>
-        </a>
+    <div class="subject-grid">
+      <div class="col-headers">
+        <div>Subject</div>
+        <div class="ch-p">📅 Period 1</div>
+        <div class="ch-p">📅 Period 2</div>
       </div>
-
-      <!-- Period 2 -->
-      <div class="period-col">
-        <div class="period-label">📅 Period 2</div>
-
-        <a class="exam-card available" href="4th-grade/period2/exam1/index.html">
-          <div class="ec-top">
-            <span class="ec-number">Period 2 · Exam 1</span>
-            <span class="ec-status ready">✓ Ready</span>
-          </div>
-          <div class="ec-icon">📚</div>
-          <div class="ec-subject">Reading &amp; Spelling</div>
-          <div class="ec-topics">Save Our World · Australia · When Dad... · K/CK/C · Silent E · Clusters · V or B</div>
-          <div class="ec-arrow">Start practicing →</div>
-        </a>
-
-        <a class="exam-card available" href="4th-grade/period2/exam2/index.html">
-          <div class="ec-top">
-            <span class="ec-number">Period 2 · Exam 2</span>
-            <span class="ec-status ready">✓ Ready</span>
-          </div>
-          <div class="ec-icon">📖</div>
-          <div class="ec-subject">Language Arts</div>
-          <div class="ec-topics">Irregular Verbs · Regular Verbs · Affirmative & Negative · Nouns · Quantities · Animals</div>
-          <div class="ec-arrow">Start practicing →</div>
-        </a>
+      <div class="subject-row">
+        <div class="cell subject-name">📖 Reading &amp; Spelling</div>
+        <div class="cell period-cell"><div class="period-card soon"><span class="pc-period">Period 1</span><span class="pc-status">Coming soon</span></div></div>
+        <div class="cell period-cell"><a class="period-card ready" href="4th-grade/period2/exam1/index.html"><span class="pc-period">Period 2</span><span class="pc-status">✓ Ready</span><span class="pc-arrow">Practice →</span></a></div>
       </div>
-
+      <div class="subject-row">
+        <div class="cell subject-name">✍️ Language Arts</div>
+        <div class="cell period-cell"><div class="period-card soon"><span class="pc-period">Period 1</span><span class="pc-status">Coming soon</span></div></div>
+        <div class="cell period-cell"><a class="period-card ready" href="4th-grade/period2/exam2/index.html"><span class="pc-period">Period 2</span><span class="pc-status">✓ Ready</span><span class="pc-arrow">Practice →</span></a></div>
+      </div>
+      <div class="subject-row">
+        <div class="cell subject-name">🔬 Science</div>
+        <div class="cell period-cell"><a class="period-card ready" href="4th-grade/period1/exam2/index.html"><span class="pc-period">Period 1</span><span class="pc-status">✓ Ready</span><span class="pc-arrow">Practice →</span></a></div>
+        <div class="cell period-cell"><div class="period-card soon"><span class="pc-period">Period 2</span><span class="pc-status">Coming soon</span></div></div>
+      </div>
     </div>
   </div>
+
+  <!-- ESPAÑOL -->
+  <div class="lang-section">
+    <div class="lang-header espanol">
+      <span class="flag">🇨🇷</span>
+      <span>Materias en Español</span>
+      <span class="exam-count">4 materias · 2 períodos c/u</span>
+    </div>
+    <div class="subject-grid">
+      <div class="col-headers">
+        <div>Materia</div>
+        <div class="ch-p">📅 Período 1</div>
+        <div class="ch-p">📅 Período 2</div>
+      </div>
+      <div class="subject-row">
+        <div class="cell subject-name">📝 Español</div>
+        <div class="cell period-cell"><a class="period-card ready" href="4th-grade/espanol/espanol/period1/index.html"><span class="pc-period">Período 1</span><span class="pc-status">✓ Listo</span><span class="pc-arrow">Practicar →</span></a></div>
+        <div class="cell period-cell"><div class="period-card soon"><span class="pc-period">Período 2</span><span class="pc-status">Próximamente</span></div></div>
+      </div>
+      <div class="subject-row">
+        <div class="cell subject-name">🗺️ Estudios Sociales</div>
+        <div class="cell period-cell"><a class="period-card ready" href="4th-grade/period1/exam1/index.html"><span class="pc-period">Período 1</span><span class="pc-status">✓ Listo</span><span class="pc-arrow">Practicar →</span></a></div>
+        <div class="cell period-cell"><div class="period-card soon"><span class="pc-period">Período 2</span><span class="pc-status">Próximamente</span></div></div>
+      </div>
+      <div class="subject-row">
+        <div class="cell subject-name">⚗️ Ciencias</div>
+        <div class="cell period-cell"><div class="period-card soon"><span class="pc-period">Período 1</span><span class="pc-status">Próximamente</span></div></div>
+        <div class="cell period-cell"><div class="period-card soon"><span class="pc-period">Período 2</span><span class="pc-status">Próximamente</span></div></div>
+      </div>
+      <div class="subject-row">
+        <div class="cell subject-name">🔢 Matemáticas</div>
+        <div class="cell period-cell"><div class="period-card soon"><span class="pc-period">Período 1</span><span class="pc-status">Próximamente</span></div></div>
+        <div class="cell period-cell"><div class="period-card soon"><span class="pc-period">Período 2</span><span class="pc-status">Próximamente</span></div></div>
+      </div>
+    </div>
+  </div>
+
 </main>
-
-<footer class="footer">
-  Caleb's Exam Practice · 4th Grade · Built with ❤️
-</footer>
-
+<footer class="footer">Caleb's Exam Practice · 4to Grado · Hecho con ❤️</footer>
 </body>
 </html>
