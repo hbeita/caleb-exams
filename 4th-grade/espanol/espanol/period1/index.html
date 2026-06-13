@@ -2362,19 +2362,82 @@ window.addEventListener('load', function(){
   setTimeout(lsRestore, 100);
 });
 
-// Add a clear button to the exam header
+// ── Reset helpers ──
+function resetTopic(n) {
+  var section = document.getElementById('topic-' + n);
+  if (!section) return;
+
+  // Clear text/match inputs
+  section.querySelectorAll('.fill-input, .match-input').forEach(function(el){
+    el.value = '';
+    el.classList.remove('correct','wrong');
+  });
+  // Uncheck radios + clear MC highlight
+  section.querySelectorAll('input[type="radio"]').forEach(function(el){ el.checked = false; });
+  section.querySelectorAll('.mc-opt').forEach(function(el){
+    el.classList.remove('correct-ans','wrong-ans','selected');
+  });
+  // Reset TF buttons + state
+  section.querySelectorAll('.tf-btn').forEach(function(btn){
+    btn.classList.remove('selected','correct-ans','wrong-ans');
+    var oc = btn.getAttribute('onclick') || '';
+    var m = oc.match(/'([^']+)'/);
+    if (m) delete tfState[m[1]];
+  });
+  // Reset classify/ci buttons
+  section.querySelectorAll('.ci-btn').forEach(function(el){
+    el.classList.remove('correct-ans','wrong-ans');
+  });
+  // Clear score badges and remove from scores obj
+  section.querySelectorAll('.score-badge').forEach(function(el){
+    el.textContent = '';
+    // derive key from id: "arts-match-score" → "arts-match"
+    if (el.id && el.id.endsWith('-score')) delete scores[el.id.slice(0,-6)];
+  });
+  // Reset practice sidebar dot
+  var pd = document.getElementById('pd-' + n);
+  if (pd) pd.className = 'ti-dot empty';
+
+  lsSave();
+}
+
+function resetAll() {
+  if (!confirm('¿Reiniciar todas las respuestas del examen?')) return;
+  try { localStorage.removeItem(LS_KEY); } catch(e) {}
+  location.reload();
+}
+
+// Add "Reintentar" button to each topic-nav + global reset to final section
 window.addEventListener('load', function(){
-  var header = document.querySelector('.exam-header');
-  if(!header) return;
-  var btn = document.createElement('button');
-  btn.textContent = 'Limpiar respuestas';
-  btn.style.cssText = 'font-size:.75rem;padding:.3rem .7rem;border:1px solid rgba(255,255,255,.4);border-radius:8px;background:rgba(255,255,255,.15);color:#fff;cursor:pointer;';
-  btn.onclick = function(){
-    if(!confirm('¿Borrar todas las respuestas guardadas?')) return;
-    try{ localStorage.removeItem(LS_KEY); } catch(e){}
-    location.reload();
-  };
-  header.appendChild(btn);
+  // Per-topic reset buttons
+  document.querySelectorAll('.topic-section').forEach(function(sec){
+    var nav = sec.querySelector('.topic-nav');
+    if (!nav) return;
+    var topicId = sec.id.replace('topic-','');
+    var btn = document.createElement('button');
+    btn.innerHTML = '↺ Reintentar';
+    btn.title = 'Borra las respuestas de este tema para intentarlo de nuevo';
+    btn.style.cssText = 'font-size:.78rem;padding:.32rem .75rem;border:1.5px solid var(--border);border-radius:8px;background:transparent;color:var(--muted);cursor:pointer;transition:all .15s;';
+    btn.onmouseenter = function(){ this.style.borderColor='#16a34a'; this.style.color='#16a34a'; };
+    btn.onmouseleave = function(){ this.style.borderColor='var(--border)'; this.style.color='var(--muted)'; };
+    btn.onclick = function(){ resetTopic(topicId); };
+    nav.insertBefore(btn, nav.firstChild);
+  });
+
+  // Global reset in final section
+  var finalSec = document.querySelector('.final-section');
+  if (finalSec) {
+    var wrapper = document.createElement('div');
+    wrapper.style.cssText = 'text-align:center;margin-top:2rem;padding-top:1.5rem;border-top:2px solid var(--border);';
+    var btn = document.createElement('button');
+    btn.innerHTML = '↺ &nbsp;Reiniciar todo el examen';
+    btn.style.cssText = 'padding:.65rem 1.5rem;font-size:.92rem;font-weight:600;border:2px solid #dc2626;border-radius:12px;background:transparent;color:#dc2626;cursor:pointer;transition:all .2s;';
+    btn.onmouseenter = function(){ this.style.background='#dc2626'; this.style.color='#fff'; };
+    btn.onmouseleave = function(){ this.style.background='transparent'; this.style.color='#dc2626'; };
+    btn.onclick = resetAll;
+    wrapper.appendChild(btn);
+    finalSec.appendChild(wrapper);
+  }
 });
 </script>
 
