@@ -16,16 +16,12 @@
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);}
-
 .exam-header{background:linear-gradient(135deg,#052e16 0%,#16a34a 55%,#4ade80 100%);color:#fff;padding:1.75rem 1.5rem 1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
 .exam-header h1{font-size:1.6rem;font-weight:900;letter-spacing:-.02em;}
 .exam-header p{opacity:.8;font-size:.88rem;margin-top:.2rem;}
-.back-link{color:rgba(255,255,255,.8);text-decoration:none;font-size:.82rem;font-weight:700;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);padding:.4rem .85rem;border-radius:8px;transition:background .15s;display:flex;align-items:center;gap:.4rem;}
+.back-link{color:rgba(255,255,255,.8);text-decoration:none;font-size:.82rem;font-weight:700;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);padding:.4rem .85rem;border-radius:8px;display:flex;align-items:center;gap:.4rem;}
 .back-link:hover{background:rgba(255,255,255,.2);}
-
 .app-layout{display:flex;min-height:calc(100vh - 110px);}
-
-/* Sidebar */
 .sidebar{width:230px;min-width:230px;background:#fff;border-right:2px solid var(--border);position:sticky;top:0;height:100vh;overflow-y:auto;display:flex;flex-direction:column;}
 .sidebar-header{padding:.9rem 1rem .7rem;border-bottom:2px solid var(--border);font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);}
 .sidebar-topics{flex:1;padding:.4rem 0;}
@@ -39,31 +35,26 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .ti-dot.empty{background:#f3f4f6;color:#9ca3af;}
 .ti-dot.study-empty{background:#fef9c3;color:#a16207;}
 .sidebar-final{padding:.7rem .95rem;border-top:2px solid var(--border);}
-.final-btn{display:block;width:100%;padding:.58rem;border-radius:10px;background:linear-gradient(135deg,#16a34a,#15803d);color:#fff;text-align:center;font-weight:800;font-size:.83rem;cursor:pointer;border:none;transition:opacity .15s;}
+.final-btn{display:block;width:100%;padding:.58rem;border-radius:10px;background:linear-gradient(135deg,#16a34a,#15803d);color:#fff;text-align:center;font-weight:800;font-size:.83rem;cursor:pointer;border:none;}
 .final-btn:hover{opacity:.9;}
-
-/* Content */
 .content-area{flex:1;padding:1.75rem 1.5rem 4rem;max-width:800px;}
 .topic-section{display:none;}
 .topic-section.active{display:block;}
 .final-section{display:none;}
 .final-section.active{display:block;}
-
 .topic-header{display:flex;align-items:center;gap:.85rem;margin-bottom:1.4rem;padding-bottom:1rem;border-bottom:2px solid var(--border);}
 .topic-number{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,#16a34a,#15803d);color:#fff;font-size:1.1rem;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .topic-header h2{font-size:1.25rem;font-weight:900;color:var(--green-dark);}
 .topic-header p{font-size:.82rem;color:var(--muted);margin-top:.15rem;}
-
-.zone-label{display:flex;align-items:center;gap:.5rem;font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.75rem;margin-top:1.4rem;}
+.zone-label{display:flex;align-items:center;gap:.5rem;margin-bottom:.75rem;margin-top:1.4rem;}
 .zone-label:first-of-type{margin-top:0;}
 .zl-pill{padding:.22rem .7rem;border-radius:999px;font-size:.7rem;font-weight:800;}
 .zone-label.study-label .zl-pill{background:#fef3c7;color:#92400e;}
 .zone-label.practice-label .zl-pill{background:#dbeafe;color:#1e40af;}
 .zl-line{flex:1;height:1px;background:var(--border);}
-
+.zl-hint{font-size:.7rem;color:var(--muted);}
 .study-zone{background:#fffbeb;border:2px solid #fde68a;border-radius:16px;padding:1.2rem 1.3rem;margin-bottom:.25rem;}
 .practice-zone{background:#eff6ff;border:2px solid #bfdbfe;border-radius:16px;padding:1.2rem 1.3rem;}
-
 .topic-nav{display:flex;justify-content:space-between;align-items:center;margin-top:1.75rem;padding-top:1.1rem;border-top:2px solid var(--border);}
 .nav-arrow{display:flex;align-items:center;gap:.4rem;padding:.58rem 1.1rem;border-radius:10px;border:2px solid var(--border);background:var(--card);font-size:.87rem;font-weight:700;cursor:pointer;color:var(--text);transition:all .15s;}
 .nav-arrow:hover{border-color:var(--green);color:var(--green);}
@@ -71,8 +62,6 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .nav-arrow.primary:hover{background:var(--green-dark);}
 .nav-arrow:disabled{opacity:.35;cursor:not-allowed;}
 .topic-counter{font-size:.79rem;color:var(--muted);font-weight:600;}
-
-/* Reused styles */
 .section-title{font-size:1.15rem;font-weight:900;margin-bottom:.28rem;color:var(--green-dark);}
 .section-sub{color:var(--muted);font-size:.88rem;margin-bottom:.9rem;}
 .info-grid{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;margin-bottom:1.1rem;}
@@ -89,7 +78,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .tag.green{background:#bbf7d0;color:#15803d;}.tag.blue{background:#bfdbfe;color:#1e40af;}
 .rule-box{background:var(--card);border:2px solid var(--border);border-radius:12px;padding:.85rem 1.05rem;margin-bottom:.85rem;}
 .rule-box h4{font-size:.87rem;font-weight:800;color:var(--green-dark);margin-bottom:.42rem;}
-.rule-box p{font-size:.86rem;line-height:1.5;}
+.rule-box p,.rule-box ul{font-size:.86rem;line-height:1.5;}
 .example-box{background:#f0fdf4;border-left:4px solid var(--green);border-radius:0 10px 10px 0;padding:.65rem .85rem;margin-top:.5rem;font-size:.87rem;font-style:italic;}
 .highlight{background:#bbf7d0;border-radius:4px;padding:0 .2rem;font-weight:700;font-style:normal;}
 .article-table{width:100%;border-collapse:collapse;margin:.75rem 0;font-size:.87rem;}
@@ -184,7 +173,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
   .sidebar{width:100%;height:auto;position:static;border-right:none;border-bottom:2px solid var(--border);}
   .sidebar-topics{display:flex;flex-wrap:wrap;gap:.22rem;padding:.45rem;}
   .topic-item{border-left:none;border-radius:8px;padding:.32rem .6rem;font-size:.76rem;}
-  .topic-item.active{border-left:none;background:var(--green-light);color:var(--green-dark);}
+  .topic-item.active{border-left:none;}
   .info-grid,.book-diagram,.classify-grid{grid-template-columns:1fr;}
   .content-area{padding:1.1rem .85rem 3rem;}
 }
@@ -204,55 +193,13 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
   <aside class="sidebar">
     <div class="sidebar-header">Temas del examen</div>
     <div class="sidebar-topics">
-      <div class="topic-item active" onclick="goTopic(0)" id="nav-0">
-        <span>1 · Artículos</span>
-        <div class="ti-icons">
-          <div class="ti-dot study-empty" id="sd-0" title="Estudia">📖</div>
-          <div class="ti-dot empty" id="pd-0" title="Practica">✏️</div>
-        </div>
-      </div>
-      <div class="topic-item" onclick="goTopic(1)" id="nav-1">
-        <span>2 · Adjetivos</span>
-        <div class="ti-icons">
-          <div class="ti-dot study-empty" id="sd-1" title="Estudia">📖</div>
-          <div class="ti-dot empty" id="pd-1" title="Practica">✏️</div>
-        </div>
-      </div>
-      <div class="topic-item" onclick="goTopic(2)" id="nav-2">
-        <span>3 · Concordancia</span>
-        <div class="ti-icons">
-          <div class="ti-dot study-empty" id="sd-2" title="Estudia">📖</div>
-          <div class="ti-dot empty" id="pd-2" title="Practica">✏️</div>
-        </div>
-      </div>
-      <div class="topic-item" onclick="goTopic(3)" id="nav-3">
-        <span>4 · El Libro</span>
-        <div class="ti-icons">
-          <div class="ti-dot study-empty" id="sd-3" title="Estudia">📖</div>
-          <div class="ti-dot empty" id="pd-3" title="Practica">✏️</div>
-        </div>
-      </div>
-      <div class="topic-item" onclick="goTopic(4)" id="nav-4">
-        <span>5 · La Noticia</span>
-        <div class="ti-icons">
-          <div class="ti-dot study-empty" id="sd-4" title="Estudia">📖</div>
-          <div class="ti-dot empty" id="pd-4" title="Practica">✏️</div>
-        </div>
-      </div>
-      <div class="topic-item" onclick="goTopic(5)" id="nav-5">
-        <span>6 · David Cap.III</span>
-        <div class="ti-icons">
-          <div class="ti-dot study-empty" id="sd-5" title="Estudia">📖</div>
-          <div class="ti-dot empty" id="pd-5" title="Practica">✏️</div>
-        </div>
-      </div>
-      <div class="topic-item" onclick="goTopic(6)" id="nav-6">
-        <span>7 · David Cap.IV</span>
-        <div class="ti-icons">
-          <div class="ti-dot study-empty" id="sd-6" title="Estudia">📖</div>
-          <div class="ti-dot empty" id="pd-6" title="Practica">✏️</div>
-        </div>
-      </div>
+      <div class="topic-item active" onclick="goTopic(0)" id="nav-0"><span>1 · Artículos</span><div class="ti-icons"><div class="ti-dot study-empty" id="sd-0">📖</div><div class="ti-dot empty" id="pd-0">✏️</div></div></div>
+      <div class="topic-item" onclick="goTopic(1)" id="nav-1"><span>2 · Adjetivos</span><div class="ti-icons"><div class="ti-dot study-empty" id="sd-1">📖</div><div class="ti-dot empty" id="pd-1">✏️</div></div></div>
+      <div class="topic-item" onclick="goTopic(2)" id="nav-2"><span>3 · Concordancia</span><div class="ti-icons"><div class="ti-dot study-empty" id="sd-2">📖</div><div class="ti-dot empty" id="pd-2">✏️</div></div></div>
+      <div class="topic-item" onclick="goTopic(3)" id="nav-3"><span>4 · El Libro</span><div class="ti-icons"><div class="ti-dot study-empty" id="sd-3">📖</div><div class="ti-dot empty" id="pd-3">✏️</div></div></div>
+      <div class="topic-item" onclick="goTopic(4)" id="nav-4"><span>5 · La Noticia</span><div class="ti-icons"><div class="ti-dot study-empty" id="sd-4">📖</div><div class="ti-dot empty" id="pd-4">✏️</div></div></div>
+      <div class="topic-item" onclick="goTopic(5)" id="nav-5"><span>6 · David Cap.III</span><div class="ti-icons"><div class="ti-dot study-empty" id="sd-5">📖</div><div class="ti-dot empty" id="pd-5">✏️</div></div></div>
+      <div class="topic-item" onclick="goTopic(6)" id="nav-6"><span>7 · David Cap.IV</span><div class="ti-icons"><div class="ti-dot study-empty" id="sd-6">📖</div><div class="ti-dot empty" id="pd-6">✏️</div></div></div>
     </div>
     <div class="sidebar-final">
       <button class="final-btn" onclick="goFinal()">🏆 Ver Calificación</button>
@@ -260,16 +207,15 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
   </aside>
 
   <div class="content-area">
-
-    <!-- TOPIC 0: Artículos Definidos e Indefinidos -->
     <div class="topic-section active" id="topic-0">
       <div class="topic-header">
-        <div class="topic-number">0</div>
+        <div class="topic-number">1</div>
         <div><h2>Artículos Definidos e Indefinidos</h2><p>Los artículos acompañan al sustantivo.</p></div>
       </div>
       <div class="zone-label study-label">
-        <span class="zl-pill">📖 Estudia</span><div class="zl-line"></div>
-        <span style="font-size:.7rem;color:var(--muted)">Lee y repasa el contenido</span>
+        <span class="zl-pill">📖 Estudia</span>
+        <div class="zl-line"></div>
+        <span class="zl-hint">Lee y repasa el contenido</span>
       </div>
       <div class="study-zone"><div class="info-grid">
     <div class="info-card green">
@@ -306,11 +252,11 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
     <h4>💡 ¿Cómo saber cuál usar?</h4>
     <p>Definidos → algo que ya conocemos: "<em>el libro que tengo</em>".<br>
     Indefinidos → algo nuevo o cualquiera: "<em>un libro interesante</em>".</p>
-  </div>
-</div></div>
+  </div></div>
       <div class="zone-label practice-label">
-        <span class="zl-pill">✏️ Practica</span><div class="zl-line"></div>
-        <span style="font-size:.7rem;color:var(--muted)">Completa los ejercicios</span>
+        <span class="zl-pill">✏️ Practica</span>
+        <div class="zl-line"></div>
+        <span class="zl-hint">Completa los ejercicios</span>
       </div>
       <div class="practice-zone"><div class="test-block">
     <h3>Parte A — Completa con el artículo correcto</h3>
@@ -406,7 +352,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
     </div>
     <button class="check-btn" onclick="checkArtsTF()">Revisar Parte C <span id="arts-tf-score" class="score-badge"></span></button>
   </div>
-</div>
+
 
 <!-- ══════════════════════════════════
      TEST: ADJETIVOS
@@ -417,15 +363,15 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
         <button class="nav-arrow primary" onclick="goTopic(1)">Siguiente →</button>
       </div>
     </div>
-    <!-- TOPIC 1: Adjetivos Calificativos -->
     <div class="topic-section" id="topic-1">
       <div class="topic-header">
-        <div class="topic-number">1</div>
+        <div class="topic-number">2</div>
         <div><h2>Adjetivos Calificativos</h2><p>Palabras que describen cómo es un sustantivo.</p></div>
       </div>
       <div class="zone-label study-label">
-        <span class="zl-pill">📖 Estudia</span><div class="zl-line"></div>
-        <span style="font-size:.7rem;color:var(--muted)">Lee y repasa el contenido</span>
+        <span class="zl-pill">📖 Estudia</span>
+        <div class="zl-line"></div>
+        <span class="zl-hint">Lee y repasa el contenido</span>
       </div>
       <div class="study-zone"><div class="rule-box">
     <h4>📌 ¿Qué es un adjetivo calificativo?</h4>
@@ -456,11 +402,11 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
     <h4>🔎 ¿Cómo identificar el adjetivo?</h4>
     <p>Pregúntale al sustantivo: ¿<em>cómo es?</em> La respuesta es el adjetivo.<br>
     Ejemplo: "El cielo <strong>azul</strong>" → ¿Cómo es el cielo? → azul ✅</p>
-  </div>
-</div></div>
+  </div></div>
       <div class="zone-label practice-label">
-        <span class="zl-pill">✏️ Practica</span><div class="zl-line"></div>
-        <span style="font-size:.7rem;color:var(--muted)">Completa los ejercicios</span>
+        <span class="zl-pill">✏️ Practica</span>
+        <div class="zl-line"></div>
+        <span class="zl-hint">Completa los ejercicios</span>
       </div>
       <div class="practice-zone"><div class="test-block">
     <h3>Parte A — Escribe el adjetivo de la oración</h3>
@@ -552,7 +498,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
     </div>
     <button class="check-btn" onclick="checkAdjTF()">Revisar Parte C <span id="adj-tf-score" class="score-badge"></span></button>
   </div>
-</div>
+
 
 <!-- ══════════════════════════════════
      TEST: CONCORDANCIA
@@ -563,15 +509,15 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
         <button class="nav-arrow primary" onclick="goTopic(2)">Siguiente →</button>
       </div>
     </div>
-    <!-- TOPIC 2: Concordancia en Género y Número -->
     <div class="topic-section" id="topic-2">
       <div class="topic-header">
-        <div class="topic-number">2</div>
+        <div class="topic-number">3</div>
         <div><h2>Concordancia en Género y Número</h2><p>Artículo, sustantivo y adjetivo deben coincidir.</p></div>
       </div>
       <div class="zone-label study-label">
-        <span class="zl-pill">📖 Estudia</span><div class="zl-line"></div>
-        <span style="font-size:.7rem;color:var(--muted)">Lee y repasa el contenido</span>
+        <span class="zl-pill">📖 Estudia</span>
+        <div class="zl-line"></div>
+        <span class="zl-hint">Lee y repasa el contenido</span>
       </div>
       <div class="study-zone"><table class="article-table">
     <tr><th></th><th>Masculino singular</th><th>Femenino singular</th><th>Masculino plural</th><th>Femenino plural</th></tr>
@@ -602,11 +548,11 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
     <h4>⚠️ Casos especiales</h4>
     <p style="font-size:.88rem">Adjetivos terminados en -z cambian a -ces en plural: feliz → felices.<br>
     Adjetivos sin género fijo: grande → grandes (solo cambia en número).</p>
-  </div>
-</div></div>
+  </div></div>
       <div class="zone-label practice-label">
-        <span class="zl-pill">✏️ Practica</span><div class="zl-line"></div>
-        <span style="font-size:.7rem;color:var(--muted)">Completa los ejercicios</span>
+        <span class="zl-pill">✏️ Practica</span>
+        <div class="zl-line"></div>
+        <span class="zl-hint">Completa los ejercicios</span>
       </div>
       <div class="practice-zone"><div class="test-block">
     <h3>Parte A — Escribe el adjetivo en la forma correcta</h3>
@@ -698,7 +644,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
     </div>
     <button class="check-btn" onclick="checkConcTF()">Revisar Parte C <span id="conc-tf-score" class="score-badge"></span></button>
   </div>
-</div>
+
 
 <!-- ══════════════════════════════════
      TEST: EL LIBRO
@@ -709,15 +655,15 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
         <button class="nav-arrow primary" onclick="goTopic(3)">Siguiente →</button>
       </div>
     </div>
-    <!-- TOPIC 3: El Libro y sus Partes -->
     <div class="topic-section" id="topic-3">
       <div class="topic-header">
-        <div class="topic-number">3</div>
+        <div class="topic-number">4</div>
         <div><h2>El Libro y sus Partes</h2><p>Partes externas e internas de un libro.</p></div>
       </div>
       <div class="zone-label study-label">
-        <span class="zl-pill">📖 Estudia</span><div class="zl-line"></div>
-        <span style="font-size:.7rem;color:var(--muted)">Lee y repasa el contenido</span>
+        <span class="zl-pill">📖 Estudia</span>
+        <div class="zl-line"></div>
+        <span class="zl-hint">Lee y repasa el contenido</span>
       </div>
       <div class="study-zone"><div class="book-diagram">
     <div class="book-side external">
@@ -745,11 +691,11 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
       <h3 class="purple">📚 Función de la Bibliografía</h3>
       <p>Lista los libros, artículos y fuentes que el autor consultó. Va al <strong>final del libro</strong>. Permite verificar la información y buscar más sobre el tema.</p>
     </div>
-  </div>
-</div></div>
+  </div></div>
       <div class="zone-label practice-label">
-        <span class="zl-pill">✏️ Practica</span><div class="zl-line"></div>
-        <span style="font-size:.7rem;color:var(--muted)">Completa los ejercicios</span>
+        <span class="zl-pill">✏️ Practica</span>
+        <div class="zl-line"></div>
+        <span class="zl-hint">Completa los ejercicios</span>
       </div>
       <div class="practice-zone"><div class="test-block">
     <h3>Parte A — ¿Es parte interna o externa del libro?</h3>
@@ -840,7 +786,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
     </div>
     <button class="check-btn" onclick="checkLibroTF()">Revisar Parte C <span id="libro-tf-score" class="score-badge"></span></button>
   </div>
-</div>
+
 
 <!-- ══════════════════════════════════
      TEST: LA NOTICIA
@@ -851,15 +797,15 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
         <button class="nav-arrow primary" onclick="goTopic(4)">Siguiente →</button>
       </div>
     </div>
-    <!-- TOPIC 4: Partes de la Noticia -->
     <div class="topic-section" id="topic-4">
       <div class="topic-header">
-        <div class="topic-number">4</div>
+        <div class="topic-number">5</div>
         <div><h2>Partes de la Noticia</h2><p>Una noticia informa sobre un hecho real y reciente.</p></div>
       </div>
       <div class="zone-label study-label">
-        <span class="zl-pill">📖 Estudia</span><div class="zl-line"></div>
-        <span style="font-size:.7rem;color:var(--muted)">Lee y repasa el contenido</span>
+        <span class="zl-pill">📖 Estudia</span>
+        <div class="zl-line"></div>
+        <span class="zl-hint">Lee y repasa el contenido</span>
       </div>
       <div class="study-zone"><div class="news-diagram">
     <div class="news-part np-titular">
@@ -887,11 +833,11 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
   <div class="rule-box">
     <h4>💡 Dato importante: Las 5 W</h4>
     <p style="font-size:.88rem">Una buena noticia debe responder: <strong>¿Qué?</strong> pasó, <strong>¿Quién?</strong> lo hizo o lo vivió, <strong>¿Cuándo?</strong> ocurrió, <strong>¿Dónde?</strong> fue y <strong>¿Por qué?</strong> sucedió.</p>
-  </div>
-</div></div>
+  </div></div>
       <div class="zone-label practice-label">
-        <span class="zl-pill">✏️ Practica</span><div class="zl-line"></div>
-        <span style="font-size:.7rem;color:var(--muted)">Completa los ejercicios</span>
+        <span class="zl-pill">✏️ Practica</span>
+        <div class="zl-line"></div>
+        <span class="zl-hint">Completa los ejercicios</span>
       </div>
       <div class="practice-zone"><div class="test-block">
     <h3>Parte A — Escribe el nombre de la parte de la noticia</h3>
@@ -981,7 +927,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
     </div>
     <button class="check-btn" onclick="checkNoticiaTF()">Revisar Parte C <span id="noticia-tf-score" class="score-badge"></span></button>
   </div>
-</div>
+
 
 <!-- ══════════════════════════════════
      TEST: DAVID
@@ -992,15 +938,15 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
         <button class="nav-arrow primary" onclick="goTopic(5)">Siguiente →</button>
       </div>
     </div>
-    <!-- TOPIC 5: David — Capítulo III -->
     <div class="topic-section" id="topic-5">
       <div class="topic-header">
-        <div class="topic-number">5</div>
-        <div><h2>David — Capítulo III</h2><p>Comprensión lectora: eventos del capítulo III.</p></div>
+        <div class="topic-number">6</div>
+        <div><h2>David — Capítulo III</h2><p>Comprensión lectora: Cap. III.</p></div>
       </div>
       <div class="zone-label study-label">
-        <span class="zl-pill">📖 Estudia</span><div class="zl-line"></div>
-        <span style="font-size:.7rem;color:var(--muted)">Lee y repasa el contenido</span>
+        <span class="zl-pill">📖 Estudia</span>
+        <div class="zl-line"></div>
+        <span class="zl-hint">Lee y repasa el contenido</span>
       </div>
       <div class="study-zone"><div class="summary-card">
     <h4>📖 Resumen — Capítulo III</h4>
@@ -1019,28 +965,28 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
     <h4>🔎 Comprensión inferencial</h4>
     <p style="font-size:.88rem">¿Por qué crees que la voz del Invierno se parece a la voz del papá de David cuando está contento?<br>
     ¿Qué nos dice sobre David el hecho de que convierta las gotas de lluvia en un personaje con quien hablar?</p>
-  </div>
-</div></div>
+  </div></div>
       <div class="zone-label practice-label">
-        <span class="zl-pill">✏️ Practica</span><div class="zl-line"></div>
-        <span style="font-size:.7rem;color:var(--muted)">Completa los ejercicios</span>
+        <span class="zl-pill">✏️ Practica</span>
+        <div class="zl-line"></div>
+        <span class="zl-hint">Completa los ejercicios</span>
       </div>
-      <div class="practice-zone"><p style="color:var(--muted);font-size:.88rem;">Las preguntas de comprensión de ambos capítulos están en el Tema 7 (David Cap.IV).</p></div>
+      <div class="practice-zone"><p style="color:var(--muted);font-size:.88rem;padding:.5rem 0">Las preguntas de comprensión de ambos capítulos están juntas en el Tema 7 (David Cap.IV).</p></div>
       <div class="topic-nav">
         <button class="nav-arrow" onclick="goTopic(4)">← Anterior</button>
         <span class="topic-counter">Tema 6 de 7</span>
         <button class="nav-arrow primary" onclick="goTopic(6)">Siguiente →</button>
       </div>
     </div>
-    <!-- TOPIC 6: David — Cap.IV + Escritura -->
     <div class="topic-section" id="topic-6">
       <div class="topic-header">
-        <div class="topic-number">6</div>
-        <div><h2>David — Cap.IV + Escritura</h2><p>Comprensión lectora Cap.IV y sección de escritura con papá.</p></div>
+        <div class="topic-number">7</div>
+        <div><h2>David — Cap.IV + Escritura</h2><p>Comprensión lectora Cap.IV y escritura con papá.</p></div>
       </div>
       <div class="zone-label study-label">
-        <span class="zl-pill">📖 Estudia</span><div class="zl-line"></div>
-        <span style="font-size:.7rem;color:var(--muted)">Lee y repasa el contenido</span>
+        <span class="zl-pill">📖 Estudia</span>
+        <div class="zl-line"></div>
+        <span class="zl-hint">Lee y repasa el contenido</span>
       </div>
       <div class="study-zone"><div class="summary-card">
     <h4>📖 Resumen — Capítulo IV</h4>
@@ -1059,11 +1005,11 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
     <h4>🔎 Comprensión inferencial</h4>
     <p style="font-size:.88rem">¿Qué mensaje o enseñanza nos da el cuento del rayito?<br>
     ¿Por qué crees que el rayito tuvo que llorar para salvarse? ¿Qué nos dice eso sobre el miedo?</p>
-  </div>
-</div></div>
+  </div></div>
       <div class="zone-label practice-label">
-        <span class="zl-pill">✏️ Practica</span><div class="zl-line"></div>
-        <span style="font-size:.7rem;color:var(--muted)">Completa los ejercicios</span>
+        <span class="zl-pill">✏️ Practica</span>
+        <div class="zl-line"></div>
+        <span class="zl-hint">Completa los ejercicios</span>
       </div>
       <div class="practice-zone"><div class="test-block">
     <h3>Parte A — Comprensión Literal (Cap. III)</h3>
@@ -1202,13 +1148,13 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
     </div>
     <button class="check-btn" onclick="checkDavTF()">Revisar Parte D <span id="dav-tf-score" class="score-badge"></span></button>
   </div>
-</div>
+
 
 <!-- ══════════════════════════════════
      ESCRITURA — DAD REVIEW
 ══════════════════════════════════ -->
-<div style="margin-top:1.5rem;padding-top:1.25rem;border-top:2px solid #bfdbfe;">
-<h3 style="font-size:.97rem;font-weight:800;color:#1e40af;margin-bottom:.9rem;padding-bottom:.45rem;border-bottom:1px solid var(--border);">✍️ Escritura — Revisada por Papá</h3><div class="rule-box" style="margin-bottom:1.5rem">
+<div style="margin-top:1.4rem;padding-top:1.2rem;border-top:2px solid #bfdbfe"><h3 style="font-size:.95rem;font-weight:800;color:#1e40af;margin-bottom:.85rem;padding-bottom:.42rem;border-bottom:1px solid var(--border)">✍️ Escritura — Revisada por Papá</h3>
+<div class="rule-box" style="margin-bottom:1.5rem">
     <h4>📰 El evento</h4>
     <p style="font-size:.9rem;margin-top:.4rem">Un grupo de estudiantes de 4to grado de tu escuela ganó el <strong>primer lugar</strong> en un concurso nacional de ciencias celebrado en San José el pasado viernes. Los estudiantes presentaron un proyecto sobre el reciclaje del agua.</p>
     <p style="font-size:.85rem;color:var(--muted);margin-top:.5rem">Escribe una noticia completa con todas sus partes. Recuerda incluir: Titular, Subtítulo, Entradilla y Cuerpo.</p>
@@ -1269,11 +1215,12 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 
     <button class="check-btn" style="margin-top:1rem" onclick="saveDadReview()">💾 Guardar calificación de escritura <span id="escritura-score" class="score-badge"></span></button>
   </div>
-</div>
+
 
 <!-- ══════════════════════════════════
      CALIFICACIÓN FINAL
-══════════════════════════════════ --></div></div>
+══════════════════════════════════ -->
+</div></div>
       <div class="topic-nav">
         <button class="nav-arrow" onclick="goTopic(5)">← Anterior</button>
         <span class="topic-counter">Tema 7 de 7</span>
@@ -1340,12 +1287,15 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 </div>
 
 <script>
+// ── NEW NAVIGATION ──
 var currentTopic = 0;
 
 function goTopic(n) {
   var sd = document.getElementById('sd-' + currentTopic);
   if (sd && !sd.classList.contains('study-done')) {
-    sd.classList.remove('study-empty'); sd.classList.add('study-done'); sd.textContent = '\u2713';
+    sd.classList.remove('study-empty');
+    sd.classList.add('study-done');
+    sd.textContent = '\u2713';
   }
   document.querySelectorAll('.topic-section').forEach(function(s){ s.classList.remove('active'); });
   document.getElementById('final-section').classList.remove('active');
@@ -1365,11 +1315,10 @@ function goFinal() {
   if (typeof computeFinal === 'function') computeFinal();
 }
 
-// legacy stub
-function showSection(id){ }
+function showSection(id) { /* legacy stub */ }
 </script>
 
-
+<script>
 // ── Scores ──
 var scores = {};
 function recordScore(key, correct, total) {
@@ -1682,14 +1631,15 @@ function calcFinal() {
   document.getElementById('final-grade-pct').textContent = earnedPts + ' / ' + totalPts + ' puntos — ' + pct + '%';
   document.getElementById('sc-total').innerHTML = '<strong>' + earnedPts + ' / ' + totalPts + '</strong>';
 }
+</script>
 
 <script>
-// Patch recordScore to mark practice dots
+// Patch: mark practice dots + sync score to hub
 (function(){
   var _r = recordScore;
   recordScore = function(key, correct, total){
     _r(key, correct, total);
-    var map = {arts:0,adj:1,conc:2,libro:3,noticia:4,david:5,escritura:6};
+    var map = {arts:0, adj:1, conc:2, libro:3, noticia:4, david:5, escritura:6};
     for (var k in map){
       if (key.indexOf(k) !== -1){
         var pd = document.getElementById('pd-' + map[k]);
@@ -1698,7 +1648,6 @@ function calcFinal() {
       }
     }
   };
-  // Patch computeFinal to sync to hub localStorage
   var _cf = computeFinal;
   computeFinal = function(){
     _cf();
