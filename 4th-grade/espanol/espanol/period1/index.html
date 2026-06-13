@@ -1677,6 +1677,13 @@ function selectTF(btn, key) {
   btn.classList.add('selected');
   tfState[key] = btn.textContent.trim();
 }
+// New exercises pass the value explicitly as 3rd param
+function tfSelect(btn, key, val) {
+  var row = btn.parentElement;
+  row.querySelectorAll('.tf-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  tfState[key] = val;
+}
 
 // ── MC style ──
 document.addEventListener('change', function(e) {
@@ -2023,7 +2030,7 @@ function checkAdjD() {
       if(b.classList.contains('selected')){
         if(v===adjDans[i]){b.classList.add('correct-ans');c++;}
         else b.classList.add('wrong-ans');
-      
+      }
     });
   }
   document.getElementById('adj-d-score').textContent=c+'/'+t+' correctas';
@@ -2053,7 +2060,7 @@ function checkConcD(){
       if(b.classList.contains('selected')){
         if(v===concDans[i]){b.classList.add('correct-ans');c++;}
         else b.classList.add('wrong-ans');
-      
+      }
     });
   }
   document.getElementById('conc-d-score').textContent=c+'/'+t+' correctas';
@@ -2157,7 +2164,7 @@ function checkDavid3B(){
       if(b.classList.contains('selected')){
         if(v===d3tfAns[i]){b.classList.add('correct-ans');c++;}
         else b.classList.add('wrong-ans');
-      
+      }
     });
   }
   document.getElementById('d3-b-score').textContent=c+'/'+t+' correctas';
@@ -2190,7 +2197,7 @@ function checkDavid4F(){
       if(b.classList.contains('selected')){
         if(v===d4tfAns[i]){b.classList.add('correct-ans');c++;}
         else b.classList.add('wrong-ans');
-      
+      }
     });
   }
   document.getElementById('d4-f-score').textContent=c+'/'+t+' correctas';
@@ -2227,5 +2234,149 @@ function checkDavid4F(){
   };
 })();
 </script>
+
+<script>
+// ── localStorage persistence ──
+var LS_KEY = 'caleb_espanol_p1_answers';
+
+function lsSave() {
+  var data = {};
+  // fill-in inputs
+  document.querySelectorAll('.fill-input[id]').forEach(function(el){
+    data['fi_'+el.id] = el.value;
+  });
+  // match inputs
+  document.querySelectorAll('.match-input[id]').forEach(function(el){
+    data['mi_'+el.id] = el.value;
+  });
+  // radio buttons
+  document.querySelectorAll('input[type="radio"]').forEach(function(el){
+    if(el.checked) data['rb_'+el.name+'_'+el.value] = '1';
+  });
+  // TF state
+  Object.keys(tfState).forEach(function(k){ data['tf_'+k] = tfState[k]; });
+  // scores
+  Object.keys(scores).forEach(function(k){
+    data['sc_'+k+'_c'] = scores[k].correct;
+    data['sc_'+k+'_t'] = scores[k].total;
+  });
+  try { localStorage.setItem(LS_KEY, JSON.stringify(data)); } catch(e){}
+}
+
+function lsRestore() {
+  var raw;
+  try { raw = localStorage.getItem(LS_KEY); } catch(e){ return; }
+  if (!raw) return;
+  var data;
+  try { data = JSON.parse(raw); } catch(e){ return; }
+
+  // fill-in inputs
+  Object.keys(data).forEach(function(k){
+    if(k.startsWith('fi_')){
+      var el = document.getElementById(k.slice(3));
+      if(el) el.value = data[k];
+    }
+    if(k.startsWith('mi_')){
+      var el = document.getElementById(k.slice(3));
+      if(el) el.value = data[k];
+    }
+  });
+  // radio buttons
+  Object.keys(data).forEach(function(k){
+    if(k.startsWith('rb_') && data[k]==='1'){
+      var parts = k.slice(3).split('_');
+      // name might contain underscores — value is last part
+      var val = parts[parts.length-1];
+      var name = parts.slice(0,-1).join('_');
+      var el = document.querySelector('input[name="'+name+'"][value="'+val+'"]');
+      if(el) el.checked = true;
+    }
+  });
+  // TF state + button highlight
+  Object.keys(data).forEach(function(k){
+    if(k.startsWith('tf_')){
+      var key = k.slice(3);
+      var val = data[k];
+      tfState[key] = val;
+      // highlight the selected button
+      document.querySelectorAll('.tf-btn').forEach(function(btn){
+        var oc = btn.getAttribute('onclick') || '';
+        if(oc.includes("'"+key+"'")){
+          // figure out this button's V/F value
+          var m = oc.match(/'([VF])'\)/);
+          if(m && m[1]===val) btn.classList.add('selected');
+        }
+      });
+    }
+  });
+  // scores
+  var scoreKeys = {};
+  Object.keys(data).forEach(function(k){
+    if(k.startsWith('sc_')){
+      var rest = k.slice(3);
+      if(rest.endsWith('_c')){ var sk=rest.slice(0,-2); if(!scoreKeys[sk]) scoreKeys[sk]={}; scoreKeys[sk].correct=parseInt(data[k]); }
+      if(rest.endsWith('_t')){ var sk=rest.slice(0,-2); if(!scoreKeys[sk]) scoreKeys[sk]={}; scoreKeys[sk].total=parseInt(data[k]); }
+    }
+  });
+  Object.keys(scoreKeys).forEach(function(k){
+    if(scoreKeys[k].correct!==undefined && scoreKeys[k].total!==undefined){
+      scores[k] = scoreKeys[k];
+      // update badge
+      var badge = document.getElementById(k.replace(/-/g,'-')+'-score');
+      // try common patterns
+      var ids = [k+'-score', k.replace(/-/g,'_')+'-score'];
+      ids.forEach(function(id){
+        var el = document.getElementById(id);
+        if(el && el.classList.contains('score-badge')){
+          el.textContent = scoreKeys[k].correct+'/'+scoreKeys[k].total+' correctas';
+        }
+      });
+    }
+  });
+}
+
+// Hook: auto-save on any input change
+document.addEventListener('input', function(e){
+  if(e.target.matches('.fill-input,.match-input')) lsSave();
+});
+document.addEventListener('change', function(e){
+  if(e.target.matches('input[type="radio"]')) lsSave();
+});
+
+// Patch recordScore to also save
+var _origRecordScore = recordScore;
+recordScore = function(key, correct, total) {
+  _origRecordScore(key, correct, total);
+  lsSave();
+};
+
+// Patch selectTF and tfSelect to also save
+var _origSelectTF = selectTF;
+selectTF = function(btn, key){ _origSelectTF(btn, key); lsSave(); };
+var _origTfSelect = tfSelect;
+tfSelect = function(btn, key, val){ _origTfSelect(btn, key, val); lsSave(); };
+
+// Restore on load
+window.addEventListener('load', function(){
+  // Wait a tick so original load handlers run first
+  setTimeout(lsRestore, 100);
+});
+
+// Add a clear button to the exam header
+window.addEventListener('load', function(){
+  var header = document.querySelector('.exam-header');
+  if(!header) return;
+  var btn = document.createElement('button');
+  btn.textContent = 'Limpiar respuestas';
+  btn.style.cssText = 'font-size:.75rem;padding:.3rem .7rem;border:1px solid rgba(255,255,255,.4);border-radius:8px;background:rgba(255,255,255,.15);color:#fff;cursor:pointer;';
+  btn.onclick = function(){
+    if(!confirm('¿Borrar todas las respuestas guardadas?')) return;
+    try{ localStorage.removeItem(LS_KEY); } catch(e){}
+    location.reload();
+  };
+  header.appendChild(btn);
+});
+</script>
+
 </body>
 </html>
