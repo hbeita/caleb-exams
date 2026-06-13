@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +8,6 @@
   :root {
     --primary: #4f46e5;
     --success: #16a34a;
-    --success-light: #dcfce7;
     --muted: #6b7280;
     --border: #e5e7eb;
     --bg: #f9fafb;
@@ -26,12 +25,14 @@
   header h1 { font-size: 2.2rem; font-weight: 900; letter-spacing: -.02em; }
   header p { margin-top: .4rem; opacity: .8; font-size: 1rem; }
   main { max-width: 860px; margin: 0 auto; padding: 2rem 1rem 4rem; display: flex; flex-direction: column; gap: 2.5rem; }
+
   .lang-section { background: var(--card); border-radius: 18px; border: 2px solid var(--border); overflow: hidden; }
   .lang-header { display: flex; align-items: center; gap: .6rem; padding: 1rem 1.4rem; font-size: 1rem; font-weight: 800; border-bottom: 2px solid var(--border); }
   .lang-header.english { background: #eef2ff; color: #3730a3; }
   .lang-header.espanol { background: #f0fdf4; color: #15803d; }
   .lang-header .flag { font-size: 1.3rem; }
   .lang-header .exam-count { margin-left: auto; font-size: .75rem; font-weight: 600; color: var(--muted); }
+
   .subject-grid { display: table; width: 100%; border-collapse: collapse; }
   .col-headers { display: table-row; }
   .col-headers > div { display: table-cell; padding: .5rem 1rem; font-size: .7rem; font-weight: 800; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); border-bottom: 1px solid var(--border); }
@@ -41,16 +42,30 @@
   .cell { display: table-cell; padding: .75rem 1rem; vertical-align: middle; }
   .cell.subject-name { font-size: .9rem; font-weight: 700; white-space: nowrap; width: 36%; }
   .cell.period-cell { text-align: center; width: 32%; }
+
+  /* Card base */
   .period-card { display: inline-flex; flex-direction: column; align-items: center; gap: .2rem; padding: .55rem .9rem; border-radius: 10px; text-decoration: none; border: 2px solid var(--border); background: var(--bg); transition: all .18s; min-width: 110px; color: var(--text); }
-  .period-card.ready { border-color: #bbf7d0; background: #f0fdf4; }
-  .period-card.ready:hover { border-color: var(--success); box-shadow: 0 3px 12px rgba(22,163,74,.15); transform: translateY(-2px); }
-  .period-card.soon { opacity: .55; cursor: default; }
-  .period-card .pc-period { font-size: .65rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
-  .period-card.ready .pc-period { color: #15803d; }
+  .period-card .pc-period { font-size: .65rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; }
   .period-card .pc-status { font-size: .72rem; font-weight: 700; }
+  .period-card .pc-arrow { font-size: .7rem; font-weight: 700; }
+
+  /* Ready */
+  .period-card.ready { border-color: #bbf7d0; background: #f0fdf4; }
+  .period-card.ready:hover { border-color: var(--success); box-shadow: 0 3px 12px rgba(22,163,74,.15); transform: translateY(-2px); cursor: pointer; }
+  .period-card.ready .pc-period { color: #15803d; }
   .period-card.ready .pc-status { color: var(--success); }
+  .period-card.ready .pc-arrow { color: var(--success); }
+
+  /* Coming soon */
+  .period-card.soon { opacity: .55; cursor: default; }
+  .period-card.soon .pc-period { color: var(--muted); }
   .period-card.soon .pc-status { color: var(--muted); }
-  .period-card .pc-arrow { font-size: .7rem; color: var(--success); font-weight: 700; }
+
+  /* Past / disabled */
+  .period-card.past { opacity: .4; cursor: default; background: #f3f4f6; border-color: #d1d5db; border-style: dashed; }
+  .period-card.past .pc-period { color: var(--muted); }
+  .period-card.past .pc-status { color: var(--muted); font-style: italic; }
+
   .footer { text-align: center; padding: 1.5rem; font-size: .8rem; color: var(--muted); border-top: 1px solid var(--border); }
   @media (max-width: 560px) {
     .cell.subject-name { font-size: .8rem; }
@@ -77,24 +92,63 @@
     <div class="subject-grid">
       <div class="col-headers">
         <div>Subject</div>
-        <div class="ch-p">📅 Period 1</div>
-        <div class="ch-p">📅 Period 2</div>
+        <div class="ch-p">📅 Period 1 <span style="font-style:italic;font-weight:400">(past)</span></div>
+        <div class="ch-p">📅 Period 2 <span style="font-style:italic;font-weight:400">(current)</span></div>
       </div>
+
+      <!-- Reading & Spelling -->
       <div class="subject-row">
         <div class="cell subject-name">📖 Reading &amp; Spelling</div>
-        <div class="cell period-cell"><div class="period-card soon"><span class="pc-period">Period 1</span><span class="pc-status">Coming soon</span></div></div>
-        <div class="cell period-cell"><a class="period-card ready" href="4th-grade/period2/exam1/index.html"><span class="pc-period">Period 2</span><span class="pc-status">✓ Ready</span><span class="pc-arrow">Practice →</span></a></div>
+        <div class="cell period-cell">
+          <div class="period-card past">
+            <span class="pc-period">Period 1</span>
+            <span class="pc-status">Ya pasó</span>
+          </div>
+        </div>
+        <div class="cell period-cell">
+          <a class="period-card ready" href="4th-grade/period2/exam1/index.html">
+            <span class="pc-period">Period 2</span>
+            <span class="pc-status">✓ Ready</span>
+            <span class="pc-arrow">Practice →</span>
+          </a>
+        </div>
       </div>
+
+      <!-- Language Arts -->
       <div class="subject-row">
         <div class="cell subject-name">✍️ Language Arts</div>
-        <div class="cell period-cell"><div class="period-card soon"><span class="pc-period">Period 1</span><span class="pc-status">Coming soon</span></div></div>
-        <div class="cell period-cell"><a class="period-card ready" href="4th-grade/period2/exam2/index.html"><span class="pc-period">Period 2</span><span class="pc-status">✓ Ready</span><span class="pc-arrow">Practice →</span></a></div>
+        <div class="cell period-cell">
+          <div class="period-card past">
+            <span class="pc-period">Period 1</span>
+            <span class="pc-status">Ya pasó</span>
+          </div>
+        </div>
+        <div class="cell period-cell">
+          <a class="period-card ready" href="4th-grade/period2/exam2/index.html">
+            <span class="pc-period">Period 2</span>
+            <span class="pc-status">✓ Ready</span>
+            <span class="pc-arrow">Practice →</span>
+          </a>
+        </div>
       </div>
+
+      <!-- Science -->
       <div class="subject-row">
         <div class="cell subject-name">🔬 Science</div>
-        <div class="cell period-cell"><a class="period-card ready" href="4th-grade/period1/exam2/index.html"><span class="pc-period">Period 1</span><span class="pc-status">✓ Ready</span><span class="pc-arrow">Practice →</span></a></div>
-        <div class="cell period-cell"><div class="period-card soon"><span class="pc-period">Period 2</span><span class="pc-status">Coming soon</span></div></div>
+        <div class="cell period-cell">
+          <div class="period-card past">
+            <span class="pc-period">Period 1</span>
+            <span class="pc-status">Ya pasó</span>
+          </div>
+        </div>
+        <div class="cell period-cell">
+          <div class="period-card soon">
+            <span class="pc-period">Period 2</span>
+            <span class="pc-status">Coming soon</span>
+          </div>
+        </div>
       </div>
+
     </div>
   </div>
 
@@ -108,29 +162,78 @@
     <div class="subject-grid">
       <div class="col-headers">
         <div>Materia</div>
-        <div class="ch-p">📅 Período 1</div>
-        <div class="ch-p">📅 Período 2</div>
+        <div class="ch-p">📅 Período 1 <span style="font-style:italic;font-weight:400">(pasado)</span></div>
+        <div class="ch-p">📅 Período 2 <span style="font-style:italic;font-weight:400">(actual)</span></div>
       </div>
+
+      <!-- Español -->
       <div class="subject-row">
         <div class="cell subject-name">📝 Español</div>
-        <div class="cell period-cell"><a class="period-card ready" href="4th-grade/espanol/espanol/period1/index.html"><span class="pc-period">Período 1</span><span class="pc-status">✓ Listo</span><span class="pc-arrow">Practicar →</span></a></div>
-        <div class="cell period-cell"><div class="period-card soon"><span class="pc-period">Período 2</span><span class="pc-status">Próximamente</span></div></div>
+        <div class="cell period-cell">
+          <div class="period-card past">
+            <span class="pc-period">Período 1</span>
+            <span class="pc-status">Ya pasó</span>
+          </div>
+        </div>
+        <div class="cell period-cell">
+          <div class="period-card soon">
+            <span class="pc-period">Período 2</span>
+            <span class="pc-status">Próximamente</span>
+          </div>
+        </div>
       </div>
+
+      <!-- Estudios Sociales -->
       <div class="subject-row">
         <div class="cell subject-name">🗺️ Estudios Sociales</div>
-        <div class="cell period-cell"><a class="period-card ready" href="4th-grade/period1/exam1/index.html"><span class="pc-period">Período 1</span><span class="pc-status">✓ Listo</span><span class="pc-arrow">Practicar →</span></a></div>
-        <div class="cell period-cell"><div class="period-card soon"><span class="pc-period">Período 2</span><span class="pc-status">Próximamente</span></div></div>
+        <div class="cell period-cell">
+          <div class="period-card past">
+            <span class="pc-period">Período 1</span>
+            <span class="pc-status">Ya pasó</span>
+          </div>
+        </div>
+        <div class="cell period-cell">
+          <div class="period-card soon">
+            <span class="pc-period">Período 2</span>
+            <span class="pc-status">Próximamente</span>
+          </div>
+        </div>
       </div>
+
+      <!-- Ciencias -->
       <div class="subject-row">
         <div class="cell subject-name">⚗️ Ciencias</div>
-        <div class="cell period-cell"><div class="period-card soon"><span class="pc-period">Período 1</span><span class="pc-status">Próximamente</span></div></div>
-        <div class="cell period-cell"><div class="period-card soon"><span class="pc-period">Período 2</span><span class="pc-status">Próximamente</span></div></div>
+        <div class="cell period-cell">
+          <div class="period-card past">
+            <span class="pc-period">Período 1</span>
+            <span class="pc-status">Ya pasó</span>
+          </div>
+        </div>
+        <div class="cell period-cell">
+          <div class="period-card soon">
+            <span class="pc-period">Período 2</span>
+            <span class="pc-status">Próximamente</span>
+          </div>
+        </div>
       </div>
+
+      <!-- Matemáticas -->
       <div class="subject-row">
         <div class="cell subject-name">🔢 Matemáticas</div>
-        <div class="cell period-cell"><div class="period-card soon"><span class="pc-period">Período 1</span><span class="pc-status">Próximamente</span></div></div>
-        <div class="cell period-cell"><div class="period-card soon"><span class="pc-period">Período 2</span><span class="pc-status">Próximamente</span></div></div>
+        <div class="cell period-cell">
+          <div class="period-card past">
+            <span class="pc-period">Período 1</span>
+            <span class="pc-status">Ya pasó</span>
+          </div>
+        </div>
+        <div class="cell period-cell">
+          <div class="period-card soon">
+            <span class="pc-period">Período 2</span>
+            <span class="pc-status">Próximamente</span>
+          </div>
+        </div>
       </div>
+
     </div>
   </div>
 
