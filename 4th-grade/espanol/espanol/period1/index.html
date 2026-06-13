@@ -356,7 +356,54 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 
 <!-- ══════════════════════════════════
      TEST: ADJETIVOS
-══════════════════════════════════ --></div>
+══════════════════════════════════ -->
+<div class="test-block">
+  <h3>Parte D — Une cada artículo con su tipo</h3>
+  <p style="font-size:.86rem;color:var(--muted);margin-bottom:.8rem">Escribe el número correcto de la columna B junto a cada artículo.</p>
+  <div class="matching-row"><span><input class="match-input" id="m-arts1"> el</span></div>
+  <div class="matching-row"><span><input class="match-input" id="m-arts2"> unas</span></div>
+  <div class="matching-row"><span><input class="match-input" id="m-arts3"> una</span></div>
+  <div class="matching-row"><span><input class="match-input" id="m-arts4"> los</span></div>
+  <div class="match-key">
+    <span>1.</span><span>Artículo indefinido femenino singular</span>
+    <span>2.</span><span>Artículo definido masculino singular</span>
+    <span>3.</span><span>Artículo indefinido femenino plural</span>
+    <span>4.</span><span>Artículo definido masculino plural</span>
+  </div>
+  <button class="check-btn" onclick="checkArtsMatch()">Revisar <span id="arts-match-score" class="score-badge"></span></button>
+</div>
+
+<div class="test-block">
+  <h3>Parte E — Elige el artículo correcto según el sustantivo</h3>
+  <div class="q-row">
+    <label>1. ___ mariposas (femenino plural, conocidas)</label>
+    <div class="mc-options" id="mc-arts-e1">
+      <label class="mc-opt"><input type="radio" name="mc-arts-e1"> un</label>
+      <label class="mc-opt"><input type="radio" name="mc-arts-e1"> las</label>
+      <label class="mc-opt"><input type="radio" name="mc-arts-e1"> el</label>
+      <label class="mc-opt"><input type="radio" name="mc-arts-e1"> unos</label>
+    </div>
+  </div>
+  <div class="q-row">
+    <label>2. ___ perro (masculino singular, desconocido)</label>
+    <div class="mc-options" id="mc-arts-e2">
+      <label class="mc-opt"><input type="radio" name="mc-arts-e2"> los</label>
+      <label class="mc-opt"><input type="radio" name="mc-arts-e2"> la</label>
+      <label class="mc-opt"><input type="radio" name="mc-arts-e2"> un</label>
+      <label class="mc-opt"><input type="radio" name="mc-arts-e2"> unas</label>
+    </div>
+  </div>
+  <div class="q-row">
+    <label>3. ___ niñas (femenino plural, desconocidas)</label>
+    <div class="mc-options" id="mc-arts-e3">
+      <label class="mc-opt"><input type="radio" name="mc-arts-e3"> la</label>
+      <label class="mc-opt"><input type="radio" name="mc-arts-e3"> unas</label>
+      <label class="mc-opt"><input type="radio" name="mc-arts-e3"> el</label>
+      <label class="mc-opt"><input type="radio" name="mc-arts-e3"> un</label>
+    </div>
+  </div>
+  <button class="check-btn" onclick="checkArtsE()">Revisar <span id="arts-e-score" class="score-badge"></span></button>
+</div></div>
       <div class="topic-nav">
         <button class="nav-arrow" disabled>← Anterior</button>
         <span class="topic-counter">Tema 1 de 7</span>
@@ -502,7 +549,56 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 
 <!-- ══════════════════════════════════
      TEST: CONCORDANCIA
-══════════════════════════════════ --></div>
+══════════════════════════════════ -->
+<div class="test-block">
+  <h3>Parte D — Encuentra el adjetivo en la oración</h3>
+  <div class="q-row">
+    <label>1. "El cielo <strong>azul</strong> brillaba con fuerza." — ¿Es "azul" un adjetivo?</label>
+    <div class="tf-row">
+      <button class="tf-btn" onclick="tfSelect(this,'adj-d1','V')">Verdadero</button>
+      <button class="tf-btn" onclick="tfSelect(this,'adj-d1','F')">Falso</button>
+    </div>
+  </div>
+  <div class="q-row">
+    <label>2. "La niña corrió rápido al parque." — ¿Es "rápido" un adjetivo calificativo aquí?</label>
+    <div class="tf-row">
+      <button class="tf-btn" onclick="tfSelect(this,'adj-d2','V')">Verdadero</button>
+      <button class="tf-btn" onclick="tfSelect(this,'adj-d2','F')">Falso</button>
+    </div>
+  </div>
+  <div class="q-row">
+    <label>3. "Un gato <strong>travieso</strong> trepó el árbol." — ¿"travieso" describe al gato?</label>
+    <div class="tf-row">
+      <button class="tf-btn" onclick="tfSelect(this,'adj-d3','V')">Verdadero</button>
+      <button class="tf-btn" onclick="tfSelect(this,'adj-d3','F')">Falso</button>
+    </div>
+  </div>
+  <div class="q-row">
+    <label>4. "El libro" — ¿Tiene un adjetivo calificativo?</label>
+    <div class="tf-row">
+      <button class="tf-btn" onclick="tfSelect(this,'adj-d4','V')">Verdadero</button>
+      <button class="tf-btn" onclick="tfSelect(this,'adj-d4','F')">Falso</button>
+    </div>
+  </div>
+  <button class="check-btn" onclick="checkAdjD()">Revisar <span id="adj-d-score" class="score-badge"></span></button>
+</div>
+
+<div class="test-block">
+  <h3>Parte E — Completa con un adjetivo del banco</h3>
+  <div class="word-bank">
+    <span class="wb-word">feroz</span><span class="wb-word">pequeña</span>
+    <span class="wb-word">coloridas</span><span class="wb-word">viejo</span><span class="wb-word">frío</span>
+  </div>
+  <div class="q-row"><label>1. El invierno es un día ___ .</label>
+    <input class="fill-input" id="adj-e1" placeholder="adjetivo..."></div>
+  <div class="q-row"><label>2. Las mariposas son ___ .</label>
+    <input class="fill-input" id="adj-e2" placeholder="adjetivo..."></div>
+  <div class="q-row"><label>3. El león es un animal ___ .</label>
+    <input class="fill-input" id="adj-e3" placeholder="adjetivo..."></div>
+  <div class="q-row"><label>4. Mi abuela vive en una casa ___ .</label>
+    <input class="fill-input" id="adj-e4" placeholder="adjetivo..."></div>
+  <button class="check-btn" onclick="checkAdjE()">Revisar <span id="adj-e-score" class="score-badge"></span></button>
+</div></div>
       <div class="topic-nav">
         <button class="nav-arrow" onclick="goTopic(0)">← Anterior</button>
         <span class="topic-counter">Tema 2 de 7</span>
@@ -648,7 +744,54 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 
 <!-- ══════════════════════════════════
      TEST: EL LIBRO
-══════════════════════════════════ --></div>
+══════════════════════════════════ -->
+<div class="test-block">
+  <h3>Parte D — ¿Hay error de concordancia?</h3>
+  <div class="q-row">
+    <label>1. "Las niño bonito corrió." — ¿Hay error?</label>
+    <div class="tf-row">
+      <button class="tf-btn" onclick="tfSelect(this,'conc-d1','V')">Sí, hay error</button>
+      <button class="tf-btn" onclick="tfSelect(this,'conc-d1','F')">No hay error</button>
+    </div>
+  </div>
+  <div class="q-row">
+    <label>2. "Los gatos negros duermen." — ¿Hay error?</label>
+    <div class="tf-row">
+      <button class="tf-btn" onclick="tfSelect(this,'conc-d2','V')">Sí, hay error</button>
+      <button class="tf-btn" onclick="tfSelect(this,'conc-d2','F')">No hay error</button>
+    </div>
+  </div>
+  <div class="q-row">
+    <label>3. "Una mariposa hermoso voló." — ¿Hay error?</label>
+    <div class="tf-row">
+      <button class="tf-btn" onclick="tfSelect(this,'conc-d3','V')">Sí, hay error</button>
+      <button class="tf-btn" onclick="tfSelect(this,'conc-d3','F')">No hay error</button>
+    </div>
+  </div>
+  <div class="q-row">
+    <label>4. "El árbol grande creció." — ¿Hay error?</label>
+    <div class="tf-row">
+      <button class="tf-btn" onclick="tfSelect(this,'conc-d4','V')">Sí, hay error</button>
+      <button class="tf-btn" onclick="tfSelect(this,'conc-d4','F')">No hay error</button>
+    </div>
+  </div>
+  <button class="check-btn" onclick="checkConcD()">Revisar <span id="conc-d-score" class="score-badge"></span></button>
+</div>
+
+<div class="test-block">
+  <h3>Parte E — Escribe la forma correcta del adjetivo</h3>
+  <div class="q-row"><label>1. La casa es ___ (grande)</label>
+    <input class="fill-input" id="conc-e1" placeholder="adjetivo..."></div>
+  <div class="q-row"><label>2. Los perros son ___ (negro)</label>
+    <input class="fill-input" id="conc-e2" placeholder="adjetivo..."></div>
+  <div class="q-row"><label>3. Unas flores ___ (bonito)</label>
+    <input class="fill-input" id="conc-e3" placeholder="adjetivo..."></div>
+  <div class="q-row"><label>4. El cielo ___ (azul)</label>
+    <input class="fill-input" id="conc-e4" placeholder="adjetivo..."></div>
+  <div class="q-row"><label>5. Las gatas ___ (travieso)</label>
+    <input class="fill-input" id="conc-e5" placeholder="adjetivo..."></div>
+  <button class="check-btn" onclick="checkConcE()">Revisar <span id="conc-e-score" class="score-badge"></span></button>
+</div></div>
       <div class="topic-nav">
         <button class="nav-arrow" onclick="goTopic(1)">← Anterior</button>
         <span class="topic-counter">Tema 3 de 7</span>
@@ -790,7 +933,40 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 
 <!-- ══════════════════════════════════
      TEST: LA NOTICIA
-══════════════════════════════════ --></div>
+══════════════════════════════════ -->
+<div class="test-block">
+  <h3>Parte D — Une la parte del libro con su función</h3>
+  <div class="matching-row"><span><input class="match-input" id="m-libro1"> Portada</span></div>
+  <div class="matching-row"><span><input class="match-input" id="m-libro2"> Índice</span></div>
+  <div class="matching-row"><span><input class="match-input" id="m-libro3"> Bibliografía</span></div>
+  <div class="matching-row"><span><input class="match-input" id="m-libro4"> Contraportada</span></div>
+  <div class="matching-row"><span><input class="match-input" id="m-libro5"> Lomo</span></div>
+  <div class="match-key">
+    <span>1.</span><span>Lista las fuentes que el autor consultó</span>
+    <span>2.</span><span>Muestra el título y el número de página de cada capítulo</span>
+    <span>3.</span><span>Parte trasera del libro con resumen e info adicional</span>
+    <span>4.</span><span>Muestra el título, autor y editorial</span>
+    <span>5.</span><span>El canto del libro; lleva título y autor</span>
+  </div>
+  <button class="check-btn" onclick="checkLibroMatch()">Revisar <span id="libro-match-score" class="score-badge"></span></button>
+</div>
+
+<div class="test-block">
+  <h3>Parte E — Completa con la parte correcta del libro</h3>
+  <div class="word-bank">
+    <span class="wb-word">cubierta</span><span class="wb-word">prólogo</span>
+    <span class="wb-word">contenido</span><span class="wb-word">índice</span><span class="wb-word">lomo</span>
+  </div>
+  <div class="q-row"><label>1. Para encontrar en qué página está el Capítulo 3, uso el ___.</label>
+    <input class="fill-input" id="libro-e1" placeholder="parte..."></div>
+  <div class="q-row"><label>2. La presentación o introducción del libro se llama ___.</label>
+    <input class="fill-input" id="libro-e2" placeholder="parte..."></div>
+  <div class="q-row"><label>3. El texto principal del libro es el ___.</label>
+    <input class="fill-input" id="libro-e3" placeholder="parte..."></div>
+  <div class="q-row"><label>4. La tapa que protege las páginas se llama ___.</label>
+    <input class="fill-input" id="libro-e4" placeholder="parte..."></div>
+  <button class="check-btn" onclick="checkLibroE()">Revisar <span id="libro-e-score" class="score-badge"></span></button>
+</div></div>
       <div class="topic-nav">
         <button class="nav-arrow" onclick="goTopic(2)">← Anterior</button>
         <span class="topic-counter">Tema 4 de 7</span>
@@ -931,7 +1107,52 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 
 <!-- ══════════════════════════════════
      TEST: DAVID
-══════════════════════════════════ --></div>
+══════════════════════════════════ -->
+<div class="test-block">
+  <h3>Parte D — ¿A qué parte de la noticia corresponde?</h3>
+  <div class="q-row">
+    <label>1. "Un rayo cayó cerca de la escuela anoche." — ¿Qué parte de la noticia es esto?</label>
+    <div class="mc-options" id="mc-noti-d1">
+      <label class="mc-opt"><input type="radio" name="mc-noti-d1"> Cuerpo</label>
+      <label class="mc-opt"><input type="radio" name="mc-noti-d1"> Titular</label>
+      <label class="mc-opt"><input type="radio" name="mc-noti-d1"> Bibliografía</label>
+      <label class="mc-opt"><input type="radio" name="mc-noti-d1"> Entradilla</label>
+    </div>
+  </div>
+  <div class="q-row">
+    <label>2. "El martes 10, un estudiante de 4to grado ganó el concurso de matemáticas en el Colegio Valle del Sol." — ¿Qué parte es?</label>
+    <div class="mc-options" id="mc-noti-d2">
+      <label class="mc-opt"><input type="radio" name="mc-noti-d2"> Titular</label>
+      <label class="mc-opt"><input type="radio" name="mc-noti-d2"> Subtítulo</label>
+      <label class="mc-opt"><input type="radio" name="mc-noti-d2"> Entradilla</label>
+      <label class="mc-opt"><input type="radio" name="mc-noti-d2"> Elementos gráficos</label>
+    </div>
+  </div>
+  <div class="q-row">
+    <label>3. "El alcalde explicó que la obra durará tres meses más y que los vecinos serán compensados." — ¿Qué parte es?</label>
+    <div class="mc-options" id="mc-noti-d3">
+      <label class="mc-opt"><input type="radio" name="mc-noti-d3"> Titular</label>
+      <label class="mc-opt"><input type="radio" name="mc-noti-d3"> Entradilla</label>
+      <label class="mc-opt"><input type="radio" name="mc-noti-d3"> Cuerpo</label>
+      <label class="mc-opt"><input type="radio" name="mc-noti-d3"> Subtítulo</label>
+    </div>
+  </div>
+  <button class="check-btn" onclick="checkNotiD()">Revisar <span id="noti-d-score" class="score-badge"></span></button>
+</div>
+
+<div class="test-block">
+  <h3>Parte E — Las 5 preguntas de la noticia</h3>
+  <p style="font-size:.86rem;color:var(--muted);margin-bottom:.85rem">Lee la oración y escribe qué pregunta responde: ¿Qué?, ¿Quién?, ¿Cuándo?, ¿Dónde? o ¿Por qué?</p>
+  <div class="q-row"><label>1. "El incendio ocurrió en la Avenida Central."</label>
+    <input class="fill-input" id="noti-e1" placeholder="¿...?"></div>
+  <div class="q-row"><label>2. "El bombero rescató al niño porque estaba atrapado."</label>
+    <input class="fill-input" id="noti-e2" placeholder="¿...?"></div>
+  <div class="q-row"><label>3. "La directora del colegio anunció el cambio de horario."</label>
+    <input class="fill-input" id="noti-e3" placeholder="¿...?"></div>
+  <div class="q-row"><label>4. "El partido se jugó el sábado por la tarde."</label>
+    <input class="fill-input" id="noti-e4" placeholder="¿...?"></div>
+  <button class="check-btn" onclick="checkNotiE()">Revisar <span id="noti-e-score" class="score-badge"></span></button>
+</div></div>
       <div class="topic-nav">
         <button class="nav-arrow" onclick="goTopic(3)">← Anterior</button>
         <span class="topic-counter">Tema 5 de 7</span>
@@ -971,7 +1192,71 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
         <div class="zl-line"></div>
         <span class="zl-hint">Completa los ejercicios</span>
       </div>
-      <div class="practice-zone"><p style="color:var(--muted);font-size:.88rem;padding:.5rem 0">Las preguntas de comprensión de ambos capítulos están juntas en el Tema 7 (David Cap.IV).</p></div>
+      <div class="practice-zone">
+<div class="test-block">
+  <h3>Parte A — Comprensión de David Cap. III</h3>
+  <div class="q-row">
+    <label>1. ¿Qué tiempo hacía en el Capítulo III?</label>
+    <div class="mc-options" id="mc-d3-1">
+      <label class="mc-opt"><input type="radio" name="mc-d3-1"> Hacía sol y calor</label>
+      <label class="mc-opt"><input type="radio" name="mc-d3-1"> Llovía y era un día nublado</label>
+      <label class="mc-opt"><input type="radio" name="mc-d3-1"> Había viento fuerte</label>
+      <label class="mc-opt"><input type="radio" name="mc-d3-1"> Era de noche y había luna</label>
+    </div>
+  </div>
+  <div class="q-row">
+    <label>2. ¿Qué figura imaginó David en las gotas de lluvia en la ventana?</label>
+    <div class="mc-options" id="mc-d3-2">
+      <label class="mc-opt"><input type="radio" name="mc-d3-2"> Un dragón de fuego</label>
+      <label class="mc-opt"><input type="radio" name="mc-d3-2"> Un anciano — el señor Invierno</label>
+      <label class="mc-opt"><input type="radio" name="mc-d3-2"> Un barco pirata</label>
+      <label class="mc-opt"><input type="radio" name="mc-d3-2"> Su papá trabajando</label>
+    </div>
+  </div>
+  <div class="q-row">
+    <label>3. ¿Qué le pidió David al señor Invierno?</label>
+    <div class="mc-options" id="mc-d3-3">
+      <label class="mc-opt"><input type="radio" name="mc-d3-3"> Que dejara de llover para siempre</label>
+      <label class="mc-opt"><input type="radio" name="mc-d3-3"> Que protegiera el tomatal de su papá</label>
+      <label class="mc-opt"><input type="radio" name="mc-d3-3"> Que le trajera nieve del norte</label>
+      <label class="mc-opt"><input type="radio" name="mc-d3-3"> Que llevara a Richard a volar</label>
+    </div>
+  </div>
+  <button class="check-btn" onclick="checkDavid3A()">Revisar <span id="d3-a-score" class="score-badge"></span></button>
+</div>
+
+<div class="test-block">
+  <h3>Parte B — Verdadero o Falso: David Cap. III</h3>
+  <div class="q-row">
+    <label>1. David "vuela" con el señor Invierno entre las nubes.</label>
+    <div class="tf-row">
+      <button class="tf-btn" onclick="tfSelect(this,'d3-tf1','V')">Verdadero</button>
+      <button class="tf-btn" onclick="tfSelect(this,'d3-tf1','F')">Falso</button>
+    </div>
+  </div>
+  <div class="q-row">
+    <label>2. La lluvia mojó a David mientras volaba.</label>
+    <div class="tf-row">
+      <button class="tf-btn" onclick="tfSelect(this,'d3-tf2','V')">Verdadero</button>
+      <button class="tf-btn" onclick="tfSelect(this,'d3-tf2','F')">Falso</button>
+    </div>
+  </div>
+  <div class="q-row">
+    <label>3. David quiso llevarse un pedazo de nube pero el Invierno le dijo que no podía.</label>
+    <div class="tf-row">
+      <button class="tf-btn" onclick="tfSelect(this,'d3-tf3','V')">Verdadero</button>
+      <button class="tf-btn" onclick="tfSelect(this,'d3-tf3','F')">Falso</button>
+    </div>
+  </div>
+  <div class="q-row">
+    <label>4. Al final del capítulo, seguía lloviendo cuando David despertó.</label>
+    <div class="tf-row">
+      <button class="tf-btn" onclick="tfSelect(this,'d3-tf4','V')">Verdadero</button>
+      <button class="tf-btn" onclick="tfSelect(this,'d3-tf4','F')">Falso</button>
+    </div>
+  </div>
+  <button class="check-btn" onclick="checkDavid3B()">Revisar <span id="d3-b-score" class="score-badge"></span></button>
+</div></div>
       <div class="topic-nav">
         <button class="nav-arrow" onclick="goTopic(4)">← Anterior</button>
         <span class="topic-counter">Tema 6 de 7</span>
@@ -1220,6 +1505,63 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 <!-- ══════════════════════════════════
      CALIFICACIÓN FINAL
 ══════════════════════════════════ -->
+</div>
+<div class="test-block">
+  <h3>Parte E — Comprensión inferencial Cap. IV</h3>
+  <div class="q-row">
+    <label>1. ¿Por qué el rayito decidió "llorar" para salvarse de la noche?</label>
+    <div class="mc-options" id="mc-d4-e1">
+      <label class="mc-opt"><input type="radio" name="mc-d4-e1"> Porque estaba triste por haberse perdido</label>
+      <label class="mc-opt"><input type="radio" name="mc-d4-e1"> Para apagar su luz y que la noche no lo viera</label>
+      <label class="mc-opt"><input type="radio" name="mc-d4-e1"> Porque quería que su papá lo encontrara más rápido</label>
+      <label class="mc-opt"><input type="radio" name="mc-d4-e1"> Porque así podía volar más alto</label>
+    </div>
+  </div>
+  <div class="q-row">
+    <label>2. ¿Qué enseñanza nos da el cuento del rayito de sol?</label>
+    <div class="mc-options" id="mc-d4-e2">
+      <label class="mc-opt"><input type="radio" name="mc-d4-e2"> Que no hay que explorar el bosque nunca</label>
+      <label class="mc-opt"><input type="radio" name="mc-d4-e2"> Que no debemos alejarnos de quienes nos cuidan</label>
+      <label class="mc-opt"><input type="radio" name="mc-d4-e2"> Que la noche es siempre peligrosa</label>
+      <label class="mc-opt"><input type="radio" name="mc-d4-e2"> Que el sol siempre sale por las mañanas</label>
+    </div>
+  </div>
+  <div class="q-row">
+    <label>3. ¿Quién le cuenta el cuento del rayito a David?</label>
+    <div class="mc-options" id="mc-d4-e3">
+      <label class="mc-opt"><input type="radio" name="mc-d4-e3"> Su mamá</label>
+      <label class="mc-opt"><input type="radio" name="mc-d4-e3"> Richard</label>
+      <label class="mc-opt"><input type="radio" name="mc-d4-e3"> Amy</label>
+      <label class="mc-opt"><input type="radio" name="mc-d4-e3"> La Niña</label>
+    </div>
+  </div>
+  <button class="check-btn" onclick="checkDavid4E()">Revisar <span id="d4-e-score" class="score-badge"></span></button>
+</div>
+
+<div class="test-block">
+  <h3>Parte F — Verdadero o Falso: David Cap. IV</h3>
+  <div class="q-row">
+    <label>1. El rayito pasó el día iluminando flores, animales y creó un arco iris.</label>
+    <div class="tf-row">
+      <button class="tf-btn" onclick="tfSelect(this,'d4-tf1','V')">Verdadero</button>
+      <button class="tf-btn" onclick="tfSelect(this,'d4-tf1','F')">Falso</button>
+    </div>
+  </div>
+  <div class="q-row">
+    <label>2. El sol no se preocupó cuando no encontró al rayito.</label>
+    <div class="tf-row">
+      <button class="tf-btn" onclick="tfSelect(this,'d4-tf2','V')">Verdadero</button>
+      <button class="tf-btn" onclick="tfSelect(this,'d4-tf2','F')">Falso</button>
+    </div>
+  </div>
+  <div class="q-row">
+    <label>3. El rayito se perdió porque se distrajo jugando.</label>
+    <div class="tf-row">
+      <button class="tf-btn" onclick="tfSelect(this,'d4-tf3','V')">Verdadero</button>
+      <button class="tf-btn" onclick="tfSelect(this,'d4-tf3','F')">Falso</button>
+    </div>
+  </div>
+  <button class="check-btn" onclick="checkDavid4F()">Revisar <span id="d4-f-score" class="score-badge"></span></button>
 </div></div>
       <div class="topic-nav">
         <button class="nav-arrow" onclick="goTopic(5)">← Anterior</button>
@@ -1631,6 +1973,233 @@ function calcFinal() {
   document.getElementById('final-grade-pct').textContent = earnedPts + ' / ' + totalPts + ' puntos — ' + pct + '%';
   document.getElementById('sc-total').innerHTML = '<strong>' + earnedPts + ' / ' + totalPts + '</strong>';
 }
+</script>
+
+<script>
+
+// ── EXTRA EXERCISES JS ──
+
+// Topic 0 extras
+function checkArtsMatch() {
+  var ans = {1:'2', 2:'3', 3:'1', 4:'4'};
+  var c=0, t=4;
+  for (var i=1;i<=4;i++) {
+    var el = document.getElementById('m-arts'+i);
+    if (!el) continue;
+    if (el.value.trim()===ans[i]) { el.classList.add('correct'); c++; }
+    else el.classList.add('wrong');
+  }
+  document.getElementById('arts-match-score').textContent = c+'/'+t+' correctas';
+  recordScore('arts-match', c, t);
+}
+function checkArtsE() {
+  var ans = {1:'las',2:'un',3:'unas'};
+  var groups = ['mc-arts-e1','mc-arts-e2','mc-arts-e3'];
+  var correct_idx = [1,2,1]; // 0-indexed: las=idx1, un=idx2(wait)
+  // Use correct answer text matching
+  var correct_vals = ['las','un','unas'];
+  var c=0;
+  groups.forEach(function(gid, idx){
+    var opts = document.querySelectorAll('#'+gid+' .mc-opt');
+    var sel = document.querySelector('#'+gid+' input:checked');
+    opts.forEach(function(o){
+      if (o.textContent.trim()===correct_vals[idx]) o.classList.add('correct-ans');
+      if (sel && o.querySelector('input')===sel && o.textContent.trim()!==correct_vals[idx]) o.classList.add('wrong-ans');
+      if (sel && o.querySelector('input')===sel && o.textContent.trim()===correct_vals[idx]) { c++; }
+    });
+  });
+  document.getElementById('arts-e-score').textContent = c+'/3 correctas';
+  recordScore('arts-e', c, 3);
+}
+
+// Topic 1 extras
+var adjDans = {1:'V',2:'F',3:'V',4:'F'};
+function checkAdjD() {
+  var c=0,t=4;
+  for(var i=1;i<=4;i++){
+    var btns=document.querySelectorAll('[onclick*="adj-d'+i+'"]');
+    btns.forEach(function(b){
+      var v=b.getAttribute('onclick').match(/'([VF])'\)/)[1];
+      if(b.classList.contains('selected')){
+        if(v===adjDans[i]){b.classList.add('correct-ans');c++;}
+        else b.classList.add('wrong-ans');
+      } else if(v===adjDans[i]) b.classList.add('correct-ans');
+    });
+  }
+  document.getElementById('adj-d-score').textContent=c+'/'+t+' correctas';
+  recordScore('adj-d',c,t);
+}
+function checkAdjE(){
+  var ans={1:'frío',2:'coloridas',3:'feroz',4:'pequeña'};
+  var c=0,t=4;
+  for(var i=1;i<=4;i++){
+    var el=document.getElementById('adj-e'+i);
+    if(!el) continue;
+    if(el.value.trim().toLowerCase()===ans[i]){el.classList.add('correct');c++;}
+    else el.classList.add('wrong');
+  }
+  document.getElementById('adj-e-score').textContent=c+'/'+t+' correctas';
+  recordScore('adj-e',c,t);
+}
+
+// Topic 2 extras
+var concDans={1:'V',2:'F',3:'V',4:'F'};
+function checkConcD(){
+  var c=0,t=4;
+  for(var i=1;i<=4;i++){
+    var btns=document.querySelectorAll('[onclick*="conc-d'+i+'"]');
+    btns.forEach(function(b){
+      var v=b.getAttribute('onclick').match(/'([VF])'\)/)[1];
+      if(b.classList.contains('selected')){
+        if(v===concDans[i]){b.classList.add('correct-ans');c++;}
+        else b.classList.add('wrong-ans');
+      } else if(v===concDans[i]) b.classList.add('correct-ans');
+    });
+  }
+  document.getElementById('conc-d-score').textContent=c+'/'+t+' correctas';
+  recordScore('conc-d',c,t);
+}
+function checkConcE(){
+  var ans={1:'grande',2:'negros',3:'bonitas',4:'azul',5:'traviesas'};
+  var c=0,t=5;
+  for(var i=1;i<=5;i++){
+    var el=document.getElementById('conc-e'+i);
+    if(!el) continue;
+    if(el.value.trim().toLowerCase()===ans[i]){el.classList.add('correct');c++;}
+    else el.classList.add('wrong');
+  }
+  document.getElementById('conc-e-score').textContent=c+'/'+t+' correctas';
+  recordScore('conc-e',c,t);
+}
+
+// Topic 3 extras
+function checkLibroMatch(){
+  var ans={1:'4',2:'2',3:'1',4:'3',5:'5'};
+  var c=0,t=5;
+  for(var i=1;i<=5;i++){
+    var el=document.getElementById('m-libro'+i);
+    if(!el) continue;
+    if(el.value.trim()===ans[i]){el.classList.add('correct');c++;}
+    else el.classList.add('wrong');
+  }
+  document.getElementById('libro-match-score').textContent=c+'/'+t+' correctas';
+  recordScore('libro-match',c,t);
+}
+function checkLibroE(){
+  var ans={1:'índice',2:'prólogo',3:'contenido',4:'cubierta'};
+  var c=0,t=4;
+  for(var i=1;i<=4;i++){
+    var el=document.getElementById('libro-e'+i);
+    if(!el) continue;
+    if(el.value.trim().toLowerCase()===ans[i]){el.classList.add('correct');c++;}
+    else el.classList.add('wrong');
+  }
+  document.getElementById('libro-e-score').textContent=c+'/'+t+' correctas';
+  recordScore('libro-e',c,t);
+}
+
+// Topic 4 extras
+function checkNotiD(){
+  var correct=['Titular','Entradilla','Cuerpo'];
+  var groups=['mc-noti-d1','mc-noti-d2','mc-noti-d3'];
+  var c=0;
+  groups.forEach(function(gid,idx){
+    var opts=document.querySelectorAll('#'+gid+' .mc-opt');
+    var sel=document.querySelector('#'+gid+' input:checked');
+    opts.forEach(function(o){
+      if(o.textContent.trim()===correct[idx]) o.classList.add('correct-ans');
+      if(sel&&o.querySelector('input')===sel&&o.textContent.trim()!==correct[idx]) o.classList.add('wrong-ans');
+      if(sel&&o.querySelector('input')===sel&&o.textContent.trim()===correct[idx]) c++;
+    });
+  });
+  document.getElementById('noti-d-score').textContent=c+'/3 correctas';
+  recordScore('noti-d',c,3);
+}
+function checkNotiE(){
+  var ans={1:'¿Dónde?',2:'¿Por qué?',3:'¿Quién?',4:'¿Cuándo?'};
+  var c=0,t=4;
+  for(var i=1;i<=4;i++){
+    var el=document.getElementById('noti-e'+i);
+    if(!el) continue;
+    var v=el.value.trim().toLowerCase().replace('?','').replace('¿','');
+    var a=ans[i].toLowerCase().replace('?','').replace('¿','');
+    if(v===a){el.classList.add('correct');c++;}
+    else el.classList.add('wrong');
+  }
+  document.getElementById('noti-e-score').textContent=c+'/'+t+' correctas';
+  recordScore('noti-e',c,t);
+}
+
+// Topic 5 extras (David Cap.III)
+function checkDavid3A(){
+  var correct=['Llovía y era un día nublado','Que protegiera el tomatal de su papá','Un anciano — el señor Invierno'];
+  var groups=['mc-d3-1','mc-d3-2','mc-d3-3'];
+  // reorder: q1=weather, q2=figure, q3=request
+  var corr=['Llovía y era un día nublado','Un anciano — el señor Invierno','Que protegiera el tomatal de su papá'];
+  var c=0;
+  groups.forEach(function(gid,idx){
+    var opts=document.querySelectorAll('#'+gid+' .mc-opt');
+    var sel=document.querySelector('#'+gid+' input:checked');
+    opts.forEach(function(o){
+      if(o.textContent.trim()===corr[idx]) o.classList.add('correct-ans');
+      if(sel&&o.querySelector('input')===sel&&o.textContent.trim()!==corr[idx]) o.classList.add('wrong-ans');
+      if(sel&&o.querySelector('input')===sel&&o.textContent.trim()===corr[idx]) c++;
+    });
+  });
+  document.getElementById('d3-a-score').textContent=c+'/3 correctas';
+  recordScore('david3-a',c,3);
+}
+var d3tfAns={1:'V',2:'F',3:'V',4:'F'};
+function checkDavid3B(){
+  var c=0,t=4;
+  for(var i=1;i<=4;i++){
+    var btns=document.querySelectorAll('[onclick*="d3-tf'+i+'"]');
+    btns.forEach(function(b){
+      var v=b.getAttribute('onclick').match(/'([VF])'\)/)[1];
+      if(b.classList.contains('selected')){
+        if(v===d3tfAns[i]){b.classList.add('correct-ans');c++;}
+        else b.classList.add('wrong-ans');
+      } else if(v===d3tfAns[i]) b.classList.add('correct-ans');
+    });
+  }
+  document.getElementById('d3-b-score').textContent=c+'/'+t+' correctas';
+  recordScore('david3-b',c,t);
+}
+
+// Topic 6 extras (David Cap.IV)
+function checkDavid4E(){
+  var corr=['Para apagar su luz y que la noche no lo viera','Que no debemos alejarnos de quienes nos cuidan','Amy'];
+  var groups=['mc-d4-e1','mc-d4-e2','mc-d4-e3'];
+  var c=0;
+  groups.forEach(function(gid,idx){
+    var opts=document.querySelectorAll('#'+gid+' .mc-opt');
+    var sel=document.querySelector('#'+gid+' input:checked');
+    opts.forEach(function(o){
+      if(o.textContent.trim()===corr[idx]) o.classList.add('correct-ans');
+      if(sel&&o.querySelector('input')===sel&&o.textContent.trim()!==corr[idx]) o.classList.add('wrong-ans');
+      if(sel&&o.querySelector('input')===sel&&o.textContent.trim()===corr[idx]) c++;
+    });
+  });
+  document.getElementById('d4-e-score').textContent=c+'/3 correctas';
+  recordScore('david4-e',c,3);
+}
+var d4tfAns={1:'V',2:'F',3:'V'};
+function checkDavid4F(){
+  var c=0,t=3;
+  for(var i=1;i<=3;i++){
+    var btns=document.querySelectorAll('[onclick*="d4-tf'+i+'"]');
+    btns.forEach(function(b){
+      var v=b.getAttribute('onclick').match(/'([VF])'\)/)[1];
+      if(b.classList.contains('selected')){
+        if(v===d4tfAns[i]){b.classList.add('correct-ans');c++;}
+        else b.classList.add('wrong-ans');
+      } else if(v===d4tfAns[i]) b.classList.add('correct-ans');
+    });
+  }
+  document.getElementById('d4-f-score').textContent=c+'/'+t+' correctas';
+  recordScore('david4-f',c,t);
+}
+
 </script>
 
 <script>
