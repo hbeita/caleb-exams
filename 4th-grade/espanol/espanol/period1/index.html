@@ -1924,7 +1924,7 @@ function checkMCGroup(answersObj, prefix) {
     document.querySelectorAll('input[name="' + name + '"]').forEach(r => {
       var opt = r.closest('.mc-opt');
       opt.classList.remove('correct-ans','wrong-ans','selected');
-      if (r.value === correctVal) opt.classList.add('correct-ans');
+      if (sel && r === sel && r.value === correctVal) opt.classList.add('correct-ans');
       else if (sel && r === sel && r.value !== correctVal) opt.classList.add('wrong-ans');
     });
     if (sel && sel.value === correctVal) correct++;
@@ -1943,7 +1943,7 @@ function checkTFGroup(answersObj) {
     document.querySelectorAll('.tf-btn').forEach(btn => {
       if (btn.getAttribute('onclick') && btn.getAttribute('onclick').includes("'" + key + "'")) {
         btn.classList.remove('correct-ans','wrong-ans','selected');
-        if (btn.textContent.trim() === correctAns) btn.classList.add('correct-ans');
+        if (btn.textContent.trim() === chosen && isCorrect) btn.classList.add('correct-ans');
         else if (btn.textContent.trim() === chosen && !isCorrect) btn.classList.add('wrong-ans');
       }
     });
@@ -2023,7 +2023,7 @@ function checkAdjD() {
       if(b.classList.contains('selected')){
         if(v===adjDans[i]){b.classList.add('correct-ans');c++;}
         else b.classList.add('wrong-ans');
-      } else if(v===adjDans[i]) b.classList.add('correct-ans');
+      
     });
   }
   document.getElementById('adj-d-score').textContent=c+'/'+t+' correctas';
@@ -2053,7 +2053,7 @@ function checkConcD(){
       if(b.classList.contains('selected')){
         if(v===concDans[i]){b.classList.add('correct-ans');c++;}
         else b.classList.add('wrong-ans');
-      } else if(v===concDans[i]) b.classList.add('correct-ans');
+      
     });
   }
   document.getElementById('conc-d-score').textContent=c+'/'+t+' correctas';
@@ -2107,9 +2107,8 @@ function checkNotiD(){
     var opts=document.querySelectorAll('#'+gid+' .mc-opt');
     var sel=document.querySelector('#'+gid+' input:checked');
     opts.forEach(function(o){
-      if(o.textContent.trim()===correct[idx]) o.classList.add('correct-ans');
-      if(sel&&o.querySelector('input')===sel&&o.textContent.trim()!==correct[idx]) o.classList.add('wrong-ans');
-      if(sel&&o.querySelector('input')===sel&&o.textContent.trim()===correct[idx]) c++;
+      if(sel&&o.querySelector('input')===sel&&o.textContent.trim()===correct[idx]){o.classList.add('correct-ans');c++;}
+    else if(sel&&o.querySelector('input')===sel&&o.textContent.trim()!==correct[idx]) o.classList.add('wrong-ans');
     });
   });
   document.getElementById('noti-d-score').textContent=c+'/3 correctas';
@@ -2141,9 +2140,8 @@ function checkDavid3A(){
     var opts=document.querySelectorAll('#'+gid+' .mc-opt');
     var sel=document.querySelector('#'+gid+' input:checked');
     opts.forEach(function(o){
-      if(o.textContent.trim()===corr[idx]) o.classList.add('correct-ans');
-      if(sel&&o.querySelector('input')===sel&&o.textContent.trim()!==corr[idx]) o.classList.add('wrong-ans');
-      if(sel&&o.querySelector('input')===sel&&o.textContent.trim()===corr[idx]) c++;
+      if(sel&&o.querySelector('input')===sel&&o.textContent.trim()===corr[idx]){o.classList.add('correct-ans');c++;}
+    else if(sel&&o.querySelector('input')===sel&&o.textContent.trim()!==corr[idx]) o.classList.add('wrong-ans');
     });
   });
   document.getElementById('d3-a-score').textContent=c+'/3 correctas';
@@ -2159,7 +2157,7 @@ function checkDavid3B(){
       if(b.classList.contains('selected')){
         if(v===d3tfAns[i]){b.classList.add('correct-ans');c++;}
         else b.classList.add('wrong-ans');
-      } else if(v===d3tfAns[i]) b.classList.add('correct-ans');
+      
     });
   }
   document.getElementById('d3-b-score').textContent=c+'/'+t+' correctas';
@@ -2175,9 +2173,8 @@ function checkDavid4E(){
     var opts=document.querySelectorAll('#'+gid+' .mc-opt');
     var sel=document.querySelector('#'+gid+' input:checked');
     opts.forEach(function(o){
-      if(o.textContent.trim()===corr[idx]) o.classList.add('correct-ans');
-      if(sel&&o.querySelector('input')===sel&&o.textContent.trim()!==corr[idx]) o.classList.add('wrong-ans');
-      if(sel&&o.querySelector('input')===sel&&o.textContent.trim()===corr[idx]) c++;
+      if(sel&&o.querySelector('input')===sel&&o.textContent.trim()===corr[idx]){o.classList.add('correct-ans');c++;}
+    else if(sel&&o.querySelector('input')===sel&&o.textContent.trim()!==corr[idx]) o.classList.add('wrong-ans');
     });
   });
   document.getElementById('d4-e-score').textContent=c+'/3 correctas';
@@ -2193,7 +2190,7 @@ function checkDavid4F(){
       if(b.classList.contains('selected')){
         if(v===d4tfAns[i]){b.classList.add('correct-ans');c++;}
         else b.classList.add('wrong-ans');
-      } else if(v===d4tfAns[i]) b.classList.add('correct-ans');
+      
     });
   }
   document.getElementById('d4-f-score').textContent=c+'/'+t+' correctas';
