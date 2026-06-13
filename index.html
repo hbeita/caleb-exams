@@ -3,197 +3,495 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Caleb's Exam Practice</title>
+<title>Caleb's Exam Dashboard</title>
 <style>
-  :root {
-    --primary: #4f46e5;
-    --success: #16a34a;
-    --muted: #6b7280;
-    --border: #e5e7eb;
-    --bg: #f9fafb;
-    --card: #ffffff;
-    --text: #1f2937;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
-  header {
-    background: linear-gradient(135deg, #1e1b4b 0%, #4f46e5 60%, #7c3aed 100%);
-    color: white; padding: 3rem 1rem 2.5rem; text-align: center; position: relative; overflow: hidden;
-  }
-  header::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 70% 50%, rgba(255,255,255,.07) 0%, transparent 60%); }
-  .header-emoji { font-size: 3rem; display: block; margin-bottom: .5rem; }
-  header h1 { font-size: 2.2rem; font-weight: 900; letter-spacing: -.02em; }
-  header p { margin-top: .4rem; opacity: .8; font-size: 1rem; }
-  main { max-width: 920px; margin: 0 auto; padding: 2rem 1rem 4rem; display: flex; flex-direction: column; gap: 2.5rem; }
+:root {
+  --bg: #0f0e17;
+  --card: #1a1929;
+  --card2: #221f35;
+  --border: #2d2b45;
+  --text: #fffffe;
+  --muted: #a7a9be;
+  --reading: #6366f1;
+  --language: #8b5cf6;
+  --science: #0891b2;
+  --espanol: #16a34a;
+  --sociales: #d97706;
+  --ciencias: #0d9488;
+  --matematicas: #e11d48;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
 
-  .lang-section { background: var(--card); border-radius: 18px; border: 2px solid var(--border); overflow: hidden; }
-  .lang-header { display: flex; align-items: center; gap: .6rem; padding: 1rem 1.4rem; font-size: 1rem; font-weight: 800; border-bottom: 2px solid var(--border); }
-  .lang-header.english { background: #eef2ff; color: #3730a3; }
-  .lang-header.espanol { background: #f0fdf4; color: #15803d; }
-  .lang-header .flag { font-size: 1.3rem; }
-  .lang-header .exam-count { margin-left: auto; font-size: .75rem; font-weight: 600; color: var(--muted); }
+/* ── HERO ── */
+.hero {
+  background: linear-gradient(135deg, #0f0e17 0%, #1a1040 40%, #2d1b69 100%);
+  padding: 2.5rem 1.5rem 2rem;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(99,102,241,.15), transparent 70%);
+  top: -100px; right: -50px;
+  border-radius: 50%;
+}
+.hero-avatar {
+  width: 72px; height: 72px;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2.2rem;
+  margin: 0 auto 1rem;
+  box-shadow: 0 0 0 4px rgba(99,102,241,.25);
+}
+.hero h1 { font-size: 1.75rem; font-weight: 900; letter-spacing: -.02em; }
+.hero h1 span { color: #a5b4fc; }
+.hero-sub { font-size: .9rem; color: var(--muted); margin-top: .4rem; }
 
-  .subject-grid { display: table; width: 100%; border-collapse: collapse; }
-  .col-headers { display: table-row; }
-  .col-headers > div { display: table-cell; padding: .6rem 1rem; font-size: .68rem; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); border-bottom: 1px solid var(--border); }
-  .col-headers .ch-p { text-align: center; width: 30%; }
-  .col-headers .ch-p.active-col { color: var(--primary); }
-  .subject-row { display: table-row; }
-  .subject-row:not(:last-child) > .cell { border-bottom: 1px solid var(--border); }
-  .cell { display: table-cell; padding: .75rem 1rem; vertical-align: middle; }
-  .cell.subject-name { font-size: .9rem; font-weight: 700; white-space: nowrap; width: 40%; }
-  .cell.period-cell { text-align: center; width: 30%; }
+/* overall stats row */
+.stats-row {
+  display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+  margin-top: 1.75rem;
+}
+.stat-chip {
+  background: rgba(255,255,255,.07);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: .6rem 1.1rem;
+  text-align: center;
+  min-width: 100px;
+}
+.stat-chip .sc-val { font-size: 1.55rem; font-weight: 900; color: #a5b4fc; line-height: 1; }
+.stat-chip .sc-label { font-size: .7rem; color: var(--muted); margin-top: .25rem; text-transform: uppercase; letter-spacing: .06em; }
 
-  /* Card base */
-  .period-card { display: inline-flex; flex-direction: column; align-items: center; gap: .2rem; padding: .55rem .9rem; border-radius: 10px; text-decoration: none; border: 2px solid var(--border); background: var(--bg); transition: all .18s; min-width: 110px; color: var(--text); }
-  .period-card .pc-period { font-size: .62rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; }
-  .period-card .pc-status { font-size: .72rem; font-weight: 700; }
-  .period-card .pc-arrow { font-size: .7rem; font-weight: 700; }
+/* overall progress bar */
+.overall-bar-wrap {
+  max-width: 380px; margin: 1.4rem auto 0;
+  background: rgba(255,255,255,.07);
+  border-radius: 999px; height: 10px;
+}
+.overall-bar {
+  height: 10px; border-radius: 999px;
+  background: linear-gradient(90deg, #6366f1, #8b5cf6, #ec4899);
+  transition: width .8s cubic-bezier(.4,0,.2,1);
+}
+.overall-bar-label {
+  display: flex; justify-content: space-between;
+  font-size: .72rem; color: var(--muted); margin-top: .35rem;
+  max-width: 380px; margin-left: auto; margin-right: auto;
+}
 
-  /* Ready */
-  .period-card.ready { border-color: #bbf7d0; background: #f0fdf4; }
-  .period-card.ready:hover { border-color: var(--success); box-shadow: 0 3px 12px rgba(22,163,74,.15); transform: translateY(-2px); cursor: pointer; }
-  .period-card.ready .pc-period { color: #15803d; }
-  .period-card.ready .pc-status { color: var(--success); }
-  .period-card.ready .pc-arrow { color: var(--success); }
+/* ── MAIN ── */
+main { max-width: 960px; margin: 0 auto; padding: 2rem 1rem 4rem; }
 
-  /* Coming soon */
-  .period-card.soon { opacity: .5; cursor: default; }
-  .period-card.soon .pc-period, .period-card.soon .pc-status { color: var(--muted); }
+.section-header {
+  display: flex; align-items: center; gap: .75rem;
+  margin-bottom: 1.25rem; margin-top: .5rem;
+}
+.section-header h2 {
+  font-size: 1rem; font-weight: 800; color: var(--text);
+  display: flex; align-items: center; gap: .5rem;
+}
+.section-header .flag { font-size: 1.4rem; }
+.section-divider { flex: 1; height: 1px; background: var(--border); }
 
-  /* Past / disabled */
-  .period-card.past { opacity: .38; cursor: default; background: #f3f4f6; border-color: #d1d5db; border-style: dashed; }
-  .period-card.past .pc-period { color: var(--muted); }
-  .period-card.past .pc-status { color: var(--muted); font-style: italic; }
+/* ── SUBJECT GRID ── */
+.subject-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
 
-  /* Active column highlight */
-  .cell.period-cell.active-col { background: rgba(79,70,229,.02); }
+/* ── SUBJECT CARD ── */
+.subject-card {
+  background: var(--card);
+  border: 1.5px solid var(--border);
+  border-radius: 18px;
+  padding: 1.25rem;
+  transition: transform .18s, box-shadow .18s, border-color .18s;
+  position: relative;
+  overflow: hidden;
+}
+.subject-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  border-radius: 18px 18px 0 0;
+  background: var(--accent);
+}
+.subject-card:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(0,0,0,.4); border-color: var(--accent); }
 
-  .footer { text-align: center; padding: 1.5rem; font-size: .8rem; color: var(--muted); border-top: 1px solid var(--border); }
-  @media (max-width: 600px) {
-    .cell.subject-name { font-size: .8rem; }
-    .period-card { min-width: 85px; padding: .4rem .55rem; }
-    header h1 { font-size: 1.6rem; }
-  }
+.card-top { display: flex; align-items: flex-start; gap: .9rem; margin-bottom: 1rem; }
+.card-icon {
+  width: 48px; height: 48px; min-width: 48px;
+  background: rgba(255,255,255,.06);
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.6rem;
+  border: 1px solid rgba(255,255,255,.08);
+}
+.card-info { flex: 1; }
+.card-info h3 { font-size: .95rem; font-weight: 800; color: var(--text); margin-bottom: .2rem; }
+.card-info .card-sub { font-size: .72rem; color: var(--muted); }
+.grade-badge {
+  font-size: .75rem; font-weight: 900; padding: .25rem .6rem;
+  border-radius: 8px; min-width: 32px; text-align: center;
+  display: none;
+}
+
+/* score + progress */
+.score-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: .4rem; }
+.score-label { font-size: .72rem; color: var(--muted); }
+.score-val { font-size: .85rem; font-weight: 800; color: var(--text); }
+.card-progress-wrap { background: rgba(255,255,255,.07); border-radius: 999px; height: 7px; margin-bottom: 1rem; }
+.card-progress-bar { height: 7px; border-radius: 999px; background: var(--accent); transition: width .8s ease; }
+
+/* bloque chips */
+.bloque-row { display: flex; gap: .55rem; margin-bottom: 1rem; flex-wrap: wrap; }
+.bloque-chip {
+  font-size: .68rem; font-weight: 700; padding: .28rem .65rem;
+  border-radius: 8px; letter-spacing: .03em;
+}
+.bloque-chip.past { background: rgba(255,255,255,.05); color: var(--muted); border: 1px dashed var(--border); }
+.bloque-chip.current-soon { background: rgba(255,255,255,.06); color: var(--muted); border: 1px solid var(--border); }
+
+/* action button */
+.card-action {
+  display: block; text-decoration: none;
+  background: var(--accent);
+  color: white; font-weight: 800; font-size: .85rem;
+  text-align: center; padding: .65rem 1rem;
+  border-radius: 11px;
+  transition: opacity .15s, transform .12s;
+}
+.card-action:hover { opacity: .9; transform: scale(1.02); }
+.card-action.soon {
+  background: rgba(255,255,255,.06);
+  color: var(--muted);
+  cursor: default;
+  pointer-events: none;
+}
+
+.period-note {
+  font-size: .68rem; color: var(--muted); text-align: center;
+  margin-top: .55rem;
+  letter-spacing: .02em;
+}
+
+/* ── FOOTER ── */
+footer {
+  text-align: center; padding: 1.5rem;
+  font-size: .78rem; color: var(--muted);
+  border-top: 1px solid var(--border);
+  margin-top: 1rem;
+}
+
+@media (max-width: 560px) {
+  .subject-grid { grid-template-columns: 1fr; }
+  .hero h1 { font-size: 1.45rem; }
+  .stats-row { gap: .6rem; }
+  .stat-chip { min-width: 85px; padding: .5rem .8rem; }
+}
 </style>
 </head>
 <body>
-<header>
-  <span class="header-emoji">🎓</span>
-  <h1>Caleb's Exam Practice</h1>
-  <p>Study hard, do great — one exam at a time!</p>
-</header>
+
+<div class="hero">
+  <div class="hero-avatar">🧒</div>
+  <h1>Caleb's <span>Exam Dashboard</span></h1>
+  <p class="hero-sub">4to Grado · Valle del Sol · Primer Período</p>
+
+  <div class="stats-row">
+    <div class="stat-chip">
+      <div class="sc-val" id="stat-done">—</div>
+      <div class="sc-label">Completados</div>
+    </div>
+    <div class="stat-chip">
+      <div class="sc-val" id="stat-avg">—</div>
+      <div class="sc-label">Prom. General</div>
+    </div>
+    <div class="stat-chip">
+      <div class="sc-val" id="stat-best">—</div>
+      <div class="sc-label">Mejor Nota</div>
+    </div>
+  </div>
+
+  <div class="overall-bar-wrap">
+    <div class="overall-bar" id="overall-bar" style="width:0%"></div>
+  </div>
+  <div class="overall-bar-label">
+    <span>Progreso total</span>
+    <span id="overall-pct">0%</span>
+  </div>
+</div>
+
 <main>
 
   <!-- ═══ ENGLISH ═══ -->
-  <div class="lang-section">
-    <div class="lang-header english">
-      <span class="flag">🇺🇸</span>
-      <span>English Subjects</span>
-      <span class="exam-count">3 materias · 2 bloques c/u</span>
+  <div class="section-header">
+    <span class="flag">🇺🇸</span>
+    <h2>English Subjects</h2>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="subject-grid">
+
+    <!-- Reading -->
+    <div class="subject-card" style="--accent: var(--reading)">
+      <div class="card-top">
+        <div class="card-icon">📖</div>
+        <div class="card-info">
+          <h3>Reading &amp; Spelling</h3>
+          <div class="card-sub">Bloque 2 · activo</div>
+        </div>
+        <div class="grade-badge" id="grade-reading" style="background:rgba(99,102,241,.18);color:#a5b4fc"></div>
+      </div>
+      <div class="score-row">
+        <span class="score-label">Último puntaje</span>
+        <span class="score-val" id="score-reading">—</span>
+      </div>
+      <div class="card-progress-wrap">
+        <div class="card-progress-bar" id="bar-reading" style="width:0%"></div>
+      </div>
+      <div class="bloque-row">
+        <span class="bloque-chip past">📦 Bloque 1 · ya pasó</span>
+        <span class="bloque-chip" style="background:rgba(99,102,241,.15);color:#a5b4fc;border:1px solid rgba(99,102,241,.3)">📅 Bloque 2 · actual</span>
+      </div>
+      <a class="card-action" href="4th-grade/period2/exam1/index.html">Practicar ahora →</a>
+      <div class="period-note">Período 1 · Primer período del año</div>
     </div>
-    <div class="subject-grid">
-      <div class="col-headers">
-        <div>Subject</div>
-        <div class="ch-p">📦 Bloque 1 · P1 <br><span style="font-weight:400;font-style:italic">ya pasó</span></div>
-        <div class="ch-p active-col">📅 Bloque 2 · P1 <br><span style="font-weight:600">actual</span></div>
-      </div>
 
-      <div class="subject-row">
-        <div class="cell subject-name">📖 Reading &amp; Spelling</div>
-        <div class="cell period-cell">
-          <div class="period-card past"><span class="pc-period">Bloque 1</span><span class="pc-status">Ya pasó</span></div>
+    <!-- Language Arts -->
+    <div class="subject-card" style="--accent: var(--language)">
+      <div class="card-top">
+        <div class="card-icon">✍️</div>
+        <div class="card-info">
+          <h3>Language Arts</h3>
+          <div class="card-sub">Bloque 2 · activo</div>
         </div>
-        <div class="cell period-cell active-col">
-          <a class="period-card ready" href="4th-grade/period2/exam1/index.html">
-            <span class="pc-period">Bloque 2</span><span class="pc-status">✓ Ready</span><span class="pc-arrow">Practice →</span>
-          </a>
-        </div>
+        <div class="grade-badge" id="grade-language" style="background:rgba(139,92,246,.18);color:#c4b5fd"></div>
       </div>
-
-      <div class="subject-row">
-        <div class="cell subject-name">✍️ Language Arts</div>
-        <div class="cell period-cell">
-          <div class="period-card past"><span class="pc-period">Bloque 1</span><span class="pc-status">Ya pasó</span></div>
-        </div>
-        <div class="cell period-cell active-col">
-          <a class="period-card ready" href="4th-grade/period2/exam2/index.html">
-            <span class="pc-period">Bloque 2</span><span class="pc-status">✓ Ready</span><span class="pc-arrow">Practice →</span>
-          </a>
-        </div>
+      <div class="score-row">
+        <span class="score-label">Último puntaje</span>
+        <span class="score-val" id="score-language">—</span>
       </div>
-
-      <div class="subject-row">
-        <div class="cell subject-name">🔬 Science</div>
-        <div class="cell period-cell">
-          <div class="period-card past"><span class="pc-period">Bloque 1</span><span class="pc-status">Ya pasó</span></div>
-        </div>
-        <div class="cell period-cell active-col">
-          <div class="period-card soon"><span class="pc-period">Bloque 2</span><span class="pc-status">Coming soon</span></div>
-        </div>
+      <div class="card-progress-wrap">
+        <div class="card-progress-bar" id="bar-language" style="width:0%"></div>
       </div>
+      <div class="bloque-row">
+        <span class="bloque-chip past">📦 Bloque 1 · ya pasó</span>
+        <span class="bloque-chip" style="background:rgba(139,92,246,.15);color:#c4b5fd;border:1px solid rgba(139,92,246,.3)">📅 Bloque 2 · actual</span>
+      </div>
+      <a class="card-action" href="4th-grade/period2/exam2/index.html">Practicar ahora →</a>
+      <div class="period-note">Período 1 · Primer período del año</div>
     </div>
+
+    <!-- Science -->
+    <div class="subject-card" style="--accent: var(--science)">
+      <div class="card-top">
+        <div class="card-icon">🔬</div>
+        <div class="card-info">
+          <h3>Science</h3>
+          <div class="card-sub">Bloque 2 · próximamente</div>
+        </div>
+      </div>
+      <div class="score-row">
+        <span class="score-label">Último puntaje</span>
+        <span class="score-val">—</span>
+      </div>
+      <div class="card-progress-wrap">
+        <div class="card-progress-bar" style="width:0%"></div>
+      </div>
+      <div class="bloque-row">
+        <span class="bloque-chip past">📦 Bloque 1 · ya pasó</span>
+        <span class="bloque-chip current-soon">🔜 Bloque 2 · pronto</span>
+      </div>
+      <a class="card-action soon">Coming soon…</a>
+    </div>
+
   </div>
 
   <!-- ═══ ESPAÑOL ═══ -->
-  <div class="lang-section">
-    <div class="lang-header espanol">
-      <span class="flag">🇨🇷</span>
-      <span>Materias en Español</span>
-      <span class="exam-count">4 materias · 2 bloques c/u</span>
+  <div class="section-header">
+    <span class="flag">🇨🇷</span>
+    <h2>Materias en Español</h2>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="subject-grid">
+
+    <!-- Español -->
+    <div class="subject-card" style="--accent: var(--espanol)">
+      <div class="card-top">
+        <div class="card-icon">📝</div>
+        <div class="card-info">
+          <h3>Español</h3>
+          <div class="card-sub">Bloque 2 · activo</div>
+        </div>
+        <div class="grade-badge" id="grade-espanol" style="background:rgba(22,163,74,.18);color:#86efac"></div>
+      </div>
+      <div class="score-row">
+        <span class="score-label">Último puntaje</span>
+        <span class="score-val" id="score-espanol">—</span>
+      </div>
+      <div class="card-progress-wrap">
+        <div class="card-progress-bar" id="bar-espanol" style="width:0%"></div>
+      </div>
+      <div class="bloque-row">
+        <span class="bloque-chip past">📦 Bloque 1 · ya pasó</span>
+        <span class="bloque-chip" style="background:rgba(22,163,74,.15);color:#86efac;border:1px solid rgba(22,163,74,.3)">📅 Bloque 2 · actual</span>
+      </div>
+      <a class="card-action" href="4th-grade/espanol/espanol/period1/index.html">Practicar ahora →</a>
+      <div class="period-note">Período 1 · Primer período del año</div>
     </div>
-    <div class="subject-grid">
-      <div class="col-headers">
-        <div>Materia</div>
-        <div class="ch-p">📦 Bloque 1 · P1 <br><span style="font-weight:400;font-style:italic">ya pasó</span></div>
-        <div class="ch-p active-col">📅 Bloque 2 · P1 <br><span style="font-weight:600">actual</span></div>
-      </div>
 
-      <div class="subject-row">
-        <div class="cell subject-name">📝 Español</div>
-        <div class="cell period-cell">
-          <div class="period-card past"><span class="pc-period">Bloque 1</span><span class="pc-status">Ya pasó</span></div>
-        </div>
-        <div class="cell period-cell active-col">
-          <a class="period-card ready" href="4th-grade/espanol/espanol/period1/index.html">
-            <span class="pc-period">Bloque 2</span><span class="pc-status">✓ Listo</span><span class="pc-arrow">Practicar →</span>
-          </a>
+    <!-- Estudios Sociales -->
+    <div class="subject-card" style="--accent: var(--sociales)">
+      <div class="card-top">
+        <div class="card-icon">🗺️</div>
+        <div class="card-info">
+          <h3>Estudios Sociales</h3>
+          <div class="card-sub">Bloque 2 · próximamente</div>
         </div>
       </div>
-
-      <div class="subject-row">
-        <div class="cell subject-name">🗺️ Estudios Sociales</div>
-        <div class="cell period-cell">
-          <div class="period-card past"><span class="pc-period">Bloque 1</span><span class="pc-status">Ya pasó</span></div>
-        </div>
-        <div class="cell period-cell active-col">
-          <div class="period-card soon"><span class="pc-period">Bloque 2</span><span class="pc-status">Próximamente</span></div>
-        </div>
+      <div class="score-row">
+        <span class="score-label">Último puntaje</span>
+        <span class="score-val">—</span>
       </div>
-
-      <div class="subject-row">
-        <div class="cell subject-name">⚗️ Ciencias</div>
-        <div class="cell period-cell">
-          <div class="period-card past"><span class="pc-period">Bloque 1</span><span class="pc-status">Ya pasó</span></div>
-        </div>
-        <div class="cell period-cell active-col">
-          <div class="period-card soon"><span class="pc-period">Bloque 2</span><span class="pc-status">Próximamente</span></div>
-        </div>
+      <div class="card-progress-wrap">
+        <div class="card-progress-bar" style="width:0%"></div>
       </div>
-
-      <div class="subject-row">
-        <div class="cell subject-name">🔢 Matemáticas</div>
-        <div class="cell period-cell">
-          <div class="period-card past"><span class="pc-period">Bloque 1</span><span class="pc-status">Ya pasó</span></div>
-        </div>
-        <div class="cell period-cell active-col">
-          <div class="period-card soon"><span class="pc-period">Bloque 2</span><span class="pc-status">Próximamente</span></div>
-        </div>
+      <div class="bloque-row">
+        <span class="bloque-chip past">📦 Bloque 1 · ya pasó</span>
+        <span class="bloque-chip current-soon">🔜 Bloque 2 · pronto</span>
       </div>
+      <a class="card-action soon">Próximamente…</a>
     </div>
+
+    <!-- Ciencias -->
+    <div class="subject-card" style="--accent: var(--ciencias)">
+      <div class="card-top">
+        <div class="card-icon">⚗️</div>
+        <div class="card-info">
+          <h3>Ciencias</h3>
+          <div class="card-sub">Bloque 2 · próximamente</div>
+        </div>
+      </div>
+      <div class="score-row">
+        <span class="score-label">Último puntaje</span>
+        <span class="score-val">—</span>
+      </div>
+      <div class="card-progress-wrap">
+        <div class="card-progress-bar" style="width:0%"></div>
+      </div>
+      <div class="bloque-row">
+        <span class="bloque-chip past">📦 Bloque 1 · ya pasó</span>
+        <span class="bloque-chip current-soon">🔜 Bloque 2 · pronto</span>
+      </div>
+      <a class="card-action soon">Próximamente…</a>
+    </div>
+
+    <!-- Matemáticas -->
+    <div class="subject-card" style="--accent: var(--matematicas)">
+      <div class="card-top">
+        <div class="card-icon">🔢</div>
+        <div class="card-info">
+          <h3>Matemáticas</h3>
+          <div class="card-sub">Bloque 2 · próximamente</div>
+        </div>
+      </div>
+      <div class="score-row">
+        <span class="score-label">Último puntaje</span>
+        <span class="score-val">—</span>
+      </div>
+      <div class="card-progress-wrap">
+        <div class="card-progress-bar" style="width:0%"></div>
+      </div>
+      <div class="bloque-row">
+        <span class="bloque-chip past">📦 Bloque 1 · ya pasó</span>
+        <span class="bloque-chip current-soon">🔜 Bloque 2 · pronto</span>
+      </div>
+      <a class="card-action soon">Próximamente…</a>
+    </div>
+
   </div>
 
 </main>
-<footer class="footer">Caleb's Exam Practice · 4to Grado · Hecho con ❤️</footer>
+
+<footer>Caleb's Exam Practice · 4to Grado · Hecho con ❤️ por papá</footer>
+
+<script>
+// Progress keys: exam pages write these to localStorage
+// caleb_score_reading_b2, caleb_score_language_b2, caleb_score_espanol_b2
+// Values: 0-100 (percentage)
+
+var SUBJECTS = [
+  { key: 'reading_b2',  scoreId: 'score-reading',  barId: 'bar-reading',  gradeId: 'grade-reading'  },
+  { key: 'language_b2', scoreId: 'score-language', barId: 'bar-language', gradeId: 'grade-language' },
+  { key: 'espanol_b2',  scoreId: 'score-espanol',  barId: 'bar-espanol',  gradeId: 'grade-espanol'  }
+];
+
+function getGrade(pct) {
+  if (pct >= 90) return 'A';
+  if (pct >= 80) return 'B';
+  if (pct >= 70) return 'C';
+  return 'D';
+}
+
+function getGradeColor(g) {
+  return { A: '#22c55e', B: '#6366f1', C: '#f59e0b', D: '#ef4444' }[g] || '#6b7280';
+}
+
+function loadProgress() {
+  var scores = [];
+  SUBJECTS.forEach(function(s) {
+    var raw = localStorage.getItem('caleb_score_' + s.key);
+    var pct = raw !== null ? parseInt(raw, 10) : null;
+
+    var scoreEl = document.getElementById(s.scoreId);
+    var barEl   = document.getElementById(s.barId);
+    var gradeEl = document.getElementById(s.gradeId);
+
+    if (pct !== null) {
+      scores.push(pct);
+      if (scoreEl) scoreEl.textContent = pct + '%';
+      if (barEl)   barEl.style.width = pct + '%';
+      if (gradeEl) {
+        var g = getGrade(pct);
+        gradeEl.textContent = g;
+        gradeEl.style.display = 'block';
+        gradeEl.style.background = getGradeColor(g) + '33';
+        gradeEl.style.color = getGradeColor(g);
+        gradeEl.style.border = '1.5px solid ' + getGradeColor(g) + '66';
+      }
+    }
+  });
+
+  // Overall stats
+  var done = scores.length;
+  var total = SUBJECTS.length;
+  var avg  = done > 0 ? Math.round(scores.reduce(function(a,b){return a+b},0) / done) : null;
+  var best = done > 0 ? Math.max.apply(null, scores) : null;
+
+  document.getElementById('stat-done').textContent = done + '/' + total;
+  document.getElementById('stat-avg').textContent  = avg  !== null ? avg + '%'  : '—';
+  document.getElementById('stat-best').textContent = best !== null ? best + '%' : '—';
+
+  // Overall bar: (sum of scores) / (total possible if all done at 100)
+  var overallPct = Math.round((scores.reduce(function(a,b){return a+b},0)) / (total * 100) * 100);
+  document.getElementById('overall-bar').style.width = overallPct + '%';
+  document.getElementById('overall-pct').textContent = overallPct + '%';
+}
+
+window.addEventListener('load', loadProgress);
+</script>
+
 </body>
 </html>
