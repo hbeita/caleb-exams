@@ -177,6 +177,20 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
   .info-grid,.book-diagram,.classify-grid{grid-template-columns:1fr;}
   .content-area{padding:1.1rem .85rem 3rem;}
 }
+
+.mock-section{display:none;padding:1.5rem;}
+.mock-section.active{display:block;}
+.mock-header{background:linear-gradient(135deg,#1e1b4b,#4338ca);color:#fff;border-radius:16px;padding:1.4rem 1.6rem;margin-bottom:1.8rem;}
+.mock-header h2{margin:0 0 .3rem;font-size:1.3rem;}
+.mock-header p{margin:0;font-size:.86rem;opacity:.85;}
+.mock-part{margin-bottom:2rem;}
+.mock-part-title{font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);padding:.4rem .8rem;background:var(--bg);border-radius:8px;display:inline-block;margin-bottom:1rem;}
+.mock-result-box{display:none;margin-top:1.8rem;border-radius:16px;overflow:hidden;}
+.mock-result-box.show{display:block;}
+.mock-result-inner{padding:1.5rem;text-align:center;}
+.mock-grade-letter{font-size:4rem;font-weight:900;line-height:1;}
+.mock-grade-msg{font-size:1rem;margin:.5rem 0 0;}
+.mock-grade-pct{font-size:1.2rem;font-weight:700;margin:.3rem 0;}
 </style>
 </head>
 <body>
@@ -200,6 +214,8 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
       <div class="topic-item" onclick="goTopic(4)" id="nav-4"><span>5 · La Noticia</span><div class="ti-icons"><div class="ti-dot study-empty" id="sd-4">📖</div><div class="ti-dot empty" id="pd-4">✏️</div></div></div>
       <div class="topic-item" onclick="goTopic(5)" id="nav-5"><span>6 · David Cap.III</span><div class="ti-icons"><div class="ti-dot study-empty" id="sd-5">📖</div><div class="ti-dot empty" id="pd-5">✏️</div></div></div>
       <div class="topic-item" onclick="goTopic(6)" id="nav-6"><span>7 · David Cap.IV</span><div class="ti-icons"><div class="ti-dot study-empty" id="sd-6">📖</div><div class="ti-dot empty" id="pd-6">✏️</div></div></div>
+    </div>
+      <div class="topic-item" onclick="goMockExam()" id="nav-mock"><span>📝 Simulacro Final</span><div class="ti-icons"><div class="ti-dot empty" id="pd-mock">🎯</div></div></div>
     </div>
     <div class="sidebar-final">
       <button class="final-btn" onclick="goFinal()">🏆 Ver Calificación</button>
@@ -983,33 +999,112 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
         <div class="zl-line"></div>
         <span class="zl-hint">Lee y repasa el contenido</span>
       </div>
-      <div class="study-zone"><div class="news-diagram">
-    <div class="news-part np-titular">
-      <span class="np-label">Titular</span>
-      <div class="np-desc"><strong>El título principal de la noticia.</strong> Debe ser llamativo, claro y resumir el hecho más importante. Es lo primero que el lector ve.</div>
+      <div class="study-zone">
+
+  <!-- Intro sentence -->
+  <div style="background:#fff;border-radius:12px;padding:1rem 1.2rem;margin-bottom:1.2rem;border-left:4px solid #f59e0b;font-size:.92rem;line-height:1.6;">
+    📰 Una noticia es un texto que cuenta algo que <strong>pasó de verdad</strong>. Tiene partes, igual que un cuento tiene inicio, desarrollo y final.
+  </div>
+
+  <!-- Parts cards -->
+  <div style="display:flex;flex-direction:column;gap:.75rem;margin-bottom:1.4rem;">
+
+    <!-- Titular -->
+    <div style="background:#fff;border-radius:14px;border:2px solid #fbbf24;overflow:hidden;display:flex;align-items:stretch;box-shadow:0 2px 8px rgba(0,0,0,.06);">
+      <div style="background:#f59e0b;color:#fff;font-size:1.6rem;display:flex;align-items:center;justify-content:center;padding:.8rem 1rem;min-width:62px;">📰</div>
+      <div style="padding:.75rem 1rem;flex:1;">
+        <div style="font-weight:800;font-size:.95rem;color:#92400e;margin-bottom:.2rem;">Titular</div>
+        <div style="font-size:.86rem;color:#44403c;line-height:1.5;">Es el <strong>nombre de la noticia</strong>. Debe ser corto y decir lo más importante.</div>
+        <div style="margin-top:.4rem;font-size:.8rem;background:#fef3c7;border-radius:8px;padding:.3rem .6rem;color:#78350f;display:inline-block;">Ejemplo: <em>"Niños ganan torneo de fútbol"</em></div>
+      </div>
     </div>
-    <div class="news-part np-subtitulo">
-      <span class="np-label">Subtítulo</span>
-      <div class="np-desc"><strong>Complementa el titular.</strong> Da más detalles sobre la noticia y ayuda al lector a decidir si la quiere leer completa.</div>
+
+    <!-- Subtítulo -->
+    <div style="background:#fff;border-radius:14px;border:2px solid #a3e635;overflow:hidden;display:flex;align-items:stretch;box-shadow:0 2px 8px rgba(0,0,0,.06);">
+      <div style="background:#84cc16;color:#fff;font-size:1.6rem;display:flex;align-items:center;justify-content:center;padding:.8rem 1rem;min-width:62px;">✏️</div>
+      <div style="padding:.75rem 1rem;flex:1;">
+        <div style="font-weight:800;font-size:.95rem;color:#365314;margin-bottom:.2rem;">Subtítulo</div>
+        <div style="font-size:.86rem;color:#44403c;line-height:1.5;">Da un poco <strong>más de información</strong> sobre la noticia.</div>
+        <div style="margin-top:.4rem;font-size:.8rem;background:#f0fdf4;border-radius:8px;padding:.3rem .6rem;color:#166534;display:inline-block;">Ejemplo: <em>"El equipo de la escuela ganó el sábado en Cartago."</em></div>
+      </div>
     </div>
-    <div class="news-part np-entradilla">
-      <span class="np-label">Entradilla</span>
-      <div class="np-desc"><strong>Párrafo inicial de la noticia.</strong> Responde las preguntas básicas: ¿Qué? ¿Quién? ¿Cuándo? ¿Dónde? Es un resumen breve del hecho.</div>
+
+    <!-- Entradilla -->
+    <div style="background:#fff;border-radius:14px;border:2px solid #60a5fa;overflow:hidden;display:flex;align-items:stretch;box-shadow:0 2px 8px rgba(0,0,0,.06);">
+      <div style="background:#3b82f6;color:#fff;font-size:1.6rem;display:flex;align-items:center;justify-content:center;padding:.8rem 1rem;min-width:62px;">📌</div>
+      <div style="padding:.75rem 1rem;flex:1;">
+        <div style="font-weight:800;font-size:.95rem;color:#1e3a8a;margin-bottom:.2rem;">Entradilla</div>
+        <div style="font-size:.86rem;color:#44403c;line-height:1.5;">Es el <strong>primer párrafo</strong>. Aquí se responde:</div>
+        <div style="display:flex;gap:.4rem;flex-wrap:wrap;margin:.4rem 0;">
+          <span style="background:#dbeafe;color:#1e40af;border-radius:20px;padding:.2rem .6rem;font-size:.78rem;font-weight:700;">¿Qué pasó?</span>
+          <span style="background:#dbeafe;color:#1e40af;border-radius:20px;padding:.2rem .6rem;font-size:.78rem;font-weight:700;">¿Quiénes?</span>
+          <span style="background:#dbeafe;color:#1e40af;border-radius:20px;padding:.2rem .6rem;font-size:.78rem;font-weight:700;">¿Cuándo?</span>
+          <span style="background:#dbeafe;color:#1e40af;border-radius:20px;padding:.2rem .6rem;font-size:.78rem;font-weight:700;">¿Dónde?</span>
+        </div>
+        <div style="font-size:.8rem;background:#eff6ff;border-radius:8px;padding:.3rem .6rem;color:#1e40af;display:inline-block;"><em>"El sábado, los estudiantes de la Escuela Central ganaron un torneo de fútbol en Cartago."</em></div>
+      </div>
     </div>
-    <div class="news-part np-graficos">
-      <span class="np-label">Elementos gráficos</span>
-      <div class="np-desc"><strong>Fotos, imágenes, infografías o ilustraciones</strong> que acompañan la noticia. Hacen la noticia más visual y atractiva.</div>
+
+    <!-- Elementos gráficos -->
+    <div style="background:#fff;border-radius:14px;border:2px solid #c084fc;overflow:hidden;display:flex;align-items:stretch;box-shadow:0 2px 8px rgba(0,0,0,.06);">
+      <div style="background:#a855f7;color:#fff;font-size:1.6rem;display:flex;align-items:center;justify-content:center;padding:.8rem 1rem;min-width:62px;">🖼️</div>
+      <div style="padding:.75rem 1rem;flex:1;">
+        <div style="font-weight:800;font-size:.95rem;color:#581c87;margin-bottom:.2rem;">Elementos gráficos</div>
+        <div style="font-size:.86rem;color:#44403c;line-height:1.5;">Son las <strong>imágenes o fotos</strong> que acompañan la noticia. Ayudan a entender mejor lo que pasó.</div>
+      </div>
     </div>
-    <div class="news-part np-cuerpo">
-      <span class="np-label">Cuerpo</span>
-      <div class="np-desc"><strong>Desarrollo completo de la noticia.</strong> Da todos los detalles del hecho: causas, consecuencias, declaraciones. Es la parte más larga.</div>
+
+    <!-- Cuerpo -->
+    <div style="background:#fff;border-radius:14px;border:2px solid #f87171;overflow:hidden;display:flex;align-items:stretch;box-shadow:0 2px 8px rgba(0,0,0,.06);">
+      <div style="background:#ef4444;color:#fff;font-size:1.6rem;display:flex;align-items:center;justify-content:center;padding:.8rem 1rem;min-width:62px;">📖</div>
+      <div style="padding:.75rem 1rem;flex:1;">
+        <div style="font-weight:800;font-size:.95rem;color:#7f1d1d;margin-bottom:.2rem;">Cuerpo</div>
+        <div style="font-size:.86rem;color:#44403c;line-height:1.5;">Es la parte <strong>más larga</strong>. Aquí se cuentan todos los detalles:</div>
+        <div style="display:flex;gap:.4rem;flex-wrap:wrap;margin:.4rem 0;">
+          <span style="background:#fee2e2;color:#991b1b;border-radius:20px;padding:.2rem .6rem;font-size:.78rem;font-weight:700;">Cómo ocurrió</span>
+          <span style="background:#fee2e2;color:#991b1b;border-radius:20px;padding:.2rem .6rem;font-size:.78rem;font-weight:700;">Qué dijeron</span>
+          <span style="background:#fee2e2;color:#991b1b;border-radius:20px;padding:.2rem .6rem;font-size:.78rem;font-weight:700;">Qué pasó después</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 5W box -->
+  <div style="background:linear-gradient(135deg,#1e3a8a,#1d4ed8);border-radius:16px;padding:1.1rem 1.3rem;color:#fff;margin-bottom:1.2rem;">
+    <div style="font-weight:800;font-size:.95rem;margin-bottom:.7rem;">💡 Las 5 W — Toda buena noticia responde:</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:.5rem;">
+      <div style="background:rgba(255,255,255,.15);border-radius:10px;padding:.5rem .7rem;text-align:center;">
+        <div style="font-size:1.2rem;">❓</div><div style="font-weight:800;font-size:.9rem;">¿Qué?</div><div style="font-size:.74rem;opacity:.85;">pasó</div>
+      </div>
+      <div style="background:rgba(255,255,255,.15);border-radius:10px;padding:.5rem .7rem;text-align:center;">
+        <div style="font-size:1.2rem;">👤</div><div style="font-weight:800;font-size:.9rem;">¿Quién?</div><div style="font-size:.74rem;opacity:.85;">participó</div>
+      </div>
+      <div style="background:rgba(255,255,255,.15);border-radius:10px;padding:.5rem .7rem;text-align:center;">
+        <div style="font-size:1.2rem;">📅</div><div style="font-weight:800;font-size:.9rem;">¿Cuándo?</div><div style="font-size:.74rem;opacity:.85;">ocurrió</div>
+      </div>
+      <div style="background:rgba(255,255,255,.15);border-radius:10px;padding:.5rem .7rem;text-align:center;">
+        <div style="font-size:1.2rem;">📍</div><div style="font-weight:800;font-size:.9rem;">¿Dónde?</div><div style="font-size:.74rem;opacity:.85;">pasó</div>
+      </div>
+      <div style="background:rgba(255,255,255,.15);border-radius:10px;padding:.5rem .7rem;text-align:center;">
+        <div style="font-size:1.2rem;">💬</div><div style="font-weight:800;font-size:.9rem;">¿Por qué?</div><div style="font-size:.74rem;opacity:.85;">sucedió</div>
+      </div>
     </div>
   </div>
 
-  <div class="rule-box">
-    <h4>💡 Dato importante: Las 5 W</h4>
-    <p style="font-size:.88rem">Una buena noticia debe responder: <strong>¿Qué?</strong> pasó, <strong>¿Quién?</strong> lo hizo o lo vivió, <strong>¿Cuándo?</strong> ocurrió, <strong>¿Dónde?</strong> fue y <strong>¿Por qué?</strong> sucedió.</p>
-  </div></div>
+  <!-- Quick-recall cheat sheet -->
+  <div style="background:#f8fafc;border:2px dashed #cbd5e1;border-radius:14px;padding:1rem 1.2rem;">
+    <div style="font-weight:800;font-size:.82rem;text-transform:uppercase;letter-spacing:.07em;color:#64748b;margin-bottom:.7rem;">🧠 Truco para recordar</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.4rem;font-size:.84rem;">
+      <div style="background:#fff;border-radius:8px;padding:.4rem .7rem;border:1px solid #e2e8f0;"><strong>Titular</strong> = nombre</div>
+      <div style="background:#fff;border-radius:8px;padding:.4rem .7rem;border:1px solid #e2e8f0;"><strong>Subtítulo</strong> = pequeña explicación</div>
+      <div style="background:#fff;border-radius:8px;padding:.4rem .7rem;border:1px solid #e2e8f0;"><strong>Entradilla</strong> = resumen</div>
+      <div style="background:#fff;border-radius:8px;padding:.4rem .7rem;border:1px solid #e2e8f0;"><strong>Cuerpo</strong> = historia completa</div>
+      <div style="background:#fff;border-radius:8px;padding:.4rem .7rem;border:1px solid #e2e8f0;grid-column:1/-1;"><strong>Imágenes</strong> = ayudan a entender</div>
+    </div>
+  </div>
+
+</div>
       <div class="zone-label practice-label">
         <span class="zl-pill">✏️ Practica</span>
         <div class="zl-line"></div>
@@ -1571,6 +1666,233 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
     </div>
 
     <!-- FINAL SCORE -->
+
+    <!-- ══════════════════════════════════
+         SIMULACRO FINAL
+    ══════════════════════════════════ -->
+    <div class="mock-section" id="mock-section">
+      <div class="mock-header">
+        <h2>📝 Simulacro Final — Español</h2>
+        <p>Completa todas las secciones sin ayuda. Esto te dice qué tan listo estás para el examen real.</p>
+      </div>
+
+      <!-- PARTE I: Artículos y Concordancia -->
+      <div class="mock-part">
+        <div class="mock-part-title">Parte I — Artículos y Concordancia</div>
+        <div class="test-block">
+          <h3>1. Completa con el artículo correcto</h3>
+          <div class="q-row"><label>a) ___ sol brilla en el cielo.</label>
+            <input class="fill-input" id="mk-f1" placeholder="artículo..."></div>
+          <div class="q-row"><label>b) ___ niñas corren en el parque.</label>
+            <input class="fill-input" id="mk-f2" placeholder="artículo..."></div>
+          <div class="q-row"><label>c) Quiero ___ helado de chocolate.</label>
+            <input class="fill-input" id="mk-f3" placeholder="artículo..."></div>
+          <div class="q-row"><label>d) ___ árboles son muy altos.</label>
+            <input class="fill-input" id="mk-f4" placeholder="artículo..."></div>
+          <button class="check-btn" onclick="checkMkF1()">Revisar <span id="mk-f1-score" class="score-badge"></span></button>
+        </div>
+
+        <div class="test-block">
+          <h3>2. Corrige la concordancia — elige la forma correcta</h3>
+          <div class="q-row">
+            <label>a) "Los gata <strong>blanca</strong> duerme." — ¿Cuál es la forma correcta?</label>
+            <div class="mc-options" id="mc-mk1">
+              <label class="mc-opt"><input type="radio" name="mc-mk1" value="a"> La gata blanca duerme.</label>
+              <label class="mc-opt"><input type="radio" name="mc-mk1" value="b"> Los gatos blancos duerme.</label>
+              <label class="mc-opt"><input type="radio" name="mc-mk1" value="c"> Las gata blanca duerme.</label>
+            </div>
+          </div>
+          <div class="q-row">
+            <label>b) "Unas flore hermoso creció." — ¿Cuál es la forma correcta?</label>
+            <div class="mc-options" id="mc-mk2">
+              <label class="mc-opt"><input type="radio" name="mc-mk2" value="a"> Unas flores hermosas crecieron.</label>
+              <label class="mc-opt"><input type="radio" name="mc-mk2" value="b"> Un flores hermoso creció.</label>
+              <label class="mc-opt"><input type="radio" name="mc-mk2" value="c"> Unas flore hermosas creció.</label>
+            </div>
+          </div>
+          <div class="q-row">
+            <label>c) ¿Qué afirmación sobre la concordancia es correcta?</label>
+            <div class="mc-options" id="mc-mk3">
+              <label class="mc-opt"><input type="radio" name="mc-mk3" value="a"> El adjetivo siempre va antes del sustantivo.</label>
+              <label class="mc-opt"><input type="radio" name="mc-mk3" value="b"> El adjetivo debe concordar en género y número con el sustantivo.</label>
+              <label class="mc-opt"><input type="radio" name="mc-mk3" value="c"> Los artículos indefinidos son: el, la, los, las.</label>
+            </div>
+          </div>
+          <button class="check-btn" onclick="checkMkMC1()">Revisar <span id="mk-mc1-score" class="score-badge"></span></button>
+        </div>
+      </div>
+
+      <!-- PARTE II: Adjetivos -->
+      <div class="mock-part">
+        <div class="mock-part-title">Parte II — Adjetivos</div>
+        <div class="test-block">
+          <h3>3. Verdadero o Falso</h3>
+          <div class="q-row">
+            <label>a) "Los adjetivos describen o califican a los sustantivos."</label>
+            <div class="tf-row">
+              <button class="tf-btn" onclick="tfSelect(this,'mk-tf1','V')">Verdadero</button>
+              <button class="tf-btn" onclick="tfSelect(this,'mk-tf1','F')">Falso</button>
+            </div>
+          </div>
+          <div class="q-row">
+            <label>b) "Rápido" siempre es un adjetivo sin importar cómo se use.</label>
+            <div class="tf-row">
+              <button class="tf-btn" onclick="tfSelect(this,'mk-tf2','V')">Verdadero</button>
+              <button class="tf-btn" onclick="tfSelect(this,'mk-tf2','F')">Falso</button>
+            </div>
+          </div>
+          <div class="q-row">
+            <label>c) En "la flor roja", "roja" es un adjetivo calificativo.</label>
+            <div class="tf-row">
+              <button class="tf-btn" onclick="tfSelect(this,'mk-tf3','V')">Verdadero</button>
+              <button class="tf-btn" onclick="tfSelect(this,'mk-tf3','F')">Falso</button>
+            </div>
+          </div>
+          <div class="q-row">
+            <label>d) "Grande" es adjetivo; "grandeza" también es adjetivo.</label>
+            <div class="tf-row">
+              <button class="tf-btn" onclick="tfSelect(this,'mk-tf4','V')">Verdadero</button>
+              <button class="tf-btn" onclick="tfSelect(this,'mk-tf4','F')">Falso</button>
+            </div>
+          </div>
+          <button class="check-btn" onclick="checkMkTF()">Revisar <span id="mk-tf-score" class="score-badge"></span></button>
+        </div>
+      </div>
+
+      <!-- PARTE III: El Libro y La Noticia -->
+      <div class="mock-part">
+        <div class="mock-part-title">Parte III — El Libro y La Noticia</div>
+        <div class="test-block">
+          <h3>4. Une cada elemento con su definición — escribe el número</h3>
+          <div class="matching-row"><span><input class="match-input" id="mk-m1"> Portada</span></div>
+          <div class="matching-row"><span><input class="match-input" id="mk-m2"> Índice</span></div>
+          <div class="matching-row"><span><input class="match-input" id="mk-m3"> Titular</span></div>
+          <div class="matching-row"><span><input class="match-input" id="mk-m4"> Entradilla</span></div>
+          <div class="matching-row"><span><input class="match-input" id="mk-m5"> Cuerpo</span></div>
+          <div class="match-key">
+            <span>1.</span><span>Resumen inicial de la noticia que responde las 5 preguntas básicas</span>
+            <span>2.</span><span>Desarrollo completo y detallado de la noticia</span>
+            <span>3.</span><span>Muestra el título del libro, el autor y la editorial</span>
+            <span>4.</span><span>Título principal que llama la atención del lector</span>
+            <span>5.</span><span>Lista los capítulos con su número de página</span>
+          </div>
+          <button class="check-btn" onclick="checkMkMatch()">Revisar <span id="mk-m-score" class="score-badge"></span></button>
+        </div>
+
+        <div class="test-block">
+          <h3>5. Selección múltiple</h3>
+          <div class="q-row">
+            <label>a) ¿Cuáles son las 5 preguntas que debe responder una noticia?</label>
+            <div class="mc-options" id="mc-mk4">
+              <label class="mc-opt"><input type="radio" name="mc-mk4" value="a"> Qué, Quién, Cuándo, Dónde, Por qué</label>
+              <label class="mc-opt"><input type="radio" name="mc-mk4" value="b"> Qué, Cómo, Cuál, Cuánto, Para qué</label>
+              <label class="mc-opt"><input type="radio" name="mc-mk4" value="c"> Quién, Dónde, Cuándo, Cómo, Cuánto</label>
+            </div>
+          </div>
+          <div class="q-row">
+            <label>b) ¿Cuál parte del libro presenta los temas con su número de página?</label>
+            <div class="mc-options" id="mc-mk5">
+              <label class="mc-opt"><input type="radio" name="mc-mk5" value="a"> Prólogo</label>
+              <label class="mc-opt"><input type="radio" name="mc-mk5" value="b"> Índice</label>
+              <label class="mc-opt"><input type="radio" name="mc-mk5" value="c"> Contraportada</label>
+            </div>
+          </div>
+          <div class="q-row">
+            <label>c) "Gran explosión sacude el volcán Poás." — ¿Qué parte de la noticia es esto?</label>
+            <div class="mc-options" id="mc-mk6">
+              <label class="mc-opt"><input type="radio" name="mc-mk6" value="a"> Cuerpo</label>
+              <label class="mc-opt"><input type="radio" name="mc-mk6" value="b"> Entradilla</label>
+              <label class="mc-opt"><input type="radio" name="mc-mk6" value="c"> Titular</label>
+            </div>
+          </div>
+          <button class="check-btn" onclick="checkMkMC2()">Revisar <span id="mk-mc2-score" class="score-badge"></span></button>
+        </div>
+      </div>
+
+      <!-- PARTE IV: David -->
+      <div class="mock-part">
+        <div class="mock-part-title">Parte IV — David (Caps. III y IV)</div>
+        <div class="test-block">
+          <h3>6. Comprensión de lectura</h3>
+          <div class="q-row">
+            <label>a) ¿Qué figura imaginó David en la ventana durante la lluvia?</label>
+            <div class="mc-options" id="mc-mk7">
+              <label class="mc-opt"><input type="radio" name="mc-mk7" value="a"> Un dragón de fuego</label>
+              <label class="mc-opt"><input type="radio" name="mc-mk7" value="b"> El señor Invierno — un anciano</label>
+              <label class="mc-opt"><input type="radio" name="mc-mk7" value="c"> Un barco pirata entre las nubes</label>
+            </div>
+          </div>
+          <div class="q-row">
+            <label>b) ¿Qué hizo el rayito de sol para no ser atrapado por la noche?</label>
+            <div class="mc-options" id="mc-mk8">
+              <label class="mc-opt"><input type="radio" name="mc-mk8" value="a"> Se escondió detrás de una nube</label>
+              <label class="mc-opt"><input type="radio" name="mc-mk8" value="b"> Lloró para apagar su luz</label>
+              <label class="mc-opt"><input type="radio" name="mc-mk8" value="c"> Pidió ayuda al sol</label>
+            </div>
+          </div>
+          <div class="q-row">
+            <label>c) ¿Qué enseñanza principal transmite el cuento del rayito de sol?</label>
+            <div class="mc-options" id="mc-mk9">
+              <label class="mc-opt"><input type="radio" name="mc-mk9" value="a"> Que la noche es siempre peligrosa</label>
+              <label class="mc-opt"><input type="radio" name="mc-mk9" value="b"> Que no debemos alejarnos de quienes nos cuidan</label>
+              <label class="mc-opt"><input type="radio" name="mc-mk9" value="c"> Que los rayos de sol son más fuertes que la noche</label>
+            </div>
+          </div>
+          <div class="q-row">
+            <label>d) ¿Quién le narra el cuento del rayito de sol a David?</label>
+            <div class="mc-options" id="mc-mk10">
+              <label class="mc-opt"><input type="radio" name="mc-mk10" value="a"> Su mamá</label>
+              <label class="mc-opt"><input type="radio" name="mc-mk10" value="b"> Richard</label>
+              <label class="mc-opt"><input type="radio" name="mc-mk10" value="c"> Amy</label>
+            </div>
+          </div>
+          <button class="check-btn" onclick="checkMkDavid()">Revisar <span id="mk-david-score" class="score-badge"></span></button>
+        </div>
+
+        <div class="test-block">
+          <h3>7. Verdadero o Falso — David</h3>
+          <div class="q-row">
+            <label>a) David viajó en la imaginación con el señor Invierno entre las nubes.</label>
+            <div class="tf-row">
+              <button class="tf-btn" onclick="tfSelect(this,'mk-tf5','V')">Verdadero</button>
+              <button class="tf-btn" onclick="tfSelect(this,'mk-tf5','F')">Falso</button>
+            </div>
+          </div>
+          <div class="q-row">
+            <label>b) El rayito se perdió porque quería explorar el bosque.</label>
+            <div class="tf-row">
+              <button class="tf-btn" onclick="tfSelect(this,'mk-tf6','V')">Verdadero</button>
+              <button class="tf-btn" onclick="tfSelect(this,'mk-tf6','F')">Falso</button>
+            </div>
+          </div>
+          <div class="q-row">
+            <label>c) El sol encontró al rayito gracias a su llanto convertido en lluvia.</label>
+            <div class="tf-row">
+              <button class="tf-btn" onclick="tfSelect(this,'mk-tf7','V')">Verdadero</button>
+              <button class="tf-btn" onclick="tfSelect(this,'mk-tf7','F')">Falso</button>
+            </div>
+          </div>
+          <button class="check-btn" onclick="checkMkTF2()">Revisar <span id="mk-tf2-score" class="score-badge"></span></button>
+        </div>
+      </div>
+
+      <!-- RESULTADO SIMULACRO -->
+      <div style="text-align:center;margin-top:1.5rem;">
+        <button class="check-btn primary" style="font-size:1rem;padding:.8rem 2.2rem;background:#4338ca;border-color:#4338ca;color:#fff;" onclick="calcMockExam()">
+          🎯 Ver mi resultado del simulacro
+        </button>
+      </div>
+
+      <div class="mock-result-box" id="mock-result">
+        <div class="mock-result-inner" id="mock-result-inner"></div>
+      </div>
+
+      <div class="topic-nav" style="margin-top:2rem;">
+        <button class="nav-arrow" onclick="goTopic(6)">← Volver a práctica</button>
+        <button class="nav-arrow primary" onclick="goFinal()">Ver Calificación 🏆</button>
+      </div>
+    </div>
+
     <div class="final-section" id="final-section">
       <div class="topic-header">
         <div class="topic-number" style="background:linear-gradient(135deg,#f59e0b,#d97706);font-size:1.3rem">🏆</div>
@@ -1615,7 +1937,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
     </div>
 
   </div>
-</div>
+
 
 <div id="dadModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:200;align-items:center;justify-content:center;">
   <div style="background:#fff;border-radius:18px;padding:1.7rem;max-width:600px;width:95%;max-height:85vh;overflow-y:auto;">
@@ -2439,6 +2761,185 @@ window.addEventListener('load', function(){
     finalSec.appendChild(wrapper);
   }
 });
+</script>
+
+
+<script>
+// ── Mock Exam JS ──
+
+function goMockExam() {
+  document.querySelectorAll('.topic-section').forEach(function(s){ s.classList.remove('active'); });
+  document.getElementById('final-section').classList.remove('active');
+  document.getElementById('mock-section').classList.add('active');
+  document.querySelectorAll('.topic-item').forEach(function(el){ el.classList.remove('active'); });
+  var nav = document.getElementById('nav-mock');
+  if (nav) nav.classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+// Also hide mock-section in goTopic and goFinal
+var _origGoTopic = goTopic;
+goTopic = function(n) {
+  document.getElementById('mock-section').classList.remove('active');
+  _origGoTopic(n);
+};
+var _origGoFinal = goFinal;
+goFinal = function() {
+  document.getElementById('mock-section').classList.remove('active');
+  _origGoFinal();
+};
+
+// Part I checks
+function checkMkF1() {
+  var ans = {1:'El',2:'Las',3:'un',4:'Los'};
+  var c=0,t=4;
+  for(var i=1;i<=4;i++){
+    var el=document.getElementById('mk-f'+i);
+    if(!el) continue;
+    el.classList.remove('correct','wrong');
+    if(el.value.trim().toLowerCase()===ans[i].toLowerCase()){el.classList.add('correct');c++;}
+    else el.classList.add('wrong');
+  }
+  document.getElementById('mk-f1-score').textContent=c+'/'+t+' correctas';
+  recordScore('mk-f1',c,t);
+}
+
+function checkMkMC1() {
+  var correct=['a','a','b'];
+  var groups=['mc-mk1','mc-mk2','mc-mk3'];
+  var c=0;
+  groups.forEach(function(gid,idx){
+    var opts=document.querySelectorAll('#'+gid+' .mc-opt');
+    var sel=document.querySelector('#'+gid+' input:checked');
+    opts.forEach(function(o){
+      o.classList.remove('correct-ans','wrong-ans');
+      if(sel&&o.querySelector('input')===sel&&sel.value===correct[idx]){o.classList.add('correct-ans');c++;}
+      else if(sel&&o.querySelector('input')===sel&&sel.value!==correct[idx]) o.classList.add('wrong-ans');
+    });
+  });
+  document.getElementById('mk-mc1-score').textContent=c+'/3 correctas';
+  recordScore('mk-mc1',c,3);
+}
+
+// Part II
+var mkTFAns={1:'V',2:'F',3:'V',4:'F'};
+function checkMkTF(){
+  var c=0,t=4;
+  for(var i=1;i<=4;i++){
+    var key='mk-tf'+i;
+    var chosen=tfState[key];
+    var btns=document.querySelectorAll('.tf-btn');
+    btns.forEach(function(b){
+      b.classList.remove('correct-ans','wrong-ans');
+      var m=b.getAttribute('onclick').match(/'([VF])'\)/);
+      if(!m) return;
+      if(chosen&&m[1]===chosen&&chosen===mkTFAns[i]){b.classList.add('correct-ans');c++;}
+      else if(chosen&&m[1]===chosen&&chosen!==mkTFAns[i]) b.classList.add('wrong-ans');
+    });
+  }
+  document.getElementById('mk-tf-score').textContent=c+'/'+t+' correctas';
+  recordScore('mk-tf',c,t);
+}
+
+// Part III
+function checkMkMatch(){
+  var ans={1:'3',2:'5',3:'4',4:'1',5:'2'};
+  var c=0,t=5;
+  for(var i=1;i<=5;i++){
+    var el=document.getElementById('mk-m'+i);
+    if(!el) continue;
+    el.classList.remove('correct','wrong');
+    if(el.value.trim()===ans[i]){el.classList.add('correct');c++;}
+    else el.classList.add('wrong');
+  }
+  document.getElementById('mk-m-score').textContent=c+'/'+t+' correctas';
+  recordScore('mk-match',c,t);
+}
+
+function checkMkMC2(){
+  var correct=['a','b','c'];
+  var groups=['mc-mk4','mc-mk5','mc-mk6'];
+  var c=0;
+  groups.forEach(function(gid,idx){
+    var opts=document.querySelectorAll('#'+gid+' .mc-opt');
+    var sel=document.querySelector('#'+gid+' input:checked');
+    opts.forEach(function(o){
+      o.classList.remove('correct-ans','wrong-ans');
+      if(sel&&o.querySelector('input')===sel&&sel.value===correct[idx]){o.classList.add('correct-ans');c++;}
+      else if(sel&&o.querySelector('input')===sel&&sel.value!==correct[idx]) o.classList.add('wrong-ans');
+    });
+  });
+  document.getElementById('mk-mc2-score').textContent=c+'/3 correctas';
+  recordScore('mk-mc2',c,3);
+}
+
+// Part IV
+function checkMkDavid(){
+  var correct=['b','b','b','c'];
+  var groups=['mc-mk7','mc-mk8','mc-mk9','mc-mk10'];
+  var c=0;
+  groups.forEach(function(gid,idx){
+    var opts=document.querySelectorAll('#'+gid+' .mc-opt');
+    var sel=document.querySelector('#'+gid+' input:checked');
+    opts.forEach(function(o){
+      o.classList.remove('correct-ans','wrong-ans');
+      if(sel&&o.querySelector('input')===sel&&sel.value===correct[idx]){o.classList.add('correct-ans');c++;}
+      else if(sel&&o.querySelector('input')===sel&&sel.value!==correct[idx]) o.classList.add('wrong-ans');
+    });
+  });
+  document.getElementById('mk-david-score').textContent=c+'/4 correctas';
+  recordScore('mk-david',c,4);
+}
+
+var mkTFAns2={5:'V',6:'V',7:'V'};
+function checkMkTF2(){
+  var c=0,t=3;
+  for(var i=5;i<=7;i++){
+    var key='mk-tf'+i;
+    var chosen=tfState[key];
+    var btns=document.querySelectorAll('.tf-btn');
+    btns.forEach(function(b){
+      b.classList.remove('correct-ans','wrong-ans');
+      var m=b.getAttribute('onclick').match(/'([VF])'\)/);
+      if(!m) return;
+      if(chosen&&m[1]===chosen&&chosen===mkTFAns2[i]){b.classList.add('correct-ans');c++;}
+      else if(chosen&&m[1]===chosen&&chosen!==mkTFAns2[i]) b.classList.add('wrong-ans');
+    });
+  }
+  document.getElementById('mk-tf2-score').textContent=c+'/'+t+' correctas';
+  recordScore('mk-tf2',c,t);
+}
+
+// Final mock calculator
+function calcMockExam(){
+  var keys=['mk-f1','mk-mc1','mk-tf','mk-match','mk-mc2','mk-david','mk-tf2'];
+  var totals=[4,3,4,5,3,4,3];
+  var earned=0, total=0;
+  keys.forEach(function(k,i){
+    total+=totals[i];
+    if(scores[k]) earned+=scores[k].correct;
+  });
+  var pct = total>0 ? Math.round(earned/total*100) : 0;
+  var grade = pct>=90?'A':pct>=80?'B':pct>=70?'C':'D';
+  var color = pct>=90?'#16a34a':pct>=80?'#0891b2':pct>=70?'#d97706':'#dc2626';
+  var msg = pct>=90?'¡Estás listo para el examen! 🎉':
+            pct>=80?'¡Muy bien! Repasa los temas que fallaste 💪':
+            pct>=70?'Buen intento — estudia un poco más los temas difíciles 📖':
+            'Necesitas repasar más antes del examen real. ¡Tú puedes! 🌟';
+
+  var box = document.getElementById('mock-result');
+  var inner = document.getElementById('mock-result-inner');
+  box.style.border = '3px solid '+color;
+  box.style.borderRadius = '16px';
+  inner.innerHTML =
+    '<div class="mock-grade-letter" style="color:'+color+'">'+grade+'</div>'+
+    '<div class="mock-grade-pct" style="color:'+color+'">'+earned+' / '+total+' puntos — '+pct+'%</div>'+
+    '<div class="mock-grade-msg">'+msg+'</div>'+
+    '<div style="margin-top:1.2rem;font-size:.82rem;color:var(--muted);">Haz clic en cada "Revisar" antes de calcular para contar todos los puntos.</div>';
+  box.classList.add('show');
+  box.scrollIntoView({behavior:'smooth', block:'center'});
+  recordScore('mock-total', earned, total);
+}
 </script>
 
 </body>
