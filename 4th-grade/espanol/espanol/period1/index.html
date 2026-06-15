@@ -1039,6 +1039,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
           <span style="background:#dbeafe;color:#1e40af;border-radius:20px;padding:.2rem .6rem;font-size:.78rem;font-weight:700;">¿Quiénes?</span>
           <span style="background:#dbeafe;color:#1e40af;border-radius:20px;padding:.2rem .6rem;font-size:.78rem;font-weight:700;">¿Cuándo?</span>
           <span style="background:#dbeafe;color:#1e40af;border-radius:20px;padding:.2rem .6rem;font-size:.78rem;font-weight:700;">¿Dónde?</span>
+          <span style="background:#dbeafe;color:#1e40af;border-radius:20px;padding:.2rem .6rem;font-size:.78rem;font-weight:700;">¿Cómo?</span>
         </div>
         <div style="font-size:.8rem;background:#eff6ff;border-radius:8px;padding:.3rem .6rem;color:#1e40af;display:inline-block;"><em>"El sábado, los estudiantes de la Escuela Central ganaron un torneo de fútbol en Cartago."</em></div>
       </div>
@@ -1872,6 +1873,103 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
             </div>
           </div>
           <button class="check-btn" onclick="checkMkTF2()">Revisar <span id="mk-tf2-score" class="score-badge"></span></button>
+        </div>
+      </div>
+
+      <!-- PARTE V: Adjetivos — Identificar -->
+      <div class="mock-part">
+        <div class="mock-part-title">Parte V — Adjetivos: Identifica el adjetivo</div>
+        <div class="test-block">
+          <h3>8. Escribe el adjetivo de cada oración</h3>
+          <div class="q-row"><label>a) "Los hermosos papalotes volaron alto."</label>
+            <input class="fill-input" id="mk-adj1" placeholder="adjetivo..."></div>
+          <div class="q-row"><label>b) "María tiene ojos verdes."</label>
+            <input class="fill-input" id="mk-adj2" placeholder="adjetivo..."></div>
+          <div class="q-row"><label>c) "El perro viejo duerme en la alfombra."</label>
+            <input class="fill-input" id="mk-adj3" placeholder="adjetivo..."></div>
+          <div class="q-row"><label>d) "La pequeña ardilla subió al árbol."</label>
+            <input class="fill-input" id="mk-adj4" placeholder="adjetivo..."></div>
+          <button class="check-btn" onclick="checkMkAdjF()">Revisar <span id="mk-adjf-score" class="score-badge"></span></button>
+        </div>
+      </div>
+
+      <!-- PARTE VI: Concordancia — Forma correcta -->
+      <div class="mock-part">
+        <div class="mock-part-title">Parte VI — Concordancia: forma correcta del adjetivo</div>
+        <div class="test-block">
+          <h3>9. Escribe el adjetivo entre paréntesis en su forma correcta</h3>
+          <div class="q-row"><label>a) Los niños ___ (pequeño) corrieron rápido.</label>
+            <input class="fill-input" id="mk-cf1" placeholder="forma correcta..."></div>
+          <div class="q-row"><label>b) La flor ___ (rojo) es muy bonita.</label>
+            <input class="fill-input" id="mk-cf2" placeholder="forma correcta..."></div>
+          <div class="q-row"><label>c) Las niñas ___ (feliz) cantaron juntas.</label>
+            <input class="fill-input" id="mk-cf3" placeholder="forma correcta..."></div>
+          <div class="q-row"><label>d) Unas flores ___ (amarillo) decoraron la mesa.</label>
+            <input class="fill-input" id="mk-cf4" placeholder="forma correcta..."></div>
+          <button class="check-btn" onclick="checkMkConcF()">Revisar <span id="mk-concf-score" class="score-badge"></span></button>
+        </div>
+      </div>
+
+      <!-- PARTE VII: El Libro — Selección múltiple -->
+      <div class="mock-part">
+        <div class="mock-part-title">Parte VII — El Libro y sus Partes</div>
+        <div class="test-block">
+          <h3>10. Selección múltiple</h3>
+          <div class="q-row">
+            <label>a) ¿Cuál es una parte <strong>interna</strong> del libro?</label>
+            <div class="mc-options" id="mc-mk11">
+              <label class="mc-opt"><input type="radio" name="mc-mk11" value="a"> Lomo</label>
+              <label class="mc-opt"><input type="radio" name="mc-mk11" value="b"> Índice</label>
+              <label class="mc-opt"><input type="radio" name="mc-mk11" value="c"> Portada</label>
+            </div>
+          </div>
+          <div class="q-row">
+            <label>b) ¿Qué parte del libro lleva el título y el autor en el canto?</label>
+            <div class="mc-options" id="mc-mk12">
+              <label class="mc-opt"><input type="radio" name="mc-mk12" value="a"> Índice</label>
+              <label class="mc-opt"><input type="radio" name="mc-mk12" value="b"> Lomo</label>
+              <label class="mc-opt"><input type="radio" name="mc-mk12" value="c"> Prólogo</label>
+            </div>
+          </div>
+          <div class="q-row">
+            <label>c) ¿Para qué sirve la bibliografía?</label>
+            <div class="mc-options" id="mc-mk13">
+              <label class="mc-opt"><input type="radio" name="mc-mk13" value="a"> Para mostrar el título del libro</label>
+              <label class="mc-opt"><input type="radio" name="mc-mk13" value="b"> Para que los lectores encuentren las fuentes consultadas</label>
+              <label class="mc-opt"><input type="radio" name="mc-mk13" value="c"> Para indicar el precio</label>
+            </div>
+          </div>
+          <button class="check-btn" onclick="checkMkLibroMC()">Revisar <span id="mk-libromc-score" class="score-badge"></span></button>
+        </div>
+      </div>
+
+      <!-- PARTE VIII: La Noticia — Verdadero o Falso -->
+      <div class="mock-part">
+        <div class="mock-part-title">Parte VIII — La Noticia</div>
+        <div class="test-block">
+          <h3>11. Verdadero o Falso</h3>
+          <div class="q-row">
+            <label>a) El titular es el nombre de la noticia y debe ser corto.</label>
+            <div class="tf-row">
+              <button class="tf-btn" onclick="tfSelect(this,'mk-tf8','V')">Verdadero</button>
+              <button class="tf-btn" onclick="tfSelect(this,'mk-tf8','F')">Falso</button>
+            </div>
+          </div>
+          <div class="q-row">
+            <label>b) La entradilla es la parte más larga de la noticia.</label>
+            <div class="tf-row">
+              <button class="tf-btn" onclick="tfSelect(this,'mk-tf9','V')">Verdadero</button>
+              <button class="tf-btn" onclick="tfSelect(this,'mk-tf9','F')">Falso</button>
+            </div>
+          </div>
+          <div class="q-row">
+            <label>c) La entradilla responde: qué, quién, cuándo, dónde y por qué.</label>
+            <div class="tf-row">
+              <button class="tf-btn" onclick="tfSelect(this,'mk-tf10','V')">Verdadero</button>
+              <button class="tf-btn" onclick="tfSelect(this,'mk-tf10','F')">Falso</button>
+            </div>
+          </div>
+          <button class="check-btn" onclick="checkMkNoticiaTF()">Revisar <span id="mk-noticiatf-score" class="score-badge"></span></button>
         </div>
       </div>
 
@@ -2911,10 +3009,80 @@ function checkMkTF2(){
   recordScore('mk-tf2',c,t);
 }
 
+// Part V — Adjetivos (identificar)
+function checkMkAdjF(){
+  var ans={1:'hermosos',2:'verdes',3:'viejo',4:'pequeña'};
+  var c=0,t=4;
+  for(var i=1;i<=4;i++){
+    var el=document.getElementById('mk-adj'+i);
+    if(!el) continue;
+    el.classList.remove('correct','wrong');
+    if(el.value.trim().toLowerCase()===ans[i].toLowerCase()){el.classList.add('correct');c++;}
+    else el.classList.add('wrong');
+  }
+  document.getElementById('mk-adjf-score').textContent=c+'/'+t+' correctas';
+  recordScore('mk-adjf',c,t);
+}
+
+// Part VI — Concordancia (forma correcta)
+function checkMkConcF(){
+  var ans={1:'pequeños',2:'roja',3:'felices',4:'amarillas'};
+  var c=0,t=4;
+  for(var i=1;i<=4;i++){
+    var el=document.getElementById('mk-cf'+i);
+    if(!el) continue;
+    el.classList.remove('correct','wrong');
+    if(el.value.trim().toLowerCase()===ans[i].toLowerCase()){el.classList.add('correct');c++;}
+    else el.classList.add('wrong');
+  }
+  document.getElementById('mk-concf-score').textContent=c+'/'+t+' correctas';
+  recordScore('mk-concf',c,t);
+}
+
+// Part VII — El Libro (selección múltiple)
+function checkMkLibroMC(){
+  var correct=['b','b','b'];
+  var groups=['mc-mk11','mc-mk12','mc-mk13'];
+  var c=0;
+  groups.forEach(function(gid,idx){
+    var opts=document.querySelectorAll('#'+gid+' .mc-opt');
+    var sel=document.querySelector('#'+gid+' input:checked');
+    opts.forEach(function(o){
+      o.classList.remove('correct-ans','wrong-ans');
+      if(sel&&o.querySelector('input')===sel&&sel.value===correct[idx]){o.classList.add('correct-ans');c++;}
+      else if(sel&&o.querySelector('input')===sel&&sel.value!==correct[idx]) o.classList.add('wrong-ans');
+    });
+  });
+  document.getElementById('mk-libromc-score').textContent=c+'/3 correctas';
+  recordScore('mk-libromc',c,3);
+}
+
+// Part VIII — La Noticia (V/F)
+function checkMkNoticiaTF(){
+  var ans={8:'V',9:'F',10:'V'};
+  var c=0,t=3;
+  for(var i=8;i<=10;i++){
+    var key='mk-tf'+i;
+    var chosen=tfState[key];
+    var btns=document.querySelectorAll('.tf-btn');
+    btns.forEach(function(b){
+      var oc=b.getAttribute('onclick')||'';
+      if(oc.indexOf("'"+key+"'")===-1) return;
+      b.classList.remove('correct-ans','wrong-ans');
+      var m=oc.match(/'([VF])'\)/);
+      if(!m) return;
+      if(chosen&&m[1]===chosen&&chosen===ans[i]){b.classList.add('correct-ans');c++;}
+      else if(chosen&&m[1]===chosen&&chosen!==ans[i]) b.classList.add('wrong-ans');
+    });
+  }
+  document.getElementById('mk-noticiatf-score').textContent=c+'/'+t+' correctas';
+  recordScore('mk-noticiatf',c,t);
+}
+
 // Final mock calculator
 function calcMockExam(){
-  var keys=['mk-f1','mk-mc1','mk-tf','mk-match','mk-mc2','mk-david','mk-tf2'];
-  var totals=[4,3,4,5,3,4,3];
+  var keys=['mk-f1','mk-mc1','mk-tf','mk-match','mk-mc2','mk-david','mk-tf2','mk-adjf','mk-concf','mk-libromc','mk-noticiatf'];
+  var totals=[4,3,4,5,3,4,3,4,4,3,3];
   var earned=0, total=0;
   keys.forEach(function(k,i){
     total+=totals[i];
