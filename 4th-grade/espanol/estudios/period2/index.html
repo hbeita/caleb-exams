@@ -211,9 +211,62 @@ textarea:disabled{background:var(--bg);color:var(--muted);}
 .cpcc-header{display:grid;grid-template-columns:1fr 60px 60px;background:var(--amber-mid);padding:.4rem .6rem;font-weight:800;font-size:.75rem;color:#fff;}
 .cpcc-row{display:grid;grid-template-columns:1fr 60px 60px;padding:.45rem .6rem;border-top:1px solid #f5e0a0;align-items:center;gap:4px;}
 .cpcc-row:nth-child(even){background:#fffbeb;}
-.cpcc-row label{display:flex;align-items:center;gap:4px;cursor:pointer;font-weight:700;justify-content:center;}
-.cpcc-row input[type=radio]{cursor:pointer;}
+.cpcc-row{gap:6px;}
 
+
+
+/* ── Drag & Drop (tap-to-select → tap-to-place) ── */
+.dd-hint{font-size:.73rem;color:var(--muted);margin-bottom:.5rem;font-style:italic;}
+.dd-bank{display:flex;flex-wrap:wrap;gap:8px;padding:.6rem .7rem;background:#eff6ff;border-radius:10px;min-height:44px;margin:.5rem 0;}
+.dd-chip{background:#3b82f6;color:#fff;border-radius:20px;padding:7px 16px;cursor:pointer;font-size:.8rem;font-weight:700;transition:all .15s;user-select:none;-webkit-user-select:none;touch-action:manipulation;line-height:1.2;}
+.dd-chip:active{transform:scale(.96);}
+.dd-chip.dd-selected{background:#1d4ed8;transform:scale(1.07);box-shadow:0 0 0 3px #93c5fd;}
+.dd-chip.dd-used{opacity:.28;pointer-events:none;}
+.dd-pairs{display:flex;flex-direction:column;gap:10px;margin:.5rem 0;}
+.dd-pair{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.dd-pair-label{flex:1;min-width:160px;font-size:.8rem;color:var(--text);line-height:1.35;}
+.dd-zone{min-width:148px;min-height:38px;border:2px dashed #3b82f6;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;padding:4px 10px;font-size:.78rem;cursor:pointer;transition:all .15s;background:#fff;color:#1d4ed8;font-weight:700;text-align:center;touch-action:manipulation;}
+.dd-zone:hover,.dd-zone:active{background:#eff6ff;}
+.dd-zone.dd-filled{border-style:solid;background:#eff6ff;}
+.dd-zone.dd-correct{border-color:#16a34a!important;background:#f0fdf4!important;color:#14532d!important;}
+.dd-zone.dd-wrong{border-color:#dc2626!important;background:#fef2f2!important;color:#7f1d1d!important;}
+/* Buckets */
+.dd-buckets{display:flex;gap:12px;flex-wrap:wrap;margin:.6rem 0;}
+.dd-bucket{flex:1;min-width:130px;min-height:90px;border:2px dashed #6366f1;border-radius:12px;padding:.5rem .6rem;background:#fafafa;cursor:pointer;transition:all .15s;touch-action:manipulation;}
+.dd-bucket:hover{background:#eef2ff;border-color:#4338ca;}
+.dd-bucket h4{font-size:.72rem;font-weight:800;color:#4338ca;text-align:center;margin:.0 0 6px;text-transform:uppercase;letter-spacing:.04em;}
+.dd-bucket .dd-placed-chips{display:flex;flex-wrap:wrap;gap:4px;min-height:28px;}
+.dd-chip-placed{background:#6366f1;color:#fff;border-radius:14px;padding:4px 10px;font-size:.74rem;font-weight:700;cursor:pointer;touch-action:manipulation;}
+.dd-chip-placed:active{opacity:.7;}
+
+
+/* ── MC Button Style ── */
+.mc-btn-group{display:flex;flex-direction:column;gap:6px;margin:.5rem 0;}
+.mc-btn{background:#f8fafc;border:2px solid #cbd5e1;border-radius:8px;padding:9px 14px;cursor:pointer;font-size:.82rem;text-align:left;transition:all .15s;touch-action:manipulation;line-height:1.3;width:100%;box-sizing:border-box;}
+.mc-btn:hover{border-color:#3b82f6;background:#eff6ff;}
+.mc-btn.mc-sel{background:#dbeafe;border-color:#3b82f6;color:#1e40af;font-weight:700;}
+.mc-btn.correct{background:#dcfce7!important;border-color:#16a34a!important;color:#14532d!important;font-weight:700;}
+.mc-btn.wrong{background:#fee2e2!important;border-color:#dc2626!important;color:#991b1b!important;}
+/* ── MA Picker ── */
+.ma-picker{display:inline-flex;gap:4px;margin-right:6px;flex-shrink:0;vertical-align:middle;}
+.ma-num{width:30px;height:30px;border:2px solid #94a3b8;border-radius:6px;background:#fff;font-size:.85rem;font-weight:700;cursor:pointer;touch-action:manipulation;padding:0;line-height:26px;text-align:center;display:inline-block;}
+.ma-num.ma-sel{background:#3b82f6;color:#fff;border-color:#1d4ed8;}
+.ma-num.correct{background:#16a34a!important;color:#fff!important;border-color:#14532d!important;}
+.ma-num.wrong{background:#dc2626!important;color:#fff!important;border-color:#991b1b!important;}
+.ma-num.reveal{background:#ca8a04!important;color:#fff!important;border-color:#78350f!important;}
+.ma-item{display:flex;align-items:center;margin:.35rem 0;font-size:.84rem;}
+/* ── CPCC Button Style ── */
+.cpcc-btn{padding:5px 12px;border:2px solid #94a3b8;border-radius:6px;background:#fff;font-weight:700;cursor:pointer;touch-action:manipulation;font-size:.8rem;min-width:42px;}
+.cpcc-btn.cpcc-sel{background:#dbeafe;border-color:#3b82f6;color:#1e40af;}
+.cpcc-btn.correct{background:#dcfce7!important;border-color:#16a34a!important;color:#14532d!important;}
+.cpcc-btn.wrong{background:#fee2e2!important;border-color:#dc2626!important;color:#991b1b!important;}
+.cpcc-btn.reveal{background:#fef9c3!important;border-color:#ca8a04!important;color:#78350f!important;}
+
+/* ── Matching select dropdown ── */
+.ma-select{width:62px;padding:5px 4px;border:2px solid #94a3b8;border-radius:6px;font-size:.9rem;font-weight:700;cursor:pointer;background:#fff;touch-action:manipulation;}
+.ma-select.correct{border-color:#16a34a!important;background:#dcfce7!important;color:#14532d!important;}
+.ma-select.wrong{border-color:#dc2626!important;background:#fee2e2!important;color:#991b1b!important;}
+.ma-item{display:flex;align-items:center;gap:8px;margin:.35rem 0;font-size:.84rem;}
 </style>
 </head>
 <body>
@@ -302,20 +355,41 @@ textarea:disabled{background:var(--bg);color:var(--muted);}
       <button class="check-btn" onclick="chkTF('tf0',['F','F','V','V'],'sc-tf0',0)">Revisar <span id="sc-tf0" class="score-badge"></span></button>
     </div>
     <div class="test-block">
-      <h3>✏️ Completa los espacios</h3>
-      <div class="q-row"><label>1. El desgaste de la superficie por agua o viento se llama</label><input class="fill-input" id="r0f1" placeholder="___________"></div>
-      <div class="q-row"><label>2. El proceso en que una placa se introduce bajo otra se llama</label><input class="fill-input" id="r0f2" placeholder="___________"></div>
-      <div class="q-row"><label>3. Costa Rica se ubica sobre las placas</label><input class="fill-input" id="r0f3" placeholder="___________"> y Caribe.</div>
-      <button class="check-btn" onclick="chkFills(['r0f1','r0f2','r0f3'],[[['erosion','la erosion']],[['subduccion','la subduccion']],[['cocos','la de cocos']]],'sc-r0f',0)">Revisar <span id="sc-r0f" class="score-badge"></span></button>
+      <h3>✏️ Selecciona la respuesta correcta</h3>
+      <div class="q-row"><label>1. El desgaste de la superficie por agua o viento se llama:</label>
+        <div class="mc-btn-group" id="r0f1">
+          <button class="mc-btn" onclick="selMCBtn(this,'r0f1')">Erosión</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'r0f1')">Subducción</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'r0f1')">Sedimentación</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'r0f1')">Vulcanismo</button>
+        </div>
+      </div>
+      <div class="q-row" style="margin-top:10px"><label>2. El proceso en que una placa se introduce bajo otra se llama:</label>
+        <div class="mc-btn-group" id="r0f2">
+          <button class="mc-btn" onclick="selMCBtn(this,'r0f2')">Erosión</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'r0f2')">Subducción</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'r0f2')">Sedimentación</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'r0f2')">Orogénesis</button>
+        </div>
+      </div>
+      <div class="q-row" style="margin-top:10px"><label>3. Costa Rica se ubica sobre las placas _____ y Caribe.</label>
+        <div class="mc-btn-group" id="r0f3">
+          <button class="mc-btn" onclick="selMCBtn(this,'r0f3')">Cocos</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'r0f3')">Nazca</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'r0f3')">Pacífico</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'r0f3')">Atlántica</button>
+        </div>
+      </div>
+      <button class="check-btn" onclick="chkMKGroup([['r0f1',0],['r0f2',1],['r0f3',0]],'sc-r0f',0)">Revisar <span id="sc-r0f" class="score-badge"></span></button>
     </div>
     <div class="test-block">
       <h3>🔗 Une con el número correcto</h3>
       <div class="match-grid">
         <div class="match-a">
-          <div class="ma-item"><input id="m0a" placeholder="#"> Erosión</div>
-          <div class="ma-item"><input id="m0b" placeholder="#"> Subducción</div>
-          <div class="ma-item"><input id="m0c" placeholder="#"> Sedimentos</div>
-          <div class="ma-item"><input id="m0d" placeholder="#"> Volcán</div>
+          <div class="ma-item"><select class="ma-select" id="m0a"><option value="">—</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select> Erosión</div>
+          <div class="ma-item"><select class="ma-select" id="m0b"><option value="">—</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select> Subducción</div>
+          <div class="ma-item"><select class="ma-select" id="m0c"><option value="">—</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select> Sedimentos</div>
+          <div class="ma-item"><select class="ma-select" id="m0d"><option value="">—</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select> Volcán</div>
         </div>
         <div class="match-b">
           <div class="mb-item"><span class="mb-num">1.</span> Expulsa lava, ceniza y humo</div>
@@ -391,39 +465,60 @@ textarea:disabled{background:var(--bg);color:var(--muted);}
       <h3>📖 Del libro (pág. 59) — Selección múltiple</h3>
       <div class="q-row">
         <label>1. Señala la forma de relieve que apareció en la <strong>primera etapa</strong>.</label>
-        <div class="mc-opts" id="mc1a">
-          <label class="mc-opt"><input type="radio" name="mc1a"> Valles</label>
-          <label class="mc-opt"><input type="radio" name="mc1a"> Penínsulas</label>
-          <label class="mc-opt"><input type="radio" name="mc1a"> Cordilleras</label>
-          <label class="mc-opt"><input type="radio" name="mc1a"> Depresiones</label>
+        <div class="mc-btn-group" id="mc1a">
+          <button class="mc-btn" onclick="selMCBtn(this,'mc1a')">Valles</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mc1a')">Penínsulas</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mc1a')">Cordilleras</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mc1a')">Depresiones</button>
         </div>
       </div>
       <div class="q-row">
         <label>2. Señala la forma de relieve que se originó en la <strong>tercera etapa</strong>.</label>
-        <div class="mc-opts" id="mc1b">
-          <label class="mc-opt"><input type="radio" name="mc1b"> Llanuras</label>
-          <label class="mc-opt"><input type="radio" name="mc1b"> Cerros</label>
-          <label class="mc-opt"><input type="radio" name="mc1b"> Volcanes</label>
-          <label class="mc-opt"><input type="radio" name="mc1b"> Depresiones</label>
+        <div class="mc-btn-group" id="mc1b">
+          <button class="mc-btn" onclick="selMCBtn(this,'mc1b')">Llanuras</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mc1b')">Cerros</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mc1b')">Volcanes</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mc1b')">Depresiones</button>
         </div>
       </div>
       <button class="check-btn" onclick="chkMC2('mc1a',1,'mc1b',0,'sc-mc1',1)">Revisar <span id="sc-mc1" class="score-badge"></span></button>
     </div>
     <div class="test-block">
-      <h3>✏️ Completa los espacios</h3>
-      <div class="q-row"><label>1. La formación de montañas por choque de placas se llama</label><input class="fill-input" id="r1f1" placeholder="___________"></div>
-      <div class="q-row"><label>2. En la 1ra etapa se formó el arco insular</label><input class="fill-input" id="r1f2" placeholder="___________"></div>
-      <div class="q-row"><label>3. El canal interoceánico se eliminó en la</label><input class="fill-input" id="r1f3" placeholder="___________"> etapa.</div>
-      <button class="check-btn" onclick="chkFills(['r1f1','r1f2','r1f3'],[[['orogenesis','la orogenesis']],[['externo']],[['segunda','2da','2a']]],'sc-r1f',1)">Revisar <span id="sc-r1f" class="score-badge"></span></button>
+      <h3>✏️ Selecciona la respuesta correcta</h3>
+      <div class="q-row"><label>1. La formación de montañas por choque de placas se llama:</label>
+        <div class="mc-btn-group" id="r1f1">
+          <button class="mc-btn" onclick="selMCBtn(this,'r1f1')">Orogénesis</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'r1f1')">Erosión</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'r1f1')">Subducción</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'r1f1')">Sedimentación</button>
+        </div>
+      </div>
+      <div class="q-row" style="margin-top:10px"><label>2. En la 1ª etapa se formó el arco insular:</label>
+        <div class="mc-btn-group" id="r1f2">
+          <button class="mc-btn" onclick="selMCBtn(this,'r1f2')">Externo</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'r1f2')">Interno</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'r1f2')">Central</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'r1f2')">Volcánico</button>
+        </div>
+      </div>
+      <div class="q-row" style="margin-top:10px"><label>3. El canal interoceánico se eliminó en la _____ etapa.</label>
+        <div class="mc-btn-group" id="r1f3">
+          <button class="mc-btn" onclick="selMCBtn(this,'r1f3')">Primera</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'r1f3')">Segunda</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'r1f3')">Tercera</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'r1f3')">Cuarta</button>
+        </div>
+      </div>
+      <button class="check-btn" onclick="chkMKGroup([['r1f1',0],['r1f2',0],['r1f3',1]],'sc-r1f',1)">Revisar <span id="sc-r1f" class="score-badge"></span></button>
     </div>
     <div class="test-block">
       <h3>🔗 Une cada elemento con su etapa</h3>
       <div class="match-grid">
         <div class="match-a">
-          <div class="ma-item"><input id="m1a" placeholder="#"> Arco insular externo</div>
-          <div class="ma-item"><input id="m1b" placeholder="#"> Valle Central</div>
-          <div class="ma-item"><input id="m1c" placeholder="#"> Llanuras nacionales</div>
-          <div class="ma-item"><input id="m1d" placeholder="#"> Cord. de Talamanca</div>
+          <div class="ma-item"><select class="ma-select" id="m1a"><option value="">—</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select> Arco insular externo</div>
+          <div class="ma-item"><select class="ma-select" id="m1b"><option value="">—</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select> Valle Central</div>
+          <div class="ma-item"><select class="ma-select" id="m1c"><option value="">—</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select> Llanuras nacionales</div>
+          <div class="ma-item"><select class="ma-select" id="m1d"><option value="">—</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select> Cord. de Talamanca</div>
         </div>
         <div class="match-b">
           <div class="mb-item"><span class="mb-num">1.</span> Primera etapa</div>
@@ -482,19 +577,19 @@ textarea:disabled{background:var(--bg);color:var(--muted);}
       <h3>📖 Del libro (pág. 66-67) — Selección múltiple</h3>
       <div class="q-row">
         <label>1. Selecciona la afirmación correcta sobre la cordillera de Tilarán.</label>
-        <div class="mc-opts" id="mc2a">
-          <label class="mc-opt"><input type="radio" name="mc2a"> Las características del suelo impiden el desarrollo de la agricultura.</label>
-          <label class="mc-opt"><input type="radio" name="mc2a"> Los fuertes vientos se aprovechan en la generación de energía eólica.</label>
-          <label class="mc-opt"><input type="radio" name="mc2a"> Se explotan metales preciosos por la presencia de depresiones.</label>
+        <div class="mc-btn-group" id="mc2a">
+          <button class="mc-btn" onclick="selMCBtn(this,'mc2a')">Las características del suelo impiden el desarrollo de la agricultura.</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mc2a')">Los fuertes vientos se aprovechan en la generación de energía eólica.</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mc2a')">Se explotan metales preciosos por la presencia de depresiones.</button>
         </div>
       </div>
       <div class="q-row" style="margin-top:12px;">
         <label>2. ¿Qué volcán se localiza en la cordillera volcánica Central?</label>
-        <div class="mc-opts" id="mc2b">
-          <label class="mc-opt"><input type="radio" name="mc2b"> Miravalles</label>
-          <label class="mc-opt"><input type="radio" name="mc2b"> Turrialba</label>
-          <label class="mc-opt"><input type="radio" name="mc2b"> Tenorio</label>
-          <label class="mc-opt"><input type="radio" name="mc2b"> Arenal</label>
+        <div class="mc-btn-group" id="mc2b">
+          <button class="mc-btn" onclick="selMCBtn(this,'mc2b')">Miravalles</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mc2b')">Turrialba</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mc2b')">Tenorio</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mc2b')">Arenal</button>
         </div>
       </div>
       <button class="check-btn" onclick="chkMC2('mc2a',1,'mc2b',1,'sc-mc2',2)">Revisar <span id="sc-mc2" class="score-badge"></span></button>
@@ -503,10 +598,10 @@ textarea:disabled{background:var(--bg);color:var(--muted);}
       <h3>🔗 Une cada cordillera con su característica</h3>
       <div class="match-grid">
         <div class="match-a">
-          <div class="ma-item"><input id="m2a" placeholder="#"> Guanacaste</div>
-          <div class="ma-item"><input id="m2b" placeholder="#"> Tilarán</div>
-          <div class="ma-item"><input id="m2c" placeholder="#"> Volcánica Central</div>
-          <div class="ma-item"><input id="m2d" placeholder="#"> Talamanca</div>
+          <div class="ma-item"><select class="ma-select" id="m2a"><option value="">—</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select> Guanacaste</div>
+          <div class="ma-item"><select class="ma-select" id="m2b"><option value="">—</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select> Tilarán</div>
+          <div class="ma-item"><select class="ma-select" id="m2c"><option value="">—</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select> Volcánica Central</div>
+          <div class="ma-item"><select class="ma-select" id="m2d"><option value="">—</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select> Talamanca</div>
         </div>
         <div class="match-b">
           <div class="mb-item"><span class="mb-num">1.</span> Cerro Chirripó (3819 m). Sin volcanes</div>
@@ -518,11 +613,32 @@ textarea:disabled{background:var(--bg);color:var(--muted);}
       <button class="check-btn" onclick="chkMatch(['m2a','m2b','m2c','m2d'],[4,3,2,1],'sc-m2',2)">Revisar <span id="sc-m2" class="score-badge"></span></button>
     </div>
     <div class="test-block">
-      <h3>✏️ Completa sobre las cordilleras</h3>
-      <div class="q-row"><label>1. La cordillera que posee el punto más alto de CR es la de</label><input class="fill-input" id="r2f1" placeholder="___________"></div>
-      <div class="q-row"><label>2. El cerro más alto de CR se llama cerro</label><input class="fill-input" id="r2f2" placeholder="___________"> y mide 3819 m.</div>
-      <div class="q-row"><label>3. La Cord. de Guanacaste detiene los vientos del</label><input class="fill-input" id="r2f3" placeholder="___________">.</div>
-      <button class="check-btn" onclick="chkFills(['r2f1','r2f2','r2f3'],[[['talamanca']],[['chirripo','el chirripo']],[['caribe']]],'sc-r2f',2)">Revisar <span id="sc-r2f" class="score-badge"></span></button>
+      <h3>✏️ Selecciona la respuesta correcta</h3>
+      <div class="q-row"><label>1. La cordillera que posee el punto más alto de CR es la de:</label>
+        <div class="mc-btn-group" id="r2f1">
+          <button class="mc-btn" onclick="selMCBtn(this,'r2f1')">Talamanca</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'r2f1')">Guanacaste</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'r2f1')">Tilarán</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'r2f1')">Volcánica Central</button>
+        </div>
+      </div>
+      <div class="q-row" style="margin-top:10px"><label>2. El cerro más alto de CR se llama cerro _____ y mide 3819 m.</label>
+        <div class="mc-btn-group" id="r2f2">
+          <button class="mc-btn" onclick="selMCBtn(this,'r2f2')">Chirripó</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'r2f2')">Irazú</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'r2f2')">Turrialba</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'r2f2')">Barva</button>
+        </div>
+      </div>
+      <div class="q-row" style="margin-top:10px"><label>3. La Cord. de Guanacaste detiene los vientos del:</label>
+        <div class="mc-btn-group" id="r2f3">
+          <button class="mc-btn" onclick="selMCBtn(this,'r2f3')">Caribe</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'r2f3')">Pacífico</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'r2f3')">Norte</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'r2f3')">Sur</button>
+        </div>
+      </div>
+      <button class="check-btn" onclick="chkMKGroup([['r2f1',0],['r2f2',0],['r2f3',0]],'sc-r2f',2)">Revisar <span id="sc-r2f" class="score-badge"></span></button>
     </div>
   </div>
   <div class="topic-nav">
@@ -570,31 +686,69 @@ textarea:disabled{background:var(--bg);color:var(--muted);}
       <h3>📖 Del libro (pág. 68) — Selección múltiple</h3>
       <div class="q-row">
         <label>1. Señala la zona por la que se extiende el sistema montañoso secundario.</label>
-        <div class="mc-opts" id="mc3a">
-          <label class="mc-opt"><input type="radio" name="mc3a"> A lo largo de la costa del Caribe</label>
-          <label class="mc-opt"><input type="radio" name="mc3a"> En el centro del país</label>
-          <label class="mc-opt"><input type="radio" name="mc3a"> A lo largo de la costa pacífica</label>
+        <div class="mc-btn-group" id="mc3a">
+          <button class="mc-btn" onclick="selMCBtn(this,'mc3a')">A lo largo de la costa del Caribe</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mc3a')">En el centro del país</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mc3a')">A lo largo de la costa pacífica</button>
         </div>
       </div>
       <button class="check-btn" onclick="chkMC1('mc3a',2,'sc-mc3a',3)">Revisar <span id="sc-mc3a" class="score-badge"></span></button>
     </div>
     <div class="test-block">
-      <h3>✏️ Completa con el nombre del cerro o fila correcto</h3>
-      <div class="q-row"><label>1. Yacimientos de mármol, península de Santa Elena: Cerros de</label><input class="fill-input" id="r3f1" placeholder="___________"></div>
-      <div class="q-row"><label>2. Rocas calizas para fabricar cemento: Cerros de</label><input class="fill-input" id="r3f2" placeholder="___________"></div>
-      <div class="q-row"><label>3. Entre el Valle El General-Coto Brus y la costa del Pacífico:</label><input class="fill-input" id="r3f3" placeholder="___________"> Brunqueña</div>
-      <div class="q-row"><label>4. Cultivo de banano y palma africana, Península de Osa: Cerros</label><input class="fill-input" id="r3f4" placeholder="___________"></div>
-      <button class="check-btn" onclick="chkFills(['r3f1','r3f2','r3f3','r3f4'],[[['santa elena']],[['nicoya']],[['fila','la fila']],[['salsipuedes']]],'sc-r3f',3)">Revisar <span id="sc-r3f" class="score-badge"></span></button>
+      <h3>✏️ Selecciona el cerro o fila correcto</h3>
+      <div class="q-row"><label>1. Yacimientos de mármol, península de Santa Elena: Cerros de</label>
+        <div class="mc-btn-group" id="r3f1">
+          <button class="mc-btn" onclick="selMCBtn(this,'r3f1')">Santa Elena</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'r3f1')">Nicoya</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'r3f1')">Herradura</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'r3f1')">Brunqueña</button>
+        </div>
+      </div>
+      <div class="q-row" style="margin-top:10px"><label>2. Rocas calizas para fabricar cemento: Cerros de</label>
+        <div class="mc-btn-group" id="r3f2">
+          <button class="mc-btn" onclick="selMCBtn(this,'r3f2')">Santa Elena</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'r3f2')">Nicoya</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'r3f2')">Herradura</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'r3f2')">Salsipuedes</button>
+        </div>
+      </div>
+      <div class="q-row" style="margin-top:10px"><label>3. Entre el Valle El General-Coto Brus y la costa del Pacífico: _____ Brunqueña</label>
+        <div class="mc-btn-group" id="r3f3">
+          <button class="mc-btn" onclick="selMCBtn(this,'r3f3')">Fila</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'r3f3')">Cerros</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'r3f3')">Macizo</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'r3f3')">Sistema montañoso</button>
+        </div>
+      </div>
+      <div class="q-row" style="margin-top:10px"><label>4. Cultivo de banano y palma africana, Península de Osa: Cerros de</label>
+        <div class="mc-btn-group" id="r3f4">
+          <button class="mc-btn" onclick="selMCBtn(this,'r3f4')">Salsipuedes</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'r3f4')">Herradura</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'r3f4')">Santa Elena</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'r3f4')">Burica</button>
+        </div>
+      </div>
+      <button class="check-btn" onclick="chkMKGroup([['r3f1',0],['r3f2',1],['r3f3',0],['r3f4',0]],'sc-r3f',3)">Revisar <span id="sc-r3f" class="score-badge"></span></button>
     </div>
     <div class="test-block">
-      <h3>📖 Del libro (pág. 69) — Indica los dos cerros donde se extraen materiales para construcción</h3>
-      <div class="mc-opts" id="mc3b">
-        <label class="mc-opt"><input type="checkbox" name="mc3b"> Santa Elena</label>
-        <label class="mc-opt"><input type="checkbox" name="mc3b"> Salsipuedes</label>
-        <label class="mc-opt"><input type="checkbox" name="mc3b"> Nicoya</label>
-        <label class="mc-opt"><input type="checkbox" name="mc3b"> Burica</label>
+      <h3>📖 Del libro (pág. 69) — Cerros con materiales de construcción</h3>
+      <div class="q-row"><label><strong>a.</strong> ¿Cuál cerro tiene yacimientos de mármol usados en construcción y arte?</label>
+        <div class="mc-btn-group" id="mc3b-a">
+          <button class="mc-btn" onclick="selMCBtn(this,'mc3b-a')">Cerros de Santa Elena</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mc3b-a')">Cerros de Salsipuedes</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mc3b-a')">Cerros de Nicoya</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mc3b-a')">Cerros de Burica</button>
+        </div>
       </div>
-      <button class="check-btn" onclick="chkCheckboxes('mc3b',[0,2],'sc-mc3b',3)">Revisar <span id="sc-mc3b" class="score-badge"></span></button>
+      <div class="q-row" style="margin-top:10px"><label><strong>b.</strong> ¿Cuál cerro tiene depósitos de rocas calizas para fabricar cemento?</label>
+        <div class="mc-btn-group" id="mc3b-b">
+          <button class="mc-btn" onclick="selMCBtn(this,'mc3b-b')">Cerros de Santa Elena</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mc3b-b')">Cerros de Salsipuedes</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mc3b-b')">Cerros de Nicoya</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mc3b-b')">Cerros de Burica</button>
+        </div>
+      </div>
+      <button class="check-btn" onclick="chkMKGroup([['mc3b-a',0],['mc3b-b',2]],'sc-mc3b',3)">Revisar <span id="sc-mc3b" class="score-badge"></span></button>
     </div>
   </div>
   <div class="topic-nav">
@@ -649,10 +803,10 @@ textarea:disabled{background:var(--bg);color:var(--muted);}
       <h3>🔗 Une cada valle con su río o característica</h3>
       <div class="match-grid">
         <div class="match-a">
-          <div class="ma-item"><input id="m4a" placeholder="#"> Valle Central</div>
-          <div class="ma-item"><input id="m4b" placeholder="#"> Valle del Tempisque</div>
-          <div class="ma-item"><input id="m4c" placeholder="#"> Valle de Talamanca</div>
-          <div class="ma-item"><input id="m4d" placeholder="#"> Valle El General-Coto Brus</div>
+          <div class="ma-item"><select class="ma-select" id="m4a"><option value="">—</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select> Valle Central</div>
+          <div class="ma-item"><select class="ma-select" id="m4b"><option value="">—</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select> Valle del Tempisque</div>
+          <div class="ma-item"><select class="ma-select" id="m4c"><option value="">—</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select> Valle de Talamanca</div>
+          <div class="ma-item"><select class="ma-select" id="m4d"><option value="">—</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select> Valle El General-Coto Brus</div>
         </div>
         <div class="match-b">
           <div class="mb-item"><span class="mb-num">1.</span> Ríos General y Coto Brus → Grande de Térraba. Café y piña</div>
@@ -664,10 +818,24 @@ textarea:disabled{background:var(--bg);color:var(--muted);}
       <button class="check-btn" onclick="chkMatch(['m4a','m4b','m4c','m4d'],[3,4,2,1],'sc-m4',4)">Revisar <span id="sc-m4" class="score-badge"></span></button>
     </div>
     <div class="test-block">
-      <h3>✏️ Completa sobre los valles</h3>
-      <div class="q-row"><label>1. El Valle Central está dividido por los cerros</label><input class="fill-input" id="r4f1" placeholder="___________"> y La Carpintera.</div>
-      <div class="q-row"><label>2. Los ríos General y Coto Brus forman el río Grande de</label><input class="fill-input" id="r4f2" placeholder="___________"></div>
-      <button class="check-btn" onclick="chkFills(['r4f1','r4f2'],[[['ochomogo']],[['terraba','terraba']]],'sc-r4f',4)">Revisar <span id="sc-r4f" class="score-badge"></span></button>
+      <h3>✏️ Selecciona la respuesta correcta</h3>
+      <div class="q-row"><label>1. El Valle Central está dividido por los cerros _____ y La Carpintera.</label>
+        <div class="mc-btn-group" id="r4f1">
+          <button class="mc-btn" onclick="selMCBtn(this,'r4f1')">Ochomogo</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'r4f1')">Barva</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'r4f1')">Poás</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'r4f1')">Irazú</button>
+        </div>
+      </div>
+      <div class="q-row" style="margin-top:10px"><label>2. Los ríos General y Coto Brus forman el río Grande de:</label>
+        <div class="mc-btn-group" id="r4f2">
+          <button class="mc-btn" onclick="selMCBtn(this,'r4f2')">Térraba</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'r4f2')">Tárcoles</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'r4f2')">Tempisque</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'r4f2')">Reventazón</button>
+        </div>
+      </div>
+      <button class="check-btn" onclick="chkMKGroup([['r4f1',0],['r4f2',0]],'sc-r4f',4)">Revisar <span id="sc-r4f" class="score-badge"></span></button>
     </div>
   </div>
   <div class="topic-nav">
@@ -715,38 +883,59 @@ textarea:disabled{background:var(--bg);color:var(--muted);}
       <h3>📖 Del libro (pág. 72) — Selección múltiple</h3>
       <div class="q-row">
         <label>1. Marca el aspecto que diferencia a las llanuras del Pacífico de las del norte y del Caribe.</label>
-        <div class="mc-opts" id="mc5a">
-          <label class="mc-opt"><input type="radio" name="mc5a"> Extensión</label>
-          <label class="mc-opt"><input type="radio" name="mc5a"> Nombre</label>
-          <label class="mc-opt"><input type="radio" name="mc5a"> Fertilidad</label>
-          <label class="mc-opt"><input type="radio" name="mc5a"> Desarrollo turístico</label>
+        <div class="mc-btn-group" id="mc5a">
+          <button class="mc-btn" onclick="selMCBtn(this,'mc5a')">Extensión</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mc5a')">Nombre</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mc5a')">Fertilidad</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mc5a')">Desarrollo turístico</button>
         </div>
       </div>
       <div class="q-row" style="margin-top:12px;">
         <label>2. Señala la altura a la que es posible encontrar las llanuras.</label>
-        <div class="mc-opts" id="mc5b">
-          <label class="mc-opt"><input type="radio" name="mc5b"> 950 m s. n. m.</label>
-          <label class="mc-opt"><input type="radio" name="mc5b"> 800 m s. n. m.</label>
-          <label class="mc-opt"><input type="radio" name="mc5b"> 1500 m s. n. m.</label>
-          <label class="mc-opt"><input type="radio" name="mc5b"> 350 m s. n. m.</label>
+        <div class="mc-btn-group" id="mc5b">
+          <button class="mc-btn" onclick="selMCBtn(this,'mc5b')">950 m s. n. m.</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mc5b')">800 m s. n. m.</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mc5b')">1500 m s. n. m.</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mc5b')">350 m s. n. m.</button>
         </div>
       </div>
       <button class="check-btn" onclick="chkMC2('mc5a',0,'mc5b',3,'sc-mc5',5)">Revisar <span id="sc-mc5" class="score-badge"></span></button>
     </div>
     <div class="test-block">
-      <h3>✏️ Completa sobre las llanuras</h3>
-      <div class="q-row"><label>1. Las llanuras del Caribe tienen ríos como el Reventazón y el</label><input class="fill-input" id="r5f1" placeholder="___________"></div>
-      <div class="q-row"><label>2. Las llanuras del norte tienen el río</label><input class="fill-input" id="r5f2" placeholder="___________"> como límite con Nicaragua.</div>
-      <div class="q-row"><label>3. Una actividad económica en las llanuras es la industria de</label><input class="fill-input" id="r5f3" placeholder="___________"></div>
-      <button class="check-btn" onclick="chkFills(['r5f1','r5f2','r5f3'],[[['pacuare','tortuguero','matina']],[['san juan','el san juan']],[['fertilizantes']]],'sc-r5f',5)">Revisar <span id="sc-r5f" class="score-badge"></span></button>
+      <h3>✏️ Selecciona la respuesta correcta</h3>
+      <div class="q-row"><label>1. Las llanuras del Caribe tienen ríos como el Reventazón y el:</label>
+        <div class="mc-btn-group" id="r5f1">
+          <button class="mc-btn" onclick="selMCBtn(this,'r5f1')">Pacuare</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'r5f1')">Tárcoles</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'r5f1')">San Juan</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'r5f1')">Frío</button>
+        </div>
+      </div>
+      <div class="q-row" style="margin-top:10px"><label>2. Las llanuras del norte tienen el río _____ como límite con Nicaragua.</label>
+        <div class="mc-btn-group" id="r5f2">
+          <button class="mc-btn" onclick="selMCBtn(this,'r5f2')">San Juan</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'r5f2')">Reventazón</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'r5f2')">Tempisque</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'r5f2')">Frío</button>
+        </div>
+      </div>
+      <div class="q-row" style="margin-top:10px"><label>3. Una actividad económica en las llanuras es la industria de:</label>
+        <div class="mc-btn-group" id="r5f3">
+          <button class="mc-btn" onclick="selMCBtn(this,'r5f3')">Fertilizantes</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'r5f3')">Cemento</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'r5f3')">Madera</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'r5f3')">Petróleo</button>
+        </div>
+      </div>
+      <button class="check-btn" onclick="chkMKGroup([['r5f1',0],['r5f2',0],['r5f3',0]],'sc-r5f',5)">Revisar <span id="sc-r5f" class="score-badge"></span></button>
     </div>
     <div class="test-block">
       <h3>🔗 Une cada llanura con su río</h3>
       <div class="match-grid">
         <div class="match-a">
-          <div class="ma-item"><input id="m5a" placeholder="#"> Llanuras del Norte</div>
-          <div class="ma-item"><input id="m5b" placeholder="#"> Llanuras del Caribe</div>
-          <div class="ma-item"><input id="m5c" placeholder="#"> Llanuras del Pacífico</div>
+          <div class="ma-item"><select class="ma-select" id="m5a"><option value="">—</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select> Llanuras del Norte</div>
+          <div class="ma-item"><select class="ma-select" id="m5b"><option value="">—</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select> Llanuras del Caribe</div>
+          <div class="ma-item"><select class="ma-select" id="m5c"><option value="">—</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select> Llanuras del Pacífico</div>
         </div>
         <div class="match-b">
           <div class="mb-item"><span class="mb-num">1.</span> Ríos Tárcoles, Tempisque, Térraba</div>
@@ -825,21 +1014,49 @@ textarea:disabled{background:var(--bg);color:var(--muted);}
       <button class="check-btn" onclick="chkTF('tf6',['V','F','F','V'],'sc-tf6',6)">Revisar <span id="sc-tf6" class="score-badge"></span></button>
     </div>
     <div class="test-block">
-      <h3>✏️ Completa sobre las costas</h3>
-      <div class="q-row"><label>1. La extensión aproximada de la costa del Pacífico es</label><input class="fill-input" id="r6f1" placeholder="___"> km.</div>
-      <div class="q-row"><label>2. La extensión aproximada de la costa del Caribe es</label><input class="fill-input" id="r6f2" placeholder="___"> km.</div>
-      <div class="q-row"><label>3. La navegación en pequeñas lanchas entre puntos de la costa se llama</label><input class="fill-input" id="r6f3" placeholder="___________"></div>
-      <div class="q-row"><label>4. Los puertos del Caribe son Moín y</label><input class="fill-input" id="r6f4" placeholder="___________"></div>
-      <button class="check-btn" onclick="chkFills(['r6f1','r6f2','r6f3','r6f4'],[[['1254']],[['212']],[['cabotaje','el cabotaje']],[['limon','el limon']]],'sc-r6f',6)">Revisar <span id="sc-r6f" class="score-badge"></span></button>
+      <h3>✏️ Selecciona la respuesta correcta</h3>
+      <div class="q-row"><label>1. La extensión aproximada de la costa del Pacífico es:</label>
+        <div class="mc-btn-group" id="r6f1">
+          <button class="mc-btn" onclick="selMCBtn(this,'r6f1')">1 254 km</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'r6f1')">212 km</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'r6f1')">800 km</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'r6f1')">3 819 m</button>
+        </div>
+      </div>
+      <div class="q-row" style="margin-top:10px"><label>2. La extensión aproximada de la costa del Caribe es:</label>
+        <div class="mc-btn-group" id="r6f2">
+          <button class="mc-btn" onclick="selMCBtn(this,'r6f2')">212 km</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'r6f2')">1 254 km</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'r6f2')">500 km</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'r6f2')">800 km</button>
+        </div>
+      </div>
+      <div class="q-row" style="margin-top:10px"><label>3. La navegación en pequeñas lanchas entre puntos de la costa se llama:</label>
+        <div class="mc-btn-group" id="r6f3">
+          <button class="mc-btn" onclick="selMCBtn(this,'r6f3')">Cabotaje</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'r6f3')">Turismo costero</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'r6f3')">Pesca artesanal</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'r6f3')">Comercio marítimo</button>
+        </div>
+      </div>
+      <div class="q-row" style="margin-top:10px"><label>4. Los puertos del Caribe son Moín y:</label>
+        <div class="mc-btn-group" id="r6f4">
+          <button class="mc-btn" onclick="selMCBtn(this,'r6f4')">Limón</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'r6f4')">Puntarenas</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'r6f4')">Caldera</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'r6f4')">Quepos</button>
+        </div>
+      </div>
+      <button class="check-btn" onclick="chkMKGroup([['r6f1',0],['r6f2',0],['r6f3',0],['r6f4',0]],'sc-r6f',6)">Revisar <span id="sc-r6f" class="score-badge"></span></button>
     </div>
     <div class="test-block">
       <h3>🔗 Une cada característica con su costa</h3>
       <div class="match-grid">
         <div class="match-a">
-          <div class="ma-item"><input id="m6a" placeholder="#"> Muy irregular</div>
-          <div class="ma-item"><input id="m6b" placeholder="#"> Casi lineal</div>
-          <div class="ma-item"><input id="m6c" placeholder="#"> ~1254 km</div>
-          <div class="ma-item"><input id="m6d" placeholder="#"> Puertos Moín y Limón</div>
+          <div class="ma-item"><select class="ma-select" id="m6a"><option value="">—</option><option value="1">1</option><option value="2">2</option></select> Muy irregular</div>
+          <div class="ma-item"><select class="ma-select" id="m6b"><option value="">—</option><option value="1">1</option><option value="2">2</option></select> Casi lineal</div>
+          <div class="ma-item"><select class="ma-select" id="m6c"><option value="">—</option><option value="1">1</option><option value="2">2</option></select> ~1254 km</div>
+          <div class="ma-item"><select class="ma-select" id="m6d"><option value="">—</option><option value="1">1</option><option value="2">2</option></select> Puertos Moín y Limón</div>
         </div>
         <div class="match-b">
           <div class="mb-item"><span class="mb-num">1.</span> Costa del Pacífico</div>
@@ -861,41 +1078,95 @@ textarea:disabled{background:var(--bg);color:var(--muted);}
 <div class="mock-section" id="mock-section">
   <div class="topic-header">
     <div class="topic-number" style="background:linear-gradient(135deg,#7c3aed,#a855f7);font-size:1.2rem">🎯</div>
-    <div><h2 style="color:#6b21a8">Simulacro — Prueba I Período</h2><p>Basado en el repaso oficial · Ana María Herrera Romero</p></div>
+    <div><h2 style="color:#6b21a8">Simulacro — Prueba I Período</h2><p>Selección · Completar · Emparejar · Arrastrar · Clasificar</p></div>
   </div>
 
-  <!-- ══ PARTE I · PROCESOS DEL RELIEVE ══ -->
+  <!-- ════ PARTE I · RELIEVE ════ -->
   <div class="mock-part">
     <div class="mock-part-title">Parte I — Procesos que modifican el relieve</div>
+
     <div class="test-block">
-      <h3>1. Identifica cada proceso según la descripción de la imagen</h3>
-      <p style="font-size:.78rem;color:var(--muted);margin-bottom:.8rem">Opciones: <strong>erosión · acción de los volcanes · movimiento de las placas tectónicas</strong></p>
-      <div class="q-row"><label>🌧️ <strong>Imagen A:</strong> Muestra montañas con lluvia. El agua arrastra suelo y piedras de las partes altas a las partes bajas formando sedimentos.</label><input class="fill-input" id="mk1-img1" placeholder="proceso:____________"></div>
-      <div class="q-row"><label>🏔️ <strong>Imagen B:</strong> Muestra dos capas de la Tierra. Una placa se mete por debajo de la otra generando temblores.</label><input class="fill-input" id="mk1-img2" placeholder="proceso:____________"></div>
-      <div class="q-row"><label>🌋 <strong>Imagen C:</strong> Muestra un cono con humo, cenizas y lava saliendo por la cima, cambiando la forma de la montaña.</label><input class="fill-input" id="mk1-img3" placeholder="proceso:____________"></div>
-      <button class="check-btn" onclick="chkFills(
-        ['mk1-img1','mk1-img2','mk1-img3'],
-        [[['erosion','erosión','la erosion']],[['placas','tectónicas','tectoni','movimiento']],[['volcan','volcanes','accion','acción']]],
-        'sc-mk1img','mock')">Revisar <span id="sc-mk1img" class="score-badge"></span></button>
+      <h3>1. Identifica el proceso según la descripción</h3>
+      <div class="q-row"><label>🌧️ <strong>A.</strong> Muestra montañas con lluvia que arrastra suelo de las partes altas a las bajas, formando sedimentos.</label>
+        <div class="mc-btn-group" id="mk1-img1">
+          <button class="mc-btn" onclick="selMCBtn(this,'mk1-img1')">Erosión</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mk1-img1')">Movimiento de las placas tectónicas</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mk1-img1')">Acción de los volcanes</button>
+        </div>
+      </div>
+      <div class="q-row" style="margin-top:10px"><label>🏔️ <strong>B.</strong> Muestra dos capas de la Tierra. Una placa se mete por debajo de la otra, generando temblores.</label>
+        <div class="mc-btn-group" id="mk1-img2">
+          <button class="mc-btn" onclick="selMCBtn(this,'mk1-img2')">Erosión</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mk1-img2')">Movimiento de las placas tectónicas</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mk1-img2')">Acción de los volcanes</button>
+        </div>
+      </div>
+      <div class="q-row" style="margin-top:10px"><label>🌋 <strong>C.</strong> Muestra un cono con humo, cenizas y lava saliendo por la cima, cambiando la forma de la montaña.</label>
+        <div class="mc-btn-group" id="mk1-img3">
+          <button class="mc-btn" onclick="selMCBtn(this,'mk1-img3')">Erosión</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mk1-img3')">Movimiento de las placas tectónicas</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mk1-img3')">Acción de los volcanes</button>
+        </div>
+      </div>
+      <button class="check-btn" onclick="chkMKGroup([['mk1-img1',0],['mk1-img2',1],['mk1-img3',2]],'sc-mk1img','mock')">Revisar <span id="sc-mk1img" class="score-badge"></span></button>
     </div>
+
     <div class="test-block">
-      <h3>2. Completa los espacios</h3>
-      <div class="q-row"><label>a. El desgaste de la superficie terrestre por acción del agua o el viento se llama</label><input class="fill-input" id="mk1-f1" placeholder="___________"></div>
-      <div class="q-row"><label>b. Cuando la placa Cocos se introduce bajo la placa Caribe ocurre la</label><input class="fill-input" id="mk1-f2" placeholder="___________"></div>
-      <button class="check-btn" onclick="chkFills(['mk1-f1','mk1-f2'],[[['erosion','erosión']],[['subduccion','subducción']]],'sc-mk1f','mock')">Revisar <span id="sc-mk1f" class="score-badge"></span></button>
+      <h3>2. Selección múltiple</h3>
+      <div class="q-row"><label><strong>a.</strong> ¿Sobre qué placas tectónicas se ubica Costa Rica?</label>
+        <div class="mc-btn-group" id="mk1-mca">
+          <button class="mc-btn" onclick="selMCBtn(this,'mk1-mca')">Nazca y Pacífico</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mk1-mca')">Cocos y Caribe</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mk1-mca')">Cocos y Nazca</button>
+        </div>
+      </div>
+      <div class="q-row" style="margin-top:10px"><label><strong>b.</strong> ¿Qué materiales expulsa un volcán durante una erupción?</label>
+        <div class="mc-btn-group" id="mk1-mcb">
+          <button class="mc-btn" onclick="selMCBtn(this,'mk1-mcb')">Agua, sal y lava</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mk1-mcb')">Tierra, barro y ceniza</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mk1-mcb')">Humo, ceniza y lava</button>
+        </div>
+      </div>
+      <button class="check-btn" onclick="chkMKGroup([['mk1-mca',1],['mk1-mcb',2]],'sc-mk1mc')">Revisar <span id="sc-mk1mc" class="score-badge"></span></button>
+    </div>
+
+    <div class="test-block">
+      <h3>3. Arrastra cada proceso a su descripción</h3>
+      <p class="dd-hint">Toca un proceso (se resalta en azul) y luego toca el recuadro punteado donde corresponde.</p>
+      <div class="dd-bank" id="dd1-bank">
+        <span class="dd-chip" data-value="erosion" onclick="ddTapChip(this,'dd1-bank')">Erosión</span>
+        <span class="dd-chip" data-value="volcan" onclick="ddTapChip(this,'dd1-bank')">Acción de los volcanes</span>
+        <span class="dd-chip" data-value="subduccion" onclick="ddTapChip(this,'dd1-bank')">Movimiento de las placas</span>
+      </div>
+      <div class="dd-pairs">
+        <div class="dd-pair">
+          <div class="dd-zone" id="dd1-z1" onclick="ddTapZone(this,'dd1-bank')">— arrastrar aquí —</div>
+          <span class="dd-pair-label">Desgasta el relieve por acción del agua y el viento.</span>
+        </div>
+        <div class="dd-pair">
+          <div class="dd-zone" id="dd1-z2" onclick="ddTapZone(this,'dd1-bank')">— arrastrar aquí —</div>
+          <span class="dd-pair-label">Expulsa humo, ceniza y lava, cambiando la forma del volcán.</span>
+        </div>
+        <div class="dd-pair">
+          <div class="dd-zone" id="dd1-z3" onclick="ddTapZone(this,'dd1-bank')">— arrastrar aquí —</div>
+          <span class="dd-pair-label">Una placa tectónica se introduce debajo de la otra generando temblores.</span>
+        </div>
+      </div>
+      <button class="check-btn" onclick="ddCheckZones({'dd1-z1':'erosion','dd1-z2':'volcan','dd1-z3':'subduccion'},'sc-mk1dd')">Revisar <span id="sc-mk1dd" class="score-badge"></span></button>
     </div>
   </div>
 
-  <!-- ══ PARTE II · ETAPAS DEL TERRITORIO ══ -->
+  <!-- ════ PARTE II · TERRITORIO ════ -->
   <div class="mock-part">
-    <div class="mock-part-title">Parte II — Origen y etapas de la formación del territorio</div>
+    <div class="mock-part-title">Parte II — Origen y etapas del territorio</div>
+
     <div class="test-block">
-      <h3>3. Une con el número correcto — Etapas de formación del territorio</h3>
+      <h3>4. Une las etapas con su descripción</h3>
       <div class="match-grid">
         <div class="match-a">
-          <div class="ma-item"><input id="mk2-m1" placeholder="#"> El choque entre las placas Cocos y Caribe formó un arco insular externo y las penínsulas.</div>
-          <div class="ma-item"><input id="mk2-m2" placeholder="#"> Por medio del proceso de orogénesis se formó el arco insular interno y los valles.</div>
-          <div class="ma-item"><input id="mk2-m3" placeholder="#"> A causa de la erosión se formaron las llanuras y las costas.</div>
+          <div class="ma-item"><select class="ma-select" id="mk2-m1"><option value="">—</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select> El choque entre las placas formó el arco insular externo y las penínsulas.</div>
+          <div class="ma-item"><select class="ma-select" id="mk2-m2"><option value="">—</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select> Por la orogénesis se formó el arco insular interno y los valles.</div>
+          <div class="ma-item"><select class="ma-select" id="mk2-m3"><option value="">—</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select> Por la erosión se formaron las llanuras y las costas.</div>
         </div>
         <div class="match-b">
           <div class="mb-item"><span class="mb-num">1.</span> Primera etapa</div>
@@ -905,8 +1176,9 @@ textarea:disabled{background:var(--bg);color:var(--muted);}
       </div>
       <button class="check-btn" onclick="chkMatch(['mk2-m1','mk2-m2','mk2-m3'],[1,2,3],'sc-mk2m','mock')">Revisar <span id="sc-mk2m" class="score-badge"></span></button>
     </div>
+
     <div class="test-block">
-      <h3>4. Verdadero o Falso</h3>
+      <h3>5. Verdadero o Falso</h3>
       <div id="mk-tf2">
         <div class="tf-row"><span class="tf-stmt">En la segunda etapa se formaron las cordilleras volcánicas de Guanacaste y Central.</span><div class="tf-btns"><button class="tf-btn" onclick="selTF(this,'mktf2-0','V')">V</button><button class="tf-btn" onclick="selTF(this,'mktf2-0','F')">F</button></div></div>
         <div class="tf-row"><span class="tf-stmt">El arco insular externo surgió durante la primera etapa de formación del territorio.</span><div class="tf-btns"><button class="tf-btn" onclick="selTF(this,'mktf2-1','V')">V</button><button class="tf-btn" onclick="selTF(this,'mktf2-1','F')">F</button></div></div>
@@ -914,50 +1186,146 @@ textarea:disabled{background:var(--bg);color:var(--muted);}
       </div>
       <button class="check-btn" onclick="chkTF('mk-tf2',['V','V','F'],'sc-mk2tf','mock')">Revisar <span id="sc-mk2tf" class="score-badge"></span></button>
     </div>
+
+    <div class="test-block">
+      <h3>6. Selección múltiple</h3>
+      <div class="q-row"><label><strong>a.</strong> ¿Qué proceso formó las cordilleras de Costa Rica?</label>
+        <div class="mc-btn-group" id="mk2-mca">
+          <button class="mc-btn" onclick="selMCBtn(this,'mk2-mca')">Erosión</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mk2-mca')">Subducción</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mk2-mca')">Orogénesis</button>
+        </div>
+      </div>
+      <div class="q-row" style="margin-top:10px"><label><strong>b.</strong> ¿En qué etapa se formaron las llanuras y las costas?</label>
+        <div class="mc-btn-group" id="mk2-mcb">
+          <button class="mc-btn" onclick="selMCBtn(this,'mk2-mcb')">Primera etapa</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mk2-mcb')">Segunda etapa</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mk2-mcb')">Tercera etapa</button>
+        </div>
+      </div>
+      <button class="check-btn" onclick="chkMKGroup([['mk2-mca',2],['mk2-mcb',2]],'sc-mk2mc')">Revisar <span id="sc-mk2mc" class="score-badge"></span></button>
+    </div>
   </div>
 
-  <!-- ══ PARTE III · EJE MONTAÑOSO CENTRAL + CORDILLERAS ══ -->
+  <!-- ════ PARTE III · EJE MONTAÑOSO + CORDILLERAS ════ -->
   <div class="mock-part">
     <div class="mock-part-title">Parte III — Eje montañoso central y cordilleras</div>
+
     <div class="test-block">
-      <h3>5. Lee los recuadros y selecciona los que son características del eje montañoso central</h3>
+      <h3>7. ¿Cuáles son características del eje montañoso central?</h3>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:.6rem 0;font-size:.8rem;">
-        <div style="border:1.5px solid #e5c56a;border-radius:8px;padding:.5rem .7rem;background:#fffbeb"><strong>a)</strong> Atraviesa el territorio nacional de noroeste a sureste.</div>
+        <div style="border:1.5px solid #e5c56a;border-radius:8px;padding:.5rem .7rem;background:#fffbeb"><strong>a)</strong> Atraviesa el territorio de noroeste a sureste.</div>
         <div style="border:1.5px solid #e5c56a;border-radius:8px;padding:.5rem .7rem;background:#fffbeb"><strong>b)</strong> Se compone de cerros de poca altura.</div>
         <div style="border:1.5px solid #e5c56a;border-radius:8px;padding:.5rem .7rem;background:#fffbeb"><strong>c)</strong> Posee montañas altas y terrenos quebrados con pendientes.</div>
         <div style="border:1.5px solid #e5c56a;border-radius:8px;padding:.5rem .7rem;background:#fffbeb"><strong>d)</strong> Se extiende a lo largo de la costa pacífica.</div>
       </div>
-      <div class="mc-opts" id="mk3-emc">
-        <label class="mc-opt"><input type="radio" name="mk3-emc"> a y d</label>
-        <label class="mc-opt"><input type="radio" name="mk3-emc"> b y d</label>
-        <label class="mc-opt"><input type="radio" name="mk3-emc"> a y c</label>
-      </div>
+      <div class="mc-btn-group" id="mk3-emc">
+        <button class="mc-btn" onclick="selMCBtn(this,'mk3-emc')">a y d</button>
+        <button class="mc-btn" onclick="selMCBtn(this,'mk3-emc')">b y d</button>
+        <button class="mc-btn" onclick="selMCBtn(this,'mk3-emc')">a y c</button>
+        </div>
       <button class="check-btn" onclick="chkMC1('mk3-emc',2,'sc-mk3emc','mock')">Revisar <span id="sc-mk3emc" class="score-badge"></span></button>
     </div>
+
     <div class="test-block">
-      <h3>6. Anota el nombre de cada cordillera según las características</h3>
-      <div class="q-row"><label>1. Se extiende desde el volcán Orosí hasta el volcán Arenal. Detiene el paso de los vientos del Caribe:</label><input class="fill-input" id="mk3-c1" placeholder="Cordillera de _______"></div>
-      <div class="q-row"><label>2. Se extiende desde la depresión del Arenal hasta la depresión de Tapezco. Zona de fuertes vientos que se aprovechan para generar energía eólica:</label><input class="fill-input" id="mk3-c2" placeholder="Cordillera de _______"></div>
-      <div class="q-row"><label>3. Se prolonga desde la depresión de Tapezco hasta el volcán Turrialba. Incluye los volcanes Barva, Poás e Irazú:</label><input class="fill-input" id="mk3-c3" placeholder="Cordillera _______"></div>
-      <div class="q-row"><label>4. Se ubica al sureste del país desde los cerros La Carpintera hasta el cerro Pando. Posee el cerro Chirripó, el más alto de Costa Rica:</label><input class="fill-input" id="mk3-c4" placeholder="Cordillera de _______"></div>
-      <button class="check-btn" onclick="chkFills(
-        ['mk3-c1','mk3-c2','mk3-c3','mk3-c4'],
-        [[['guanacaste']],[['tilaran','tilarán']],[['volcanica','volcánica','central','volcanica central']],[['talamanca']]],
-        'sc-mk3c','mock')">Revisar <span id="sc-mk3c" class="score-badge"></span></button>
+      <h3>8. Identifica cada cordillera</h3>
+      <div class="q-row"><label>1. Desde el volcán Orosí hasta el volcán Arenal. Detiene los vientos del Caribe:</label>
+        <div class="mc-btn-group" id="mk3-c1">
+          <button class="mc-btn" onclick="selMCBtn(this,'mk3-c1')">Guanacaste</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mk3-c1')">Tilarán</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mk3-c1')">Volcánica Central</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mk3-c1')">Talamanca</button>
+        </div>
+      </div>
+      <div class="q-row" style="margin-top:10px"><label>2. Desde la depresión del Arenal hasta Tapezco. Fuertes vientos → energía eólica:</label>
+        <div class="mc-btn-group" id="mk3-c2">
+          <button class="mc-btn" onclick="selMCBtn(this,'mk3-c2')">Guanacaste</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mk3-c2')">Tilarán</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mk3-c2')">Volcánica Central</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mk3-c2')">Talamanca</button>
+        </div>
+      </div>
+      <div class="q-row" style="margin-top:10px"><label>3. Desde Tapezco hasta el volcán Turrialba. Incluye Barva, Poás e Irazú:</label>
+        <div class="mc-btn-group" id="mk3-c3">
+          <button class="mc-btn" onclick="selMCBtn(this,'mk3-c3')">Guanacaste</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mk3-c3')">Tilarán</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mk3-c3')">Volcánica Central</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mk3-c3')">Talamanca</button>
+        </div>
+      </div>
+      <div class="q-row" style="margin-top:10px"><label>4. Al sureste del país. Cerro Chirripó 3820 m. Sin volcanes activos:</label>
+        <div class="mc-btn-group" id="mk3-c4">
+          <button class="mc-btn" onclick="selMCBtn(this,'mk3-c4')">Guanacaste</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mk3-c4')">Tilarán</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mk3-c4')">Volcánica Central</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mk3-c4')">Talamanca</button>
+        </div>
+      </div>
+      <button class="check-btn" onclick="chkMKGroup([['mk3-c1',0],['mk3-c2',1],['mk3-c3',2],['mk3-c4',3]],'sc-mk3c','mock')">Revisar <span id="sc-mk3c" class="score-badge"></span></button>
+    </div>
+
+    <div class="test-block">
+      <h3>9. Selección múltiple</h3>
+      <div class="q-row"><label><strong>a.</strong> ¿Cuál cordillera incluye los volcanes Poás, Irazú y Turrialba?</label>
+        <div class="mc-btn-group" id="mk3-mca">
+          <button class="mc-btn" onclick="selMCBtn(this,'mk3-mca')">Cordillera de Guanacaste</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mk3-mca')">Cordillera de Tilarán</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mk3-mca')">Cordillera Volcánica Central</button>
+        </div>
+      </div>
+      <div class="q-row" style="margin-top:10px"><label><strong>b.</strong> ¿Cuál es el punto más alto de Costa Rica?</label>
+        <div class="mc-btn-group" id="mk3-mcb">
+          <button class="mc-btn" onclick="selMCBtn(this,'mk3-mcb')">Volcán Irazú</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mk3-mcb')">Cerro Chirripó</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mk3-mcb')">Volcán Rincón de la Vieja</button>
+        </div>
+      </div>
+      <button class="check-btn" onclick="chkMKGroup([['mk3-mca',2],['mk3-mcb',1]],'sc-mk3mc')">Revisar <span id="sc-mk3mc" class="score-badge"></span></button>
+    </div>
+
+    <div class="test-block">
+      <h3>10. Arrastra el nombre de la cordillera a su descripción</h3>
+      <p class="dd-hint">Toca una cordillera y luego toca el recuadro punteado donde corresponde.</p>
+      <div class="dd-bank" id="dd3-bank">
+        <span class="dd-chip" data-value="guanacaste" onclick="ddTapChip(this,'dd3-bank')">Guanacaste</span>
+        <span class="dd-chip" data-value="tilaran" onclick="ddTapChip(this,'dd3-bank')">Tilarán</span>
+        <span class="dd-chip" data-value="volcanica" onclick="ddTapChip(this,'dd3-bank')">Volcánica Central</span>
+        <span class="dd-chip" data-value="talamanca" onclick="ddTapChip(this,'dd3-bank')">Talamanca</span>
+      </div>
+      <div class="dd-pairs">
+        <div class="dd-pair">
+          <div class="dd-zone" id="dd3-z1" onclick="ddTapZone(this,'dd3-bank')">— aquí —</div>
+          <span class="dd-pair-label">Volcanes Orosí, Cacao y Rincón de la Vieja.</span>
+        </div>
+        <div class="dd-pair">
+          <div class="dd-zone" id="dd3-z2" onclick="ddTapZone(this,'dd3-bank')">— aquí —</div>
+          <span class="dd-pair-label">Zona de vientos; energía eólica; embalse Arenal.</span>
+        </div>
+        <div class="dd-pair">
+          <div class="dd-zone" id="dd3-z3" onclick="ddTapZone(this,'dd3-bank')">— aquí —</div>
+          <span class="dd-pair-label">Volcanes Barva, Poás, Irazú y Turrialba.</span>
+        </div>
+        <div class="dd-pair">
+          <div class="dd-zone" id="dd3-z4" onclick="ddTapZone(this,'dd3-bank')">— aquí —</div>
+          <span class="dd-pair-label">Sin volcanes activos; alberga el Cerro Chirripó.</span>
+        </div>
+      </div>
+      <button class="check-btn" onclick="ddCheckZones({'dd3-z1':'guanacaste','dd3-z2':'tilaran','dd3-z3':'volcanica','dd3-z4':'talamanca'},'sc-mk3dd')">Revisar <span id="sc-mk3dd" class="score-badge"></span></button>
     </div>
   </div>
 
-  <!-- ══ PARTE IV · SISTEMA MONTAÑOSO SECUNDARIO ══ -->
+  <!-- ════ PARTE IV · SISTEMA MONTAÑOSO SECUNDARIO ════ -->
   <div class="mock-part">
     <div class="mock-part-title">Parte IV — Sistema montañoso secundario</div>
+
     <div class="test-block">
-      <h3>7. Une cada descripción con el cerro que corresponde</h3>
+      <h3>11. Une cada descripción con el cerro que corresponde</h3>
       <div class="match-grid">
         <div class="match-a">
-          <div class="ma-item"><input id="mk4-m1" placeholder="#"> Poseen depósitos de rocas calizas utilizadas en la fabricación de cemento.</div>
-          <div class="ma-item"><input id="mk4-m2" placeholder="#"> Cuentan con yacimientos de mármol usados en construcción y obras artísticas.</div>
-          <div class="ma-item"><input id="mk4-m3" placeholder="#"> Zona apta para el cultivo de banano y palma africana.</div>
-          <div class="ma-item"><input id="mk4-m4" placeholder="#"> En la región se cultiva banano, arroz y palma aceitera.</div>
+          <div class="ma-item"><select class="ma-select" id="mk4-m1"><option value="">—</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select> Depósitos de rocas calizas para fabricar cemento.</div>
+          <div class="ma-item"><select class="ma-select" id="mk4-m2"><option value="">—</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select> Yacimientos de mármol para construcción y arte.</div>
+          <div class="ma-item"><select class="ma-select" id="mk4-m3"><option value="">—</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select> Zona apta para el cultivo de banano y palma africana.</div>
+          <div class="ma-item"><select class="ma-select" id="mk4-m4"><option value="">—</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select> Se cultiva banano, arroz y palma aceitera.</div>
         </div>
         <div class="match-b">
           <div class="mb-item"><span class="mb-num">1.</span> Cerros de la Península de Burica</div>
@@ -968,19 +1336,39 @@ textarea:disabled{background:var(--bg);color:var(--muted);}
       </div>
       <button class="check-btn" onclick="chkMatch(['mk4-m1','mk4-m2','mk4-m3','mk4-m4'],[2,3,4,1],'sc-mk4m','mock')">Revisar <span id="sc-mk4m" class="score-badge"></span></button>
     </div>
+
+    <div class="test-block">
+      <h3>12. Selección múltiple</h3>
+      <div class="q-row"><label><strong>a.</strong> ¿Cuál cerro tiene depósitos de rocas calizas usadas para fabricar cemento?</label>
+        <div class="mc-btn-group" id="mk4-mca">
+          <button class="mc-btn" onclick="selMCBtn(this,'mk4-mca')">Cerros de Herradura</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mk4-mca')">Fila Brunqueña</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mk4-mca')">Cerros de Nicoya</button>
+        </div>
+      </div>
+      <div class="q-row" style="margin-top:10px"><label><strong>b.</strong> ¿En cuál provincia se ubican los Cerros de Santa Elena?</label>
+        <div class="mc-btn-group" id="mk4-mcb">
+          <button class="mc-btn" onclick="selMCBtn(this,'mk4-mcb')">Puntarenas</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mk4-mcb')">Guanacaste</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mk4-mcb')">Alajuela</button>
+        </div>
+      </div>
+      <button class="check-btn" onclick="chkMKGroup([['mk4-mca',2],['mk4-mcb',1]],'sc-mk4mc')">Revisar <span id="sc-mk4mc" class="score-badge"></span></button>
+    </div>
   </div>
 
-  <!-- ══ PARTE V · VALLES ══ -->
+  <!-- ════ PARTE V · VALLES ════ -->
   <div class="mock-part">
     <div class="mock-part-title">Parte V — Valles de Costa Rica</div>
+
     <div class="test-block">
-      <h3>8. Une el valle con sus características</h3>
+      <h3>13. Une el valle con sus características</h3>
       <div class="match-grid">
         <div class="match-a">
-          <div class="ma-item"><input id="mk5-m1" placeholder="#"> Valle Central</div>
-          <div class="ma-item"><input id="mk5-m2" placeholder="#"> Valle del Tempisque</div>
-          <div class="ma-item"><input id="mk5-m3" placeholder="#"> Valle de Talamanca</div>
-          <div class="ma-item"><input id="mk5-m4" placeholder="#"> Valle El General-Coto Brus</div>
+          <div class="ma-item"><select class="ma-select" id="mk5-m1"><option value="">—</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select> Valle Central</div>
+          <div class="ma-item"><select class="ma-select" id="mk5-m2"><option value="">—</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select> Valle del Tempisque</div>
+          <div class="ma-item"><select class="ma-select" id="mk5-m3"><option value="">—</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select> Valle de Talamanca</div>
+          <div class="ma-item"><select class="ma-select" id="mk5-m4"><option value="">—</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select> Valle El General-Coto Brus</div>
         </div>
         <div class="match-b">
           <div class="mb-item"><span class="mb-num">1.</span> Costa Caribe; Río Sixaola; banano y cacao</div>
@@ -991,47 +1379,144 @@ textarea:disabled{background:var(--bg);color:var(--muted);}
       </div>
       <button class="check-btn" onclick="chkMatch(['mk5-m1','mk5-m2','mk5-m3','mk5-m4'],[2,4,1,3],'sc-mk5m','mock')">Revisar <span id="sc-mk5m" class="score-badge"></span></button>
     </div>
+
     <div class="test-block">
-      <h3>9. Verdadero o Falso</h3>
+      <h3>14. Verdadero o Falso</h3>
       <div id="mk-tf5">
         <div class="tf-row"><span class="tf-stmt">El Valle Central está dividido en sección este y oeste por el Río Ochomogo.</span><div class="tf-btns"><button class="tf-btn" onclick="selTF(this,'mktf5-0','V')">V</button><button class="tf-btn" onclick="selTF(this,'mktf5-0','F')">F</button></div></div>
-        <div class="tf-row"><span class="tf-stmt">El Valle del Tempisque es la región más poblada del país.</span><div class="tf-btns"><button class="tf-btn" onclick="selTF(this,'mktf5-1','V')">V</button><button class="tf-btn" onclick="selTF(this,'mktf5-1','F')">F</button></div></div>
+        <div class="tf-row"><span class="tf-stmt">El Valle del Tempisque es la región más poblada de Costa Rica.</span><div class="tf-btns"><button class="tf-btn" onclick="selTF(this,'mktf5-1','V')">V</button><button class="tf-btn" onclick="selTF(this,'mktf5-1','F')">F</button></div></div>
       </div>
       <button class="check-btn" onclick="chkTF('mk-tf5',['V','F'],'sc-mk5tf','mock')">Revisar <span id="sc-mk5tf" class="score-badge"></span></button>
     </div>
-  </div>
 
-  <!-- ══ PARTE VI · LLANURAS ══ -->
-  <div class="mock-part">
-    <div class="mock-part-title">Parte VI — Llanuras de Costa Rica</div>
     <div class="test-block">
-      <h3>10. Identifica a qué llanura pertenece cada descripción</h3>
-      <p style="font-size:.78rem;color:var(--muted);margin-bottom:.8rem">Opciones: <strong>Llanuras del Norte · Llanuras del Caribe · Llanuras del Pacífico</strong></p>
-      <div class="q-row"><label>🌊 Son recorridas por los ríos San Carlos, Frío y Sarapiquí, que desembocan en el río San Juan y en el lago de Nicaragua:</label><input class="fill-input" id="mk6-ll1" placeholder="Llanuras del ___________"></div>
-      <div class="q-row"><label>🌿 Son atravesadas por los ríos Tortuguero, Santa Clara, Matina, La Estrella y Sixaola. Desembocan en el mar Caribe:</label><input class="fill-input" id="mk6-ll2" placeholder="Llanuras del ___________"></div>
-      <div class="q-row"><label>☀️ Son recorridas por los ríos Tempisque, Grande de Tárcoles, Pirrís, Parrita y Grande de Térraba:</label><input class="fill-input" id="mk6-ll3" placeholder="Llanuras del ___________"></div>
-      <button class="check-btn" onclick="chkFills(
-        ['mk6-ll1','mk6-ll2','mk6-ll3'],
-        [[['norte','del norte']],[['caribe','del caribe']],[['pacifico','pacífico','del pacifico','del pacífico']]],
-        'sc-mk6ll','mock')">Revisar <span id="sc-mk6ll" class="score-badge"></span></button>
+      <h3>15. Selección múltiple</h3>
+      <div class="q-row"><label><strong>a.</strong> ¿Cuál río divide el Valle Central en sección este y oeste?</label>
+        <div class="mc-btn-group" id="mk5-mca">
+          <button class="mc-btn" onclick="selMCBtn(this,'mk5-mca')">Río Reventazón</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mk5-mca')">Río Ochomogo</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mk5-mca')">Río Virilla</button>
+        </div>
+      </div>
+      <div class="q-row" style="margin-top:10px"><label><strong>b.</strong> ¿Cuáles son los principales cultivos del Valle Central?</label>
+        <div class="mc-btn-group" id="mk5-mcb">
+          <button class="mc-btn" onclick="selMCBtn(this,'mk5-mcb')">Banano y cacao</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mk5-mcb')">Arroz y ganadería</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mk5-mcb')">Café y caña de azúcar</button>
+        </div>
+      </div>
+      <button class="check-btn" onclick="chkMKGroup([['mk5-mca',1],['mk5-mcb',2]],'sc-mk5mc')">Revisar <span id="sc-mk5mc" class="score-badge"></span></button>
     </div>
   </div>
 
-  <!-- ══ PARTE VII · COSTAS ══ -->
+  <!-- ════ PARTE VI · LLANURAS ════ -->
+  <div class="mock-part">
+    <div class="mock-part-title">Parte VI — Llanuras de Costa Rica</div>
+
+    <div class="test-block">
+      <h3>16. Identifica la llanura por sus ríos</h3>
+      <div class="q-row"><label>🌊 Ríos San Carlos, Frío y Sarapiquí → desembocan en el río San Juan y el lago de Nicaragua:</label>
+        <div class="mc-btn-group" id="mk6-ll1">
+          <button class="mc-btn" onclick="selMCBtn(this,'mk6-ll1')">Llanuras del Norte</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mk6-ll1')">Llanuras del Caribe</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mk6-ll1')">Llanuras del Pacífico</button>
+        </div>
+      </div>
+      <div class="q-row" style="margin-top:10px"><label>🌿 Ríos Tortuguero, Santa Clara, Matina, La Estrella y Sixaola → desembocan en el mar Caribe:</label>
+        <div class="mc-btn-group" id="mk6-ll2">
+          <button class="mc-btn" onclick="selMCBtn(this,'mk6-ll2')">Llanuras del Norte</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mk6-ll2')">Llanuras del Caribe</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mk6-ll2')">Llanuras del Pacífico</button>
+        </div>
+      </div>
+      <div class="q-row" style="margin-top:10px"><label>☀️ Ríos Tempisque, Grande de Tárcoles, Pirrís, Parrita y Grande de Térraba:</label>
+        <div class="mc-btn-group" id="mk6-ll3">
+          <button class="mc-btn" onclick="selMCBtn(this,'mk6-ll3')">Llanuras del Norte</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mk6-ll3')">Llanuras del Caribe</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mk6-ll3')">Llanuras del Pacífico</button>
+        </div>
+      </div>
+      <button class="check-btn" onclick="chkMKGroup([['mk6-ll1',0],['mk6-ll2',1],['mk6-ll3',2]],'sc-mk6ll','mock')">Revisar <span id="sc-mk6ll" class="score-badge"></span></button>
+    </div>
+
+    <div class="test-block">
+      <h3>17. Selección múltiple</h3>
+      <div class="q-row"><label><strong>a.</strong> ¿Cuáles ríos recorren las Llanuras del Norte?</label>
+        <div class="mc-btn-group" id="mk6-mca">
+          <button class="mc-btn" onclick="selMCBtn(this,'mk6-mca')">Tempisque y Cañas</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mk6-mca')">San Carlos, Frío y Sarapiquí</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mk6-mca')">Reventazón y Pacuare</button>
+        </div>
+      </div>
+      <div class="q-row" style="margin-top:10px"><label><strong>b.</strong> ¿Qué cultivos predominan en las Llanuras del Caribe?</label>
+        <div class="mc-btn-group" id="mk6-mcb">
+          <button class="mc-btn" onclick="selMCBtn(this,'mk6-mcb')">Café y caña</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mk6-mcb')">Arroz y frijoles</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mk6-mcb')">Banano y cacao</button>
+        </div>
+      </div>
+      <button class="check-btn" onclick="chkMKGroup([['mk6-mca',1],['mk6-mcb',2]],'sc-mk6mc')">Revisar <span id="sc-mk6mc" class="score-badge"></span></button>
+    </div>
+  </div>
+
+  <!-- ════ PARTE VII · COSTAS ════ -->
   <div class="mock-part">
     <div class="mock-part-title">Parte VII — Costas de Costa Rica</div>
+
     <div class="test-block">
-      <h3>11. Marca CP si la característica pertenece a la Costa del Pacífico, o CC si pertenece a la Costa del Caribe</h3>
+      <h3>18. Marca CP (Pacífico) o CC (Caribe) para cada característica</h3>
       <div class="cpcc-table">
         <div class="cpcc-header"><span>Característica</span><span>CP</span><span>CC</span></div>
-        <div class="cpcc-row"><span>Mide aproximadamente 1254 km.</span><label><input type="radio" name="cpcc-0" onclick="setCPCC('cpcc-0','CP')"> CP</label><label><input type="radio" name="cpcc-0" onclick="setCPCC('cpcc-0','CC')"> CC</label></div>
-        <div class="cpcc-row"><span>Está compuesta por playas arenosas como Uva y Manzanillo.</span><label><input type="radio" name="cpcc-1" onclick="setCPCC('cpcc-1','CP')"> CP</label><label><input type="radio" name="cpcc-1" onclick="setCPCC('cpcc-1','CC')"> CC</label></div>
-        <div class="cpcc-row"><span>Mide alrededor de 212 km.</span><label><input type="radio" name="cpcc-2" onclick="setCPCC('cpcc-2','CP')"> CP</label><label><input type="radio" name="cpcc-2" onclick="setCPCC('cpcc-2','CC')"> CC</label></div>
-        <div class="cpcc-row"><span>Puertos principales: Puntarenas, Caldera, Quepos y Golfito.</span><label><input type="radio" name="cpcc-3" onclick="setCPCC('cpcc-3','CP')"> CP</label><label><input type="radio" name="cpcc-3" onclick="setCPCC('cpcc-3','CC')"> CC</label></div>
-        <div class="cpcc-row"><span>La costa es casi lineal.</span><label><input type="radio" name="cpcc-4" onclick="setCPCC('cpcc-4','CP')"> CP</label><label><input type="radio" name="cpcc-4" onclick="setCPCC('cpcc-4','CC')"> CC</label></div>
-        <div class="cpcc-row"><span>Presenta numerosas puntas, cabos, golfos y penínsulas, que la hacen muy irregular.</span><label><input type="radio" name="cpcc-5" onclick="setCPCC('cpcc-5','CP')"> CP</label><label><input type="radio" name="cpcc-5" onclick="setCPCC('cpcc-5','CC')"> CC</label></div>
+        <div class="cpcc-row"><span>Mide aproximadamente 1254 km.</span><button class="cpcc-btn" id="cpcc-0-cp" onclick="setCPCCBtn('cpcc-0','CP',this)">CP</button><button class="cpcc-btn" id="cpcc-0-cc" onclick="setCPCCBtn('cpcc-0','CC',this)">CC</button></div>
+        <div class="cpcc-row"><span>Playas arenosas como Uva y Manzanillo.</span><button class="cpcc-btn" id="cpcc-1-cp" onclick="setCPCCBtn('cpcc-1','CP',this)">CP</button><button class="cpcc-btn" id="cpcc-1-cc" onclick="setCPCCBtn('cpcc-1','CC',this)">CC</button></div>
+        <div class="cpcc-row"><span>Mide alrededor de 212 km.</span><button class="cpcc-btn" id="cpcc-2-cp" onclick="setCPCCBtn('cpcc-2','CP',this)">CP</button><button class="cpcc-btn" id="cpcc-2-cc" onclick="setCPCCBtn('cpcc-2','CC',this)">CC</button></div>
+        <div class="cpcc-row"><span>Puertos: Puntarenas, Caldera, Quepos y Golfito.</span><button class="cpcc-btn" id="cpcc-3-cp" onclick="setCPCCBtn('cpcc-3','CP',this)">CP</button><button class="cpcc-btn" id="cpcc-3-cc" onclick="setCPCCBtn('cpcc-3','CC',this)">CC</button></div>
+        <div class="cpcc-row"><span>La costa es casi lineal.</span><button class="cpcc-btn" id="cpcc-4-cp" onclick="setCPCCBtn('cpcc-4','CP',this)">CP</button><button class="cpcc-btn" id="cpcc-4-cc" onclick="setCPCCBtn('cpcc-4','CC',this)">CC</button></div>
+        <div class="cpcc-row"><span>Muy irregular: puntas, cabos, golfos y penínsulas.</span><button class="cpcc-btn" id="cpcc-5-cp" onclick="setCPCCBtn('cpcc-5','CP',this)">CP</button><button class="cpcc-btn" id="cpcc-5-cc" onclick="setCPCCBtn('cpcc-5','CC',this)">CC</button></div>
       </div>
       <button class="check-btn" onclick="chkCostas()">Revisar <span id="sc-mk7costas" class="score-badge"></span></button>
+    </div>
+
+    <div class="test-block">
+      <h3>19. Selección múltiple</h3>
+      <div class="q-row"><label><strong>a.</strong> ¿Cuánto mide la Costa del Pacífico?</label>
+        <div class="mc-btn-group" id="mk7-mca">
+          <button class="mc-btn" onclick="selMCBtn(this,'mk7-mca')">212 km</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mk7-mca')">500 km</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mk7-mca')">1254 km</button>
+        </div>
+      </div>
+      <div class="q-row" style="margin-top:10px"><label><strong>b.</strong> ¿En cuál costa se encuentran las playas Uva y Manzanillo?</label>
+        <div class="mc-btn-group" id="mk7-mcb">
+          <button class="mc-btn" onclick="selMCBtn(this,'mk7-mcb')">Costa del Pacífico</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'mk7-mcb')">Costa del Caribe</button>
+        </div>
+      </div>
+      <button class="check-btn" onclick="chkMKGroup([['mk7-mca',2],['mk7-mcb',1]],'sc-mk7mc')">Revisar <span id="sc-mk7mc" class="score-badge"></span></button>
+    </div>
+
+    <div class="test-block">
+      <h3>20. Arrastra cada característica a la costa que corresponde</h3>
+      <p class="dd-hint">Toca una característica y luego toca el recuadro de la costa correcta. Toca una ficha colocada para devolverla al banco.</p>
+      <div class="dd-bank" id="dd7-bank">
+        <span class="dd-chip" data-value="pk1254"  onclick="ddTapChip(this,'dd7-bank')">1254 km</span>
+        <span class="dd-chip" data-value="cc212"   onclick="ddTapChip(this,'dd7-bank')">212 km</span>
+        <span class="dd-chip" data-value="pgolfos" onclick="ddTapChip(this,'dd7-bank')">Golfos de Nicoya y Dulce</span>
+        <span class="dd-chip" data-value="ccplayas"onclick="ddTapChip(this,'dd7-bank')">Playas Uva y Manzanillo</span>
+        <span class="dd-chip" data-value="cclineal"onclick="ddTapChip(this,'dd7-bank')">Costa casi lineal</span>
+        <span class="dd-chip" data-value="pmuy"    onclick="ddTapChip(this,'dd7-bank')">Muy irregular</span>
+      </div>
+      <div class="dd-buckets">
+        <div class="dd-bucket" id="dd7-bp" onclick="ddTapBucket(this,'dd7-bank')">
+          <h4>🌊 Costa del Pacífico</h4>
+          <div class="dd-placed-chips"></div>
+        </div>
+        <div class="dd-bucket" id="dd7-bc" onclick="ddTapBucket(this,'dd7-bank')">
+          <h4>🏝️ Costa del Caribe</h4>
+          <div class="dd-placed-chips"></div>
+        </div>
+      </div>
+      <button class="check-btn" onclick="ddCheckBuckets({'dd7-bp':['pk1254','pgolfos','pmuy'],'dd7-bc':['cc212','ccplayas','cclineal']},'sc-mk7dd')">Revisar <span id="sc-mk7dd" class="score-badge"></span></button>
     </div>
   </div>
 
@@ -1041,6 +1526,7 @@ textarea:disabled{background:var(--bg);color:var(--muted);}
   <div class="mock-result-box" id="mock-result">
     <div id="mock-result-inner"></div>
   </div>
+
 
 <div class="mock-section" id="writing-section">
   <div class="topic-header">
@@ -1121,7 +1607,7 @@ textarea:disabled{background:var(--bg);color:var(--muted);}
       <tr><td>3 · Cordilleras — Completa</td><td id="sc-r2f">—</td><td>3</td></tr>
       <tr><td>4 · Cerros — Selección</td><td id="sc-mc3a">—</td><td>1</td></tr>
       <tr><td>4 · Cerros — Completa</td><td id="sc-r3f">—</td><td>4</td></tr>
-      <tr><td>4 · Cerros — Checkboxes</td><td id="sc-mc3b">—</td><td>1</td></tr>
+      <tr><td>4 · Cerros — Materiales</td><td id="sc-mc3b">—</td><td>2</td></tr>
       <tr><td>5 · Valles — V/F</td><td id="sc-tf4">—</td><td>3</td></tr>
       <tr><td>5 · Valles — Une</td><td id="sc-m4">—</td><td>4</td></tr>
       <tr><td>5 · Valles — Completa</td><td id="sc-r4f">—</td><td>2</td></tr>
@@ -1145,7 +1631,24 @@ var currentTopic = 0;
 var tfAnswers = {};
 var scores = {};
 var dadGrades = {};
-var TOTAL_MAX = 73;
+var TOTAL_MAX = 74;
+
+
+// ── LIGHTBOX ──
+function openLightbox(src) {
+  var lb = document.getElementById('img-lightbox');
+  var img = document.getElementById('img-lightbox-img');
+  if (!lb || !img) return;
+  img.src = src;
+  lb.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  var lb = document.getElementById('img-lightbox');
+  if (lb) lb.classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeLightbox(); });
 
 // ── NAVIGATION ──
 function goTopic(n) {
@@ -1250,13 +1753,13 @@ function chkTF(groupId, answers, scoreKey, topicN) {
 
 // ── MULTIPLE CHOICE ──
 function chkMC1(grpId, correctIdx, scoreKey, topicN) {
-  var opts = document.querySelectorAll('#' + grpId + ' .mc-opt');
+  var btns = document.querySelectorAll('#' + grpId + ' .mc-btn');
   var chosen = -1;
-  opts.forEach(function(o,i){ if(o.querySelector('input').checked) chosen=i; });
-  opts.forEach(function(o,i){
-    o.classList.remove('correct','wrong');
-    if(i===correctIdx) o.classList.add('correct');
-    else if(i===chosen && chosen!==correctIdx) o.classList.add('wrong');
+  btns.forEach(function(b,i){ if(b.classList.contains('mc-sel')) chosen=i; });
+  btns.forEach(function(b,i){
+    b.classList.remove('correct','wrong','mc-sel');
+    if(i===correctIdx) b.classList.add('correct'); // green = always show correct
+    if(i===chosen && chosen!==correctIdx) b.classList.add('wrong'); // red = wrong pick
   });
   var ok = chosen===correctIdx ? 1 : 0;
   recordScore(scoreKey, ok, 1, topicN);
@@ -1279,6 +1782,10 @@ function chkFills(ids, acceptedSets, scoreKey, topicN) {
     var ok = acceptedSets[i][0].some(function(a){ return norm(a) === val; });
     inp.classList.toggle('correct', ok);
     inp.classList.toggle('wrong', !ok && inp.value.trim() !== '');
+    if(!ok && acceptedSets[i][0].length > 0) {
+      inp.setAttribute('data-hint', acceptedSets[i][0][0]);
+      inp.placeholder = '✓ ' + acceptedSets[i][0][0];
+    }
     if(ok) correct++;
   });
   recordScore(scoreKey, correct, ids.length, topicN);
@@ -1288,11 +1795,16 @@ function chkFills(ids, acceptedSets, scoreKey, topicN) {
 function chkMatch(ids, answers, scoreKey, topicN) {
   var correct = 0;
   ids.forEach(function(id, i) {
-    var inp = document.getElementById(id);
-    if(!inp) return;
-    var ok = inp.value.trim() === String(answers[i]);
-    inp.classList.toggle('correct', ok);
-    inp.classList.toggle('wrong', !ok && inp.value.trim() !== '');
+    var el = document.getElementById(id);
+    if(!el) return;
+    var val = el.value || '';
+    var ok = String(val) === String(answers[i]);
+    el.classList.remove('correct','wrong');
+    if(ok) { el.classList.add('correct'); }
+    else {
+      if(val && val !== '') el.classList.add('wrong');
+      el.title = 'Respuesta correcta: ' + answers[i];
+    }
     if(ok) correct++;
   });
   recordScore(scoreKey, correct, ids.length, topicN);
@@ -1315,43 +1827,157 @@ function chkCheckboxes(grpId, correctIndices, scoreKey, topicN) {
 }
 
 // ── MOCK EXAM ──
-// CP/CC state
+// ── Drag & Drop: tap-to-select → tap-to-place ──
+var ddSelected = null;
+var ddSelectedBank = null;
+
+function ddTapChip(el, bankId) {
+  if (ddSelected === el) {
+    el.classList.remove('dd-selected');
+    ddSelected = null; ddSelectedBank = null; return;
+  }
+  if (ddSelected) ddSelected.classList.remove('dd-selected');
+  el.classList.add('dd-selected');
+  ddSelected = el; ddSelectedBank = bankId;
+}
+
+function ddTapZone(zoneEl, bankId) {
+  if (!ddSelected) return;
+  var bk = bankId || ddSelectedBank;
+  var oldVal = zoneEl.dataset.placed;
+  if (oldVal && bk) {
+    document.querySelectorAll('#'+bk+' .dd-chip').forEach(function(c){
+      if (c.dataset.value === oldVal) c.classList.remove('dd-used');
+    });
+  }
+  zoneEl.textContent = ddSelected.textContent;
+  zoneEl.dataset.placed = ddSelected.dataset.value;
+  zoneEl.classList.add('dd-filled');
+  zoneEl.classList.remove('dd-correct','dd-wrong');
+  ddSelected.classList.remove('dd-selected');
+  ddSelected.classList.add('dd-used');
+  ddSelected = null; ddSelectedBank = null;
+}
+
+function ddTapBucket(bucketEl, bankId) {
+  if (!ddSelected) return;
+  var chip = document.createElement('span');
+  chip.className = 'dd-chip-placed';
+  chip.textContent = ddSelected.textContent;
+  chip.dataset.value = ddSelected.dataset.value;
+  var bk = bankId || ddSelectedBank;
+  chip.onclick = function(e) { e.stopPropagation(); ddReturnChip(chip, bk); };
+  bucketEl.querySelector('.dd-placed-chips').appendChild(chip);
+  ddSelected.classList.remove('dd-selected');
+  ddSelected.classList.add('dd-used');
+  ddSelected = null; ddSelectedBank = null;
+}
+
+function ddReturnChip(chip, bankId) {
+  document.querySelectorAll('#'+bankId+' .dd-chip').forEach(function(c){
+    if (c.dataset.value === chip.dataset.value) c.classList.remove('dd-used');
+  });
+  chip.remove();
+}
+
+function ddCheckZones(correctMap, scoreId) {
+  var n = 0, total = Object.keys(correctMap).length;
+  Object.keys(correctMap).forEach(function(zoneId){
+    var zone = document.getElementById(zoneId);
+    if (!zone) return;
+    var placed = zone.dataset.placed || '';
+    if (placed === correctMap[zoneId]) {
+      zone.classList.add('dd-correct'); zone.classList.remove('dd-wrong'); n++;
+    } else {
+      zone.classList.add('dd-wrong'); zone.classList.remove('dd-correct');
+      var correctVal = correctMap[zoneId];
+      var hint = correctVal;
+      document.querySelectorAll('.dd-chip').forEach(function(c){
+        if(c.dataset.value === correctVal) hint = c.textContent.trim();
+      });
+      zone.dataset.hint = hint;
+      if(!placed || placed !== correctVal) {
+        zone.style.setProperty('--hint', '"✓ " + hint');
+        zone.setAttribute('title', 'Correcto: ' + hint);
+      }
+    }
+  });
+  recordScore(scoreId, n, total, 'mock');
+}
+
+function ddCheckBuckets(correctBuckets, scoreId) {
+  var n = 0, total = 0;
+  Object.keys(correctBuckets).forEach(function(k){ total += correctBuckets[k].length; });
+  Object.keys(correctBuckets).forEach(function(bucketId){
+    var bucket = document.getElementById(bucketId);
+    if (!bucket) return;
+    bucket.querySelectorAll('.dd-chip-placed').forEach(function(chip){
+      if (correctBuckets[bucketId].indexOf(chip.dataset.value) >= 0) {
+        chip.style.background = '#16a34a'; n++;
+      } else { chip.style.background = '#dc2626'; }
+    });
+  });
+  recordScore(scoreId, n, total, 'mock');
+}
+
+// Generic MC group checker
+function chkMKGroup(pairs, scoreId, topicN) {
+  var n = 0;
+  pairs.forEach(function(p){ n += chkMC1(p[0], p[1], null, null); });
+  recordScore(scoreId, n, pairs.length, topicN !== undefined ? topicN : 'mock');
+}
+
+// CP/CC classification
 var cpccAnswers = {};
 function setCPCC(id, val) { cpccAnswers[id] = val; }
+function setCPCCBtn(id, val, btn) {
+  var row = btn.closest('.cpcc-row');
+  row.querySelectorAll('.cpcc-btn').forEach(function(b){
+    b.classList.remove('cpcc-sel','correct','wrong','reveal');
+  });
+  btn.classList.add('cpcc-sel');
+  cpccAnswers[id] = val;
+}
 function chkCostas() {
-  var correct = {
-    'cpcc-0':'CP','cpcc-1':'CC','cpcc-2':'CC',
-    'cpcc-3':'CP','cpcc-4':'CC','cpcc-5':'CP'
-  };
+  var correct = {'cpcc-0':'CP','cpcc-1':'CC','cpcc-2':'CC','cpcc-3':'CP','cpcc-4':'CC','cpcc-5':'CP'};
   var n = 0;
   Object.keys(correct).forEach(function(k){
-    if(cpccAnswers[k] === correct[k]) n++;
+    var ans = correct[k];
+    var sel = cpccAnswers[k];
+    var cpBtn = document.getElementById(k+'-cp');
+    var ccBtn = document.getElementById(k+'-cc');
+    if(cpBtn) cpBtn.classList.remove('correct','wrong','reveal','cpcc-sel');
+    if(ccBtn) ccBtn.classList.remove('correct','wrong','reveal','cpcc-sel');
+    var correctBtn = document.getElementById(k+'-'+ans.toLowerCase());
+    if(correctBtn) correctBtn.classList.add(sel===ans ? 'correct' : 'reveal');
+    if(sel && sel!==ans) {
+      var wrongBtn = document.getElementById(k+'-'+sel.toLowerCase());
+      if(wrongBtn) wrongBtn.classList.add('wrong');
+    }
+    if(sel===ans) n++;
   });
   recordScore('sc-mk7costas', n, 6, 'mock');
 }
+
 function calcMock() {
   var total = 0, max = 0;
-  var scoreIds = ['sc-mk1img','sc-mk1f','sc-mk2m','sc-mk2tf','sc-mk3emc','sc-mk3c','sc-mk4m','sc-mk5m','sc-mk5tf','sc-mk6ll','sc-mk7costas'];
-  scoreIds.forEach(function(k){
-    if(scores[k]){ total += scores[k].n; max += scores[k].total; }
-  });
-  if(max === 0) { alert('Completa al menos una parte del simulacro primero.'); return; }
+  var ids = ['sc-mk1img','sc-mk1mc','sc-mk1dd',
+             'sc-mk2m','sc-mk2tf','sc-mk2mc',
+             'sc-mk3emc','sc-mk3c','sc-mk3mc','sc-mk3dd',
+             'sc-mk4m','sc-mk4mc',
+             'sc-mk5m','sc-mk5tf','sc-mk5mc',
+             'sc-mk6ll','sc-mk6mc',
+             'sc-mk7costas','sc-mk7mc','sc-mk7dd'];
+  ids.forEach(function(k){ if(scores[k]){ total+=scores[k].n; max+=scores[k].total; } });
+  if(max===0){ alert('Completa al menos una parte primero.'); return; }
   var pct = Math.round(total/max*100);
-  var msg = pct>=90 ? '🌟 ¡Excelente! Estás muy bien preparado.' : pct>=70 ? '👍 ¡Muy bien! Repasa un poco más.' : pct>=50 ? '📚 Vas bien, ¡sigue practicando!' : '💪 Repasa los temas y vuelve a intentarlo.';
-  var res = document.getElementById('mock-result');
+  var msg = pct>=90?'🌟 ¡Excelente! Estás muy bien preparado.':pct>=70?'👍 ¡Muy bien! Repasa un poco más.':pct>=50?'📚 Vas bien, ¡sigue practicando!':'💪 Repasa los temas y vuelve a intentarlo.';
   document.getElementById('mock-result-inner').innerHTML = '<div style="font-size:2.5rem;font-weight:900;color:var(--amber-dark)">'+pct+'%</div><div style="font-size:1rem;font-weight:700;color:var(--text);margin-top:6px;">'+total+' de '+max+' preguntas correctas</div><div style="margin-top:8px;color:var(--muted)">'+msg+'</div>';
-  res.classList.add('show');
-  var pd = document.getElementById('pd-mock');
+  document.getElementById('mock-result').classList.add('show');
+  var pd=document.getElementById('pd-mock');
   if(pd){ pd.classList.remove('empty'); pd.classList.add('practice-done'); pd.textContent='✓'; }
 }
 
-function openLightbox(src) {
-  document.getElementById('img-lightbox-img').src = src;
-  document.getElementById('img-lightbox').classList.add('open');
-}
-function closeLightbox() {
-  document.getElementById('img-lightbox').classList.remove('open');
-}
 // ── WRITING ──
 function submitWriting() {
   ['wr1','wr2','wr3'].forEach(function(id){
@@ -1410,6 +2036,33 @@ function computeFinal() {
   document.getElementById('final-grade-letter').style.color=color;
   document.getElementById('final-grade-pct').textContent=pct+'% ('+total+'/'+max+' pts)';
   document.getElementById('final-grade-msg').textContent=msg;
+}
+
+// ── MC button selection ──
+function selMCBtn(btn, gid) {
+  document.querySelectorAll('#'+gid+' .mc-btn').forEach(function(b){
+    b.classList.remove('mc-sel','correct','wrong');
+  });
+  btn.classList.add('mc-sel');
+}
+
+// ── MA picker number selection ──
+function selMANum(btn, pid, val) {
+  document.querySelectorAll('#'+pid+' .ma-num').forEach(function(b){
+    b.classList.remove('ma-sel','correct','wrong','reveal');
+  });
+  btn.classList.add('ma-sel');
+  document.getElementById(pid).dataset.selected = val;
+}
+
+// ── CPCC button selection ──
+function setCPCCBtn(id, val, btn) {
+  var row = btn.closest('.cpcc-row');
+  row.querySelectorAll('.cpcc-btn').forEach(function(b){
+    b.classList.remove('cpcc-sel','correct','wrong','reveal');
+  });
+  btn.classList.add('cpcc-sel');
+  cpccAnswers[id] = val;
 }
 </script>
 
