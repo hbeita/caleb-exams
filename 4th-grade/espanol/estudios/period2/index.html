@@ -218,14 +218,14 @@ textarea:disabled{background:var(--bg);color:var(--muted);}
 /* ── Drag & Drop (tap-to-select → tap-to-place) ── */
 .dd-hint{font-size:.73rem;color:var(--muted);margin-bottom:.5rem;font-style:italic;}
 .dd-bank{display:flex;flex-wrap:wrap;gap:8px;padding:.6rem .7rem;background:#eff6ff;border-radius:10px;min-height:44px;margin:.5rem 0;}
-.dd-chip{background:#3b82f6;color:#fff;border-radius:20px;padding:7px 16px;cursor:pointer;font-size:.8rem;font-weight:700;transition:all .15s;user-select:none;-webkit-user-select:none;touch-action:manipulation;line-height:1.2;}
+.dd-chip{background:#3b82f6;color:#fff;border-radius:20px;padding:7px 16px;cursor:pointer;font-size:.8rem;font-weight:700;transition:all .15s;user-select:none;-webkit-user-select:none;touch-action:manipulation;line-height:1.2;border:none;outline:none;}
 .dd-chip:active{transform:scale(.96);}
 .dd-chip.dd-selected{background:#1d4ed8;transform:scale(1.07);box-shadow:0 0 0 3px #93c5fd;}
 .dd-chip.dd-used{opacity:.28;pointer-events:none;}
 .dd-pairs{display:flex;flex-direction:column;gap:10px;margin:.5rem 0;}
 .dd-pair{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
 .dd-pair-label{flex:1;min-width:160px;font-size:.8rem;color:var(--text);line-height:1.35;}
-.dd-zone{min-width:148px;min-height:38px;border:2px dashed #3b82f6;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;padding:4px 10px;font-size:.78rem;cursor:pointer;transition:all .15s;background:#fff;color:#1d4ed8;font-weight:700;text-align:center;touch-action:manipulation;}
+.dd-zone{min-width:148px;min-height:44px;border:2px dashed #3b82f6;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;padding:4px 10px;font-size:.78rem;cursor:pointer;transition:all .15s;background:#fff;color:#1d4ed8;font-weight:700;text-align:center;touch-action:manipulation;outline:none;}
 .dd-zone:hover,.dd-zone:active{background:#eff6ff;}
 .dd-zone.dd-filled{border-style:solid;background:#eff6ff;}
 .dd-zone.dd-correct{border-color:#16a34a!important;background:#f0fdf4!important;color:#14532d!important;}
@@ -1134,21 +1134,21 @@ textarea:disabled{background:var(--bg);color:var(--muted);}
       <h3>3. Arrastra cada proceso a su descripción</h3>
       <p class="dd-hint">Toca un proceso (se resalta en azul) y luego toca el recuadro punteado donde corresponde.</p>
       <div class="dd-bank" id="dd1-bank">
-        <span class="dd-chip" data-value="erosion" onclick="ddTapChip(this,'dd1-bank')">Erosión</span>
-        <span class="dd-chip" data-value="volcan" onclick="ddTapChip(this,'dd1-bank')">Acción de los volcanes</span>
-        <span class="dd-chip" data-value="subduccion" onclick="ddTapChip(this,'dd1-bank')">Movimiento de las placas</span>
+        <button class="dd-chip" data-value="erosion" onclick="ddTapChip(this,'dd1-bank')">Erosión</button>
+        <button class="dd-chip" data-value="volcan" onclick="ddTapChip(this,'dd1-bank')">Acción de los volcanes</button>
+        <button class="dd-chip" data-value="subduccion" onclick="ddTapChip(this,'dd1-bank')">Movimiento de las placas</button>
       </div>
       <div class="dd-pairs">
         <div class="dd-pair">
-          <div class="dd-zone" id="dd1-z1" onclick="ddTapZone(this,'dd1-bank')">— arrastrar aquí —</div>
+          <button class="dd-zone" id="dd1-z1" onclick="ddTapZone(this,'dd1-bank')">— arrastrar aquí —</button>
           <span class="dd-pair-label">Desgasta el relieve por acción del agua y el viento.</span>
         </div>
         <div class="dd-pair">
-          <div class="dd-zone" id="dd1-z2" onclick="ddTapZone(this,'dd1-bank')">— arrastrar aquí —</div>
+          <button class="dd-zone" id="dd1-z2" onclick="ddTapZone(this,'dd1-bank')">— arrastrar aquí —</button>
           <span class="dd-pair-label">Expulsa humo, ceniza y lava, cambiando la forma del volcán.</span>
         </div>
         <div class="dd-pair">
-          <div class="dd-zone" id="dd1-z3" onclick="ddTapZone(this,'dd1-bank')">— arrastrar aquí —</div>
+          <button class="dd-zone" id="dd1-z3" onclick="ddTapZone(this,'dd1-bank')">— arrastrar aquí —</button>
           <span class="dd-pair-label">Una placa tectónica se introduce debajo de la otra generando temblores.</span>
         </div>
       </div>
@@ -1287,26 +1287,26 @@ textarea:disabled{background:var(--bg);color:var(--muted);}
       <h3>10. Arrastra el nombre de la cordillera a su descripción</h3>
       <p class="dd-hint">Toca una cordillera y luego toca el recuadro punteado donde corresponde.</p>
       <div class="dd-bank" id="dd3-bank">
-        <span class="dd-chip" data-value="guanacaste" onclick="ddTapChip(this,'dd3-bank')">Guanacaste</span>
-        <span class="dd-chip" data-value="tilaran" onclick="ddTapChip(this,'dd3-bank')">Tilarán</span>
-        <span class="dd-chip" data-value="volcanica" onclick="ddTapChip(this,'dd3-bank')">Volcánica Central</span>
-        <span class="dd-chip" data-value="talamanca" onclick="ddTapChip(this,'dd3-bank')">Talamanca</span>
+        <button class="dd-chip" data-value="guanacaste" onclick="ddTapChip(this,'dd3-bank')">Guanacaste</button>
+        <button class="dd-chip" data-value="tilaran" onclick="ddTapChip(this,'dd3-bank')">Tilarán</button>
+        <button class="dd-chip" data-value="volcanica" onclick="ddTapChip(this,'dd3-bank')">Volcánica Central</button>
+        <button class="dd-chip" data-value="talamanca" onclick="ddTapChip(this,'dd3-bank')">Talamanca</button>
       </div>
       <div class="dd-pairs">
         <div class="dd-pair">
-          <div class="dd-zone" id="dd3-z1" onclick="ddTapZone(this,'dd3-bank')">— aquí —</div>
+          <button class="dd-zone" id="dd3-z1" onclick="ddTapZone(this,'dd3-bank')">— aquí —</button>
           <span class="dd-pair-label">Volcanes Orosí, Cacao y Rincón de la Vieja.</span>
         </div>
         <div class="dd-pair">
-          <div class="dd-zone" id="dd3-z2" onclick="ddTapZone(this,'dd3-bank')">— aquí —</div>
+          <button class="dd-zone" id="dd3-z2" onclick="ddTapZone(this,'dd3-bank')">— aquí —</button>
           <span class="dd-pair-label">Zona de vientos; energía eólica; embalse Arenal.</span>
         </div>
         <div class="dd-pair">
-          <div class="dd-zone" id="dd3-z3" onclick="ddTapZone(this,'dd3-bank')">— aquí —</div>
+          <button class="dd-zone" id="dd3-z3" onclick="ddTapZone(this,'dd3-bank')">— aquí —</button>
           <span class="dd-pair-label">Volcanes Barva, Poás, Irazú y Turrialba.</span>
         </div>
         <div class="dd-pair">
-          <div class="dd-zone" id="dd3-z4" onclick="ddTapZone(this,'dd3-bank')">— aquí —</div>
+          <button class="dd-zone" id="dd3-z4" onclick="ddTapZone(this,'dd3-bank')">— aquí —</button>
           <span class="dd-pair-label">Sin volcanes activos; alberga el Cerro Chirripó.</span>
         </div>
       </div>
@@ -1499,12 +1499,12 @@ textarea:disabled{background:var(--bg);color:var(--muted);}
       <h3>20. Arrastra cada característica a la costa que corresponde</h3>
       <p class="dd-hint">Toca una característica y luego toca el recuadro de la costa correcta. Toca una ficha colocada para devolverla al banco.</p>
       <div class="dd-bank" id="dd7-bank">
-        <span class="dd-chip" data-value="pk1254"  onclick="ddTapChip(this,'dd7-bank')">1254 km</span>
-        <span class="dd-chip" data-value="cc212"   onclick="ddTapChip(this,'dd7-bank')">212 km</span>
-        <span class="dd-chip" data-value="pgolfos" onclick="ddTapChip(this,'dd7-bank')">Golfos de Nicoya y Dulce</span>
-        <span class="dd-chip" data-value="ccplayas"onclick="ddTapChip(this,'dd7-bank')">Playas Uva y Manzanillo</span>
-        <span class="dd-chip" data-value="cclineal"onclick="ddTapChip(this,'dd7-bank')">Costa casi lineal</span>
-        <span class="dd-chip" data-value="pmuy"    onclick="ddTapChip(this,'dd7-bank')">Muy irregular</span>
+        <button class="dd-chip" data-value="pk1254"  onclick="ddTapChip(this,'dd7-bank')">1254 km</button>
+        <button class="dd-chip" data-value="cc212"   onclick="ddTapChip(this,'dd7-bank')">212 km</button>
+        <button class="dd-chip" data-value="pgolfos" onclick="ddTapChip(this,'dd7-bank')">Golfos de Nicoya y Dulce</button>
+        <button class="dd-chip" data-value="ccplayas"onclick="ddTapChip(this,'dd7-bank')">Playas Uva y Manzanillo</button>
+        <button class="dd-chip" data-value="cclineal"onclick="ddTapChip(this,'dd7-bank')">Costa casi lineal</button>
+        <button class="dd-chip" data-value="pmuy"    onclick="ddTapChip(this,'dd7-bank')">Muy irregular</button>
       </div>
       <div class="dd-buckets">
         <div class="dd-bucket" id="dd7-bp" onclick="ddTapBucket(this,'dd7-bank')">
@@ -1649,6 +1649,16 @@ function closeLightbox() {
   document.body.style.overflow = '';
 }
 document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeLightbox(); });
+
+// ── TOUCH FIX: dd-bucket tap-to-place for tablets ──
+document.addEventListener('touchstart', function(e) {
+  var bucket = e.target.closest && e.target.closest('.dd-bucket');
+  if (bucket && ddSelected) {
+    e.preventDefault();
+    var m = (bucket.getAttribute('onclick') || '').match(/'([^']+)'/);
+    if (m) ddTapBucket(bucket, m[1]);
+  }
+}, {passive: false});
 
 // ── NAVIGATION ──
 function goTopic(n) {
