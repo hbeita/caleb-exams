@@ -205,6 +205,15 @@ textarea:disabled{background:var(--bg);color:var(--muted);}
 #img-lightbox img{max-width:95vw;max-height:92vh;border-radius:10px;box-shadow:0 8px 40px rgba(0,0,0,.6);}
 #img-lightbox-close{position:absolute;top:18px;right:22px;color:#fff;font-size:2rem;cursor:pointer;font-weight:900;line-height:1;}
 
+
+/* CP/CC classification table */
+.cpcc-table{border:1.5px solid #e5c56a;border-radius:10px;overflow:hidden;margin:.6rem 0;font-size:.8rem;}
+.cpcc-header{display:grid;grid-template-columns:1fr 60px 60px;background:var(--amber-mid);padding:.4rem .6rem;font-weight:800;font-size:.75rem;color:#fff;}
+.cpcc-row{display:grid;grid-template-columns:1fr 60px 60px;padding:.45rem .6rem;border-top:1px solid #f5e0a0;align-items:center;gap:4px;}
+.cpcc-row:nth-child(even){background:#fffbeb;}
+.cpcc-row label{display:flex;align-items:center;gap:4px;cursor:pointer;font-weight:700;justify-content:center;}
+.cpcc-row input[type=radio]{cursor:pointer;}
+
 </style>
 </head>
 <body>
@@ -852,137 +861,120 @@ textarea:disabled{background:var(--bg);color:var(--muted);}
 <div class="mock-section" id="mock-section">
   <div class="topic-header">
     <div class="topic-number" style="background:linear-gradient(135deg,#7c3aed,#a855f7);font-size:1.2rem">🎯</div>
-    <div><h2 style="color:#6b21a8">Simulacro Final — 38 preguntas</h2><p>Todos los temas · Ana María Herrera Romero</p></div>
+    <div><h2 style="color:#6b21a8">Simulacro — Prueba I Período</h2><p>Basado en el repaso oficial · Ana María Herrera Romero</p></div>
   </div>
 
-  <!-- ── PARTE I · RELIEVE ── -->
+  <!-- ══ PARTE I · PROCESOS DEL RELIEVE ══ -->
   <div class="mock-part">
     <div class="mock-part-title">Parte I — Procesos que modifican el relieve</div>
-    <div class="book-img-row" style="margin-bottom:.5rem">
-      <div class="book-img-thumb" onclick="openLightbox('img/IMG_0991.jpg')" title="Pág. 56"><img src="img/IMG_0991.jpg" alt="Pág. 56" style="width:110px"></div>
-      <div class="book-img-thumb" onclick="openLightbox('img/IMG_0992.jpg')" title="Pág. 57"><img src="img/IMG_0992.jpg" alt="Pág. 57" style="width:110px"></div>
+    <div class="test-block">
+      <h3>1. Identifica cada proceso según la descripción de la imagen</h3>
+      <p style="font-size:.78rem;color:var(--muted);margin-bottom:.8rem">Opciones: <strong>erosión · acción de los volcanes · movimiento de las placas tectónicas</strong></p>
+      <div class="q-row"><label>🌧️ <strong>Imagen A:</strong> Muestra montañas con lluvia. El agua arrastra suelo y piedras de las partes altas a las partes bajas formando sedimentos.</label><input class="fill-input" id="mk1-img1" placeholder="proceso:____________"></div>
+      <div class="q-row"><label>🏔️ <strong>Imagen B:</strong> Muestra dos capas de la Tierra. Una placa se mete por debajo de la otra generando temblores.</label><input class="fill-input" id="mk1-img2" placeholder="proceso:____________"></div>
+      <div class="q-row"><label>🌋 <strong>Imagen C:</strong> Muestra un cono con humo, cenizas y lava saliendo por la cima, cambiando la forma de la montaña.</label><input class="fill-input" id="mk1-img3" placeholder="proceso:____________"></div>
+      <button class="check-btn" onclick="chkFills(
+        ['mk1-img1','mk1-img2','mk1-img3'],
+        [[['erosion','erosión','la erosion']],[['placas','tectónicas','tectoni','movimiento']],[['volcan','volcanes','accion','acción']]],
+        'sc-mk1img','mock')">Revisar <span id="sc-mk1img" class="score-badge"></span></button>
     </div>
     <div class="test-block">
-      <h3>1a. Verdadero o Falso</h3>
-      <div id="mk-tf1">
-        <div class="tf-row"><span class="tf-stmt">La erosión desgasta el relieve por acción del agua y el viento.</span><div class="tf-btns"><button class="tf-btn" onclick="selTF(this,'mktf1-0','V')">V</button><button class="tf-btn" onclick="selTF(this,'mktf1-0','F')">F</button></div></div>
-        <div class="tf-row"><span class="tf-stmt">La subducción ocurre cuando la placa Cocos se <em>monta encima</em> de la placa Caribe.</span><div class="tf-btns"><button class="tf-btn" onclick="selTF(this,'mktf1-1','V')">V</button><button class="tf-btn" onclick="selTF(this,'mktf1-1','F')">F</button></div></div>
-        <div class="tf-row"><span class="tf-stmt">Los volcanes solo modifican el relieve cuando hay una erupción violenta.</span><div class="tf-btns"><button class="tf-btn" onclick="selTF(this,'mktf1-2','V')">V</button><button class="tf-btn" onclick="selTF(this,'mktf1-2','F')">F</button></div></div>
-        <div class="tf-row"><span class="tf-stmt">Costa Rica se ubica sobre las placas tectónicas Cocos y Caribe.</span><div class="tf-btns"><button class="tf-btn" onclick="selTF(this,'mktf1-3','V')">V</button><button class="tf-btn" onclick="selTF(this,'mktf1-3','F')">F</button></div></div>
-      </div>
-      <button class="check-btn" onclick="chkTF('mk-tf1',['V','F','F','V'],'sc-mk1tf','mock')">Revisar <span id="sc-mk1tf" class="score-badge"></span></button>
-    </div>
-    <div class="test-block">
-      <h3>1b. Completa los espacios</h3>
-      <div class="q-row"><label>1. El desgaste de la superficie terrestre por agua o viento se llama</label><input class="fill-input" id="mk1-f1" placeholder="___________"></div>
-      <div class="q-row"><label>2. Cuando la placa Cocos se introduce bajo la placa Caribe ocurre la</label><input class="fill-input" id="mk1-f2" placeholder="___________"></div>
+      <h3>2. Completa los espacios</h3>
+      <div class="q-row"><label>a. El desgaste de la superficie terrestre por acción del agua o el viento se llama</label><input class="fill-input" id="mk1-f1" placeholder="___________"></div>
+      <div class="q-row"><label>b. Cuando la placa Cocos se introduce bajo la placa Caribe ocurre la</label><input class="fill-input" id="mk1-f2" placeholder="___________"></div>
       <button class="check-btn" onclick="chkFills(['mk1-f1','mk1-f2'],[[['erosion','erosión']],[['subduccion','subducción']]],'sc-mk1f','mock')">Revisar <span id="sc-mk1f" class="score-badge"></span></button>
     </div>
   </div>
 
-  <!-- ── PARTE II · TERRITORIO ── -->
+  <!-- ══ PARTE II · ETAPAS DEL TERRITORIO ══ -->
   <div class="mock-part">
-    <div class="mock-part-title">Parte II — Origen y formación del territorio</div>
-    <div class="book-img-row" style="margin-bottom:.5rem">
-      <div class="book-img-thumb" onclick="openLightbox('img/IMG_0993.jpg')" title="Pág. 58"><img src="img/IMG_0993.jpg" alt="Pág. 58" style="width:110px"></div>
-      <div class="book-img-thumb" onclick="openLightbox('img/IMG_0994.jpg')" title="Pág. 59"><img src="img/IMG_0994.jpg" alt="Pág. 59" style="width:110px"></div>
-    </div>
+    <div class="mock-part-title">Parte II — Origen y etapas de la formación del territorio</div>
     <div class="test-block">
-      <h3>2a. Selección múltiple</h3>
-      <div class="q-row"><label>a) ¿En qué etapa surgió el arco insular externo?</label>
-        <div class="mc-opts" id="mk2-mca">
-          <label class="mc-opt"><input type="radio" name="mk2-mca"> Primera etapa</label>
-          <label class="mc-opt"><input type="radio" name="mk2-mca"> Segunda etapa</label>
-          <label class="mc-opt"><input type="radio" name="mk2-mca"> Tercera etapa</label>
-        </div>
-      </div>
-      <div class="q-row" style="margin-top:10px"><label>b) ¿Qué proceso formó las cordilleras de Costa Rica?</label>
-        <div class="mc-opts" id="mk2-mcb">
-          <label class="mc-opt"><input type="radio" name="mk2-mcb"> Erosión</label>
-          <label class="mc-opt"><input type="radio" name="mk2-mcb"> Orogénesis</label>
-          <label class="mc-opt"><input type="radio" name="mk2-mcb"> Sedimentación</label>
-        </div>
-      </div>
-      <button class="check-btn" onclick="chkMK2mc()">Revisar <span id="sc-mk2mc" class="score-badge"></span></button>
-    </div>
-    <div class="test-block">
-      <h3>2b. Verdadero o Falso</h3>
-      <div id="mk-tf2">
-        <div class="tf-row"><span class="tf-stmt">El territorio de Costa Rica se formó en tres etapas geológicas.</span><div class="tf-btns"><button class="tf-btn" onclick="selTF(this,'mktf2-0','V')">V</button><button class="tf-btn" onclick="selTF(this,'mktf2-0','F')">F</button></div></div>
-        <div class="tf-row"><span class="tf-stmt">El arco insular externo surgió durante la segunda etapa.</span><div class="tf-btns"><button class="tf-btn" onclick="selTF(this,'mktf2-1','V')">V</button><button class="tf-btn" onclick="selTF(this,'mktf2-1','F')">F</button></div></div>
-        <div class="tf-row"><span class="tf-stmt">La tercera etapa unió definitivamente las partes norte y sur del territorio.</span><div class="tf-btns"><button class="tf-btn" onclick="selTF(this,'mktf2-2','V')">V</button><button class="tf-btn" onclick="selTF(this,'mktf2-2','F')">F</button></div></div>
-      </div>
-      <button class="check-btn" onclick="chkTF('mk-tf2',['V','F','V'],'sc-mk2tf','mock')">Revisar <span id="sc-mk2tf" class="score-badge"></span></button>
-    </div>
-  </div>
-
-  <!-- ── PARTE III · CORDILLERAS ── -->
-  <div class="mock-part">
-    <div class="mock-part-title">Parte III — Cordilleras de Costa Rica</div>
-    <div class="book-img-row" style="margin-bottom:.5rem">
-      <div class="book-img-thumb" onclick="openLightbox('img/IMG_0995.jpg')" title="Pág. 66"><img src="img/IMG_0995.jpg" alt="Pág. 66" style="width:110px"></div>
-      <div class="book-img-thumb" onclick="openLightbox('img/IMG_0996.jpg')" title="Pág. 67"><img src="img/IMG_0996.jpg" alt="Pág. 67" style="width:110px"></div>
-    </div>
-    <div class="test-block">
-      <h3>3a. Une con el número correcto</h3>
+      <h3>3. Une con el número correcto — Etapas de formación del territorio</h3>
       <div class="match-grid">
         <div class="match-a">
-          <div class="ma-item"><input id="mk3-m1" placeholder="#"> Volcánica Central</div>
-          <div class="ma-item"><input id="mk3-m2" placeholder="#"> Talamanca</div>
-          <div class="ma-item"><input id="mk3-m3" placeholder="#"> Guanacaste</div>
-          <div class="ma-item"><input id="mk3-m4" placeholder="#"> Tilarán</div>
+          <div class="ma-item"><input id="mk2-m1" placeholder="#"> El choque entre las placas Cocos y Caribe formó un arco insular externo y las penínsulas.</div>
+          <div class="ma-item"><input id="mk2-m2" placeholder="#"> Por medio del proceso de orogénesis se formó el arco insular interno y los valles.</div>
+          <div class="ma-item"><input id="mk2-m3" placeholder="#"> A causa de la erosión se formaron las llanuras y las costas.</div>
         </div>
         <div class="match-b">
-          <div class="mb-item"><span class="mb-num">1.</span> Volcanes Barva, Poás, Irazú y Turrialba</div>
-          <div class="mb-item"><span class="mb-num">2.</span> Sin volcanes activos; Cerro Chirripó 3820 m</div>
-          <div class="mb-item"><span class="mb-num">3.</span> Volcanes Orosí, Cacao, Rincón de la Vieja</div>
-          <div class="mb-item"><span class="mb-num">4.</span> Famosa por sus vientos y el embalse Arenal</div>
+          <div class="mb-item"><span class="mb-num">1.</span> Primera etapa</div>
+          <div class="mb-item"><span class="mb-num">2.</span> Segunda etapa</div>
+          <div class="mb-item"><span class="mb-num">3.</span> Tercera etapa</div>
         </div>
       </div>
-      <button class="check-btn" onclick="chkMatch(['mk3-m1','mk3-m2','mk3-m3','mk3-m4'],[1,2,3,4],'sc-mk3m','mock')">Revisar <span id="sc-mk3m" class="score-badge"></span></button>
+      <button class="check-btn" onclick="chkMatch(['mk2-m1','mk2-m2','mk2-m3'],[1,2,3],'sc-mk2m','mock')">Revisar <span id="sc-mk2m" class="score-badge"></span></button>
     </div>
     <div class="test-block">
-      <h3>3b. Completa los espacios</h3>
-      <div class="q-row"><label>1. El cerro más alto de Costa Rica es el Cerro _____ con 3820 metros.</label><input class="fill-input" id="mk3-f1" placeholder="___________"></div>
-      <div class="q-row"><label>2. La Cordillera de Tilarán genera energía _____ gracias a sus fuertes vientos.</label><input class="fill-input" id="mk3-f2" placeholder="___________"></div>
-      <button class="check-btn" onclick="chkFills(['mk3-f1','mk3-f2'],[[['chirripo','chirripó']],[['eolica','eólica','eolico','eólico']]],'sc-mk3f','mock')">Revisar <span id="sc-mk3f" class="score-badge"></span></button>
+      <h3>4. Verdadero o Falso</h3>
+      <div id="mk-tf2">
+        <div class="tf-row"><span class="tf-stmt">En la segunda etapa se formaron las cordilleras volcánicas de Guanacaste y Central.</span><div class="tf-btns"><button class="tf-btn" onclick="selTF(this,'mktf2-0','V')">V</button><button class="tf-btn" onclick="selTF(this,'mktf2-0','F')">F</button></div></div>
+        <div class="tf-row"><span class="tf-stmt">El arco insular externo surgió durante la primera etapa de formación del territorio.</span><div class="tf-btns"><button class="tf-btn" onclick="selTF(this,'mktf2-1','V')">V</button><button class="tf-btn" onclick="selTF(this,'mktf2-1','F')">F</button></div></div>
+        <div class="tf-row"><span class="tf-stmt">En la tercera etapa se formaron las actuales penínsulas de Santa Elena, Nicoya y Osa.</span><div class="tf-btns"><button class="tf-btn" onclick="selTF(this,'mktf2-2','V')">V</button><button class="tf-btn" onclick="selTF(this,'mktf2-2','F')">F</button></div></div>
+      </div>
+      <button class="check-btn" onclick="chkTF('mk-tf2',['V','V','F'],'sc-mk2tf','mock')">Revisar <span id="sc-mk2tf" class="score-badge"></span></button>
     </div>
   </div>
 
-  <!-- ── PARTE IV · SISTEMA MONTAÑOSO SECUNDARIO ── -->
+  <!-- ══ PARTE III · EJE MONTAÑOSO CENTRAL + CORDILLERAS ══ -->
+  <div class="mock-part">
+    <div class="mock-part-title">Parte III — Eje montañoso central y cordilleras</div>
+    <div class="test-block">
+      <h3>5. Lee los recuadros y selecciona los que son características del eje montañoso central</h3>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:.6rem 0;font-size:.8rem;">
+        <div style="border:1.5px solid #e5c56a;border-radius:8px;padding:.5rem .7rem;background:#fffbeb"><strong>a)</strong> Atraviesa el territorio nacional de noroeste a sureste.</div>
+        <div style="border:1.5px solid #e5c56a;border-radius:8px;padding:.5rem .7rem;background:#fffbeb"><strong>b)</strong> Se compone de cerros de poca altura.</div>
+        <div style="border:1.5px solid #e5c56a;border-radius:8px;padding:.5rem .7rem;background:#fffbeb"><strong>c)</strong> Posee montañas altas y terrenos quebrados con pendientes.</div>
+        <div style="border:1.5px solid #e5c56a;border-radius:8px;padding:.5rem .7rem;background:#fffbeb"><strong>d)</strong> Se extiende a lo largo de la costa pacífica.</div>
+      </div>
+      <div class="mc-opts" id="mk3-emc">
+        <label class="mc-opt"><input type="radio" name="mk3-emc"> a y d</label>
+        <label class="mc-opt"><input type="radio" name="mk3-emc"> b y d</label>
+        <label class="mc-opt"><input type="radio" name="mk3-emc"> a y c</label>
+      </div>
+      <button class="check-btn" onclick="chkMC1('mk3-emc',2,'sc-mk3emc','mock')">Revisar <span id="sc-mk3emc" class="score-badge"></span></button>
+    </div>
+    <div class="test-block">
+      <h3>6. Anota el nombre de cada cordillera según las características</h3>
+      <div class="q-row"><label>1. Se extiende desde el volcán Orosí hasta el volcán Arenal. Detiene el paso de los vientos del Caribe:</label><input class="fill-input" id="mk3-c1" placeholder="Cordillera de _______"></div>
+      <div class="q-row"><label>2. Se extiende desde la depresión del Arenal hasta la depresión de Tapezco. Zona de fuertes vientos que se aprovechan para generar energía eólica:</label><input class="fill-input" id="mk3-c2" placeholder="Cordillera de _______"></div>
+      <div class="q-row"><label>3. Se prolonga desde la depresión de Tapezco hasta el volcán Turrialba. Incluye los volcanes Barva, Poás e Irazú:</label><input class="fill-input" id="mk3-c3" placeholder="Cordillera _______"></div>
+      <div class="q-row"><label>4. Se ubica al sureste del país desde los cerros La Carpintera hasta el cerro Pando. Posee el cerro Chirripó, el más alto de Costa Rica:</label><input class="fill-input" id="mk3-c4" placeholder="Cordillera de _______"></div>
+      <button class="check-btn" onclick="chkFills(
+        ['mk3-c1','mk3-c2','mk3-c3','mk3-c4'],
+        [[['guanacaste']],[['tilaran','tilarán']],[['volcanica','volcánica','central','volcanica central']],[['talamanca']]],
+        'sc-mk3c','mock')">Revisar <span id="sc-mk3c" class="score-badge"></span></button>
+    </div>
+  </div>
+
+  <!-- ══ PARTE IV · SISTEMA MONTAÑOSO SECUNDARIO ══ -->
   <div class="mock-part">
     <div class="mock-part-title">Parte IV — Sistema montañoso secundario</div>
-    <div class="book-img-row" style="margin-bottom:.5rem">
-      <div class="book-img-thumb" onclick="openLightbox('img/IMG_0997.jpg')" title="Pág. 68"><img src="img/IMG_0997.jpg" alt="Pág. 68" style="width:110px"></div>
-      <div class="book-img-thumb" onclick="openLightbox('img/IMG_0998.jpg')" title="Pág. 69"><img src="img/IMG_0998.jpg" alt="Pág. 69" style="width:110px"></div>
-    </div>
     <div class="test-block">
-      <h3>4a. Verdadero o Falso</h3>
-      <div id="mk-tf4">
-        <div class="tf-row"><span class="tf-stmt">Los Cerros de Santa Elena se ubican en la Provincia de Guanacaste.</span><div class="tf-btns"><button class="tf-btn" onclick="selTF(this,'mktf4-0','V')">V</button><button class="tf-btn" onclick="selTF(this,'mktf4-0','F')">F</button></div></div>
-        <div class="tf-row"><span class="tf-stmt">Los Cerros de Nicoya tienen depósitos de rocas calizas usadas para fabricar cemento.</span><div class="tf-btns"><button class="tf-btn" onclick="selTF(this,'mktf4-1','V')">V</button><button class="tf-btn" onclick="selTF(this,'mktf4-1','F')">F</button></div></div>
-        <div class="tf-row"><span class="tf-stmt">La Fila Brunqueña forma parte del sistema montañoso secundario.</span><div class="tf-btns"><button class="tf-btn" onclick="selTF(this,'mktf4-2','V')">V</button><button class="tf-btn" onclick="selTF(this,'mktf4-2','F')">F</button></div></div>
-        <div class="tf-row"><span class="tf-stmt">Los Cerros Salsipuedes se ubican en la Península de Nicoya.</span><div class="tf-btns"><button class="tf-btn" onclick="selTF(this,'mktf4-3','V')">V</button><button class="tf-btn" onclick="selTF(this,'mktf4-3','F')">F</button></div></div>
+      <h3>7. Une cada descripción con el cerro que corresponde</h3>
+      <div class="match-grid">
+        <div class="match-a">
+          <div class="ma-item"><input id="mk4-m1" placeholder="#"> Poseen depósitos de rocas calizas utilizadas en la fabricación de cemento.</div>
+          <div class="ma-item"><input id="mk4-m2" placeholder="#"> Cuentan con yacimientos de mármol usados en construcción y obras artísticas.</div>
+          <div class="ma-item"><input id="mk4-m3" placeholder="#"> Zona apta para el cultivo de banano y palma africana.</div>
+          <div class="ma-item"><input id="mk4-m4" placeholder="#"> En la región se cultiva banano, arroz y palma aceitera.</div>
+        </div>
+        <div class="match-b">
+          <div class="mb-item"><span class="mb-num">1.</span> Cerros de la Península de Burica</div>
+          <div class="mb-item"><span class="mb-num">2.</span> Cerros de Nicoya</div>
+          <div class="mb-item"><span class="mb-num">3.</span> Cerros de Herradura</div>
+          <div class="mb-item"><span class="mb-num">4.</span> Fila Brunqueña</div>
+        </div>
       </div>
-      <button class="check-btn" onclick="chkTF('mk-tf4',['V','V','V','V'],'sc-mk4tf','mock')">Revisar <span id="sc-mk4tf" class="score-badge"></span></button>
-    </div>
-    <div class="test-block">
-      <h3>4b. Completa los espacios</h3>
-      <div class="q-row"><label>1. Los Cerros de Herradura y los Cerros de Nicoya forman parte del sistema</label><input class="fill-input" id="mk4-f1" placeholder="___________"> secundario.</div>
-      <div class="q-row"><label>2. La Fila _____ es una alineación de cerros ubicada en el sur del país.</label><input class="fill-input" id="mk4-f2" placeholder="___________"></div>
-      <button class="check-btn" onclick="chkFills(['mk4-f1','mk4-f2'],[[['montanoso','montañoso']],[['brunquena','brunqueña','brunqueña']]],'sc-mk4f','mock')">Revisar <span id="sc-mk4f" class="score-badge"></span></button>
+      <button class="check-btn" onclick="chkMatch(['mk4-m1','mk4-m2','mk4-m3','mk4-m4'],[2,3,4,1],'sc-mk4m','mock')">Revisar <span id="sc-mk4m" class="score-badge"></span></button>
     </div>
   </div>
 
-  <!-- ── PARTE V · VALLES ── -->
+  <!-- ══ PARTE V · VALLES ══ -->
   <div class="mock-part">
     <div class="mock-part-title">Parte V — Valles de Costa Rica</div>
-    <div class="book-img-row" style="margin-bottom:.5rem">
-      <div class="book-img-thumb" onclick="openLightbox('img/IMG_0999.jpg')" title="Pág. 70"><img src="img/IMG_0999.jpg" alt="Pág. 70" style="width:110px"></div>
-      <div class="book-img-thumb" onclick="openLightbox('img/IMG_1001.jpg')" title="Pág. 71"><img src="img/IMG_1001.jpg" alt="Pág. 71" style="width:110px"></div>
-    </div>
     <div class="test-block">
-      <h3>5a. Une con el número correcto</h3>
+      <h3>8. Une el valle con sus características</h3>
       <div class="match-grid">
         <div class="match-a">
           <div class="ma-item"><input id="mk5-m1" placeholder="#"> Valle Central</div>
@@ -992,7 +984,7 @@ textarea:disabled{background:var(--bg);color:var(--muted);}
         </div>
         <div class="match-b">
           <div class="mb-item"><span class="mb-num">1.</span> Costa Caribe; Río Sixaola; banano y cacao</div>
-          <div class="mb-item"><span class="mb-num">2.</span> Principal zona urbana; ríos Virilla y Grande; café y caña</div>
+          <div class="mb-item"><span class="mb-num">2.</span> Zona más poblada; ríos Virilla y Grande; café y caña</div>
           <div class="mb-item"><span class="mb-num">3.</span> Sur del país; Río Térraba; piña y café</div>
           <div class="mb-item"><span class="mb-num">4.</span> Guanacaste; ríos Tempisque y Cañas; ganadería y arroz</div>
         </div>
@@ -1000,73 +992,46 @@ textarea:disabled{background:var(--bg);color:var(--muted);}
       <button class="check-btn" onclick="chkMatch(['mk5-m1','mk5-m2','mk5-m3','mk5-m4'],[2,4,1,3],'sc-mk5m','mock')">Revisar <span id="sc-mk5m" class="score-badge"></span></button>
     </div>
     <div class="test-block">
-      <h3>5b. Verdadero o Falso</h3>
+      <h3>9. Verdadero o Falso</h3>
       <div id="mk-tf5">
         <div class="tf-row"><span class="tf-stmt">El Valle Central está dividido en sección este y oeste por el Río Ochomogo.</span><div class="tf-btns"><button class="tf-btn" onclick="selTF(this,'mktf5-0','V')">V</button><button class="tf-btn" onclick="selTF(this,'mktf5-0','F')">F</button></div></div>
-        <div class="tf-row"><span class="tf-stmt">El Valle del Tempisque se ubica en la Costa Caribe de Costa Rica.</span><div class="tf-btns"><button class="tf-btn" onclick="selTF(this,'mktf5-1','V')">V</button><button class="tf-btn" onclick="selTF(this,'mktf5-1','F')">F</button></div></div>
-        <div class="tf-row"><span class="tf-stmt">El Valle Central es la región más poblada e industrializada del país.</span><div class="tf-btns"><button class="tf-btn" onclick="selTF(this,'mktf5-2','V')">V</button><button class="tf-btn" onclick="selTF(this,'mktf5-2','F')">F</button></div></div>
+        <div class="tf-row"><span class="tf-stmt">El Valle del Tempisque es la región más poblada del país.</span><div class="tf-btns"><button class="tf-btn" onclick="selTF(this,'mktf5-1','V')">V</button><button class="tf-btn" onclick="selTF(this,'mktf5-1','F')">F</button></div></div>
       </div>
-      <button class="check-btn" onclick="chkTF('mk-tf5',['V','F','V'],'sc-mk5tf','mock')">Revisar <span id="sc-mk5tf" class="score-badge"></span></button>
+      <button class="check-btn" onclick="chkTF('mk-tf5',['V','F'],'sc-mk5tf','mock')">Revisar <span id="sc-mk5tf" class="score-badge"></span></button>
     </div>
   </div>
 
-  <!-- ── PARTE VI · LLANURAS ── -->
+  <!-- ══ PARTE VI · LLANURAS ══ -->
   <div class="mock-part">
     <div class="mock-part-title">Parte VI — Llanuras de Costa Rica</div>
-    <div class="book-img-row" style="margin-bottom:.5rem">
-      <div class="book-img-thumb" onclick="openLightbox('img/IMG_1002.jpg')" title="Pág. 72"><img src="img/IMG_1002.jpg" alt="Pág. 72" style="width:110px"></div>
-    </div>
     <div class="test-block">
-      <h3>6a. Verdadero o Falso</h3>
-      <div id="mk-tf6">
-        <div class="tf-row"><span class="tf-stmt">Las Llanuras del Norte limitan al norte con Nicaragua.</span><div class="tf-btns"><button class="tf-btn" onclick="selTF(this,'mktf6-0','V')">V</button><button class="tf-btn" onclick="selTF(this,'mktf6-0','F')">F</button></div></div>
-        <div class="tf-row"><span class="tf-stmt">Las Llanuras del Caribe son aptas para el cultivo del banano y el cacao.</span><div class="tf-btns"><button class="tf-btn" onclick="selTF(this,'mktf6-1','V')">V</button><button class="tf-btn" onclick="selTF(this,'mktf6-1','F')">F</button></div></div>
-        <div class="tf-row"><span class="tf-stmt">Las Llanuras del Norte tienen importantes playas turísticas.</span><div class="tf-btns"><button class="tf-btn" onclick="selTF(this,'mktf6-2','V')">V</button><button class="tf-btn" onclick="selTF(this,'mktf6-2','F')">F</button></div></div>
-      </div>
-      <button class="check-btn" onclick="chkTF('mk-tf6',['V','V','F'],'sc-mk6tf','mock')">Revisar <span id="sc-mk6tf" class="score-badge"></span></button>
-    </div>
-    <div class="test-block">
-      <h3>6b. Completa los espacios</h3>
-      <div class="q-row"><label>1. Las Llanuras del Norte son drenadas por los ríos Frío y</label><input class="fill-input" id="mk6-f1" placeholder="___________"></div>
-      <div class="q-row"><label>2. En las Llanuras del Caribe se cultiva principalmente</label><input class="fill-input" id="mk6-f2" placeholder="___________"> y cacao.</div>
-      <button class="check-btn" onclick="chkFills(['mk6-f1','mk6-f2'],[[['sarapiqui','sarapiquí']],[['banano','el banano']]],'sc-mk6f','mock')">Revisar <span id="sc-mk6f" class="score-badge"></span></button>
+      <h3>10. Identifica a qué llanura pertenece cada descripción</h3>
+      <p style="font-size:.78rem;color:var(--muted);margin-bottom:.8rem">Opciones: <strong>Llanuras del Norte · Llanuras del Caribe · Llanuras del Pacífico</strong></p>
+      <div class="q-row"><label>🌊 Son recorridas por los ríos San Carlos, Frío y Sarapiquí, que desembocan en el río San Juan y en el lago de Nicaragua:</label><input class="fill-input" id="mk6-ll1" placeholder="Llanuras del ___________"></div>
+      <div class="q-row"><label>🌿 Son atravesadas por los ríos Tortuguero, Santa Clara, Matina, La Estrella y Sixaola. Desembocan en el mar Caribe:</label><input class="fill-input" id="mk6-ll2" placeholder="Llanuras del ___________"></div>
+      <div class="q-row"><label>☀️ Son recorridas por los ríos Tempisque, Grande de Tárcoles, Pirrís, Parrita y Grande de Térraba:</label><input class="fill-input" id="mk6-ll3" placeholder="Llanuras del ___________"></div>
+      <button class="check-btn" onclick="chkFills(
+        ['mk6-ll1','mk6-ll2','mk6-ll3'],
+        [[['norte','del norte']],[['caribe','del caribe']],[['pacifico','pacífico','del pacifico','del pacífico']]],
+        'sc-mk6ll','mock')">Revisar <span id="sc-mk6ll" class="score-badge"></span></button>
     </div>
   </div>
 
-  <!-- ── PARTE VII · COSTAS ── -->
+  <!-- ══ PARTE VII · COSTAS ══ -->
   <div class="mock-part">
     <div class="mock-part-title">Parte VII — Costas de Costa Rica</div>
-    <div class="book-img-row" style="margin-bottom:.5rem">
-      <div class="book-img-thumb" onclick="openLightbox('img/IMG_1004.jpg')" title="Pág. 74"><img src="img/IMG_1004.jpg" alt="Pág. 74" style="width:110px"></div>
-      <div class="book-img-thumb" onclick="openLightbox('img/IMG_1005.jpg')" title="Pág. 75"><img src="img/IMG_1005.jpg" alt="Pág. 75" style="width:110px"></div>
-    </div>
     <div class="test-block">
-      <h3>7a. Del libro (pág. 75) — Verdadero o Falso</h3>
-      <div id="mk-tf7">
-        <div class="tf-row"><span class="tf-stmt">La Costa del Pacífico tiene una extensión de 1254 km.</span><div class="tf-btns"><button class="tf-btn" onclick="selTF(this,'mktf7-0','V')">V</button><button class="tf-btn" onclick="selTF(this,'mktf7-0','F')">F</button></div></div>
-        <div class="tf-row"><span class="tf-stmt">La Costa del Caribe es muy irregular con muchos golfos y penínsulas.</span><div class="tf-btns"><button class="tf-btn" onclick="selTF(this,'mktf7-1','V')">V</button><button class="tf-btn" onclick="selTF(this,'mktf7-1','F')">F</button></div></div>
-        <div class="tf-row"><span class="tf-stmt">El Puerto de Limón se encuentra en la Costa del Caribe.</span><div class="tf-btns"><button class="tf-btn" onclick="selTF(this,'mktf7-2','V')">V</button><button class="tf-btn" onclick="selTF(this,'mktf7-2','F')">F</button></div></div>
-        <div class="tf-row"><span class="tf-stmt">Los golfos de Nicoya y Dulce son parte de la Costa del Pacífico.</span><div class="tf-btns"><button class="tf-btn" onclick="selTF(this,'mktf7-3','V')">V</button><button class="tf-btn" onclick="selTF(this,'mktf7-3','F')">F</button></div></div>
+      <h3>11. Marca CP si la característica pertenece a la Costa del Pacífico, o CC si pertenece a la Costa del Caribe</h3>
+      <div class="cpcc-table">
+        <div class="cpcc-header"><span>Característica</span><span>CP</span><span>CC</span></div>
+        <div class="cpcc-row"><span>Mide aproximadamente 1254 km.</span><label><input type="radio" name="cpcc-0" onclick="setCPCC('cpcc-0','CP')"> CP</label><label><input type="radio" name="cpcc-0" onclick="setCPCC('cpcc-0','CC')"> CC</label></div>
+        <div class="cpcc-row"><span>Está compuesta por playas arenosas como Uva y Manzanillo.</span><label><input type="radio" name="cpcc-1" onclick="setCPCC('cpcc-1','CP')"> CP</label><label><input type="radio" name="cpcc-1" onclick="setCPCC('cpcc-1','CC')"> CC</label></div>
+        <div class="cpcc-row"><span>Mide alrededor de 212 km.</span><label><input type="radio" name="cpcc-2" onclick="setCPCC('cpcc-2','CP')"> CP</label><label><input type="radio" name="cpcc-2" onclick="setCPCC('cpcc-2','CC')"> CC</label></div>
+        <div class="cpcc-row"><span>Puertos principales: Puntarenas, Caldera, Quepos y Golfito.</span><label><input type="radio" name="cpcc-3" onclick="setCPCC('cpcc-3','CP')"> CP</label><label><input type="radio" name="cpcc-3" onclick="setCPCC('cpcc-3','CC')"> CC</label></div>
+        <div class="cpcc-row"><span>La costa es casi lineal.</span><label><input type="radio" name="cpcc-4" onclick="setCPCC('cpcc-4','CP')"> CP</label><label><input type="radio" name="cpcc-4" onclick="setCPCC('cpcc-4','CC')"> CC</label></div>
+        <div class="cpcc-row"><span>Presenta numerosas puntas, cabos, golfos y penínsulas, que la hacen muy irregular.</span><label><input type="radio" name="cpcc-5" onclick="setCPCC('cpcc-5','CP')"> CP</label><label><input type="radio" name="cpcc-5" onclick="setCPCC('cpcc-5','CC')"> CC</label></div>
       </div>
-      <button class="check-btn" onclick="chkTF('mk-tf7',['V','F','V','V'],'sc-mk7tf','mock')">Revisar <span id="sc-mk7tf" class="score-badge"></span></button>
-    </div>
-    <div class="test-block">
-      <h3>7b. Selección múltiple</h3>
-      <div class="q-row"><label>a) ¿Cuántos kilómetros mide la Costa del Caribe?</label>
-        <div class="mc-opts" id="mk7-mca">
-          <label class="mc-opt"><input type="radio" name="mk7-mca"> 1254 km</label>
-          <label class="mc-opt"><input type="radio" name="mk7-mca"> 212 km</label>
-          <label class="mc-opt"><input type="radio" name="mk7-mca"> 500 km</label>
-        </div>
-      </div>
-      <div class="q-row" style="margin-top:10px"><label>b) ¿Qué tipo de costa es la del Pacífico?</label>
-        <div class="mc-opts" id="mk7-mcb">
-          <label class="mc-opt"><input type="radio" name="mk7-mcb"> Lineal y sin golfos</label>
-          <label class="mc-opt"><input type="radio" name="mk7-mcb"> Irregular con golfos y penínsulas</label>
-          <label class="mc-opt"><input type="radio" name="mk7-mcb"> Casi recta con pocas irregularidades</label>
-        </div>
-      </div>
-      <button class="check-btn" onclick="chkMK7mc()">Revisar <span id="sc-mk7mc" class="score-badge"></span></button>
+      <button class="check-btn" onclick="chkCostas()">Revisar <span id="sc-mk7costas" class="score-badge"></span></button>
     </div>
   </div>
 
@@ -1077,303 +1042,24 @@ textarea:disabled{background:var(--bg);color:var(--muted);}
     <div id="mock-result-inner"></div>
   </div>
 
-  
 
-  <div class="topic-nav" style="margin-top:1.5rem;">
-    <button class="nav-arrow" onclick="goTopic(6)">← Volver a Costas</button>
-    <button class="nav-arrow primary" onclick="goWriting()">✍️ Escritura →</button>
-  </div>
-</div>
-
-<!-- ================================================================ -->
-<!-- WRITING SECTION -->
-<!-- ================================================================ -->
-<div class="mock-section" id="writing-section">
-  <div class="topic-header">
-    <div class="topic-number" style="background:linear-gradient(135deg,#7c3aed,#a855f7);font-size:1.2rem">✍️</div>
-    <div><h2 style="color:#6b21a8">Preguntas de escritura</h2><p>Revisadas por Papá</p></div>
-  </div>
-
-  <div class="writing-card">
-    <h4>📖 Pregunta 1 (del libro, pág. 59)</h4>
-    <p style="font-size:.81rem;color:var(--text);margin-bottom:7px;">Explica por qué es importante conocer sobre la formación del territorio costarricense.</p>
-    <textarea id="wr1" placeholder="Escribe tu respuesta aquí..."></textarea>
-    <div class="dad-review" id="dad1">
-      <div class="dad-review-title">👨 Revisión de Papá</div>
-      <div class="grade-btns"><button class="grade-btn great" onclick="dadGrade('dad1','great')">⭐ Excelente</button><button class="grade-btn good" onclick="dadGrade('dad1','good')">👍 Buen intento</button><button class="grade-btn retry" onclick="dadGrade('dad1','retry')">🔄 Intentar de nuevo</button></div>
-      <input class="dad-comment" id="dad1-c" placeholder="Comentario opcional..."><br>
-      <button class="save-dad-btn" onclick="saveDad('dad1','wr1',1)">Guardar</button>
-      <div class="grade-result" id="dad1-res"></div>
-    </div>
-  </div>
-  <div class="writing-card">
-    <h4>📖 Pregunta 2 (del libro, pág. 67)</h4>
-    <p style="font-size:.81rem;color:var(--text);margin-bottom:7px;">¿Cuál crees que es la importancia de los parques nacionales establecidos en las cordilleras?</p>
-    <textarea id="wr2" placeholder="Escribe tu respuesta aquí..."></textarea>
-    <div class="dad-review" id="dad2">
-      <div class="dad-review-title">👨 Revisión de Papá</div>
-      <div class="grade-btns"><button class="grade-btn great" onclick="dadGrade('dad2','great')">⭐ Excelente</button><button class="grade-btn good" onclick="dadGrade('dad2','good')">👍 Buen intento</button><button class="grade-btn retry" onclick="dadGrade('dad2','retry')">🔄 Intentar de nuevo</button></div>
-      <input class="dad-comment" id="dad2-c" placeholder="Comentario opcional..."><br>
-      <button class="save-dad-btn" onclick="saveDad('dad2','wr2',2)">Guardar</button>
-      <div class="grade-result" id="dad2-res"></div>
-    </div>
-  </div>
-  <div class="writing-card">
-    <h4>📖 Pregunta 3 (del libro, pág. 69)</h4>
-    <p style="font-size:.81rem;color:var(--text);margin-bottom:7px;">Describe la importancia económica del sistema montañoso secundario para Costa Rica.</p>
-    <textarea id="wr3" placeholder="Escribe tu respuesta aquí..."></textarea>
-    <div class="dad-review" id="dad3">
-      <div class="dad-review-title">👨 Revisión de Papá</div>
-      <div class="grade-btns"><button class="grade-btn great" onclick="dadGrade('dad3','great')">⭐ Excelente</button><button class="grade-btn good" onclick="dadGrade('dad3','good')">👍 Buen intento</button><button class="grade-btn retry" onclick="dadGrade('dad3','retry')">🔄 Intentar de nuevo</button></div>
-      <input class="dad-comment" id="dad3-c" placeholder="Comentario opcional..."><br>
-      <button class="save-dad-btn" onclick="saveDad('dad3','wr3',3)">Guardar</button>
-      <div class="grade-result" id="dad3-res"></div>
-    </div>
-  </div>
-
-  <button class="dad-btn" onclick="submitWriting()">📤 Enviar a Papá para revisión</button>
-  <div id="wr-sent" style="display:none;text-align:center;padding:10px;margin-top:8px;background:var(--green-light);border-radius:9px;color:#166534;font-weight:700;">✅ ¡Respuestas enviadas! Papá puede revisarlas arriba.</div>
-
-  <div class="topic-nav" style="margin-top:1.5rem;">
-    <button class="nav-arrow" onclick="goMockExam()">← Simulacro</button>
-    <button class="nav-arrow primary" onclick="goFinal()">🏆 Ver Calificación</button>
-  </div>
-</div>
-
-<!-- ================================================================ -->
-<!-- FINAL GRADE -->
-<!-- ================================================================ -->
-<div class="final-section" id="final-section">
-  <div class="topic-header">
-    <div class="topic-number" style="background:linear-gradient(135deg,#f59e0b,#d97706);font-size:1.3rem">🏆</div>
-    <div><h2 style="color:var(--amber-dark)">Calificación Final</h2><p>Suma de todos los temas practicados.</p></div>
-  </div>
-  <div class="final-card">
-    <div class="grade-display" id="final-grade-letter">—</div>
-    <div class="grade-pct" id="final-grade-pct">Completa los ejercicios para ver tu nota</div>
-    <div class="grade-msg" id="final-grade-msg"></div>
-  </div>
-  <div class="final-card" style="text-align:left;padding:14px;">
-    <table class="score-table">
-      <tr><th>Sección</th><th>Obtenido</th><th>Total</th></tr>
-      <tr><td>1 · Relieve — V/F</td><td id="sc-tf0">—</td><td>4</td></tr>
-      <tr><td>1 · Relieve — Completa</td><td id="sc-r0f">—</td><td>3</td></tr>
-      <tr><td>1 · Relieve — Une</td><td id="sc-m0">—</td><td>4</td></tr>
-      <tr><td>2 · Territorio — Selección</td><td id="sc-mc1">—</td><td>2</td></tr>
-      <tr><td>2 · Territorio — Completa</td><td id="sc-r1f">—</td><td>3</td></tr>
-      <tr><td>2 · Territorio — Une</td><td id="sc-m1">—</td><td>4</td></tr>
-      <tr><td>3 · Cordilleras — Selección</td><td id="sc-mc2">—</td><td>2</td></tr>
-      <tr><td>3 · Cordilleras — Une</td><td id="sc-m2">—</td><td>4</td></tr>
-      <tr><td>3 · Cordilleras — Completa</td><td id="sc-r2f">—</td><td>3</td></tr>
-      <tr><td>4 · Cerros — Selección</td><td id="sc-mc3a">—</td><td>1</td></tr>
-      <tr><td>4 · Cerros — Completa</td><td id="sc-r3f">—</td><td>4</td></tr>
-      <tr><td>4 · Cerros — Checkboxes</td><td id="sc-mc3b">—</td><td>1</td></tr>
-      <tr><td>5 · Valles — V/F</td><td id="sc-tf4">—</td><td>3</td></tr>
-      <tr><td>5 · Valles — Une</td><td id="sc-m4">—</td><td>4</td></tr>
-      <tr><td>5 · Valles — Completa</td><td id="sc-r4f">—</td><td>2</td></tr>
-      <tr><td>6 · Llanuras — Selección</td><td id="sc-mc5">—</td><td>2</td></tr>
-      <tr><td>6 · Llanuras — Completa</td><td id="sc-r5f">—</td><td>3</td></tr>
-      <tr><td>6 · Llanuras — Une</td><td id="sc-m5">—</td><td>3</td></tr>
-      <tr><td>7 · Costas — V/F</td><td id="sc-tf6">—</td><td>4</td></tr>
-      <tr><td>7 · Costas — Completa</td><td id="sc-r6f">—</td><td>4</td></tr>
-      <tr><td>7 · Costas — Une</td><td id="sc-m6">—</td><td>4</td></tr>
-      <tr><td>Escritura (Papá)</td><td id="sc-wr">—</td><td>3</td></tr>
-    </table>
-  </div>
-  <button class="calc-btn" onclick="computeFinal()">🧮 Calcular mi nota</button>
-</div>
-
-  </div><!-- end content-area -->
-</div><!-- end app-layout -->
-
-<script>
-var currentTopic = 0;
-var tfAnswers = {};
-var scores = {};
-var dadGrades = {};
-var TOTAL_MAX = 73;
-
-// ── NAVIGATION ──
-function goTopic(n) {
-  var sd = document.getElementById('sd-' + currentTopic);
-  if (sd && !sd.classList.contains('study-done')) {
-    sd.classList.remove('study-empty');
-    sd.classList.add('study-done');
-    sd.textContent = '✓';
-  }
-  document.querySelectorAll('.topic-section,.mock-section,.final-section').forEach(function(s){ s.classList.remove('active'); });
-  document.getElementById('topic-' + n).classList.add('active');
-  currentTopic = n;
-  document.querySelectorAll('.topic-item').forEach(function(el){ el.classList.remove('active'); });
-  var nav = document.getElementById('nav-' + n);
-  if (nav) nav.classList.add('active');
-  window.scrollTo({top:0, behavior:'smooth'});
-}
-
-function goMockExam() {
-  markCurrentStudied();
-  document.querySelectorAll('.topic-section,.mock-section,.final-section').forEach(function(s){ s.classList.remove('active'); });
-  document.getElementById('mock-section').classList.add('active');
-  document.querySelectorAll('.topic-item').forEach(function(el){ el.classList.remove('active'); });
-  var nav = document.getElementById('nav-mock');
-  if (nav) nav.classList.add('active');
-  window.scrollTo({top:0, behavior:'smooth'});
-}
-
-function goWriting() {
-  document.querySelectorAll('.topic-section,.mock-section,.final-section').forEach(function(s){ s.classList.remove('active'); });
-  document.getElementById('writing-section').classList.add('active');
-  document.querySelectorAll('.topic-item').forEach(function(el){ el.classList.remove('active'); });
-  var nav = document.getElementById('nav-wr');
-  if (nav) nav.classList.add('active');
-  window.scrollTo({top:0, behavior:'smooth'});
-}
-
-function goFinal() {
-  markCurrentStudied();
-  document.querySelectorAll('.topic-section,.mock-section,.final-section').forEach(function(s){ s.classList.remove('active'); });
-  document.getElementById('final-section').classList.add('active');
-  document.querySelectorAll('.topic-item').forEach(function(el){ el.classList.remove('active'); });
-  window.scrollTo({top:0, behavior:'smooth'});
-  computeFinal();
-}
-
-function markCurrentStudied() {
-  var sd = document.getElementById('sd-' + currentTopic);
-  if (sd && !sd.classList.contains('study-done')) {
-    sd.classList.remove('study-empty'); sd.classList.add('study-done'); sd.textContent = '✓';
-  }
-}
-
-// ── HELPERS ──
-function norm(s){ return s.toLowerCase().trim().replace(/[áa]/g,'a').replace(/[ée]/g,'e').replace(/[íi]/g,'i').replace(/[óo]/g,'o').replace(/[úu]/g,'u').replace(/ñ/g,'n'); }
-
-function recordScore(key, n, total) {
-  scores[key] = {n:n, total:total};
-  var el = document.getElementById(key);
-  if (el) el.textContent = n + ' / ' + total;
-  // mark practice dot
-  var topicN = typeof arguments[3] !== 'undefined' ? arguments[3] : null;
-  if (topicN !== null && topicN !== 'mock') {
-    var pd = document.getElementById('pd-' + topicN);
-    if (pd) { pd.classList.remove('empty'); pd.classList.add('practice-done'); pd.textContent = '✓'; }
-  }
-}
-
-// ── TRUE/FALSE ──
-function selTF(btn, key, val) {
-  var row = btn.closest('.tf-row');
-  row.querySelectorAll('.tf-btn').forEach(function(b){ b.classList.remove('sel-V','sel-F'); });
-  btn.classList.add('sel-' + val);
-  tfAnswers[key] = val;
-}
-
-function chkTF(groupId, answers, scoreKey, topicN) {
-  var rows;
-  var container = document.getElementById(groupId);
-  if (!container) {
-    // It's a class-based container used inline — find rows by groupId prefix in tfAnswers
-    rows = [];
-  } else {
-    rows = container.querySelectorAll('.tf-row');
-  }
-  if (!container) return;
-  var correct = 0;
-  rows.forEach(function(row, i) {
-    var btns = row.querySelectorAll('.tf-btn');
-    var key = groupId + '-' + i;
-    var ua = tfAnswers[key];
-    var ca = answers[i];
-    btns.forEach(function(b){
-      b.classList.remove('ok','bad');
-      if (b.dataset.val === ca) b.classList.add('ok');
-      if (ua && b.dataset.val === ua && ua !== ca) b.classList.add('bad');
-    });
-    if (ua === ca) correct++;
+// CP/CC state
+var cpccAnswers = {};
+function setCPCC(id, val) { cpccAnswers[id] = val; }
+function chkCostas() {
+  var correct = {
+    'cpcc-0':'CP','cpcc-1':'CC','cpcc-2':'CC',
+    'cpcc-3':'CP','cpcc-4':'CC','cpcc-5':'CP'
+  };
+  var n = 0;
+  Object.keys(correct).forEach(function(k){
+    if(cpccAnswers[k] === correct[k]) n++;
   });
-  recordScore(scoreKey, correct, answers.length, topicN);
-}
-
-// ── MULTIPLE CHOICE ──
-function chkMC1(grpId, correctIdx, scoreKey, topicN) {
-  var opts = document.querySelectorAll('#' + grpId + ' .mc-opt');
-  var chosen = -1;
-  opts.forEach(function(o,i){ if(o.querySelector('input').checked) chosen=i; });
-  opts.forEach(function(o,i){
-    o.classList.remove('correct','wrong');
-    if(i===correctIdx) o.classList.add('correct');
-    else if(i===chosen && chosen!==correctIdx) o.classList.add('wrong');
-  });
-  var ok = chosen===correctIdx ? 1 : 0;
-  recordScore(scoreKey, ok, 1, topicN);
-  return ok;
-}
-
-function chkMC2(grpA, corA, grpB, corB, scoreKey, topicN) {
-  var a = chkMC1(grpA, corA, scoreKey, null);
-  var b = chkMC1(grpB, corB, scoreKey, null);
-  recordScore(scoreKey, a+b, 2, topicN);
-}
-
-// ── FILL IN THE BLANK ──
-function chkFills(ids, acceptedSets, scoreKey, topicN) {
-  var correct = 0;
-  ids.forEach(function(id, i) {
-    var inp = document.getElementById(id);
-    if(!inp) return;
-    var val = norm(inp.value);
-    var ok = acceptedSets[i][0].some(function(a){ return norm(a) === val; });
-    inp.classList.toggle('correct', ok);
-    inp.classList.toggle('wrong', !ok && inp.value.trim() !== '');
-    if(ok) correct++;
-  });
-  recordScore(scoreKey, correct, ids.length, topicN);
-}
-
-// ── MATCHING ──
-function chkMatch(ids, answers, scoreKey, topicN) {
-  var correct = 0;
-  ids.forEach(function(id, i) {
-    var inp = document.getElementById(id);
-    if(!inp) return;
-    var ok = inp.value.trim() === String(answers[i]);
-    inp.classList.toggle('correct', ok);
-    inp.classList.toggle('wrong', !ok && inp.value.trim() !== '');
-    if(ok) correct++;
-  });
-  recordScore(scoreKey, correct, ids.length, topicN);
-}
-
-// ── CHECKBOXES ──
-function chkCheckboxes(grpId, correctIndices, scoreKey, topicN) {
-  var opts = document.querySelectorAll('#' + grpId + ' .mc-opt');
-  var checked = [];
-  opts.forEach(function(o,i){ if(o.querySelector('input').checked) checked.push(i); });
-  opts.forEach(function(o,i){
-    o.classList.remove('correct','wrong');
-    if(correctIndices.indexOf(i) >= 0) o.classList.add('correct');
-    else if(checked.indexOf(i) >= 0) o.classList.add('wrong');
-  });
-  var allRight = correctIndices.every(function(i){ return checked.indexOf(i)>=0; });
-  var noWrong = checked.every(function(i){ return correctIndices.indexOf(i)>=0; });
-  var ok = (allRight && noWrong) ? 1 : 0;
-  recordScore(scoreKey, ok, 1, topicN);
-}
-
-// ── MOCK EXAM ──
-function chkMK2mc() {
-  var a = chkMC1('mk2-mca', 0, null, null);
-  var b = chkMC1('mk2-mcb', 1, null, null);
-  recordScore('sc-mk2mc', a+b, 2, 'mock');
-}
-function chkMK7mc() {
-  var a = chkMC1('mk7-mca', 1, null, null);
-  var b = chkMC1('mk7-mcb', 1, null, null);
-  recordScore('sc-mk7mc', a+b, 2, 'mock');
+  recordScore('sc-mk7costas', n, 6, 'mock');
 }
 function calcMock() {
   var total = 0, max = 0;
-  var scoreIds = ['sc-mk1tf','sc-mk1f','sc-mk2mc','sc-mk2tf','sc-mk3m','sc-mk3f','sc-mk4tf','sc-mk4f','sc-mk5m','sc-mk5tf','sc-mk6tf','sc-mk6f','sc-mk7tf','sc-mk7mc'];
+  var scoreIds = ['sc-mk1img','sc-mk1f','sc-mk2m','sc-mk2tf','sc-mk3emc','sc-mk3c','sc-mk4m','sc-mk5m','sc-mk5tf','sc-mk6ll','sc-mk7costas'];
   scoreIds.forEach(function(k){
     if(scores[k]){ total += scores[k].n; max += scores[k].total; }
   });
@@ -1396,72 +1082,4 @@ function closeLightbox() {
   document.getElementById('img-lightbox').classList.remove('open');
 }
 
-// ── WRITING ──
-function submitWriting() {
-  ['wr1','wr2','wr3'].forEach(function(id){
-    var ta=document.getElementById(id);
-    if(ta && ta.value.trim()==='') ta.value='(sin respuesta)';
-  });
-  ['dad1','dad2','dad3'].forEach(function(id){
-    document.getElementById(id).style.display='block';
-  });
-  document.getElementById('wr-sent').style.display='block';
-  var pd = document.getElementById('pd-wr');
-  if(pd){ pd.classList.remove('empty'); pd.classList.add('study-done'); pd.textContent='✓'; }
-}
-
-function dadGrade(dadId, grade) {
-  var btns = document.querySelectorAll('#'+dadId+' .grade-btn');
-  btns.forEach(function(b){ b.classList.remove('sel-great','sel-good','sel-retry'); });
-  document.querySelector('#'+dadId+' .grade-btn.'+grade).classList.add('sel-'+grade);
-  dadGrades[dadId] = grade;
-}
-
-function saveDad(dadId, textId, num) {
-  var grade = dadGrades[dadId];
-  if(!grade){ alert('Selecciona una calificación primero'); return; }
-  var pts = grade==='great'?1:grade==='good'?0.5:0;
-  var comment = document.getElementById(dadId+'-c').value;
-  var res = document.getElementById(dadId+'-res');
-  res.style.display='block';
-  var emoji = grade==='great'?'⭐':grade==='good'?'👍':'🔄';
-  var label = grade==='great'?'Excelente':grade==='good'?'Buen intento':'Intentar de nuevo';
-  res.textContent = emoji+' '+label+' ('+pts+' pts)'+(comment?' — '+comment:'');
-  res.style.background = grade==='great'?'#dcfce7':grade==='good'?'#fef3c7':'#fee2e2';
-  res.style.color = grade==='great'?'#166534':grade==='good'?'#92400e':'#991b1b';
-  document.getElementById(textId).disabled=true;
-  document.getElementById(dadId+'-c').disabled=true;
-  document.querySelectorAll('#'+dadId+' .grade-btn,#'+dadId+' .save-dad-btn').forEach(function(b){b.disabled=true;});
-  var total = (['dad1','dad2','dad3'].map(function(d){ return dadGrades[d]==='great'?1:dadGrades[d]==='good'?0.5:0; }).reduce(function(a,b){return a+b;},0));
-  recordScore('sc-wr', total, 3, 'wr');
-}
-
-// ── FINAL GRADE ──
-function computeFinal() {
-  var allKeys = ['sc-tf0','sc-r0f','sc-m0','sc-mc1','sc-r1f','sc-m1','sc-mc2','sc-m2','sc-r2f','sc-mc3a','sc-r3f','sc-mc3b','sc-tf4','sc-m4','sc-r4f','sc-mc5','sc-r5f','sc-m5','sc-tf6','sc-r6f','sc-m6','sc-wr'];
-  var total=0, max=0;
-  allKeys.forEach(function(k){
-    if(scores[k]){ total+=scores[k].n; max+=scores[k].total; }
-  });
-  if(max===0){ document.getElementById('final-grade-pct').textContent='Completa los ejercicios para ver tu nota'; return; }
-  var pct=Math.round(total/max*100);
-  var letter,color,msg;
-  if(pct>=90){letter='A';color='#16a34a';msg='🌟 ¡Excelente trabajo! Eres un experto en el relieve de Costa Rica.';}
-  else if(pct>=80){letter='B';color='#2563eb';msg='⭐ ¡Muy bien! Un poco más de práctica y llegas al 100.';}
-  else if(pct>=70){letter='C';color='#d97706';msg='👍 ¡Bien! Repasa los temas donde tuviste más errores.';}
-  else{letter='D';color='#dc2626';msg='💪 No te rindas — repasa el material y vuelve a intentarlo.';}
-  document.getElementById('final-grade-letter').textContent=letter;
-  document.getElementById('final-grade-letter').style.color=color;
-  document.getElementById('final-grade-pct').textContent=pct+'% ('+total+'/'+max+' pts)';
-  document.getElementById('final-grade-msg').textContent=msg;
-}
-</script>
-
-<!-- Lightbox -->
-<div id="img-lightbox" onclick="closeLightbox()">
-  <span id="img-lightbox-close">✕</span>
-  <img id="img-lightbox-img" src="" alt="">
-</div>
-
-</body>
-</html>
+>
