@@ -228,6 +228,7 @@ textarea:disabled{background:var(--bg);color:var(--muted);}
 .dd-zone{min-width:148px;min-height:44px;border:2px dashed #3b82f6;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;padding:4px 10px;font-size:.78rem;cursor:pointer;transition:all .15s;background:#fff;color:#1d4ed8;font-weight:700;text-align:center;touch-action:manipulation;outline:none;}
 .dd-zone:hover,.dd-zone:active{background:#eff6ff;}
 .dd-zone.dd-filled{border-style:solid;background:#eff6ff;}
+.dd-zone.dd-filled::after{content:' ×';font-size:.7rem;opacity:.5;}
 .dd-zone.dd-correct{border-color:#16a34a!important;background:#f0fdf4!important;color:#14532d!important;}
 .dd-zone.dd-wrong{border-color:#dc2626!important;background:#fef2f2!important;color:#7f1d1d!important;}
 /* Buckets */
@@ -1840,6 +1841,12 @@ function chkCheckboxes(grpId, correctIndices, scoreKey, topicN) {
 // ── Drag & Drop: tap-to-select → tap-to-place ──
 var ddSelected = null;
 var ddSelectedBank = null;
+// Save original placeholder text for each zone so it can be restored on removal
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.dd-zone').forEach(function(z) {
+    z.dataset.placeholder = z.textContent.trim();
+  });
+});
 
 function ddTapChip(el, bankId) {
   if (ddSelected === el) {
@@ -1852,7 +1859,20 @@ function ddTapChip(el, bankId) {
 }
 
 function ddTapZone(zoneEl, bankId) {
-  if (!ddSelected) return;
+  // No chip selected + zone has content → return chip to bank
+  if (!ddSelected) {
+    var existingVal = zoneEl.dataset.placed;
+    if (existingVal) {
+      var bk0 = bankId || zoneEl.getAttribute('onclick').match(/'([^']+)'/)[1];
+      document.querySelectorAll('#'+bk0+' .dd-chip').forEach(function(c){
+        if (c.dataset.value === existingVal) c.classList.remove('dd-used');
+      });
+      zoneEl.textContent = zoneEl.dataset.placeholder || '— aquí —';
+      delete zoneEl.dataset.placed;
+      zoneEl.classList.remove('dd-filled','dd-correct','dd-wrong');
+    }
+    return;
+  }
   var bk = bankId || ddSelectedBank;
   var oldVal = zoneEl.dataset.placed;
   if (oldVal && bk) {
