@@ -1,0 +1,1354 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Estudios Sociales · 4to · Bloque 2</title>
+<style>
+:root{
+  --amber:#d97706;--amber-light:#fef3c7;--amber-mid:#fbbf24;--amber-dark:#92400e;
+  --green:#16a34a;--red:#dc2626;--blue:#2563eb;--gray:#6b7280;--light:#f9fafb;
+  --white:#fff;--border:#e5e7eb;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#fffbeb;color:#1f2937;min-height:100vh;}
+
+/* HEADER */
+header{background:linear-gradient(135deg,#d97706,#f59e0b,#fbbf24);color:#fff;padding:20px 16px 16px;text-align:center;}
+header h1{font-size:1.5rem;font-weight:800;text-shadow:0 1px 3px rgba(0,0,0,.25);}
+header p{font-size:.85rem;opacity:.9;margin-top:4px;}
+
+/* PROGRESS BAR */
+.progress-wrap{background:#fef3c7;padding:10px 16px;border-bottom:1px solid #fde68a;display:flex;align-items:center;gap:10px;}
+.progress-bar-outer{flex:1;height:8px;background:#e5e7eb;border-radius:99px;overflow:hidden;}
+.progress-bar-inner{height:100%;background:linear-gradient(90deg,#d97706,#fbbf24);border-radius:99px;transition:width .4s;}
+.progress-label{font-size:.75rem;color:#92400e;white-space:nowrap;font-weight:600;}
+#unlock-btn{background:#d97706;color:#fff;border:none;padding:6px 14px;border-radius:99px;font-size:.8rem;font-weight:700;cursor:pointer;transition:all .2s;white-space:nowrap;}
+#unlock-btn:disabled{background:#d1d5db;color:#9ca3af;cursor:not-allowed;}
+#unlock-btn.unlocked{background:#16a34a;}
+
+/* NAV */
+.nav-wrapper{position:sticky;top:0;z-index:100;background:#fffbeb;border-bottom:2px solid #fde68a;padding:8px 12px;overflow-x:auto;}
+.nav-inner{display:flex;gap:6px;min-width:max-content;}
+.nav-btn{padding:6px 14px;border-radius:99px;border:2px solid transparent;font-size:.8rem;font-weight:600;cursor:pointer;transition:all .2s;background:#fff;color:#6b7280;border-color:#e5e7eb;}
+.nav-btn.active{background:#d97706;color:#fff;border-color:#d97706;}
+.nav-btn.study-btn.done{border-color:#16a34a;color:#16a34a;}
+.nav-btn.test-btn{background:#fef3c7;color:#92400e;border-color:#fde68a;}
+.nav-btn.test-btn.active{background:#d97706;color:#fff;}
+.nav-btn.test-btn:disabled{opacity:.4;cursor:not-allowed;}
+.nav-btn.special{background:#fffbeb;border-color:#d97706;color:#d97706;}
+.nav-btn.special.active{background:#d97706;color:#fff;}
+
+/* SECTIONS */
+section{display:none;padding:16px;max-width:800px;margin:0 auto;}
+section.active{display:block;}
+
+/* TOPIC CARDS */
+.topic-header{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.topic-icon{font-size:2rem;}
+.topic-title{font-size:1.2rem;font-weight:800;color:#92400e;}
+.topic-sub{font-size:.8rem;color:#78716c;margin-top:2px;}
+
+/* INFO CARDS GRID */
+.info-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-bottom:16px;}
+.info-card{background:#fff;border-radius:12px;border:2px solid #fde68a;padding:14px;box-shadow:0 2px 6px rgba(217,119,6,.1);}
+.info-card h4{font-size:.95rem;font-weight:700;color:#92400e;margin-bottom:6px;display:flex;align-items:center;gap:6px;}
+.info-card p{font-size:.82rem;color:#374151;line-height:1.5;}
+.info-card .tag{display:inline-block;background:#fef3c7;color:#92400e;border-radius:99px;padding:2px 8px;font-size:.7rem;font-weight:600;margin-top:6px;}
+.info-card .tag.green{background:#dcfce7;color:#166534;}
+.info-card .tag.blue{background:#dbeafe;color:#1e40af;}
+.info-card .tag.purple{background:#f3e8ff;color:#6b21a8;}
+
+/* STAGE CARDS */
+.stage-card{border-radius:14px;padding:16px;margin-bottom:14px;border:2px solid;}
+.stage-card.first{background:#fef9ee;border-color:#fde68a;}
+.stage-card.second{background:#f0fdf4;border-color:#bbf7d0;}
+.stage-card.third{background:#eff6ff;border-color:#bfdbfe;}
+.stage-label{font-weight:800;font-size:1rem;margin-bottom:8px;display:flex;align-items:center;gap:8px;}
+.stage-card ul{padding-left:18px;font-size:.83rem;color:#374151;line-height:1.7;}
+
+/* CORDILLERA TABLE */
+.cords-table{width:100%;border-collapse:collapse;margin-bottom:16px;font-size:.82rem;}
+.cords-table th{background:#d97706;color:#fff;padding:8px 10px;text-align:left;}
+.cords-table td{padding:8px 10px;border-bottom:1px solid #fde68a;vertical-align:top;line-height:1.5;}
+.cords-table tr:nth-child(even) td{background:#fef9ee;}
+.cords-table .cord-name{font-weight:700;color:#92400e;}
+
+/* VALLEY TABLE */
+.valley-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;}
+@media(max-width:500px){.valley-grid{grid-template-columns:1fr;}}
+.valley-card{background:#fff;border-radius:12px;border:2px solid #fde68a;padding:14px;}
+.valley-card h4{font-size:.9rem;font-weight:700;color:#92400e;margin-bottom:6px;}
+.valley-card ul{padding-left:16px;font-size:.78rem;color:#374151;line-height:1.6;}
+
+/* STUDY DONE BTN */
+.study-done-wrap{text-align:center;margin-top:18px;}
+.study-done-btn{background:linear-gradient(135deg,#16a34a,#22c55e);color:#fff;border:none;padding:10px 28px;border-radius:99px;font-size:.95rem;font-weight:700;cursor:pointer;box-shadow:0 3px 10px rgba(22,163,74,.3);transition:all .2s;}
+.study-done-btn:hover{transform:translateY(-1px);box-shadow:0 5px 15px rgba(22,163,74,.4);}
+.study-done-btn.done{background:#d1fae5;color:#166534;cursor:default;transform:none;}
+
+/* EXERCISES */
+.ex-section{background:#fff;border-radius:14px;border:2px solid #fde68a;padding:16px;margin-bottom:16px;}
+.ex-title{font-size:1rem;font-weight:700;color:#92400e;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.ex-q{margin-bottom:14px;font-size:.87rem;color:#1f2937;line-height:1.5;}
+.ex-q .q-text{font-weight:600;margin-bottom:8px;}
+
+/* FILL IN THE BLANK */
+input.blank{border:none;border-bottom:2px solid #d97706;background:transparent;font-size:.87rem;padding:2px 4px;width:160px;outline:none;color:#1f2937;transition:border-color .2s;}
+input.blank.correct{border-color:#16a34a;background:#f0fdf4;}
+input.blank.wrong{border-color:#dc2626;background:#fef2f2;}
+input.blank:focus{border-color:#f59e0b;}
+
+/* MULTIPLE CHOICE */
+.mc-options{display:flex;flex-direction:column;gap:6px;margin-top:8px;}
+.mc-opt{display:flex;align-items:flex-start;gap:8px;padding:8px 12px;border-radius:8px;border:2px solid #e5e7eb;cursor:pointer;transition:all .2s;font-size:.83rem;}
+.mc-opt:hover{border-color:#d97706;background:#fffbeb;}
+.mc-opt input{margin-top:2px;accent-color:#d97706;}
+.mc-opt.correct{border-color:#16a34a;background:#f0fdf4;}
+.mc-opt.wrong{border-color:#dc2626;background:#fef2f2;}
+
+/* TRUE/FALSE */
+.tf-row{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid #fde68a;font-size:.83rem;}
+.tf-row:last-child{border-bottom:none;}
+.tf-stmt{flex:1;}
+.tf-btns{display:flex;gap:6px;flex-shrink:0;}
+.tf-btn{padding:4px 12px;border-radius:99px;border:2px solid #e5e7eb;cursor:pointer;font-size:.75rem;font-weight:700;background:#fff;transition:all .2s;}
+.tf-btn[data-val="V"]{color:#16a34a;}
+.tf-btn[data-val="F"]{color:#dc2626;}
+.tf-btn.selected-V{background:#f0fdf4;border-color:#16a34a;}
+.tf-btn.selected-F{background:#fef2f2;border-color:#dc2626;}
+.tf-btn.correct-ans{background:#16a34a!important;color:#fff!important;border-color:#16a34a!important;}
+.tf-btn.wrong-ans{background:#dc2626!important;color:#fff!important;border-color:#dc2626!important;}
+
+/* MATCHING */
+.match-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:.83rem;}
+.match-col-a{display:flex;flex-direction:column;gap:6px;}
+.match-col-b{display:flex;flex-direction:column;gap:6px;}
+.match-a-item{display:flex;align-items:center;gap:6px;padding:6px 10px;background:#fef3c7;border-radius:8px;}
+.match-a-item input{width:38px;border:1px solid #d97706;border-radius:6px;padding:2px 4px;text-align:center;font-size:.83rem;}
+.match-a-item input.correct{background:#f0fdf4;border-color:#16a34a;}
+.match-a-item input.wrong{background:#fef2f2;border-color:#dc2626;}
+.match-b-item{padding:6px 10px;background:#eff6ff;border-radius:8px;display:flex;gap:6px;align-items:flex-start;}
+.match-b-num{font-weight:700;color:#2563eb;min-width:18px;}
+
+/* CLASSIFY */
+.classify-wrap{margin-top:10px;}
+.word-bank{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;padding:10px;background:#fef3c7;border-radius:10px;}
+.word-chip{background:#fff;border:2px solid #fbbf24;border-radius:99px;padding:3px 12px;font-size:.78rem;font-weight:600;color:#92400e;}
+.classify-cols{display:grid;gap:10px;grid-template-columns:1fr 1fr;}
+.classify-col{background:#fff;border-radius:10px;border:2px solid #e5e7eb;padding:10px;}
+.classify-col h5{font-size:.8rem;font-weight:700;color:#374151;margin-bottom:8px;text-align:center;padding:4px;border-radius:6px;}
+.classify-col.col1 h5{background:#fef3c7;color:#92400e;}
+.classify-col.col2 h5{background:#dcfce7;color:#166534;}
+.classify-col.col3 h5{background:#dbeafe;color:#1e40af;}
+.classify-col.col4 h5{background:#f3e8ff;color:#6b21a8;}
+.classify-input{width:100%;border:1px solid #e5e7eb;border-radius:6px;padding:5px 8px;font-size:.78rem;margin-bottom:4px;}
+.classify-input.correct{border-color:#16a34a;background:#f0fdf4;}
+.classify-input.wrong{border-color:#dc2626;background:#fef2f2;}
+
+/* CHECK BUTTONS */
+.check-btn{background:#d97706;color:#fff;border:none;padding:10px 24px;border-radius:99px;font-size:.87rem;font-weight:700;cursor:pointer;margin-top:14px;transition:all .2s;width:100%;}
+.check-btn:hover{background:#b45309;}
+.score-display{text-align:center;margin-top:10px;font-size:.85rem;font-weight:700;color:#92400e;padding:8px;background:#fef3c7;border-radius:8px;display:none;}
+
+/* WRITING */
+.writing-card{background:#fff;border-radius:14px;border:2px solid #fde68a;padding:16px;margin-bottom:16px;}
+.writing-card h4{font-size:.95rem;font-weight:700;color:#92400e;margin-bottom:8px;}
+textarea{width:100%;border:2px solid #fde68a;border-radius:10px;padding:10px;font-size:.85rem;font-family:inherit;resize:vertical;min-height:90px;outline:none;transition:border-color .2s;}
+textarea:focus{border-color:#d97706;}
+textarea:disabled{background:#f9fafb;color:#6b7280;}
+.dad-btn{background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;border:none;padding:10px 24px;border-radius:99px;font-size:.87rem;font-weight:700;cursor:pointer;margin-top:10px;transition:all .2s;width:100%;}
+.dad-review{margin-top:12px;padding:12px;background:#f5f3ff;border-radius:10px;display:none;}
+.dad-review-title{font-size:.8rem;font-weight:700;color:#6b21a8;margin-bottom:8px;}
+.grade-btns{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;}
+.grade-btn{padding:6px 14px;border-radius:99px;border:2px solid;font-size:.78rem;font-weight:700;cursor:pointer;background:#fff;}
+.grade-btn.great{border-color:#16a34a;color:#16a34a;}
+.grade-btn.good{border-color:#d97706;color:#d97706;}
+.grade-btn.retry{border-color:#dc2626;color:#dc2626;}
+.grade-btn.selected-great{background:#16a34a;color:#fff;}
+.grade-btn.selected-good{background:#d97706;color:#fff;}
+.grade-btn.selected-retry{background:#dc2626;color:#fff;}
+.dad-comment{width:100%;border:1px solid #e5e7eb;border-radius:6px;padding:6px 8px;font-size:.78rem;font-family:inherit;margin-top:6px;}
+.save-dad-btn{background:#6b21a8;color:#fff;border:none;padding:6px 18px;border-radius:99px;font-size:.78rem;font-weight:700;cursor:pointer;margin-top:6px;}
+.grade-result{margin-top:8px;padding:8px;border-radius:8px;font-size:.82rem;font-weight:600;display:none;}
+
+/* FINAL */
+.final-card{background:#fff;border-radius:14px;border:2px solid #fde68a;padding:20px;text-align:center;margin-bottom:16px;}
+.letter-grade{font-size:5rem;font-weight:900;line-height:1;}
+.pct-grade{font-size:1.4rem;font-weight:700;color:#92400e;margin-top:6px;}
+.grade-msg{font-size:.9rem;color:#6b7280;margin-top:8px;}
+.breakdown-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:.82rem;}
+.breakdown-table th{background:#fef3c7;padding:8px;text-align:left;color:#92400e;}
+.breakdown-table td{padding:8px;border-bottom:1px solid #fde68a;}
+.calc-btn{background:linear-gradient(135deg,#d97706,#f59e0b);color:#fff;border:none;padding:12px 32px;border-radius:99px;font-size:1rem;font-weight:800;cursor:pointer;box-shadow:0 4px 14px rgba(217,119,6,.3);transition:all .2s;}
+.calc-btn:hover{transform:translateY(-2px);}
+
+/* HIGHLIGHT */
+.highlight{background:#fef3c7;border-radius:4px;padding:0 3px;font-weight:600;}
+.highlight.green{background:#dcfce7;color:#166534;}
+.highlight.red{background:#fee2e2;color:#991b1b;}
+.highlight.blue{background:#dbeafe;color:#1e40af;}
+
+/* DIVIDER */
+hr.topic-div{border:none;border-top:2px dashed #fde68a;margin:16px 0;}
+
+/* ANSWER REVEAL */
+.answer-reveal{font-size:.78rem;color:#dc2626;font-weight:600;margin-top:4px;display:none;}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🗺️ Estudios Sociales</h1>
+  <p>4to Grado · Bloque 2 · Período 1 · Profe: Ana María Herrera Romero</p>
+</header>
+
+<div class="progress-wrap">
+  <span class="progress-label" id="progress-text">0 / 7 temas</span>
+  <div class="progress-bar-outer"><div class="progress-bar-inner" id="progress-bar" style="width:0%"></div></div>
+  <button id="unlock-btn" onclick="tryUnlock()" disabled>🔒 Desbloquear Prueba</button>
+</div>
+
+<div class="nav-wrapper">
+  <div class="nav-inner">
+    <button class="nav-btn study-btn active" id="nav-s1" onclick="showSection('s1')">🌋 Relieve</button>
+    <button class="nav-btn study-btn" id="nav-s2" onclick="showSection('s2')">🏔️ Territorio</button>
+    <button class="nav-btn study-btn" id="nav-s3" onclick="showSection('s3')">⛰️ Cordilleras</button>
+    <button class="nav-btn study-btn" id="nav-s4" onclick="showSection('s4')">🗻 Cerros</button>
+    <button class="nav-btn study-btn" id="nav-s5" onclick="showSection('s5')">🌄 Valles</button>
+    <button class="nav-btn study-btn" id="nav-s6" onclick="showSection('s6')">🌿 Llanuras</button>
+    <button class="nav-btn study-btn" id="nav-s7" onclick="showSection('s7')">🌊 Costas</button>
+    <button class="nav-btn test-btn" id="nav-t1" onclick="showSection('t1')" disabled>📝 Prueba 1</button>
+    <button class="nav-btn test-btn" id="nav-t2" onclick="showSection('t2')" disabled>📝 Prueba 2</button>
+    <button class="nav-btn test-btn" id="nav-t3" onclick="showSection('t3')" disabled>📝 Prueba 3</button>
+    <button class="nav-btn special" id="nav-tw" onclick="showSection('tw')" disabled>✍️ Escritura</button>
+    <button class="nav-btn special" id="nav-fin" onclick="showSection('fin')" disabled>🏆 Nota</button>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- S1: PROCESOS QUE MODIFICAN EL RELIEVE -->
+<!-- ============================================================ -->
+<section id="s1" class="active">
+  <div class="topic-header">
+    <div class="topic-icon">🌋</div>
+    <div><div class="topic-title">Procesos que modifican el relieve</div>
+    <div class="topic-sub">Indicador 1 · Pág. 56</div></div>
+  </div>
+
+  <div class="info-grid">
+    <div class="info-card">
+      <h4>💧 Erosión</h4>
+      <p>Es el desgaste de la superficie terrestre por acción del <span class="highlight">agua</span> o del <span class="highlight">viento</span>. El agua arrastra tierra y piedras → se forman <strong>sedimentos</strong> que se depositan en las partes más bajas y forman <strong>llanuras</strong>.</p>
+    </div>
+    <div class="info-card">
+      <h4>🌋 Acción de los volcanes</h4>
+      <p>Los volcanes expulsan <strong>humo, ceniza y lava</strong>. La fuerza de las erupciones hace que se desprendan secciones de los volcanes, cambiando su apariencia. Ej: <span class="highlight blue">volcán Turrialba</span> desde 2014 y <span class="highlight blue">volcán Poás</span> desde 2017.</p>
+    </div>
+    <div class="info-card">
+      <h4>⚡ Movimiento de las placas tectónicas</h4>
+      <p>Las placas son las partes en que se divide la superficie terrestre. CR se ubica sobre las <span class="highlight">placas Cocos y Caribe</span>. La placa Cocos se introduce debajo de la Caribe (<strong>subducción</strong>). Esto genera <strong>temblores y actividad volcánica</strong>.</p>
+      <span class="tag">Subducción = hundimiento de una placa debajo de otra</span>
+    </div>
+    <div class="info-card">
+      <h4>🗺️ Placas en Costa Rica</h4>
+      <p>CR también se ubica sobre el <span class="highlight">Bloque de Panamá</span>, un fragmento de la placa Caribe. La placa Cocos se desliza debajo del Bloque de Panamá → genera <strong>temblores en el Pacífico central</strong>.</p>
+    </div>
+  </div>
+
+  <div class="study-done-wrap">
+    <button class="study-done-btn" id="done-s1" onclick="markDone('s1')">✅ ¡Ya estudié este tema!</button>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- S2: ORIGEN Y ETAPAS DEL TERRITORIO -->
+<!-- ============================================================ -->
+<section id="s2">
+  <div class="topic-header">
+    <div class="topic-icon">🏔️</div>
+    <div><div class="topic-title">Origen y etapas del territorio costarricense</div>
+    <div class="topic-sub">Indicador 2 · Pág. 57-59</div></div>
+  </div>
+
+  <div class="info-card" style="margin-bottom:14px;border-color:#c7d2fe;">
+    <h4>⏰ Hace 200 millones de años…</h4>
+    <p>No existía el territorio costarricense. Había un <span class="highlight blue">canal interoceánico</span> que comunicaba el océano Pacífico con el mar Caribe. Hace <strong>150 millones de años</strong>, el movimiento de las placas Cocos y Caribe generó una fuerte actividad volcánica y sísmica que hizo salir partes del fondo del mar → inicio de la formación del territorio.</p>
+  </div>
+
+  <div class="stage-card first">
+    <div class="stage-label">🟡 Primera Etapa</div>
+    <ul>
+      <li>Choque de las placas Cocos y Caribe → se formó un grupo de islas llamado <strong>arco insular externo</strong></li>
+      <li>Algunas islas se unieron después por actividad volcánica y erosión</li>
+      <li>Se formaron los territorios de las <span class="highlight">penínsulas de Santa Elena, Nicoya y Osa</span></li>
+      <li>En esas penínsulas se ubican los <strong>cerros más antiguos del país</strong></li>
+      <li>También se formaron los <span class="highlight">cerros de Herradura</span></li>
+    </ul>
+  </div>
+
+  <div class="stage-card second">
+    <div class="stage-label">🟢 Segunda Etapa</div>
+    <ul>
+      <li>Choque de placas → <strong>orogénesis</strong> (formación de montañas)</li>
+      <li>Se formó la <span class="highlight">cordillera de Talamanca</span> (primeras montañas)</li>
+      <li>Movimientos tectónicos → cordilleras volcánicas Central, Guanacaste y Tilarán → <strong>arco insular interno</strong></li>
+      <li>Se eliminó el canal interoceánico</li>
+      <li>Actividad sísmica → montañas se separaron → surgieron el <span class="highlight">Valle Central</span> y el <span class="highlight">Valle de El General-Coto Brus</span></li>
+      <li>También se formaron la <strong>fila Brunqueña</strong> y la <strong>península de Burica</strong></li>
+    </ul>
+  </div>
+
+  <div class="stage-card third">
+    <div class="stage-label">🔵 Tercera Etapa</div>
+    <ul>
+      <li>Intensa <strong>actividad volcánica y erosiva</strong></li>
+      <li>Viento y agua arrastraron materiales desde las partes altas</li>
+      <li>Los materiales rellenaron los espacios separados → se formaron las <span class="highlight blue">llanuras y las costas de Costa Rica</span></li>
+      <li>Las llanuras nacionales se ubican en el <strong>norte</strong>, el <strong>Pacífico</strong> y el <strong>Caribe</strong></li>
+    </ul>
+  </div>
+
+  <div class="study-done-wrap">
+    <button class="study-done-btn" id="done-s2" onclick="markDone('s2')">✅ ¡Ya estudié este tema!</button>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- S3: CORDILLERAS / EJE MONTAÑOSO CENTRAL -->
+<!-- ============================================================ -->
+<section id="s3">
+  <div class="topic-header">
+    <div class="topic-icon">⛰️</div>
+    <div><div class="topic-title">Eje montañoso central y Cordilleras</div>
+    <div class="topic-sub">Indicadores 3.1, 3.2, 3.3 · Pág. 66-67</div></div>
+  </div>
+
+  <div class="info-card" style="margin-bottom:14px;">
+    <h4>🧭 Características del eje montañoso central</h4>
+    <p>✦ Atraviesa el territorio nacional de <strong>noroeste a sureste</strong><br>
+    ✦ Posee <strong>montañas altas</strong> y terrenos quebrados con pendientes<br>
+    ✦ Consta de <strong>4 secciones</strong>: Cordillera volcánica de Guanacaste · Cordillera de Tilarán · Cordillera volcánica Central · Cordillera de Talamanca</p>
+  </div>
+
+  <table class="cords-table">
+    <tr><th>Cordillera</th><th>Ubicación / Extensión</th><th>Volcanes / Cerros</th><th>Actividades</th></tr>
+    <tr>
+      <td class="cord-name">🔴 Volcánica de Guanacaste</td>
+      <td>Desde volcán Orosí hasta volcán Arenal</td>
+      <td>Rincón de la Vieja, Miravalles, Iles, Tenorio, Arenal</td>
+      <td>Agricultura, ganadería, turismo (Rincón, Tenorio, Arenal). Detiene vientos del Caribe → sequía en Guanacaste</td>
+    </tr>
+    <tr>
+      <td class="cord-name">🟢 Tilarán</td>
+      <td>Desde depresión del Arenal hasta depresión de Tapezco. Cerros de Abangares, Miramar, montes del Aguacate</td>
+      <td>Sin volcanes principales. Vista desde Monteverde</td>
+      <td>Fuertes vientos → <strong>energía eólica</strong>. Agricultura y ganadería</td>
+    </tr>
+    <tr>
+      <td class="cord-name">🟡 Volcánica Central</td>
+      <td>Desde depresión de Tapezco hasta volcán Turrialba</td>
+      <td>Poás, Barva, Irazú, Turrialba</td>
+      <td>Ganadería, agricultura, turismo</td>
+    </tr>
+    <tr>
+      <td class="cord-name">🟤 Talamanca</td>
+      <td>Al sureste. Desde cerros La Carpintera hasta cerro Pando (frontera con Panamá)</td>
+      <td><strong>Sin volcanes</strong>. Cerro Chirripó: 3819 m (punto más alto de CR)</td>
+      <td>Madera, agricultura, turismo (Chirripó, La Amistad)</td>
+    </tr>
+  </table>
+
+  <div class="info-card" style="border-color:#bbf7d0;background:#f0fdf4;">
+    <h4>🌳 Importancia de los parques nacionales en las cordilleras</h4>
+    <p>Los parques nacionales protegen la <strong>biodiversidad</strong> (flora y fauna), conservan los recursos naturales, regulan el clima, preservan las fuentes de agua y permiten el <strong>turismo ecológico</strong> que beneficia a las comunidades locales.</p>
+    <span class="tag green">Ej: Rincón de la Vieja, Tenorio, Arenal, Chirripó, La Amistad</span>
+  </div>
+
+  <div class="study-done-wrap">
+    <button class="study-done-btn" id="done-s3" onclick="markDone('s3')">✅ ¡Ya estudié este tema!</button>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- S4: SISTEMA MONTAÑOSO SECUNDARIO -->
+<!-- ============================================================ -->
+<section id="s4">
+  <div class="topic-header">
+    <div class="topic-icon">🗻</div>
+    <div><div class="topic-title">Sistema montañoso secundario</div>
+    <div class="topic-sub">Indicadores 4.1, 4.2 · Pág. 68-69</div></div>
+  </div>
+
+  <div class="info-card" style="margin-bottom:14px;">
+    <h4>📋 Características generales</h4>
+    <p>✦ Constituido por las <strong>elevaciones más antiguas del país</strong><br>
+    ✦ Se extiende <span class="highlight">a lo largo de la costa pacífica</span><br>
+    ✦ Se compone de <strong>cerros de poca altura</strong><br>
+    ✦ Sus estructuras reducen la <strong>intensidad del viento</strong> que proviene del océano Pacífico</p>
+  </div>
+
+  <div class="info-grid">
+    <div class="info-card">
+      <h4>🏔️ Cerros de Santa Elena</h4>
+      <p>Ubicados en la <strong>Península de Santa Elena</strong>. Poseen <span class="highlight">yacimientos de mármol</span> → usado en la industria de la construcción y en la elaboración de obras artísticas.</p>
+    </div>
+    <div class="info-card">
+      <h4>🏔️ Cerros de Nicoya</h4>
+      <p>Están en la <strong>Península de Nicoya</strong>. Poseen <span class="highlight">depósitos de rocas calizas</span> → utilizadas en la fabricación de <strong>cemento</strong>.</p>
+    </div>
+    <div class="info-card">
+      <h4>🏔️ Cerros de Herradura</h4>
+      <p>Cerca de la <strong>costa del Pacífico</strong>. Sobresalen las playas Jacó, Herradura y Manuel Antonio. Se desarrolla el <span class="highlight">comercio y el turismo</span>.</p>
+    </div>
+    <div class="info-card">
+      <h4>🏔️ Fila Brunqueña</h4>
+      <p>Entre el Valle de El General-Coto Brus y la costa del Pacífico. Tiene yacimientos de <span class="highlight">roca caliza, cobre y bauxita</span>. Se siembra <strong>arroz, frijol, café y banano</strong>.</p>
+    </div>
+    <div class="info-card">
+      <h4>🏔️ Cerros Salsipuedes</h4>
+      <p>Ubicados en la <strong>Península de Osa</strong>. Zona apta para el <span class="highlight">cultivo de banano y palma africana</span>.</p>
+    </div>
+    <div class="info-card">
+      <h4>🏔️ Cerros de la Península de Burica</h4>
+      <p>Se localizan al <strong>sureste del país</strong>. Se cultiva <span class="highlight">banano, arroz y palma aceitera</span>.</p>
+    </div>
+  </div>
+
+  <div class="study-done-wrap">
+    <button class="study-done-btn" id="done-s4" onclick="markDone('s4')">✅ ¡Ya estudié este tema!</button>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- S5: VALLES DE COSTA RICA -->
+<!-- ============================================================ -->
+<section id="s5">
+  <div class="topic-header">
+    <div class="topic-icon">🌄</div>
+    <div><div class="topic-title">Valles de Costa Rica</div>
+    <div class="topic-sub">Indicador 5 · Pág. 70-71</div></div>
+  </div>
+
+  <div class="info-card" style="margin-bottom:14px;">
+    <h4>📋 Características generales de los valles</h4>
+    <p>✦ Se ubican en el <strong>centro del territorio</strong> y cercanías de las costas del Pacífico y del Caribe<br>
+    ✦ Son amplios, planos, estrechos o profundos<br>
+    ✦ Poseen <span class="highlight green">suelos fértiles</span> aptos para la agricultura y la ganadería<br>
+    ✦ De origen <strong>volcánico</strong> (por cenizas) o <strong>sedimentario</strong> (por arena y piedra de ríos)</p>
+  </div>
+
+  <div class="valley-grid">
+    <div class="valley-card">
+      <h4>🏙️ Valle Central</h4>
+      <ul>
+        <li>Entre la Cord. Volcánica Central, Talamanca y los montes del Aguacate</li>
+        <li>Ríos: Virilla y Grande de San Ramón → forman el <strong>Grande de Tárcoles</strong></li>
+        <li>Cultivos: café, caña de azúcar, papas, plantas ornamentales</li>
+        <li>Dividido por cerros Ochomogo y La Carpintera: occidental (Alajuela, Heredia, SJ) y oriental (Cartago, río Reventazón)</li>
+      </ul>
+    </div>
+    <div class="valley-card">
+      <h4>🌾 Valle del Tempisque</h4>
+      <ul>
+        <li>Provincia de <strong>Guanacaste</strong></li>
+        <li>Ríos: Tempisque, Cañas y Bebedero</li>
+        <li>Ganadería de engorde, cultivo de <strong>arroz y caña de azúcar</strong></li>
+        <li>Turismo: Parques Nacionales <strong>Palo Verde</strong> y <strong>Barra Honda</strong></li>
+      </ul>
+    </div>
+    <div class="valley-card">
+      <h4>🌿 Valle de Talamanca</h4>
+      <ul>
+        <li>Al <strong>sureste del país</strong>, rodeado por la Cord. de Talamanca</li>
+        <li>Ríos: Telire, Coen, Lari y Urén</li>
+        <li>Cultivos: <strong>banano, cacao, maíz y plátano</strong></li>
+        <li>También se desarrolla la ganadería</li>
+      </ul>
+    </div>
+    <div class="valley-card">
+      <h4>☕ Valle de El General-Coto Brus</h4>
+      <ul>
+        <li>Sureste, entre Cord. Talamanca y Fila Brunqueña</li>
+        <li>Ríos: General y Coto Brus → forman el <strong>Grande de Térraba</strong></li>
+        <li>Cultivos: <strong>café, plátano, piña, palma aceitera</strong></li>
+        <li>Ganadería y comercio con Panamá</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="study-done-wrap">
+    <button class="study-done-btn" id="done-s5" onclick="markDone('s5')">✅ ¡Ya estudié este tema!</button>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- S6: LLANURAS DE COSTA RICA -->
+<!-- ============================================================ -->
+<section id="s6">
+  <div class="topic-header">
+    <div class="topic-icon">🌿</div>
+    <div><div class="topic-title">Llanuras de Costa Rica</div>
+    <div class="topic-sub">Indicadores 6.1, 6.2, 6.3 · Pág. 72-73</div></div>
+  </div>
+
+  <div class="info-card" style="margin-bottom:14px;">
+    <h4>📋 Características generales de las llanuras</h4>
+    <p>✦ Son las <span class="highlight">tierras más bajas</span> del territorio (0 a 500 m s.n.m.)<br>
+    ✦ Se encuentran entre el eje montañoso central y las costas<br>
+    ✦ En CR hay llanuras del <strong>Norte</strong>, del <strong>Caribe</strong> y del <strong>Pacífico</strong><br>
+    ✦ Las del norte y Caribe son más <strong>extensas</strong>; las del Pacífico son más cortas<br>
+    ✦ Son terrenos llanos → facilitan el <strong>asentamiento humano</strong> y actividades como agricultura y ganadería<br>
+    ✦ Son los territorios que reciben <strong>mayor cantidad de turistas</strong> por la cercanía a la costa<br>
+    ✦ Son tierras fértiles por los materiales volcánicos y marinos depositados</p>
+  </div>
+
+  <div class="info-grid">
+    <div class="info-card">
+      <h4>🌍 Llanuras del Norte</h4>
+      <p>Al norte del país. Ríos principales: <span class="highlight">Frío, Sarapiquí</span> y el San Juan (límite con Nicaragua).</p>
+      <p style="margin-top:6px;"><strong>Actividades:</strong> Agricultura (piña, yuca, tubérculos), ganadería.</p>
+    </div>
+    <div class="info-card">
+      <h4>🌊 Llanuras del Caribe</h4>
+      <p>En la vertiente del Caribe. Ríos principales: <span class="highlight">Reventazón, Pacuare, Matina, Tortuguero</span>.</p>
+      <p style="margin-top:6px;"><strong>Actividades:</strong> Cultivo de banano, cacao, piña.</p>
+    </div>
+    <div class="info-card">
+      <h4>🌅 Llanuras del Pacífico</h4>
+      <p>Son más cortas por la cercanía al conjunto montañoso. Ríos principales: <span class="highlight">Tárcoles, Tempisque, Térraba</span>.</p>
+      <p style="margin-top:6px;"><strong>Actividades:</strong> Ganadería, cultivo de arroz y caña de azúcar.</p>
+    </div>
+  </div>
+
+  <div class="info-card" style="border-color:#bbf7d0;background:#f0fdf4;">
+    <h4>💼 Actividades económicas en las llanuras</h4>
+    <p>✦ <strong>Cultivos:</strong> piña, banano, cacao, arroz, caña de azúcar, yuca<br>
+    ✦ <strong>Ganadería:</strong> ganado bovino y de engorde<br>
+    ✦ <strong>Explotación de madera:</strong> aprovechamiento de los bosques<br>
+    ✦ <strong>Industria de fertilizantes:</strong> producción de abonos agrícolas</p>
+  </div>
+
+  <div class="study-done-wrap">
+    <button class="study-done-btn" id="done-s6" onclick="markDone('s6')">✅ ¡Ya estudié este tema!</button>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- S7: COSTAS DE COSTA RICA -->
+<!-- ============================================================ -->
+<section id="s7">
+  <div class="topic-header">
+    <div class="topic-icon">🌊</div>
+    <div><div class="topic-title">Costas de Costa Rica</div>
+    <div class="topic-sub">Indicadores 7.1, 7.2, 7.3 · Pág. 74-75</div></div>
+  </div>
+
+  <div class="info-card" style="margin-bottom:14px;">
+    <h4>💼 Actividades económicas en las costas</h4>
+    <p>✦ <strong>Pesca:</strong> Se practica en los ríos, manglares y el mar<br>
+    ✦ <strong>Comercio (cabotaje):</strong> navegación en pequeñas lanchas entre puntos de la costa para intercambios comerciales o transportar personas. También destaca el comercio internacional (EE.UU., América del Sur, Europa)<br>
+    ✦ <strong>Turismo:</strong> Se impulsa en las playas y parques nacionales costeros</p>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;">
+    <div class="info-card" style="border-color:#fbbf24;">
+      <h4>🌅 Costa del Pacífico</h4>
+      <p><strong>Irregularidades:</strong> Muy irregular. Puntas, cabos, golfos y penínsulas: Bahía Salinas, Cabo Santa Elena, G. Papagayo, Isla Chira, G. Nicoya, P. de Nicoya, Isla del Coco, P. de Osa, Golfo Dulce, Punta Burica</p>
+      <p style="margin-top:6px;"><strong>Extensión:</strong> ~<span class="highlight">1254 km</span>. Desde bahía Salinas hasta punta Burica</p>
+      <p style="margin-top:6px;"><strong>Paisaje:</strong> Terrenos rocosos y playas pequeñas (Potrero, Tamarindo, Sámara, Conchal, Herradura)</p>
+      <p style="margin-top:6px;"><strong>Puertos:</strong> Puntarenas, Caldera, Quepos, Golfito</p>
+    </div>
+    <div class="info-card" style="border-color:#60a5fa;">
+      <h4>🌊 Costa del Caribe</h4>
+      <p><strong>Irregularidades:</strong> Casi <span class="highlight">lineal</span>. Bahías, islas y puntas: Punta Castilla, Isla Calero, Bahía de Moín, Punta Blanca, Isla Uvita, Punta Cahuita, Punta Mona</p>
+      <p style="margin-top:6px;"><strong>Extensión:</strong> ~<span class="highlight">212 km</span>. Desde punta Castilla hasta desembocadura del río Sixaola</p>
+      <p style="margin-top:6px;"><strong>Paisaje:</strong> Playas arenosas (Uva, Manzanillo). Frente a Cahuita: <strong>formaciones coralinas</strong> que dan un color blancuzco</p>
+      <p style="margin-top:6px;"><strong>Puertos:</strong> Moín y Limón</p>
+    </div>
+  </div>
+
+  <div class="info-card" style="border-color:#86efac;background:#f0fdf4;">
+    <h4>🛡️ Acciones para proteger las costas</h4>
+    <p>✦ <strong>No tirar basura al mar</strong> ni en los ríos<br>
+    ✦ <strong>Proteger la biodiversidad</strong> de los ecosistemas costeros<br>
+    ✦ Respetar las vedas de pesca<br>
+    ✦ Participar en limpiezas de playa<br>
+    ✦ No dañar los arrecifes de coral</p>
+  </div>
+
+  <div class="study-done-wrap">
+    <button class="study-done-btn" id="done-s7" onclick="markDone('s7')">✅ ¡Ya estudié este tema!</button>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- T1: PRUEBA 1 — Relieve + Territorio -->
+<!-- ============================================================ -->
+<section id="t1">
+  <div class="topic-header">
+    <div class="topic-icon">📝</div>
+    <div><div class="topic-title">Prueba 1: Relieve y Territorio</div>
+    <div class="topic-sub">Temas 1 y 2</div></div>
+  </div>
+
+  <!-- EX 1: V/F Relieve (del libro p.56) -->
+  <div class="ex-section">
+    <div class="ex-title">📖 Del libro (pág. 56) — Verdadero o Falso</div>
+    <p class="ex-q"><span class="q-text">Escribe V (verdadero) o F (falso) según corresponda.</span></p>
+    <div id="tf1">
+      <div class="tf-row"><span class="tf-stmt">El fuego es el principal factor que provoca erosión.</span><div class="tf-btns"><button class="tf-btn" data-val="V" onclick="selectTF(this,'tf1-0','V')">V</button><button class="tf-btn" data-val="F" onclick="selectTF(this,'tf1-0','F')">F</button></div></div>
+      <div class="tf-row"><span class="tf-stmt">El movimiento de las placas tectónicas genera sedimentos.</span><div class="tf-btns"><button class="tf-btn" data-val="V" onclick="selectTF(this,'tf1-1','V')">V</button><button class="tf-btn" data-val="F" onclick="selectTF(this,'tf1-1','F')">F</button></div></div>
+      <div class="tf-row"><span class="tf-stmt">Los movimientos de las placas tectónicas generan temblores.</span><div class="tf-btns"><button class="tf-btn" data-val="V" onclick="selectTF(this,'tf1-2','V')">V</button><button class="tf-btn" data-val="F" onclick="selectTF(this,'tf1-2','F')">F</button></div></div>
+      <div class="tf-row"><span class="tf-stmt">La fuerza de una erupción puede hacer que cambie la apariencia de un volcán.</span><div class="tf-btns"><button class="tf-btn" data-val="V" onclick="selectTF(this,'tf1-3','V')">V</button><button class="tf-btn" data-val="F" onclick="selectTF(this,'tf1-3','F')">F</button></div></div>
+    </div>
+    <button class="check-btn" onclick="checkTF1()">Revisar respuestas</button>
+    <div class="score-display" id="score-tf1"></div>
+  </div>
+
+  <!-- EX 2: MC Etapas (del libro p.59) -->
+  <div class="ex-section">
+    <div class="ex-title">📖 Del libro (pág. 59) — Selección única</div>
+    <div class="ex-q">
+      <div class="q-text">1. Señala la forma de relieve que apareció en la <strong>primera etapa</strong> de formación del territorio costarricense.</div>
+      <div class="mc-options" id="mc2a">
+        <label class="mc-opt"><input type="radio" name="mc2a"> Valles</label>
+        <label class="mc-opt"><input type="radio" name="mc2a"> Penínsulas</label>
+        <label class="mc-opt"><input type="radio" name="mc2a"> Cordilleras</label>
+        <label class="mc-opt"><input type="radio" name="mc2a"> Depresiones</label>
+      </div>
+    </div>
+    <div class="ex-q">
+      <div class="q-text">2. Señala la forma de relieve que se originó en la <strong>tercera etapa</strong> de formación del territorio.</div>
+      <div class="mc-options" id="mc2b">
+        <label class="mc-opt"><input type="radio" name="mc2b"> Llanuras</label>
+        <label class="mc-opt"><input type="radio" name="mc2b"> Cerros</label>
+        <label class="mc-opt"><input type="radio" name="mc2b"> Volcanes</label>
+        <label class="mc-opt"><input type="radio" name="mc2b"> Depresiones</label>
+      </div>
+    </div>
+    <button class="check-btn" onclick="checkMC2()">Revisar respuestas</button>
+    <div class="score-display" id="score-mc2"></div>
+  </div>
+
+  <!-- EX 3: Fill-in-blank -->
+  <div class="ex-section">
+    <div class="ex-title">✏️ Completa los espacios</div>
+    <div class="ex-q">
+      <div class="q-text">Completa las oraciones con la palabra correcta:</div>
+      <p style="margin:8px 0;font-size:.85rem;">1. El desgaste de la superficie terrestre por acción del agua o del viento se llama <input class="blank" id="f1a" placeholder="___________">.</p>
+      <p style="margin:8px 0;font-size:.85rem;">2. El proceso por el cual la placa Cocos se introduce debajo de la placa Caribe se denomina <input class="blank" id="f1b" placeholder="___________">.</p>
+      <p style="margin:8px 0;font-size:.85rem;">3. En la <input class="blank" id="f1c" placeholder="_________"> etapa del territorio, se formaron las llanuras y las costas de Costa Rica.</p>
+      <p style="margin:8px 0;font-size:.85rem;">4. Hace 200 millones de años existía un <input class="blank" id="f1d" placeholder="___________"> que comunicaba el Pacífico con el Caribe.</p>
+    </div>
+    <button class="check-btn" onclick="checkFill1()">Revisar respuestas</button>
+    <div class="score-display" id="score-fill1"></div>
+  </div>
+
+  <!-- EX 4: Matching -->
+  <div class="ex-section">
+    <div class="ex-title">🔗 Une con el número correcto</div>
+    <div class="ex-q q-text">Une cada proceso con su descripción escribiendo el número.</div>
+    <div class="match-grid">
+      <div class="match-col-a">
+        <div class="match-a-item"><input id="m1a" class="blank" style="width:36px" placeholder="#"> Erosión</div>
+        <div class="match-a-item"><input id="m1b" class="blank" style="width:36px" placeholder="#"> Subducción</div>
+        <div class="match-a-item"><input id="m1c" class="blank" style="width:36px" placeholder="#"> Orogénesis</div>
+        <div class="match-a-item"><input id="m1d" class="blank" style="width:36px" placeholder="#"> Sedimentos</div>
+      </div>
+      <div class="match-col-b">
+        <div class="match-b-item"><span class="match-b-num">1.</span> Materiales arrastrados por el agua que se depositan en partes bajas</div>
+        <div class="match-b-item"><span class="match-b-num">2.</span> Formación de montañas por el choque de placas</div>
+        <div class="match-b-item"><span class="match-b-num">3.</span> Desgaste de la superficie por agua o viento</div>
+        <div class="match-b-item"><span class="match-b-num">4.</span> Una placa se introduce debajo de otra</div>
+      </div>
+    </div>
+    <button class="check-btn" onclick="checkMatch1()">Revisar respuestas</button>
+    <div class="score-display" id="score-match1"></div>
+  </div>
+
+  <!-- EX 5: Classify etapas -->
+  <div class="ex-section">
+    <div class="ex-title">📦 Clasifica lo que se formó en cada etapa</div>
+    <div class="ex-q q-text">Escribe en qué etapa (1ra, 2da o 3ra) se formó cada elemento:</div>
+    <div class="classify-cols" style="grid-template-columns:1fr 1fr 1fr;">
+      <div class="classify-col col1"><h5>1ra Etapa</h5>
+        <input class="classify-input" id="cl1a" placeholder="Ej: Arco insular...">
+        <input class="classify-input" id="cl1b" placeholder="...">
+      </div>
+      <div class="classify-col col2"><h5>2da Etapa</h5>
+        <input class="classify-input" id="cl2a" placeholder="Ej: Cordillera...">
+        <input class="classify-input" id="cl2b" placeholder="...">
+      </div>
+      <div class="classify-col col3"><h5>3ra Etapa</h5>
+        <input class="classify-input" id="cl3a" placeholder="Ej: Llanuras...">
+        <input class="classify-input" id="cl3b" placeholder="...">
+      </div>
+    </div>
+    <div style="margin-top:10px;padding:10px;background:#fef3c7;border-radius:8px;font-size:.78rem;">
+      <strong>Banco de palabras:</strong> Arco insular externo · Cordillera de Talamanca · Llanuras · Penínsulas · Valle Central · Costas de Costa Rica
+    </div>
+    <button class="check-btn" onclick="checkClassify1()">Revisar respuestas</button>
+    <div class="score-display" id="score-classify1"></div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- T2: PRUEBA 2 — Cordilleras + Cerros -->
+<!-- ============================================================ -->
+<section id="t2">
+  <div class="topic-header">
+    <div class="topic-icon">📝</div>
+    <div><div class="topic-title">Prueba 2: Cordilleras y Cerros</div>
+    <div class="topic-sub">Temas 3 y 4</div></div>
+  </div>
+
+  <!-- EX 1: MC Tilarán (del libro p.66) -->
+  <div class="ex-section">
+    <div class="ex-title">📖 Del libro (pág. 66) — Selección única</div>
+    <div class="ex-q">
+      <div class="q-text">Selecciona la afirmación correcta sobre la cordillera de Tilarán.</div>
+      <div class="mc-options" id="mc3a">
+        <label class="mc-opt"><input type="radio" name="mc3a"> Las características del suelo impiden el desarrollo de la agricultura.</label>
+        <label class="mc-opt"><input type="radio" name="mc3a"> Los fuertes vientos que se dan en la zona se aprovechan en la generación de energía eólica.</label>
+        <label class="mc-opt"><input type="radio" name="mc3a"> Se explotan metales preciosos en sus terrenos por la presencia de depresiones.</label>
+      </div>
+    </div>
+    <button class="check-btn" onclick="checkMC3a()">Revisar respuestas</button>
+    <div class="score-display" id="score-mc3a"></div>
+  </div>
+
+  <!-- EX 2: MC volcán Cord. Central (del libro p.67) -->
+  <div class="ex-section">
+    <div class="ex-title">📖 Del libro (pág. 67) — Selección única</div>
+    <div class="ex-q">
+      <div class="q-text">Marca el volcán que se localiza en la cordillera volcánica Central.</div>
+      <div class="mc-options" id="mc3b">
+        <label class="mc-opt"><input type="radio" name="mc3b"> Miravalles</label>
+        <label class="mc-opt"><input type="radio" name="mc3b"> Turrialba</label>
+        <label class="mc-opt"><input type="radio" name="mc3b"> Tenorio</label>
+        <label class="mc-opt"><input type="radio" name="mc3b"> Arenal</label>
+      </div>
+    </div>
+    <button class="check-btn" onclick="checkMC3b()">Revisar respuestas</button>
+    <div class="score-display" id="score-mc3b"></div>
+  </div>
+
+  <!-- EX 3: Sistema montañoso secundario MC (del libro p.68) -->
+  <div class="ex-section">
+    <div class="ex-title">📖 Del libro (pág. 68) — Selección única</div>
+    <div class="ex-q">
+      <div class="q-text">1. Señala la zona por la que se extiende el sistema montañoso secundario.</div>
+      <div class="mc-options" id="mc3c">
+        <label class="mc-opt"><input type="radio" name="mc3c"> A lo largo de la costa del Caribe</label>
+        <label class="mc-opt"><input type="radio" name="mc3c"> En el centro del país</label>
+        <label class="mc-opt"><input type="radio" name="mc3c"> A lo largo de la costa pacífica</label>
+      </div>
+    </div>
+    <div class="ex-q">
+      <div class="q-text">2. Indica en cuáles dos cerros se extraen materiales para la construcción.</div>
+      <div class="mc-options" id="mc3d">
+        <label class="mc-opt"><input type="checkbox" name="mc3d"> Santa Elena</label>
+        <label class="mc-opt"><input type="checkbox" name="mc3d"> Salsipuedes</label>
+        <label class="mc-opt"><input type="checkbox" name="mc3d"> Nicoya</label>
+        <label class="mc-opt"><input type="checkbox" name="mc3d"> Burica</label>
+      </div>
+    </div>
+    <button class="check-btn" onclick="checkMC3cd()">Revisar respuestas</button>
+    <div class="score-display" id="score-mc3cd"></div>
+  </div>
+
+  <!-- EX 4: Matching cordilleras -->
+  <div class="ex-section">
+    <div class="ex-title">🔗 Une cada cordillera con su característica</div>
+    <div class="match-grid">
+      <div class="match-col-a">
+        <div class="match-a-item"><input id="m2a" class="blank" style="width:36px" placeholder="#"> Guanacaste</div>
+        <div class="match-a-item"><input id="m2b" class="blank" style="width:36px" placeholder="#"> Tilarán</div>
+        <div class="match-a-item"><input id="m2c" class="blank" style="width:36px" placeholder="#"> Volcánica Central</div>
+        <div class="match-a-item"><input id="m2d" class="blank" style="width:36px" placeholder="#"> Talamanca</div>
+      </div>
+      <div class="match-col-b">
+        <div class="match-b-item"><span class="match-b-num">1.</span> Cerro Chirripó: punto más alto de Costa Rica (3819 m). Sin volcanes</div>
+        <div class="match-b-item"><span class="match-b-num">2.</span> Volcanes Poás, Barva, Irazú y Turrialba</div>
+        <div class="match-b-item"><span class="match-b-num">3.</span> Fuertes vientos → energía eólica. Desde Monteverde</div>
+        <div class="match-b-item"><span class="match-b-num">4.</span> Volcanes Rincón de la Vieja, Miravalles, Tenorio, Arenal. Detiene vientos del Caribe</div>
+      </div>
+    </div>
+    <button class="check-btn" onclick="checkMatch2()">Revisar respuestas</button>
+    <div class="score-display" id="score-match2"></div>
+  </div>
+
+  <!-- EX 5: Cerros fill-in -->
+  <div class="ex-section">
+    <div class="ex-title">✏️ Completa con el nombre del cerro o fila correcto</div>
+    <div class="ex-q">
+      <p style="margin:8px 0;font-size:.85rem;">1. Tienen yacimientos de mármol y se ubican en la Península de Santa Elena: Cerros de <input class="blank" id="f2a" placeholder="_________">.</p>
+      <p style="margin:8px 0;font-size:.85rem;">2. Poseen depósitos de rocas calizas para fabricar cemento: Cerros de <input class="blank" id="f2b" placeholder="_________">.</p>
+      <p style="margin:8px 0;font-size:.85rem;">3. Se encuentra entre el Valle de El General-Coto Brus y la costa del Pacífico: <input class="blank" id="f2c" placeholder="_________"> Brunqueña.</p>
+      <p style="margin:8px 0;font-size:.85rem;">4. Aptos para el cultivo de banano y palma africana, en la Península de Osa: Cerros <input class="blank" id="f2d" placeholder="_________">.</p>
+    </div>
+    <button class="check-btn" onclick="checkFill2()">Revisar respuestas</button>
+    <div class="score-display" id="score-fill2"></div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- T3: PRUEBA 3 — Valles + Llanuras + Costas -->
+<!-- ============================================================ -->
+<section id="t3">
+  <div class="topic-header">
+    <div class="topic-icon">📝</div>
+    <div><div class="topic-title">Prueba 3: Valles, Llanuras y Costas</div>
+    <div class="topic-sub">Temas 5, 6 y 7</div></div>
+  </div>
+
+  <!-- EX 1: V/F Valles (del libro p.70) -->
+  <div class="ex-section">
+    <div class="ex-title">📖 Del libro (pág. 70) — Verdadero o Falso</div>
+    <p class="ex-q"><span class="q-text">Subraya las afirmaciones correctas sobre los valles (selecciona V para las verdaderas):</span></p>
+    <div id="tf3">
+      <div class="tf-row"><span class="tf-stmt">En los valles se desarrollan actividades agropecuarias.</span><div class="tf-btns"><button class="tf-btn" data-val="V" onclick="selectTF(this,'tf3-0','V')">V</button><button class="tf-btn" data-val="F" onclick="selectTF(this,'tf3-0','F')">F</button></div></div>
+      <div class="tf-row"><span class="tf-stmt">Los valles no son aptos para la agricultura.</span><div class="tf-btns"><button class="tf-btn" data-val="V" onclick="selectTF(this,'tf3-1','V')">V</button><button class="tf-btn" data-val="F" onclick="selectTF(this,'tf3-1','F')">F</button></div></div>
+      <div class="tf-row"><span class="tf-stmt">Según su origen, los valles se clasifican en volcánicos y sedimentarios.</span><div class="tf-btns"><button class="tf-btn" data-val="V" onclick="selectTF(this,'tf3-2','V')">V</button><button class="tf-btn" data-val="F" onclick="selectTF(this,'tf3-2','F')">F</button></div></div>
+    </div>
+    <button class="check-btn" onclick="checkTF3()">Revisar respuestas</button>
+    <div class="score-display" id="score-tf3"></div>
+  </div>
+
+  <!-- EX 2: MC Llanuras (del libro p.72) -->
+  <div class="ex-section">
+    <div class="ex-title">📖 Del libro (pág. 72) — Selección única</div>
+    <div class="ex-q">
+      <div class="q-text">1. Marca el aspecto geográfico que diferencia a las llanuras del Pacífico de las del norte y del Caribe.</div>
+      <div class="mc-options" id="mc5a">
+        <label class="mc-opt"><input type="radio" name="mc5a"> Extensión</label>
+        <label class="mc-opt"><input type="radio" name="mc5a"> Nombre</label>
+        <label class="mc-opt"><input type="radio" name="mc5a"> Fertilidad</label>
+        <label class="mc-opt"><input type="radio" name="mc5a"> Desarrollo turístico</label>
+      </div>
+    </div>
+    <div class="ex-q">
+      <div class="q-text">2. Señala la altura a la que es posible encontrar las llanuras del país.</div>
+      <div class="mc-options" id="mc5b">
+        <label class="mc-opt"><input type="radio" name="mc5b"> 950 m s. n. m.</label>
+        <label class="mc-opt"><input type="radio" name="mc5b"> 800 m s. n. m.</label>
+        <label class="mc-opt"><input type="radio" name="mc5b"> 1500 m s. n. m.</label>
+        <label class="mc-opt"><input type="radio" name="mc5b"> 350 m s. n. m.</label>
+      </div>
+    </div>
+    <button class="check-btn" onclick="checkMC5()">Revisar respuestas</button>
+    <div class="score-display" id="score-mc5"></div>
+  </div>
+
+  <!-- EX 3: V/F Costas (del libro p.75) -->
+  <div class="ex-section">
+    <div class="ex-title">📖 Del libro (pág. 75) — Verdadero o Falso</div>
+    <p class="ex-q"><span class="q-text">Escribe V (verdadero) o F (falso) según corresponda.</span></p>
+    <div id="tf5">
+      <div class="tf-row"><span class="tf-stmt">El cabotaje es la navegación en pequeñas lanchas.</span><div class="tf-btns"><button class="tf-btn" data-val="V" onclick="selectTF(this,'tf5-0','V')">V</button><button class="tf-btn" data-val="F" onclick="selectTF(this,'tf5-0','F')">F</button></div></div>
+      <div class="tf-row"><span class="tf-stmt">La costa del Caribe es de 1254 kilómetros de extensión.</span><div class="tf-btns"><button class="tf-btn" data-val="V" onclick="selectTF(this,'tf5-1','V')">V</button><button class="tf-btn" data-val="F" onclick="selectTF(this,'tf5-1','F')">F</button></div></div>
+      <div class="tf-row"><span class="tf-stmt">La costa del Pacífico es casi lineal, con pocas irregularidades.</span><div class="tf-btns"><button class="tf-btn" data-val="V" onclick="selectTF(this,'tf5-2','V')">V</button><button class="tf-btn" data-val="F" onclick="selectTF(this,'tf5-2','F')">F</button></div></div>
+      <div class="tf-row"><span class="tf-stmt">Tanto en la costa del Pacífico como en la del Caribe hay bahías.</span><div class="tf-btns"><button class="tf-btn" data-val="V" onclick="selectTF(this,'tf5-3','V')">V</button><button class="tf-btn" data-val="F" onclick="selectTF(this,'tf5-3','F')">F</button></div></div>
+    </div>
+    <button class="check-btn" onclick="checkTF5()">Revisar respuestas</button>
+    <div class="score-display" id="score-tf5"></div>
+  </div>
+
+  <!-- EX 4: Matching Valles -->
+  <div class="ex-section">
+    <div class="ex-title">🔗 Une cada valle con su río o característica</div>
+    <div class="match-grid">
+      <div class="match-col-a">
+        <div class="match-a-item"><input id="m3a" class="blank" style="width:36px" placeholder="#"> Valle Central</div>
+        <div class="match-a-item"><input id="m3b" class="blank" style="width:36px" placeholder="#"> Valle del Tempisque</div>
+        <div class="match-a-item"><input id="m3c" class="blank" style="width:36px" placeholder="#"> Valle de Talamanca</div>
+        <div class="match-a-item"><input id="m3d" class="blank" style="width:36px" placeholder="#"> Valle El General-Coto Brus</div>
+      </div>
+      <div class="match-col-b">
+        <div class="match-b-item"><span class="match-b-num">1.</span> Ríos General y Coto Brus. Cultivos de café, plátano y piña</div>
+        <div class="match-b-item"><span class="match-b-num">2.</span> Ríos Telire, Coen, Lari y Urén. Cultivos de banano, cacao y maíz</div>
+        <div class="match-b-item"><span class="match-b-num">3.</span> Ríos Virilla y Grande de San Ramón. Cultivos de café y caña de azúcar</div>
+        <div class="match-b-item"><span class="match-b-num">4.</span> En Guanacaste. Ríos Tempisque, Cañas y Bebedero. Ganadería</div>
+      </div>
+    </div>
+    <button class="check-btn" onclick="checkMatch3()">Revisar respuestas</button>
+    <div class="score-display" id="score-match3"></div>
+  </div>
+
+  <!-- EX 5: Fill costas -->
+  <div class="ex-section">
+    <div class="ex-title">✏️ Completa sobre las costas</div>
+    <div class="ex-q">
+      <p style="margin:8px 0;font-size:.85rem;">1. La extensión aproximada de la costa del Pacífico es de <input class="blank" id="f3a" placeholder="____"> km.</p>
+      <p style="margin:8px 0;font-size:.85rem;">2. La extensión aproximada de la costa del Caribe es de <input class="blank" id="f3b" placeholder="____"> km.</p>
+      <p style="margin:8px 0;font-size:.85rem;">3. La navegación en pequeñas lanchas entre puntos de la costa se llama <input class="blank" id="f3c" placeholder="____________">.</p>
+      <p style="margin:8px 0;font-size:.85rem;">4. Los puertos del Pacífico son Puntarenas, Caldera, Quepos y <input class="blank" id="f3d" placeholder="_________">.</p>
+      <p style="margin:8px 0;font-size:.85rem;">5. Los puertos del Caribe son Moín y <input class="blank" id="f3e" placeholder="_________">.</p>
+    </div>
+    <button class="check-btn" onclick="checkFill3()">Revisar respuestas</button>
+    <div class="score-display" id="score-fill3"></div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- ESCRITURA -->
+<!-- ============================================================ -->
+<section id="tw">
+  <div class="topic-header">
+    <div class="topic-icon">✍️</div>
+    <div><div class="topic-title">Preguntas de escritura</div>
+    <div class="topic-sub">Revisadas por Papá</div></div>
+  </div>
+
+  <div class="writing-card">
+    <h4>📖 Pregunta 1 (del libro, pág. 59)</h4>
+    <p style="font-size:.83rem;color:#374151;margin-bottom:8px;">Explica por qué consideras importante conocer sobre la formación del territorio costarricense.</p>
+    <textarea id="wr1" placeholder="Escribe tu respuesta aquí..."></textarea>
+    <div class="dad-review" id="dad1">
+      <div class="dad-review-title">👨 Revisión de Papá</div>
+      <div class="grade-btns">
+        <button class="grade-btn great" onclick="dadGrade('dad1','great')">⭐ Excelente</button>
+        <button class="grade-btn good" onclick="dadGrade('dad1','good')">👍 Buen intento</button>
+        <button class="grade-btn retry" onclick="dadGrade('dad1','retry')">🔄 Intentar de nuevo</button>
+      </div>
+      <input class="dad-comment" id="dad1-comment" placeholder="Comentario opcional...">
+      <br><button class="save-dad-btn" onclick="saveDad('dad1','wr1',1)">Guardar calificación</button>
+      <div class="grade-result" id="dad1-result"></div>
+    </div>
+  </div>
+
+  <div class="writing-card">
+    <h4>📖 Pregunta 2 (del libro, pág. 67)</h4>
+    <p style="font-size:.83rem;color:#374151;margin-bottom:8px;">¿Cuál crees que es la importancia de los parques nacionales establecidos en las cordilleras?</p>
+    <textarea id="wr2" placeholder="Escribe tu respuesta aquí..."></textarea>
+    <div class="dad-review" id="dad2">
+      <div class="dad-review-title">👨 Revisión de Papá</div>
+      <div class="grade-btns">
+        <button class="grade-btn great" onclick="dadGrade('dad2','great')">⭐ Excelente</button>
+        <button class="grade-btn good" onclick="dadGrade('dad2','good')">👍 Buen intento</button>
+        <button class="grade-btn retry" onclick="dadGrade('dad2','retry')">🔄 Intentar de nuevo</button>
+      </div>
+      <input class="dad-comment" id="dad2-comment" placeholder="Comentario opcional...">
+      <br><button class="save-dad-btn" onclick="saveDad('dad2','wr2',2)">Guardar calificación</button>
+      <div class="grade-result" id="dad2-result"></div>
+    </div>
+  </div>
+
+  <div class="writing-card">
+    <h4>📖 Pregunta 3 (del libro, pág. 69)</h4>
+    <p style="font-size:.83rem;color:#374151;margin-bottom:8px;">Describe la importancia económica del sistema montañoso secundario para Costa Rica.</p>
+    <textarea id="wr3" placeholder="Escribe tu respuesta aquí..."></textarea>
+    <div class="dad-review" id="dad3">
+      <div class="dad-review-title">👨 Revisión de Papá</div>
+      <div class="grade-btns">
+        <button class="grade-btn great" onclick="dadGrade('dad3','great')">⭐ Excelente</button>
+        <button class="grade-btn good" onclick="dadGrade('dad3','good')">👍 Buen intento</button>
+        <button class="grade-btn retry" onclick="dadGrade('dad3','retry')">🔄 Intentar de nuevo</button>
+      </div>
+      <input class="dad-comment" id="dad3-comment" placeholder="Comentario opcional...">
+      <br><button class="save-dad-btn" onclick="saveDad('dad3','wr3',3)">Guardar calificación</button>
+      <div class="grade-result" id="dad3-result"></div>
+    </div>
+  </div>
+
+  <button class="dad-btn" onclick="submitWriting()">📤 Enviar a Papá para revisión</button>
+  <div id="writing-submitted" style="display:none;text-align:center;padding:12px;margin-top:10px;background:#f0fdf4;border-radius:10px;color:#166534;font-weight:700;">
+    ✅ ¡Respuestas enviadas! Papá puede revisarlas arriba.
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- NOTA FINAL -->
+<!-- ============================================================ -->
+<section id="fin">
+  <div class="topic-header">
+    <div class="topic-icon">🏆</div>
+    <div><div class="topic-title">Nota Final</div>
+    <div class="topic-sub">Resumen de tu desempeño</div></div>
+  </div>
+
+  <div class="final-card">
+    <div id="letter-grade" class="letter-grade" style="color:#d97706;">—</div>
+    <div id="pct-grade" class="pct-grade">—</div>
+    <div id="grade-msg" class="grade-msg">Completa las pruebas y la escritura, luego calcula tu nota.</div>
+  </div>
+
+  <div class="final-card">
+    <table class="breakdown-table" id="breakdown">
+      <tr><th>Sección</th><th>Obtenido</th><th>Total</th><th>%</th></tr>
+      <tr><td>Prueba 1 (Relieve + Territorio)</td><td id="bd-t1">—</td><td>18</td><td id="bd-t1p">—</td></tr>
+      <tr><td>Prueba 2 (Cordilleras + Cerros)</td><td id="bd-t2">—</td><td>16</td><td id="bd-t2p">—</td></tr>
+      <tr><td>Prueba 3 (Valles + Llanuras + Costas)</td><td id="bd-t3">—</td><td>17</td><td id="bd-t3p">—</td></tr>
+      <tr><td>Escritura</td><td id="bd-tw">—</td><td>3</td><td id="bd-twp">—</td></tr>
+      <tr style="font-weight:700;"><td>TOTAL</td><td id="bd-total">—</td><td>54</td><td id="bd-totalp">—</td></tr>
+    </table>
+  </div>
+
+  <div style="text-align:center;">
+    <button class="calc-btn" onclick="calcFinal()">🧮 Calcular mi nota</button>
+  </div>
+</section>
+
+<script>
+// ============================================================
+// STATE
+// ============================================================
+var studyDone = {s1:false,s2:false,s3:false,s4:false,s5:false,s6:false,s7:false};
+var tfAnswers = {};
+var scores = {};
+
+function recordScore(id, n, total) {
+  scores[id] = {n:n, total:total};
+}
+
+// ============================================================
+// NAVIGATION
+// ============================================================
+function showSection(id) {
+  document.querySelectorAll('section').forEach(function(s){s.classList.remove('active');});
+  document.querySelectorAll('.nav-btn').forEach(function(b){b.classList.remove('active');});
+  document.getElementById(id).classList.add('active');
+  var nb = document.getElementById('nav-'+id);
+  if(nb) nb.classList.add('active');
+}
+
+// ============================================================
+// STUDY DONE
+// ============================================================
+function markDone(id) {
+  studyDone[id] = true;
+  var btn = document.getElementById('done-'+id);
+  btn.textContent = '✅ ¡Tema completado!';
+  btn.classList.add('done');
+  var navBtn = document.getElementById('nav-'+id);
+  if(navBtn) navBtn.classList.add('done');
+  updateProgress();
+}
+
+function updateProgress() {
+  var done = Object.values(studyDone).filter(Boolean).length;
+  var total = 7;
+  document.getElementById('progress-text').textContent = done + ' / ' + total + ' temas';
+  document.getElementById('progress-bar').style.width = (done/total*100)+'%';
+  var unlockBtn = document.getElementById('unlock-btn');
+  if(done === total) {
+    unlockBtn.disabled = false;
+    unlockBtn.textContent = '🔓 Desbloquear Prueba';
+  }
+}
+
+function tryUnlock() {
+  var done = Object.values(studyDone).filter(Boolean).length;
+  if(done < 7) { alert('¡Debes estudiar todos los temas primero!'); return; }
+  ['t1','t2','t3','tw','fin'].forEach(function(id){
+    var btn = document.getElementById('nav-'+id);
+    if(btn) { btn.disabled = false; }
+  });
+  var unlockBtn = document.getElementById('unlock-btn');
+  unlockBtn.textContent = '✅ ¡Prueba desbloqueada!';
+  unlockBtn.classList.add('unlocked');
+  unlockBtn.disabled = true;
+  showSection('t1');
+}
+
+// ============================================================
+// TRUE/FALSE
+// ============================================================
+function selectTF(btn, key, val) {
+  var row = btn.closest('.tf-row');
+  row.querySelectorAll('.tf-btn').forEach(function(b){ b.className='tf-btn'; b.dataset.val && (b.classList.add(b.dataset.val==='V'?'':''));});
+  row.querySelectorAll('.tf-btn').forEach(function(b){
+    b.classList.remove('selected-V','selected-F');
+  });
+  btn.classList.add('selected-'+val);
+  tfAnswers[key] = val;
+}
+
+function checkTF(groupId, answers, scoreId) {
+  var correct = 0;
+  var container = document.getElementById(groupId);
+  var rows = container.querySelectorAll('.tf-row');
+  rows.forEach(function(row, i) {
+    var btns = row.querySelectorAll('.tf-btn');
+    var key = groupId+'-'+i;
+    var userAns = tfAnswers[key];
+    var correctAns = answers[i];
+    btns.forEach(function(b){
+      b.classList.remove('correct-ans','wrong-ans');
+      if(b.dataset.val === correctAns) b.classList.add('correct-ans');
+      if(userAns && b.dataset.val === userAns && userAns !== correctAns) b.classList.add('wrong-ans');
+    });
+    if(userAns === correctAns) correct++;
+  });
+  var pct = Math.round(correct/answers.length*100);
+  var sd = document.getElementById(scoreId);
+  sd.style.display='block';
+  sd.textContent = correct+'/'+answers.length+' correctas ('+pct+'%)';
+  recordScore(scoreId, correct, answers.length);
+  return correct;
+}
+
+function checkTF1() { checkTF('tf1',['F','F','V','V'],'score-tf1'); }
+function checkTF3() { checkTF('tf3',['V','F','V'],'score-tf3'); }
+function checkTF5() { checkTF('tf5',['V','F','F','V'],'score-tf5'); }
+
+// ============================================================
+// MULTIPLE CHOICE
+// ============================================================
+function checkMCGroup(groupId, correctIdx, scoreId) {
+  var opts = document.querySelectorAll('#'+groupId+' .mc-opt');
+  var chosen = -1;
+  opts.forEach(function(opt, i){ if(opt.querySelector('input').checked) chosen=i; });
+  opts.forEach(function(opt,i){
+    opt.classList.remove('correct','wrong');
+    if(i===correctIdx) opt.classList.add('correct');
+    else if(i===chosen && chosen!==correctIdx) opt.classList.add('wrong');
+  });
+  var ok = (chosen===correctIdx)?1:0;
+  var sd = document.getElementById(scoreId);
+  sd.style.display='block';
+  sd.textContent = ok+'/1 correctas ('+(ok*100)+'%)';
+  return ok;
+}
+
+function checkMC2() {
+  var a = checkMCGroup('mc2a',1,'score-mc2');
+  var b = checkMCGroup('mc2b',0,'score-mc2');
+  var tot = a+b;
+  document.getElementById('score-mc2').textContent = tot+'/2 correctas ('+(Math.round(tot/2*100))+'%)';
+  recordScore('score-mc2',tot,2);
+}
+
+function checkMC3a() { var r=checkMCGroup('mc3a',1,'score-mc3a'); recordScore('score-mc3a',r,1); }
+function checkMC3b() { var r=checkMCGroup('mc3b',1,'score-mc3b'); recordScore('score-mc3b',r,1); }
+
+function checkMC3cd() {
+  var optsc = document.querySelectorAll('#mc3c .mc-opt');
+  var chosenc=-1;
+  optsc.forEach(function(o,i){if(o.querySelector('input').checked)chosenc=i;});
+  optsc.forEach(function(o,i){
+    o.classList.remove('correct','wrong');
+    if(i===2)o.classList.add('correct');
+    else if(i===chosenc&&chosenc!==2)o.classList.add('wrong');
+  });
+  var sc = chosenc===2?1:0;
+  // checkbox for d
+  var optsd = document.querySelectorAll('#mc3d .mc-opt');
+  var checked=[];
+  optsd.forEach(function(o,i){if(o.querySelector('input').checked)checked.push(i);});
+  optsd.forEach(function(o,i){
+    o.classList.remove('correct','wrong');
+    if(i===0||i===2)o.classList.add('correct');
+    else if(checked.indexOf(i)>=0)o.classList.add('wrong');
+  });
+  var correct0=checked.indexOf(0)>=0;
+  var correct2=checked.indexOf(2)>=0;
+  var wrongSel=checked.some(function(i){return i!==0&&i!==2;});
+  var sd=(correct0&&correct2&&!wrongSel)?1:0;
+  var tot=sc+sd;
+  var el=document.getElementById('score-mc3cd');
+  el.style.display='block';
+  el.textContent=tot+'/2 correctas ('+(tot*50)+'%)';
+  recordScore('score-mc3cd',tot,2);
+}
+
+function checkMC5() {
+  var a=checkMCGroup('mc5a',0,'score-mc5');
+  var b=checkMCGroup('mc5b',3,'score-mc5');
+  var tot=a+b;
+  document.getElementById('score-mc5').textContent=tot+'/2 correctas ('+(Math.round(tot/2*100))+'%)';
+  recordScore('score-mc5',tot,2);
+}
+
+// ============================================================
+// FILL IN THE BLANK
+// ============================================================
+function norm(s){ return s.toLowerCase().trim().replace(/á/g,'a').replace(/é/g,'e').replace(/í/g,'i').replace(/ó/g,'o').replace(/ú/g,'u').replace(/ñ/g,'n'); }
+function checkBlank(id, accepted) {
+  var inp = document.getElementById(id);
+  var val = norm(inp.value);
+  var ok = accepted.some(function(a){ return norm(a)===val; });
+  inp.classList.toggle('correct',ok);
+  inp.classList.toggle('wrong',!ok && inp.value.trim()!=='');
+  return ok?1:0;
+}
+
+function checkFill1() {
+  var s=0;
+  s+=checkBlank('f1a',['erosion','la erosion']);
+  s+=checkBlank('f1b',['subduccion','la subduccion']);
+  s+=checkBlank('f1c',['tercera','3ra','3a']);
+  s+=checkBlank('f1d',['canal interoceanico','canal']);
+  var el=document.getElementById('score-fill1');
+  el.style.display='block';
+  el.textContent=s+'/4 correctas ('+(s*25)+'%)';
+  recordScore('score-fill1',s,4);
+}
+
+function checkFill2() {
+  var s=0;
+  s+=checkBlank('f2a',['santa elena']);
+  s+=checkBlank('f2b',['nicoya']);
+  s+=checkBlank('f2c',['fila','la fila']);
+  s+=checkBlank('f2d',['salsipuedes']);
+  var el=document.getElementById('score-fill2');
+  el.style.display='block';
+  el.textContent=s+'/4 correctas ('+(s*25)+'%)';
+  recordScore('score-fill2',s,4);
+}
+
+function checkFill3() {
+  var s=0;
+  s+=checkBlank('f3a',['1254','1,254']);
+  s+=checkBlank('f3b',['212']);
+  s+=checkBlank('f3c',['cabotaje','el cabotaje']);
+  s+=checkBlank('f3d',['golfito']);
+  s+=checkBlank('f3e',['limon','el limon']);
+  var el=document.getElementById('score-fill3');
+  el.style.display='block';
+  el.textContent=s+'/5 correctas ('+(s*20)+'%)';
+  recordScore('score-fill3',s,5);
+}
+
+// ============================================================
+// MATCHING
+// ============================================================
+function checkMatchInputs(ids, answers, scoreId) {
+  var correct=0;
+  ids.forEach(function(id,i){
+    var inp=document.getElementById(id);
+    var val=inp.value.trim();
+    var ok=(val===String(answers[i]));
+    inp.classList.toggle('correct',ok);
+    inp.classList.toggle('wrong',!ok&&val!=='');
+    if(ok)correct++;
+  });
+  var el=document.getElementById(scoreId);
+  el.style.display='block';
+  el.textContent=correct+'/'+ids.length+' correctas ('+(Math.round(correct/ids.length*100))+'%)';
+  recordScore(scoreId,correct,ids.length);
+}
+function checkMatch1(){ checkMatchInputs(['m1a','m1b','m1c','m1d'],[3,4,2,1],'score-match1'); }
+function checkMatch2(){ checkMatchInputs(['m2a','m2b','m2c','m2d'],[4,3,2,1],'score-match2'); }
+function checkMatch3(){ checkMatchInputs(['m3a','m3b','m3c','m3d'],[3,4,2,1],'score-match3'); }
+
+// ============================================================
+// CLASSIFY
+// ============================================================
+function normSet(arr){ return arr.map(norm).sort().join('|'); }
+function checkClassify1() {
+  var col1=[norm(document.getElementById('cl1a').value),norm(document.getElementById('cl1b').value)].filter(Boolean).sort();
+  var col2=[norm(document.getElementById('cl2a').value),norm(document.getElementById('cl2b').value)].filter(Boolean).sort();
+  var col3=[norm(document.getElementById('cl3a').value),norm(document.getElementById('cl3b').value)].filter(Boolean).sort();
+  var exp1=['arco insular externo','peninsulas'].map(norm).sort();
+  var exp2=['cordillera de talamanca','valle central'].map(norm).sort();
+  var exp3=['llanuras','costas de costa rica'].map(norm).sort();
+  var s=0;
+  if(col1.join('|')===exp1.join('|'))s++;
+  if(col2.join('|')===exp2.join('|'))s++;
+  if(col3.join('|')===exp3.join('|'))s++;
+  var el=document.getElementById('score-classify1');
+  el.style.display='block';
+  el.textContent=s+'/3 columnas correctas ('+(Math.round(s/3*100))+'%)';
+  recordScore('score-classify1',s,3);
+}
+
+// ============================================================
+// WRITING / DAD REVIEW
+// ============================================================
+var dadGrades = {};
+function submitWriting() {
+  ['wr1','wr2','wr3'].forEach(function(id){
+    var ta=document.getElementById(id);
+    if(ta.value.trim()==='')ta.value='(sin respuesta)';
+  });
+  ['dad1','dad2','dad3'].forEach(function(id){
+    document.getElementById(id).style.display='block';
+  });
+  document.getElementById('writing-submitted').style.display='block';
+}
+
+function dadGrade(dadId, grade) {
+  var btns = document.querySelectorAll('#'+dadId+' .grade-btn');
+  btns.forEach(function(b){b.classList.remove('selected-great','selected-good','selected-retry');});
+  var clickedBtn = document.querySelector('#'+dadId+' .grade-btn.'+grade);
+  if(clickedBtn) clickedBtn.classList.add('selected-'+grade);
+  dadGrades[dadId] = grade;
+}
+
+function saveDad(dadId, textId, num) {
+  var grade = dadGrades[dadId];
+  if(!grade){ alert('Selecciona una calificación primero'); return; }
+  var pts = grade==='great'?1:grade==='good'?0.5:0;
+  var comment = document.getElementById(dadId+'-comment').value;
+  var res = document.getElementById(dadId+'-result');
+  res.style.display='block';
+  var emoji = grade==='great'?'⭐':grade==='good'?'👍':'🔄';
+  var label = grade==='great'?'Excelente':grade==='good'?'Buen intento':'Intentar de nuevo';
+  res.textContent = emoji+' '+label+' ('+pts+' pts)' + (comment?' — '+comment:'');
+  res.style.background = grade==='great'?'#dcfce7':grade==='good'?'#fef3c7':'#fee2e2';
+  res.style.color = grade==='great'?'#166534':grade==='good'?'#92400e':'#991b1b';
+  document.getElementById(textId).disabled=true;
+  document.getElementById(dadId+'-comment').disabled=true;
+  document.querySelectorAll('#'+dadId+' .grade-btn, #'+dadId+' .save-dad-btn').forEach(function(b){b.disabled=true;});
+  var totalPts = (dadGrades['dad1']?((dadGrades['dad1']==='great'?1:dadGrades['dad1']==='good'?0.5:0)):0)+
+                 (dadGrades['dad2']?((dadGrades['dad2']==='great'?1:dadGrades['dad2']==='good'?0.5:0)):0)+
+                 (dadGrades['dad3']?((dadGrades['dad3']==='great'?1:dadGrades['dad3']==='good'?0.5:0)):0);
+  recordScore('writing',totalPts,3);
+}
+
+// ============================================================
+// FINAL SCORE
+// ============================================================
+function calcFinal() {
+  var sections = [
+    {ids:['score-tf1','score-mc2','score-fill1','score-match1','score-classify1'], label:'bd-t1', max:18},
+    {ids:['score-mc3a','score-mc3b','score-mc3cd','score-match2','score-fill2'], label:'bd-t2', max:16},
+    {ids:['score-tf3','score-mc5','score-tf5','score-match3','score-fill3'], label:'bd-t3', max:17},
+    {ids:['writing'], label:'bd-tw', max:3}
+  ];
+  var grandTotal=0, grandMax=0;
+  sections.forEach(function(sec){
+    var tot=0, mx=0;
+    sec.ids.forEach(function(id){
+      if(scores[id]){tot+=scores[id].n; mx+=scores[id].total;}
+    });
+    if(id==='writing' && scores['writing']){tot=scores['writing'].n; mx=scores['writing'].total;}
+    grandTotal+=tot; grandMax+=mx;
+    document.getElementById(sec.label).textContent=tot;
+    document.getElementById(sec.label+'p').textContent=mx>0?Math.round(tot/mx*100)+'%':'—';
+  });
+
+  // recalc properly
+  var t1=0,t2=0,t3=0,tw=0;
+  ['score-tf1','score-mc2','score-fill1','score-match1','score-classify1'].forEach(function(id){if(scores[id])t1+=scores[id].n;});
+  ['score-mc3a','score-mc3b','score-mc3cd','score-match2','score-fill2'].forEach(function(id){if(scores[id])t2+=scores[id].n;});
+  ['score-tf3','score-mc5','score-tf5','score-match3','score-fill3'].forEach(function(id){if(scores[id])t3+=scores[id].n;});
+  if(scores['writing'])tw=scores['writing'].n; else tw=0;
+  grandTotal=t1+t2+t3+tw;
+  grandMax=18+16+17+3;
+  document.getElementById('bd-t1').textContent=t1;
+  document.getElementById('bd-t2').textContent=t2;
+  document.getElementById('bd-t3').textContent=t3;
+  document.getElementById('bd-tw').textContent=tw;
+  document.getElementById('bd-t1p').textContent=Math.round(t1/18*100)+'%';
+  document.getElementById('bd-t2p').textContent=Math.round(t2/16*100)+'%';
+  document.getElementById('bd-t3p').textContent=Math.round(t3/17*100)+'%';
+  document.getElementById('bd-twp').textContent=Math.round(tw/3*100)+'%';
+  document.getElementById('bd-total').textContent=grandTotal;
+  var pct=Math.round(grandTotal/grandMax*100);
+  document.getElementById('bd-totalp').textContent=pct+'%';
+  var letter,color,msg;
+  if(pct>=90){letter='A';color='#16a34a';msg='¡Excelente trabajo! Eres un experto en el relieve de Costa Rica 🌋🏆';}
+  else if(pct>=80){letter='B';color='#2563eb';msg='¡Muy bien! Sigue practicando un poco más ⭐';}
+  else if(pct>=70){letter='C';color='#d97706';msg='¡Bien! Repasa los temas donde tuviste más dificultades 📚';}
+  else{letter='D';color='#dc2626';msg='No te rindas, ¡repasa el material y vuelve a intentarlo! 💪';}
+  document.getElementById('letter-grade').textContent=letter;
+  document.getElementById('letter-grade').style.color=color;
+  document.getElementById('pct-grade').textContent=pct+'% ('+grandTotal+'/'+grandMax+' pts)';
+  document.getElementById('grade-msg').textContent=msg;
+}
+</script>
+</body>
+</html>
