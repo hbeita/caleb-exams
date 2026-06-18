@@ -179,7 +179,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 <header class="site-header">
   <div>
     <div class="site-header h1" style="font-size:1rem;font-weight:800;">4to Grado · Matemáticas · Período 2</div>
-    <div class="sub">Valle del Sol · Liceo Santísima Trinidad</div>
+    <div class="sub">Valle del Sol</div>
   </div>
 </header>
 
@@ -228,6 +228,12 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
         <span class="ti-icons">
           <span class="ti-dot" id="sd-5">📖</span>
           <span class="ti-dot" id="pd-5">✅</span>
+        </span>
+      </div>
+      <div class="topic-item" id="nav-exam" onclick="goExam()">
+        <span>📋 Práctica Examen</span>
+        <span class="ti-icons">
+          <span class="ti-dot" id="pd-exam">📋</span>
         </span>
       </div>
       <div class="topic-item" id="nav-paper" onclick="goPaper()">
@@ -803,45 +809,59 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 
         <div class="section-label">Escalera de unidades de área</div>
         <div class="stair-wrap">
-          <svg viewBox="0 0 480 300" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:480px;display:block;">
-            <!-- Staircase steps -->
-            <rect x="10" y="10" width="80" height="36" rx="7" fill="#fee2e2" stroke="#e11d48" stroke-width="1.5"/>
-            <text x="50" y="33" text-anchor="middle" font-size="13" font-weight="800" fill="#9f1239">km²</text>
+          <svg viewBox="0 0 480 422" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:480px;display:block;">
+  <!-- km² -->
+  <rect x="8" y="8" width="84" height="36" rx="8" fill="#fee2e2" stroke="#e11d48" stroke-width="1.5"/>
+  <text x="50" y="31" text-anchor="middle" font-size="14" font-weight="800" fill="#9f1239">km²</text>
+  <!-- gap labels km²→hm² (y gap: 44–66 = 22px) -->
+  <text x="95" y="58" text-anchor="start" font-size="10" font-weight="700" fill="#dc2626">×100 ↓</text>
+  <text x="67" y="50" text-anchor="end"   font-size="10" font-weight="700" fill="#2563eb">÷100 ↑</text>
 
-            <rect x="70" y="50" width="80" height="36" rx="7" fill="#fef9c3" stroke="#f59e0b" stroke-width="1.5"/>
-            <text x="110" y="73" text-anchor="middle" font-size="13" font-weight="800" fill="#854d0e">hm²</text>
+  <!-- hm² -->
+  <rect x="68" y="66" width="84" height="36" rx="8" fill="#fef9c3" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="110" y="89" text-anchor="middle" font-size="14" font-weight="800" fill="#854d0e">hm²</text>
+  <!-- gap labels hm²→dam² -->
+  <text x="155" y="116" text-anchor="start" font-size="10" font-weight="700" fill="#dc2626">×100 ↓</text>
+  <text x="127" y="108" text-anchor="end"   font-size="10" font-weight="700" fill="#2563eb">÷100 ↑</text>
 
-            <rect x="130" y="90" width="80" height="36" rx="7" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
-            <text x="170" y="113" text-anchor="middle" font-size="13" font-weight="800" fill="#166534">dam²</text>
+  <!-- dam² -->
+  <rect x="128" y="124" width="84" height="36" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="170" y="147" text-anchor="middle" font-size="14" font-weight="800" fill="#166534">dam²</text>
+  <!-- gap labels dam²→m² -->
+  <text x="215" y="174" text-anchor="start" font-size="10" font-weight="700" fill="#dc2626">×100 ↓</text>
+  <text x="187" y="166" text-anchor="end"   font-size="10" font-weight="700" fill="#2563eb">÷100 ↑</text>
 
-            <rect x="190" y="130" width="80" height="36" rx="7" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
-            <text x="230" y="153" text-anchor="middle" font-size="13" font-weight="800" fill="#1d4ed8">m²</text>
+  <!-- m² -->
+  <rect x="188" y="182" width="84" height="36" rx="8" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="230" y="205" text-anchor="middle" font-size="14" font-weight="800" fill="#1d4ed8">m²</text>
+  <!-- gap labels m²→dm² -->
+  <text x="275" y="232" text-anchor="start" font-size="10" font-weight="700" fill="#dc2626">×100 ↓</text>
+  <text x="247" y="224" text-anchor="end"   font-size="10" font-weight="700" fill="#2563eb">÷100 ↑</text>
 
-            <rect x="250" y="170" width="80" height="36" rx="7" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-            <text x="290" y="193" text-anchor="middle" font-size="13" font-weight="800" fill="#5b21b6">dm²</text>
+  <!-- dm² -->
+  <rect x="248" y="240" width="84" height="36" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="290" y="263" text-anchor="middle" font-size="14" font-weight="800" fill="#5b21b6">dm²</text>
+  <!-- gap labels dm²→cm² -->
+  <text x="335" y="290" text-anchor="start" font-size="10" font-weight="700" fill="#dc2626">×100 ↓</text>
+  <text x="307" y="282" text-anchor="end"   font-size="10" font-weight="700" fill="#2563eb">÷100 ↑</text>
 
-            <rect x="310" y="210" width="80" height="36" rx="7" fill="#fce7f3" stroke="#db2777" stroke-width="1.5"/>
-            <text x="350" y="233" text-anchor="middle" font-size="13" font-weight="800" fill="#9d174d">cm²</text>
+  <!-- cm² -->
+  <rect x="308" y="298" width="84" height="36" rx="8" fill="#fce7f3" stroke="#db2777" stroke-width="1.5"/>
+  <text x="350" y="321" text-anchor="middle" font-size="14" font-weight="800" fill="#9d174d">cm²</text>
+  <!-- gap labels cm²→mm² -->
+  <text x="395" y="348" text-anchor="start" font-size="10" font-weight="700" fill="#dc2626">×100 ↓</text>
+  <text x="367" y="340" text-anchor="end"   font-size="10" font-weight="700" fill="#2563eb">÷100 ↑</text>
 
-            <rect x="370" y="250" width="80" height="36" rx="7" fill="#f0fdf4" stroke="#059669" stroke-width="1.5"/>
-            <text x="410" y="273" text-anchor="middle" font-size="13" font-weight="800" fill="#065f46">mm²</text>
+  <!-- mm² -->
+  <rect x="368" y="356" width="84" height="36" rx="8" fill="#f0fdf4" stroke="#059669" stroke-width="1.5"/>
+  <text x="410" y="379" text-anchor="middle" font-size="14" font-weight="800" fill="#065f46">mm²</text>
 
-            <!-- Down arrows (×100) -->
-            <text x="100" y="47" text-anchor="middle" font-size="10" fill="#e11d48">×100↓</text>
-            <text x="160" y="87" text-anchor="middle" font-size="10" fill="#e11d48">×100↓</text>
-            <text x="220" y="127" text-anchor="middle" font-size="10" fill="#e11d48">×100↓</text>
-            <text x="280" y="167" text-anchor="middle" font-size="10" fill="#e11d48">×100↓</text>
-            <text x="340" y="207" text-anchor="middle" font-size="10" fill="#e11d48">×100↓</text>
-            <text x="400" y="247" text-anchor="middle" font-size="10" fill="#e11d48">×100↓</text>
-
-            <!-- Up labels (÷100) -->
-            <text x="55" y="47" text-anchor="middle" font-size="9" fill="#3b82f6">÷100↑</text>
-            <text x="115" y="87" text-anchor="middle" font-size="9" fill="#3b82f6">÷100↑</text>
-            <text x="175" y="127" text-anchor="middle" font-size="9" fill="#3b82f6">÷100↑</text>
-            <text x="235" y="167" text-anchor="middle" font-size="9" fill="#3b82f6">÷100↑</text>
-            <text x="295" y="207" text-anchor="middle" font-size="9" fill="#3b82f6">÷100↑</text>
-            <text x="355" y="247" text-anchor="middle" font-size="9" fill="#3b82f6">÷100↑</text>
-          </svg>
+  <!-- legend -->
+  <rect x="8" y="402" width="200" height="16" rx="4" fill="#f9fafb"/>
+  <text x="14" y="414" font-size="9" font-weight="700" fill="#dc2626">×100 ↓ bajar (unidad más pequeña)</text>
+  <rect x="220" y="402" width="200" height="16" rx="4" fill="#f9fafb"/>
+  <text x="226" y="414" font-size="9" font-weight="700" fill="#2563eb">÷100 ↑ subir (unidad más grande)</text>
+</svg>
         </div>
 
 
@@ -1218,6 +1238,266 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
       </div>
       <div class="topic-nav">
         <button class="nav-btn" onclick="goTopic(5)">← Repasar Gráficos</button>
+        <button class="nav-btn primary" onclick="goExam()">📋 Práctica de Examen →</button>
+      </div>
+    </div>
+
+
+    <!-- ========== PANEL-EXAM ========== -->
+    <div class="panel" id="panel-exam">
+      <!-- EXAM HEADER -->
+      <div class="card" style="background:linear-gradient(135deg,#fff0f2,#fff);border:2px solid var(--rose-mid);">
+        <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.4rem;">
+          <span style="font-size:1.4rem;">📋</span>
+          <div>
+            <div style="font-size:.72rem;font-weight:700;color:var(--muted);letter-spacing:.8px;">EVALUACIÓN SUMATIVA · PERÍODO 2</div>
+            <div style="font-size:1rem;font-weight:900;color:var(--rose-dark);">Matemáticas — 4.° Grado</div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.3rem;font-size:.74rem;color:var(--muted);margin-top:.4rem;">
+          <span>Nombre: <span style="border-bottom:1px solid #ccc;display:inline-block;width:90px;">&nbsp;</span></span>
+          <span>Fecha: <span style="border-bottom:1px solid #ccc;display:inline-block;width:70px;">&nbsp;</span></span>
+        </div>
+        <div style="margin-top:.5rem;font-size:.7rem;color:var(--muted);">Valor total: <strong>100 pts</strong> · Aprobado: 70 pts</div>
+      </div>
+
+      <!-- SECTION I: Selección Múltiple -->
+      <div class="card">
+        <div class="card-title" style="color:var(--rose-dark);">Sección I — Selección Múltiple <span style="font-size:.72rem;font-weight:600;color:var(--muted);">(20 pts · 2 pts c/u)</span></div>
+        <p style="font-size:.78rem;color:var(--muted);margin-bottom:.8rem;">Marca la opción correcta.</p>
+
+        <!-- Q1 -->
+        <div class="section-label">1. ¿Cuál es el valor posicional del dígito <strong>5</strong> en el número <strong>235,486</strong>?</div>
+        <div class="mc-group" id="ex-mc1">
+          <button class="mc-btn" onclick="selMCBtn('ex-mc1',0,this)" data-sel="0">A) 5</button>
+          <button class="mc-btn" onclick="selMCBtn('ex-mc1',1,this)" data-sel="0">B) 500</button>
+          <button class="mc-btn" onclick="selMCBtn('ex-mc1',2,this)" data-sel="0">C) 5,000</button>
+          <button class="mc-btn" onclick="selMCBtn('ex-mc1',3,this)" data-sel="0">D) 50,000</button>
+        </div>
+        <div class="answer-reveal" id="ar-ex1" style="display:none;"></div>
+
+        <!-- Q2 -->
+        <div class="section-label" style="margin-top:.6rem;">2. ¿Cuánto es <strong>7 × 8</strong>?</div>
+        <div class="mc-group" id="ex-mc2">
+          <button class="mc-btn" onclick="selMCBtn('ex-mc2',0,this)" data-sel="0">A) 48</button>
+          <button class="mc-btn" onclick="selMCBtn('ex-mc2',1,this)" data-sel="0">B) 54</button>
+          <button class="mc-btn" onclick="selMCBtn('ex-mc2',2,this)" data-sel="0">C) 56</button>
+          <button class="mc-btn" onclick="selMCBtn('ex-mc2',3,this)" data-sel="0">D) 63</button>
+        </div>
+        <div class="answer-reveal" id="ar-ex2" style="display:none;"></div>
+
+        <!-- Q3 -->
+        <div class="section-label" style="margin-top:.6rem;">3. ¿Cuál fracción es equivalente a <strong>2/4</strong>?</div>
+        <div class="mc-group" id="ex-mc3">
+          <button class="mc-btn" onclick="selMCBtn('ex-mc3',0,this)" data-sel="0">A) 1/2</button>
+          <button class="mc-btn" onclick="selMCBtn('ex-mc3',1,this)" data-sel="0">B) 2/8</button>
+          <button class="mc-btn" onclick="selMCBtn('ex-mc3',2,this)" data-sel="0">C) 3/8</button>
+          <button class="mc-btn" onclick="selMCBtn('ex-mc3',3,this)" data-sel="0">D) 1/4</button>
+        </div>
+        <div class="answer-reveal" id="ar-ex3" style="display:none;"></div>
+
+        <!-- Q4 -->
+        <div class="section-label" style="margin-top:.6rem;">4. ¿Qué unidad de área es <strong>mayor</strong> que el m²?</div>
+        <div class="mc-group" id="ex-mc4">
+          <button class="mc-btn" onclick="selMCBtn('ex-mc4',0,this)" data-sel="0">A) dm²</button>
+          <button class="mc-btn" onclick="selMCBtn('ex-mc4',1,this)" data-sel="0">B) cm²</button>
+          <button class="mc-btn" onclick="selMCBtn('ex-mc4',2,this)" data-sel="0">C) mm²</button>
+          <button class="mc-btn" onclick="selMCBtn('ex-mc4',3,this)" data-sel="0">D) dam²</button>
+        </div>
+        <div class="answer-reveal" id="ar-ex4" style="display:none;"></div>
+
+        <!-- Q5 -->
+        <div class="section-label" style="margin-top:.6rem;">5. 1 m² es igual a:</div>
+        <div class="mc-group" id="ex-mc5">
+          <button class="mc-btn" onclick="selMCBtn('ex-mc5',0,this)" data-sel="0">A) 10 dm²</button>
+          <button class="mc-btn" onclick="selMCBtn('ex-mc5',1,this)" data-sel="0">B) 100 dm²</button>
+          <button class="mc-btn" onclick="selMCBtn('ex-mc5',2,this)" data-sel="0">C) 1,000 dm²</button>
+          <button class="mc-btn" onclick="selMCBtn('ex-mc5',3,this)" data-sel="0">D) 10,000 dm²</button>
+        </div>
+        <div class="answer-reveal" id="ar-ex5" style="display:none;"></div>
+
+        <!-- Q6 -->
+        <div class="section-label" style="margin-top:.6rem;">6. ¿Qué número está entre <strong>456,789</strong> y <strong>456,800</strong>?</div>
+        <div class="mc-group" id="ex-mc6">
+          <button class="mc-btn" onclick="selMCBtn('ex-mc6',0,this)" data-sel="0">A) 456,788</button>
+          <button class="mc-btn" onclick="selMCBtn('ex-mc6',1,this)" data-sel="0">B) 456,795</button>
+          <button class="mc-btn" onclick="selMCBtn('ex-mc6',2,this)" data-sel="0">C) 456,801</button>
+          <button class="mc-btn" onclick="selMCBtn('ex-mc6',3,this)" data-sel="0">D) 456,756</button>
+        </div>
+        <div class="answer-reveal" id="ar-ex6" style="display:none;"></div>
+
+        <!-- Q7 -->
+        <div class="section-label" style="margin-top:.6rem;">7. ¿Cuánto es <strong>5 × 9</strong>?</div>
+        <div class="mc-group" id="ex-mc7">
+          <button class="mc-btn" onclick="selMCBtn('ex-mc7',0,this)" data-sel="0">A) 40</button>
+          <button class="mc-btn" onclick="selMCBtn('ex-mc7',1,this)" data-sel="0">B) 44</button>
+          <button class="mc-btn" onclick="selMCBtn('ex-mc7',2,this)" data-sel="0">C) 45</button>
+          <button class="mc-btn" onclick="selMCBtn('ex-mc7',3,this)" data-sel="0">D) 50</button>
+        </div>
+        <div class="answer-reveal" id="ar-ex7" style="display:none;"></div>
+
+        <!-- Q8 -->
+        <div class="section-label" style="margin-top:.6rem;">8. Un atleta corrió <strong>3 km</strong> el lunes y <strong>5 km</strong> el martes. ¿Cuánto <em>más</em> corrió el martes?</div>
+        <div class="mc-group" id="ex-mc8">
+          <button class="mc-btn" onclick="selMCBtn('ex-mc8',0,this)" data-sel="0">A) 1 km</button>
+          <button class="mc-btn" onclick="selMCBtn('ex-mc8',1,this)" data-sel="0">B) 2 km</button>
+          <button class="mc-btn" onclick="selMCBtn('ex-mc8',2,this)" data-sel="0">C) 3 km</button>
+          <button class="mc-btn" onclick="selMCBtn('ex-mc8',3,this)" data-sel="0">D) 8 km</button>
+        </div>
+        <div class="answer-reveal" id="ar-ex8" style="display:none;"></div>
+
+        <!-- Q9 -->
+        <div class="section-label" style="margin-top:.6rem;">9. Una figura está dividida en <strong>8 partes iguales</strong> y <strong>3 están sombreadas</strong>. ¿Qué fracción representa la parte sombreada?</div>
+        <div class="mc-group" id="ex-mc9">
+          <button class="mc-btn" onclick="selMCBtn('ex-mc9',0,this)" data-sel="0">A) 5/8</button>
+          <button class="mc-btn" onclick="selMCBtn('ex-mc9',1,this)" data-sel="0">B) 3/5</button>
+          <button class="mc-btn" onclick="selMCBtn('ex-mc9',2,this)" data-sel="0">C) 3/8</button>
+          <button class="mc-btn" onclick="selMCBtn('ex-mc9',3,this)" data-sel="0">D) 8/3</button>
+        </div>
+        <div class="answer-reveal" id="ar-ex9" style="display:none;"></div>
+
+        <!-- Q10 -->
+        <div class="section-label" style="margin-top:.6rem;">10. 500 cm² = ___ dm²</div>
+        <div class="mc-group" id="ex-mc10">
+          <button class="mc-btn" onclick="selMCBtn('ex-mc10',0,this)" data-sel="0">A) 50,000</button>
+          <button class="mc-btn" onclick="selMCBtn('ex-mc10',1,this)" data-sel="0">B) 50</button>
+          <button class="mc-btn" onclick="selMCBtn('ex-mc10',2,this)" data-sel="0">C) 5</button>
+          <button class="mc-btn" onclick="selMCBtn('ex-mc10',3,this)" data-sel="0">D) 0.5</button>
+        </div>
+        <div class="answer-reveal" id="ar-ex10" style="display:none;"></div>
+
+        <button class="check-btn" onclick="chkExamMC()" style="margin-top:.8rem;">✓ Verificar Sección I</button>
+        <div class="score-badge" id="sc-exmc" style="margin-top:.4rem;display:block;font-size:.8rem;"></div>
+      </div>
+
+      <!-- SECTION II: Completar -->
+      <div class="card">
+        <div class="card-title" style="color:var(--rose-dark);">Sección II — Completar <span style="font-size:.72rem;font-weight:600;color:var(--muted);">(20 pts · 4 pts c/u)</span></div>
+        <p style="font-size:.78rem;color:var(--muted);margin-bottom:.8rem;">Escribe la respuesta correcta en cada espacio.</p>
+
+        <div class="fill-row">
+          <span class="fill-label">1. El número <em>quinientos veintitrés mil cuatrocientos doce</em> en cifras es:</span>
+          <input class="fill-input" id="exa-f1" placeholder="______">
+        </div>
+        <div class="fill-row">
+          <span class="fill-label">2. 7 × 6 = </span>
+          <input class="fill-input" id="exa-f2" placeholder="___" style="width:60px;">
+        </div>
+        <div class="fill-row">
+          <span class="fill-label">3. 1 km² = ___ hm² (bajando un escalón en la escalera de área)</span>
+          <input class="fill-input" id="exa-f3" placeholder="___" style="width:60px;">
+        </div>
+        <div class="fill-row">
+          <span class="fill-label">4. La fracción 6/8 simplificada es: </span>
+          <input class="fill-input" id="exa-f4" placeholder="___" style="width:60px;">
+        </div>
+        <div class="fill-row">
+          <span class="fill-label">5. En un gráfico de líneas, el eje horizontal (X) generalmente representa:</span>
+          <input class="fill-input" id="exa-f5" placeholder="______">
+        </div>
+        <button class="check-btn" onclick="chkExamFill()" style="margin-top:.7rem;">✓ Verificar Sección II</button>
+        <div class="score-badge" id="sc-exfill" style="margin-top:.4rem;display:block;font-size:.8rem;"></div>
+      </div>
+
+      <!-- SECTION III: Conversiones -->
+      <div class="card">
+        <div class="card-title" style="color:var(--rose-dark);">Sección III — Conversión de Unidades de Área <span style="font-size:.72rem;font-weight:600;color:var(--muted);">(20 pts · 4 pts c/u)</span></div>
+        <p style="font-size:.78rem;color:var(--muted);margin-bottom:.8rem;">Convierte usando la escalera (×100 al bajar, ÷100 al subir).</p>
+
+        <div class="fill-row">
+          <span class="fill-label">1. 3 km² = <input class="fill-input" id="exa-c1" placeholder="___" style="width:70px;"> hm²</span>
+        </div>
+        <div class="fill-row">
+          <span class="fill-label">2. 5 hm² = <input class="fill-input" id="exa-c2" placeholder="___" style="width:70px;"> dam²</span>
+        </div>
+        <div class="fill-row">
+          <span class="fill-label">3. 200 dm² = <input class="fill-input" id="exa-c3" placeholder="___" style="width:70px;"> m²</span>
+        </div>
+        <div class="fill-row">
+          <span class="fill-label">4. 4 dam² = <input class="fill-input" id="exa-c4" placeholder="___" style="width:70px;"> m²</span>
+        </div>
+        <div class="fill-row">
+          <span class="fill-label">5. 1,500 cm² = <input class="fill-input" id="exa-c5" placeholder="___" style="width:70px;"> dm²</span>
+        </div>
+        <button class="check-btn" onclick="chkExamConv()" style="margin-top:.7rem;">✓ Verificar Sección III</button>
+        <div class="score-badge" id="sc-exconv" style="margin-top:.4rem;display:block;font-size:.8rem;"></div>
+      </div>
+
+      <!-- SECTION IV: Gráficos -->
+      <div class="card">
+        <div class="card-title" style="color:var(--rose-dark);">Sección IV — Lectura de Gráfico <span style="font-size:.72rem;font-weight:600;color:var(--muted);">(15 pts · 5 pts c/u)</span></div>
+        <p style="font-size:.78rem;color:var(--muted);margin-bottom:.5rem;">Usa el gráfico del atleta (km por día: L=3, M=5, X=4, J=4, V=4, S=1, D=4).</p>
+        <div style="background:#f9fafb;border-radius:8px;padding:.5rem;margin-bottom:.7rem;">
+          <canvas id="ex-chart-atleta" height="120"></canvas>
+        </div>
+        <div class="fill-row">
+          <span class="fill-label">1. ¿Cuántos km corrió el atleta el <strong>miércoles</strong>?</span>
+          <input class="fill-input" id="exa-g1" placeholder="___" style="width:60px;">
+        </div>
+        <div class="fill-row">
+          <span class="fill-label">2. ¿En qué día corrió <strong>menos</strong> el atleta?</span>
+          <input class="fill-input" id="exa-g2" placeholder="______">
+        </div>
+        <div class="fill-row">
+          <span class="fill-label">3. ¿Cuántos km corrió en total durante la <strong>semana</strong>?</span>
+          <input class="fill-input" id="exa-g3" placeholder="___" style="width:60px;">
+        </div>
+        <button class="check-btn" onclick="chkExamGraph()" style="margin-top:.7rem;">✓ Verificar Sección IV</button>
+        <div class="score-badge" id="sc-exgraph" style="margin-top:.4rem;display:block;font-size:.8rem;"></div>
+      </div>
+
+      <!-- SECTION V: Problemas (parent review) -->
+      <div class="card">
+        <div class="card-title" style="color:var(--rose-dark);">Sección V — Problemas <span style="font-size:.72rem;font-weight:600;color:var(--muted);">(25 pts · ~8 pts c/u)</span></div>
+        <div class="rule-box amber">Resuelve en tu cuaderno mostrando <strong>procedimiento completo</strong>. Escribe solo la respuesta final aquí.</div>
+
+        <div class="section-label" style="margin-top:.6rem;">Problema 1 (8 pts)</div>
+        <p style="font-size:.82rem;margin-bottom:.4rem;">Una finca tiene un campo rectangular de <strong>500 m de largo</strong> y <strong>300 m de ancho</strong>.</p>
+        <p style="font-size:.82rem;margin-bottom:.4rem;">a) ¿Cuál es el área del campo en <strong>m²</strong>?</p>
+        <div class="paper-row">
+          <span class="paper-label">Área en m² =</span>
+          <input class="paper-input" id="ex-p1a" placeholder="_______ m²">
+        </div>
+        <p style="font-size:.82rem;margin-bottom:.4rem;margin-top:.4rem;">b) ¿Cuál es ese mismo valor en <strong>dm²</strong>?</p>
+        <div class="paper-row">
+          <span class="paper-label">Área en dm² =</span>
+          <input class="paper-input" id="ex-p1b" placeholder="_______ dm²">
+        </div>
+
+        <div class="section-label" style="margin-top:.8rem;">Problema 2 (8 pts)</div>
+        <p style="font-size:.82rem;margin-bottom:.4rem;">En una clase de <strong>30 estudiantes</strong>, <strong>3/5</strong> son niñas.</p>
+        <p style="font-size:.82rem;margin-bottom:.4rem;">a) ¿Cuántas niñas hay?</p>
+        <div class="paper-row">
+          <span class="paper-label">Niñas =</span>
+          <input class="paper-input" id="ex-p2a" placeholder="_______">
+        </div>
+        <p style="font-size:.82rem;margin-bottom:.4rem;margin-top:.4rem;">b) ¿Cuántos niños hay?</p>
+        <div class="paper-row">
+          <span class="paper-label">Niños =</span>
+          <input class="paper-input" id="ex-p2b" placeholder="_______">
+        </div>
+
+        <div class="section-label" style="margin-top:.8rem;">Problema 3 (9 pts)</div>
+        <p style="font-size:.82rem;margin-bottom:.4rem;">Un comerciante vendió <strong>7 cajas × 8 artículos</strong> el lunes, y <strong>9 cajas × 7 artículos</strong> el martes.</p>
+        <p style="font-size:.82rem;margin-bottom:.4rem;">a) ¿Cuántos artículos vendió cada día?</p>
+        <div class="paper-row"><span class="paper-label">Lunes =</span><input class="paper-input" id="ex-p3a" placeholder="_______"></div>
+        <div class="paper-row"><span class="paper-label">Martes =</span><input class="paper-input" id="ex-p3b" placeholder="_______"></div>
+        <p style="font-size:.82rem;margin-bottom:.4rem;margin-top:.4rem;">b) ¿En qué día vendió más artículos?</p>
+        <div class="paper-row"><span class="paper-label">Día con más ventas =</span><input class="paper-input" id="ex-p3c" placeholder="______"></div>
+
+        <button class="check-btn" onclick="chkExamProblems()" style="margin-top:.9rem;">✓ Verificar Sección V (Respuestas)</button>
+        <div class="score-badge" id="sc-exprob" style="margin-top:.4rem;display:block;font-size:.8rem;"></div>
+      </div>
+
+      <!-- TOTAL SCORE -->
+      <div class="card" style="background:linear-gradient(135deg,#fff0f2,#fff);border:2px solid var(--rose-mid);">
+        <div class="card-title">🏆 Calificación del Examen</div>
+        <button class="check-btn" onclick="calcExamTotal()" style="margin-bottom:.6rem;">Calcular Calificación Total</button>
+        <div id="exam-total-content"></div>
+      </div>
+
+      <div class="topic-nav">
+        <button class="nav-btn" onclick="goPaper()">← Volver a Papel</button>
         <button class="nav-btn primary" onclick="goFinal()">🏆 Ver Calificación →</button>
       </div>
     </div>
@@ -1627,6 +1907,158 @@ function initCharts(){
   mkC('chart-articulos-p',arts,'artículos');
 }
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js">
+// ========== EXAM NAVIGATION ==========
+function goExam() {
+  document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active');});
+  document.getElementById('panel-exam').classList.add('active');
+  document.querySelectorAll('.topic-item').forEach(function(t){t.classList.remove('active');});
+  var nav=document.getElementById('nav-exam'); if(nav) nav.classList.add('active');
+  var d=document.getElementById('pd-exam'); if(d) d.classList.add('done');
+  initExamChart();
+  window.scrollTo(0,0);
+}
+
+var _examChartInited=false;
+function initExamChart(){
+  if(_examChartInited) return;
+  if(!window.Chart){setTimeout(initExamChart,100);return;}
+  _examChartInited=true;
+  var ctx=document.getElementById('ex-chart-atleta');
+  if(!ctx) return;
+  new Chart(ctx,{type:'line',data:{
+    labels:['Lunes','Martes','Miérc.','Jueves','Viernes','Sábado','Dom.'],
+    datasets:[{label:'km corridos',data:[3,5,4,4,4,1,4],
+      borderColor:'#e11d48',backgroundColor:'rgba(225,29,72,.1)',
+      tension:.35,pointRadius:5,pointBackgroundColor:'#e11d48',fill:true}]
+  },options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{stepSize:1}}}}});
+}
+
+// ========== EXAM GRADING ==========
+var examMCScore=0, examFillScore=0, examConvScore=0, examGraphScore=0, examProbScore=0;
+
+function chkExamMC(){
+  // answers (0-indexed): Q1=C(2), Q2=C(2), Q3=A(0), Q4=D(3), Q5=B(1), Q6=B(1), Q7=C(2), Q8=B(1), Q9=C(2), Q10=C(2)
+  var answers=[[2,'ex-mc1'],[2,'ex-mc2'],[0,'ex-mc3'],[3,'ex-mc4'],[1,'ex-mc5'],[1,'ex-mc6'],[2,'ex-mc7'],[1,'ex-mc8'],[2,'ex-mc9'],[2,'ex-mc10']];
+  var correct=0;
+  answers.forEach(function(a,qi){
+    var grp=document.getElementById(a[1]);
+    if(!grp) return;
+    var btns=grp.querySelectorAll('.mc-btn');
+    var sel=-1;
+    btns.forEach(function(b,i){if(b.getAttribute('data-sel')==='1') sel=i;});
+    btns.forEach(function(b,i){
+      b.classList.remove('correct','wrong');
+      if(i===a[0]) b.classList.add('correct');
+      else if(i===sel && sel!==a[0]) b.classList.add('wrong');
+    });
+    if(sel===a[0]) correct++;
+  });
+  examMCScore=correct*2;
+  document.getElementById('sc-exmc').textContent=correct+'/10 correctas → '+examMCScore+' pts';
+  document.getElementById('sc-exmc').style.background=correct>=7?'#d1fae5':'#fee2e2';
+  document.getElementById('sc-exmc').style.display='block';
+}
+
+function chkExamFill(){
+  var ans={
+    'exa-f1':['523412','523.412','523,412'],
+    'exa-f2':['42'],
+    'exa-f3':['100'],
+    'exa-f4':['3/4','3 4'],
+    'exa-f5':['tiempo','dias','días','el tiempo','categorías','categorias']
+  };
+  var correct=0;
+  Object.keys(ans).forEach(function(id){
+    var el=document.getElementById(id);
+    if(!el) return;
+    var val=el.value.trim().toLowerCase().replace(/\s+/g,' ');
+    var ok=ans[id].some(function(a){return val===a.toLowerCase();});
+    el.style.background=ok?'#d1fae5':'#fee2e2';
+    if(ok) correct++;
+  });
+  examFillScore=correct*4;
+  document.getElementById('sc-exfill').textContent=correct+'/5 correctas → '+examFillScore+' pts';
+  document.getElementById('sc-exfill').style.background=correct>=4?'#d1fae5':'#fee2e2';
+  document.getElementById('sc-exfill').style.display='block';
+}
+
+function chkExamConv(){
+  var ans={'exa-c1':'300','exa-c2':'500','exa-c3':'2','exa-c4':'400','exa-c5':'15'};
+  var correct=0;
+  Object.keys(ans).forEach(function(id){
+    var el=document.getElementById(id);
+    if(!el) return;
+    var ok=el.value.trim()===ans[id];
+    el.style.background=ok?'#d1fae5':'#fee2e2';
+    if(ok) correct++;
+  });
+  examConvScore=correct*4;
+  document.getElementById('sc-exconv').textContent=correct+'/5 correctas → '+examConvScore+' pts';
+  document.getElementById('sc-exconv').style.background=correct>=4?'#d1fae5':'#fee2e2';
+  document.getElementById('sc-exconv').style.display='block';
+}
+
+function chkExamGraph(){
+  var ans={'exa-g1':['4'],'exa-g2':['sabado','sábado','s','el sábado','el sabado'],'exa-g3':['25']};
+  var correct=0;
+  Object.keys(ans).forEach(function(id){
+    var el=document.getElementById(id);
+    if(!el) return;
+    var val=el.value.trim().toLowerCase();
+    var ok=ans[id].some(function(a){return val===a;});
+    el.style.background=ok?'#d1fae5':'#fee2e2';
+    if(ok) correct++;
+  });
+  examGraphScore=correct*5;
+  document.getElementById('sc-exgraph').textContent=correct+'/3 correctas → '+examGraphScore+' pts';
+  document.getElementById('sc-exgraph').style.background=correct>=2?'#d1fae5':'#fee2e2';
+  document.getElementById('sc-exgraph').style.display='block';
+}
+
+function chkExamProblems(){
+  var ans={
+    'ex-p1a':['150000','150,000','150.000'],
+    'ex-p1b':['15000000','15,000,000','15.000.000'],
+    'ex-p2a':['18'],
+    'ex-p2b':['12'],
+    'ex-p3a':['56'],
+    'ex-p3b':['63'],
+    'ex-p3c':['martes','el martes']
+  };
+  var correct=0, total=Object.keys(ans).length;
+  Object.keys(ans).forEach(function(id){
+    var el=document.getElementById(id);
+    if(!el) return;
+    var val=el.value.trim().toLowerCase().replace(/\s+/g,' ');
+    var ok=ans[id].some(function(a){return val===a.toLowerCase();});
+    el.style.background=ok?'#d1fae5':'#fee2e2';
+    if(ok) correct++;
+  });
+  examProbScore=Math.round(correct/total*25);
+  document.getElementById('sc-exprob').textContent=correct+'/'+total+' respuestas correctas → ~'+examProbScore+' pts';
+  document.getElementById('sc-exprob').style.background=correct>=5?'#d1fae5':'#fee2e2';
+  document.getElementById('sc-exprob').style.display='block';
+}
+
+function calcExamTotal(){
+  var total=examMCScore+examFillScore+examConvScore+examGraphScore+examProbScore;
+  var pct=total;
+  var grade=pct>=90?'A — Excelente 🌟':pct>=80?'B — Muy Bien 👍':pct>=70?'C — Aprobado ✅':pct>=60?'D — En Proceso ⚠️':'F — Necesita Repasar 📚';
+  var color=pct>=70?'#d1fae5':'#fee2e2';
+  document.getElementById('exam-total-content').innerHTML=
+    '<div style="background:'+color+';border-radius:10px;padding:.8rem;text-align:center;">'+
+    '<div style="font-size:2rem;font-weight:900;color:'+(pct>=70?'#065f46':'#9f1239')+'">'+total+' / 100</div>'+
+    '<div style="font-size:1rem;font-weight:700;margin:.3rem 0;">'+grade+'</div>'+
+    '<table style="width:100%;font-size:.74rem;margin-top:.5rem;border-collapse:collapse;">'+
+    '<tr><td>Sección I — Selección Múltiple</td><td style="text-align:right;font-weight:700;">'+examMCScore+'/20</td></tr>'+
+    '<tr><td>Sección II — Completar</td><td style="text-align:right;font-weight:700;">'+examFillScore+'/20</td></tr>'+
+    '<tr><td>Sección III — Conversiones</td><td style="text-align:right;font-weight:700;">'+examConvScore+'/20</td></tr>'+
+    '<tr><td>Sección IV — Gráficos</td><td style="text-align:right;font-weight:700;">'+examGraphScore+'/15</td></tr>'+
+    '<tr><td>Sección V — Problemas</td><td style="text-align:right;font-weight:700;">~'+examProbScore+'/25</td></tr>'+
+    '</table></div>';
+}
+
+</script>
 </body>
 </html>
