@@ -1,0 +1,1632 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>4to Grado · Matemáticas · Período 2</title>
+<style>
+:root{
+  --rose:#e11d48;--rose-dark:#9f1239;--rose-light:#ffe4e6;--rose-mid:#fda4af;
+  --border:#f1e8e9;--bg:#fdf5f6;--card:#fff;--text:#1e293b;--muted:#64748b;
+  --amber:#f59e0b;--amber-light:#fef3c7;--blue:#3b82f6;--purple:#7c3aed;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);font-size:15px;line-height:1.55;}
+
+/* Header */
+.site-header{background:linear-gradient(135deg,var(--rose-dark),var(--rose));color:#fff;padding:.7rem 1.1rem;display:flex;align-items:center;gap:.7rem;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(159,18,57,.3);}
+.site-header h1{font-size:1rem;font-weight:800;}
+.site-header .sub{font-size:.75rem;opacity:.85;}
+
+/* Layout */
+.app-layout{display:flex;min-height:calc(100vh - 56px);}
+.sidebar{width:210px;min-width:210px;background:#fff;border-right:2px solid var(--border);position:sticky;top:56px;height:calc(100vh - 56px);overflow-y:auto;display:flex;flex-direction:column;}
+.sidebar-header{padding:.75rem .9rem .55rem;border-bottom:2px solid var(--border);font-size:.63rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);}
+.sidebar-topics{flex:1;padding:.3rem 0;}
+.topic-item{display:flex;align-items:center;gap:.45rem;padding:.5rem .8rem;cursor:pointer;border-left:3px solid transparent;transition:all .15s;font-size:.78rem;font-weight:600;color:var(--muted);}
+.topic-item:hover{background:#fdf5f6;color:var(--rose-dark);}
+.topic-item.active{background:#fff0f2;color:var(--rose-dark);border-left-color:var(--rose);font-weight:800;}
+.ti-icons{display:flex;gap:.15rem;margin-left:auto;}
+.ti-dot{font-size:.72rem;opacity:.35;}
+.ti-dot.done{opacity:1;}
+.sidebar-final{padding:.6rem .85rem;border-top:2px solid var(--border);}
+.final-btn{width:100%;background:linear-gradient(135deg,var(--rose-dark),var(--rose));color:#fff;border:none;border-radius:8px;padding:.55rem .8rem;font-size:.78rem;font-weight:800;cursor:pointer;touch-action:manipulation;}
+.final-btn:hover{opacity:.9;}
+.content-area{flex:1;padding:1.1rem 1rem 3rem;max-width:640px;}
+
+@media(max-width:600px){
+  .sidebar{width:100%;height:auto;position:static;border-right:none;border-bottom:2px solid var(--border);}
+  .sidebar-topics{display:flex;flex-wrap:wrap;gap:.2rem;padding:.35rem;}
+  .topic-item{border-left:none;border-radius:7px;padding:.28rem .5rem;font-size:.72rem;}
+  .topic-item.active{border-left:none;background:#fff0f2;}
+  .sidebar-final{display:none;}
+  .content-area{padding:.85rem .75rem 2.5rem;}
+}
+
+/* Panels */
+.panel{display:none;}
+.panel.active{display:block;}
+
+/* Cards & sections */
+.card{background:var(--card);border:1.5px solid var(--border);border-radius:12px;padding:1rem;margin-bottom:.9rem;}
+.card-title{font-size:1rem;font-weight:800;color:var(--rose-dark);margin-bottom:.6rem;display:flex;align-items:center;gap:.4rem;}
+.section-label{font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin:.8rem 0 .35rem;}
+.rule-box{background:var(--rose-light);border-left:3px solid var(--rose);border-radius:7px;padding:.6rem .8rem;margin:.5rem 0;font-size:.83rem;}
+.rule-box.amber{background:var(--amber-light);border-left-color:var(--amber);}
+.rule-box.blue{background:#eff6ff;border-left-color:var(--blue);}
+
+/* Info grid */
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin:.5rem 0;}
+.info-tile{background:var(--rose-light);border-radius:8px;padding:.5rem .7rem;font-size:.8rem;font-weight:600;color:var(--rose-dark);}
+@media(max-width:480px){.info-grid{grid-template-columns:1fr;}}
+
+/* Example rows */
+.ex-row{display:flex;align-items:center;gap:.5rem;padding:.35rem .5rem;border-radius:7px;background:#f8fafc;margin:.25rem 0;font-size:.85rem;}
+.ex-num{font-weight:800;color:var(--rose-dark);min-width:70px;}
+
+/* Tables */
+.tables-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.6rem;margin:.5rem 0;}
+@media(max-width:480px){.tables-grid{grid-template-columns:1fr;}}
+.tt-table{width:100%;border-collapse:collapse;font-size:.8rem;}
+.tt-table th{background:var(--rose);color:#fff;padding:.3rem .4rem;text-align:center;font-weight:800;}
+.tt-table td{padding:.22rem .4rem;text-align:center;border-bottom:1px solid var(--border);}
+.tt-table td.tt-5{background:#fff0f2;font-weight:700;color:#9f1239;}
+.tt-table td.tt-6{background:#eff6ff;font-weight:700;color:#1d4ed8;}
+.tt-table td.tt-7{background:#f5f3ff;font-weight:700;color:#5b21b6;}
+
+/* Op blocks */
+.op-grid{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin:.5rem 0;}
+@media(max-width:480px){.op-grid{grid-template-columns:1fr;}}
+.op-block{background:#f8fafc;border:1.5px solid var(--border);border-radius:9px;padding:.65rem;text-align:center;}
+.op-block .op-label{font-size:.72rem;font-weight:800;text-transform:uppercase;color:var(--muted);margin-bottom:.3rem;}
+.op-block .op-calc{font-size:1rem;font-weight:800;color:var(--rose-dark);}
+.op-block .op-result{font-size:.8rem;color:var(--text);margin-top:.15rem;}
+
+/* MC */
+.mc-group{margin:.4rem 0 .7rem;}
+.mc-q{font-size:.88rem;font-weight:600;margin-bottom:.35rem;color:var(--text);}
+.mc-opts{display:flex;flex-wrap:wrap;gap:.3rem;}
+.mc-btn{background:#f8fafc;border:1.5px solid var(--border);border-radius:7px;padding:.3rem .65rem;font-size:.82rem;cursor:pointer;font-weight:600;transition:all .15s;touch-action:manipulation;}
+.mc-btn:hover{border-color:var(--rose-mid);background:#fff0f2;}
+.mc-btn.correct{background:#dcfce7;border-color:#16a34a;color:#15803d;}
+.mc-btn.wrong{background:#fee2e2;border-color:#dc2626;color:#b91c1c;}
+.mc-btn.revealed{background:#fef9c3;border-color:var(--amber);}
+.mc-btn[disabled]{pointer-events:none;}
+.check-btn{background:var(--rose);color:#fff;border:none;border-radius:7px;padding:.32rem .8rem;font-size:.8rem;font-weight:700;cursor:pointer;margin-top:.3rem;touch-action:manipulation;}
+.check-btn:hover{opacity:.9;}
+.score-badge{display:inline-block;background:var(--rose-light);color:var(--rose-dark);border-radius:6px;padding:.15rem .5rem;font-size:.75rem;font-weight:700;margin-left:.4rem;}
+
+/* Matching */
+.match-grid{display:grid;grid-template-columns:1fr 1fr;gap:.4rem;margin:.4rem 0;}
+.match-item{display:flex;align-items:center;gap:.4rem;font-size:.82rem;}
+.match-left{font-weight:700;min-width:70px;}
+.match-sel{border:1.5px solid var(--border);border-radius:6px;padding:.22rem .4rem;font-size:.8rem;background:#f8fafc;cursor:pointer;width:100%;}
+.match-sel.correct{border-color:#16a34a;background:#dcfce7;}
+.match-sel.wrong{border-color:#dc2626;background:#fee2e2;}
+
+/* D&D */
+.dd-bank{display:flex;flex-wrap:wrap;gap:.4rem;padding:.5rem;background:#f8fafc;border:1.5px dashed var(--border);border-radius:8px;min-height:40px;margin:.35rem 0;}
+.dd-chip{background:var(--rose-light);border:1.5px solid var(--rose-mid);border-radius:6px;padding:.25rem .55rem;font-size:.82rem;font-weight:700;cursor:pointer;touch-action:manipulation;user-select:none;}
+.dd-chip.selected{background:var(--rose);color:#fff;border-color:var(--rose-dark);}
+.dd-chip.placed{opacity:.4;pointer-events:none;}
+.dd-zone{min-height:36px;min-width:60px;border:2px dashed var(--rose-mid);border-radius:7px;display:inline-flex;align-items:center;justify-content:center;padding:.2rem .4rem;cursor:pointer;font-size:.82rem;font-weight:700;background:#fff;touch-action:manipulation;}
+.dd-zone.filled{border-style:solid;border-color:var(--rose);background:var(--rose-light);}
+.dd-zone.correct-z{border-color:#16a34a;background:#dcfce7;}
+.dd-zone.wrong-z{border-color:#dc2626;background:#fee2e2;}
+.dd-stairrow{display:flex;align-items:center;gap:.35rem;margin:.2rem 0;flex-wrap:wrap;}
+.dd-label{font-size:.82rem;font-weight:800;min-width:32px;text-align:center;}
+
+/* Quiz */
+.quiz-card{background:var(--card);border:2px solid var(--rose-mid);border-radius:12px;padding:1rem;text-align:center;margin:.5rem 0;}
+.tq-question{font-size:1.4rem;font-weight:900;color:var(--rose-dark);margin:.4rem 0 .8rem;}
+.tq-opts{display:flex;justify-content:center;gap:.5rem;flex-wrap:wrap;margin-bottom:.6rem;}
+.tq-opts .mc-btn{font-size:1rem;padding:.4rem .9rem;}
+.tq-progress{font-size:.78rem;color:var(--muted);margin-bottom:.3rem;}
+.tq-score{font-size:.85rem;font-weight:700;color:var(--rose-dark);min-height:1.2em;}
+.new-quiz-btn{background:var(--rose-light);color:var(--rose-dark);border:1.5px solid var(--rose-mid);border-radius:7px;padding:.3rem .8rem;font-size:.8rem;font-weight:700;cursor:pointer;margin-top:.4rem;}
+
+/* Charts */
+.charts-row{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin:.5rem 0;}
+@media(max-width:480px){.charts-row{grid-template-columns:1fr;}}
+.chart-card{background:var(--card);border:1.5px solid var(--border);border-radius:10px;padding:.65rem;}
+.chart-title{font-size:.75rem;font-weight:800;color:var(--rose-dark);margin-bottom:.4rem;text-align:center;}
+
+/* Paper */
+.paper-q{background:var(--card);border:1.5px solid var(--border);border-radius:9px;padding:.7rem;margin:.4rem 0;}
+.paper-q .pq-text{font-size:.87rem;font-weight:600;margin-bottom:.35rem;}
+.paper-q input{border:1.5px solid var(--border);border-radius:6px;padding:.28rem .55rem;font-size:.9rem;width:160px;font-weight:700;}
+.paper-q input.correct{border-color:#16a34a;background:#dcfce7;}
+.paper-q input.wrong{border-color:#dc2626;background:#fee2e2;}
+
+/* Final */
+.score-table{width:100%;border-collapse:collapse;margin:.5rem 0;font-size:.83rem;}
+.score-table th{background:var(--rose-light);color:var(--rose-dark);padding:.4rem .6rem;text-align:left;font-weight:800;}
+.score-table td{padding:.35rem .6rem;border-bottom:1px solid var(--border);}
+.grade-display{text-align:center;padding:1.2rem;background:var(--rose-light);border-radius:12px;margin:.8rem 0;}
+.grade-letter{font-size:3rem;font-weight:900;color:var(--rose-dark);}
+.grade-msg{font-size:.9rem;color:var(--text);margin-top:.4rem;}
+
+/* Nav */
+.topic-nav{display:flex;gap:.5rem;margin-top:1.1rem;justify-content:space-between;}
+.nav-btn{background:var(--rose-light);color:var(--rose-dark);border:1.5px solid var(--rose-mid);border-radius:8px;padding:.4rem .9rem;font-size:.82rem;font-weight:700;cursor:pointer;touch-action:manipulation;}
+.nav-btn:hover{background:var(--rose-mid);color:#fff;}
+.nav-btn:disabled{opacity:.4;pointer-events:none;}
+.nav-btn.primary{background:var(--rose);color:#fff;border-color:var(--rose-dark);}
+.nav-btn.primary:hover{background:var(--rose-dark);}
+
+/* SVG staircase */
+.stair-wrap{overflow-x:auto;margin:.5rem 0;}
+
+/* Book drawer */
+.book-btn{background:var(--amber-light);color:#92400e;border:1.5px solid var(--amber);border-radius:7px;padding:.3rem .75rem;font-size:.8rem;font-weight:700;cursor:pointer;margin-bottom:.6rem;touch-action:manipulation;}
+.book-drawer{display:none;background:var(--amber-light);border:1.5px solid var(--amber);border-radius:9px;padding:.6rem .8rem;margin-bottom:.6rem;font-size:.83rem;color:#78350f;;padding:.6rem;overflow-y:auto;max-height:70vh;}
+.book-drawer img{width:100%;height:auto;border-radius:7px;margin-bottom:.5rem;cursor:zoom-in;display:block;border:1px solid #e2d9c5;}
+.book-drawer .pg-label{font-size:.68rem;font-weight:700;color:#92400e;margin-bottom:.2rem;}
+.book-drawer.open{display:block;}
+
+/* Lightbox */
+#lb-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:2000;align-items:center;justify-content:center;flex-direction:column;}
+#lb-overlay.open{display:flex;}
+#lb-img{max-width:92vw;max-height:82vh;border-radius:8px;cursor:zoom-in;user-select:none;}
+#lb-close{color:#fff;background:rgba(255,255,255,.15);border:none;border-radius:50%;width:36px;height:36px;font-size:1.2rem;cursor:pointer;position:absolute;top:12px;right:14px;}
+
+/* Position color chips */
+.pos-chip{display:inline-block;padding:.1rem .4rem;border-radius:4px;font-size:.78rem;font-weight:800;margin:0 .1rem;}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div>
+    <div class="site-header h1" style="font-size:1rem;font-weight:800;">4to Grado · Matemáticas · Período 2</div>
+    <div class="sub">Valle del Sol · Liceo Santísima Trinidad</div>
+  </div>
+</header>
+
+<div class="app-layout">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-header">Temas</div>
+    <div class="sidebar-topics">
+      <div class="topic-item active" id="nav-0" onclick="goTopic(0)">
+        <span>1 · 6 Cifras</span>
+        <span class="ti-icons">
+          <span class="ti-dot" id="sd-0">📖</span>
+          <span class="ti-dot" id="pd-0">✅</span>
+        </span>
+      </div>
+      <div class="topic-item" id="nav-1" onclick="goTopic(1)">
+        <span>2 · Tablas 5-6-7</span>
+        <span class="ti-icons">
+          <span class="ti-dot" id="sd-1">📖</span>
+          <span class="ti-dot" id="pd-1">✅</span>
+        </span>
+      </div>
+      <div class="topic-item" id="nav-2" onclick="goTopic(2)">
+        <span>3 · Operaciones</span>
+        <span class="ti-icons">
+          <span class="ti-dot" id="sd-2">📖</span>
+          <span class="ti-dot" id="pd-2">✅</span>
+        </span>
+      </div>
+      <div class="topic-item" id="nav-3" onclick="goTopic(3)">
+        <span>4 · División</span>
+        <span class="ti-icons">
+          <span class="ti-dot" id="sd-3">📖</span>
+          <span class="ti-dot" id="pd-3">✅</span>
+        </span>
+      </div>
+      <div class="topic-item" id="nav-4" onclick="goTopic(4)">
+        <span>5 · Área</span>
+        <span class="ti-icons">
+          <span class="ti-dot" id="sd-4">📖</span>
+          <span class="ti-dot" id="pd-4">✅</span>
+        </span>
+      </div>
+      <div class="topic-item" id="nav-5" onclick="goTopic(5)">
+        <span>6 · Gráficos</span>
+        <span class="ti-icons">
+          <span class="ti-dot" id="sd-5">📖</span>
+          <span class="ti-dot" id="pd-5">✅</span>
+        </span>
+      </div>
+      <div class="topic-item" id="nav-paper" onclick="goPaper()">
+        <span>📝 En Papel</span>
+        <span class="ti-icons">
+          <span class="ti-dot" id="pd-paper">✅</span>
+        </span>
+      </div>
+    </div>
+    <div class="sidebar-final">
+      <button class="final-btn" onclick="goFinal()">🏆 Ver Calificación</button>
+    </div>
+  </aside>
+
+  <!-- CONTENT -->
+  <div class="content-area">
+
+    <!-- ========== STUDY-0 ========== -->
+    <div class="panel active" id="study-0">
+      <div class="card">
+        <div class="card-title">🔢 Lectura y Escritura de Números de 6 Cifras</div>
+        <div class="info-grid">
+          <div class="info-tile">🔢 6 cifras (100,000–999,999)</div>
+          <div class="info-tile">📍 6 posiciones: C.Mil · D.Mil · U.Mil · C · D · U</div>
+        </div>
+        <div class="rule-box">
+          <strong>Posiciones (de izquierda a derecha):</strong><br>
+          <span class="pos-chip" style="background:#fee2e2;color:#991b1b;">C.Mil</span>
+          <span class="pos-chip" style="background:#fef9c3;color:#854d0e;">D.Mil</span>
+          <span class="pos-chip" style="background:#dcfce7;color:#166534;">U.Mil</span>
+          <span class="pos-chip" style="background:#eff6ff;color:#1d4ed8;">C</span>
+          <span class="pos-chip" style="background:#f5f3ff;color:#5b21b6;">D</span>
+          <span class="pos-chip" style="background:#fce7f3;color:#9d174d;">U</span>
+          <br><br>
+          Ejemplo: <strong>143,915</strong><br>
+          1→C.Mil · 4→D.Mil · 3→U.Mil · 9→C · 1→D · 5→U
+        </div>
+        <div class="section-label">Ejemplos de lectura</div>
+        <div class="ex-row"><span class="ex-num">143,915</span><span>→ ciento cuarenta y tres mil novecientos quince</span></div>
+        <div class="ex-row"><span class="ex-num">250,008</span><span>→ doscientos cincuenta mil ocho</span></div>
+        <div class="ex-row"><span class="ex-num">800,100</span><span>→ ochocientos mil cien</span></div>
+        <div class="ex-row"><span class="ex-num">100,050</span><span>→ cien mil cincuenta</span></div>
+        <div class="ex-row"><span class="ex-num">600,200</span><span>→ seiscientos mil doscientos</span></div>
+      </div>
+      <div class="topic-nav">
+        <button class="nav-btn" disabled>← Anterior</button>
+        <button class="nav-btn primary" onclick="goPanel('practice-0','sd-0')">Practicar →</button>
+      </div>
+    </div>
+
+    <!-- ========== PRACTICE-0 ========== -->
+    <div class="panel" id="practice-0">
+      <div class="card">
+        <div class="card-title">✏️ Práctica: 6 Cifras</div>
+
+        <div class="section-label">Sección 1 — ¿Cómo se lee? <span class="score-badge" id="sc-c1"></span></div>
+
+        <div class="mc-group">
+          <div class="mc-q">1. ¿Cómo se lee 250,008?</div>
+          <div class="mc-opts" id="mc-c1">
+            <button class="mc-btn" onclick="selMCBtn('mc-c1',0,this)">doscientos cinco mil ocho</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-c1',1,this)">doscientos cincuenta mil ocho</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-c1',2,this)">dos mil cincuenta ocho</button>
+          </div>
+        </div>
+        <div class="mc-group">
+          <div class="mc-q">2. ¿Cómo se lee 800,100?</div>
+          <div class="mc-opts" id="mc-c2">
+            <button class="mc-btn" onclick="selMCBtn('mc-c2',0,this)">ochocientos mil cien</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-c2',1,this)">ocho mil cien</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-c2',2,this)">ochocientos cien</button>
+          </div>
+        </div>
+        <div class="mc-group">
+          <div class="mc-q">3. ¿Cómo se lee 600,200?</div>
+          <div class="mc-opts" id="mc-c3">
+            <button class="mc-btn" onclick="selMCBtn('mc-c3',0,this)">seis mil doscientos</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-c3',1,this)">seiscientos dos</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-c3',2,this)">seiscientos mil doscientos</button>
+          </div>
+        </div>
+        <button class="check-btn" onclick="chkMC1()">Verificar Sección 1</button>
+
+        <div class="section-label">Sección 2 — ¿Cuál es la posición? <span class="score-badge" id="sc-c2"></span></div>
+        <div class="mc-group">
+          <div class="mc-q">4. En el número 143,915, ¿qué posición ocupa el dígito 4?</div>
+          <div class="mc-opts" id="mc-c4">
+            <button class="mc-btn" onclick="selMCBtn('mc-c4',0,this)">Decenas de Mil</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-c4',1,this)">Unidades de Mil</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-c4',2,this)">Centenas</button>
+          </div>
+        </div>
+        <div class="mc-group">
+          <div class="mc-q">5. En el número 600,200, ¿qué posición ocupa el dígito 2?</div>
+          <div class="mc-opts" id="mc-c5">
+            <button class="mc-btn" onclick="selMCBtn('mc-c5',0,this)">Decenas</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-c5',1,this)">Centenas</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-c5',2,this)">Unidades de Mil</button>
+          </div>
+        </div>
+        <button class="check-btn" onclick="chkMKGroup(['mc-c4','mc-c5'],[0,1],'sc-c2')">Verificar Sección 2</button>
+
+        <div class="section-label">Sección 3 — Emparejamiento <span class="score-badge" id="sc-c3"></span></div>
+        <p style="font-size:.82rem;color:var(--muted);margin-bottom:.4rem;">Conecta el número con su escritura en palabras:</p>
+        <div class="match-grid">
+          <div class="match-item"><span class="match-left">250,008</span>
+            <select class="match-sel" id="match-c-0">
+              <option value="">-- elige --</option>
+              <option value="1">doscientos cincuenta mil ocho</option>
+              <option value="2">ochocientos mil cien</option>
+              <option value="3">cien mil cincuenta</option>
+              <option value="4">seiscientos mil doscientos</option>
+            </select>
+          </div>
+          <div class="match-item"><span class="match-left">800,100</span>
+            <select class="match-sel" id="match-c-1">
+              <option value="">-- elige --</option>
+              <option value="1">doscientos cincuenta mil ocho</option>
+              <option value="2">ochocientos mil cien</option>
+              <option value="3">cien mil cincuenta</option>
+              <option value="4">seiscientos mil doscientos</option>
+            </select>
+          </div>
+          <div class="match-item"><span class="match-left">100,050</span>
+            <select class="match-sel" id="match-c-2">
+              <option value="">-- elige --</option>
+              <option value="1">doscientos cincuenta mil ocho</option>
+              <option value="2">ochocientos mil cien</option>
+              <option value="3">cien mil cincuenta</option>
+              <option value="4">seiscientos mil doscientos</option>
+            </select>
+          </div>
+          <div class="match-item"><span class="match-left">600,200</span>
+            <select class="match-sel" id="match-c-3">
+              <option value="">-- elige --</option>
+              <option value="1">doscientos cincuenta mil ocho</option>
+              <option value="2">ochocientos mil cien</option>
+              <option value="3">cien mil cincuenta</option>
+              <option value="4">seiscientos mil doscientos</option>
+            </select>
+          </div>
+        </div>
+        <button class="check-btn" onclick="chkMatch(['match-c-0','match-c-1','match-c-2','match-c-3'],['1','2','3','4'],'sc-c3','pd-0')">Verificar Emparejamiento</button>
+      </div>
+      <div class="topic-nav">
+        <button class="nav-btn" onclick="goPanel('study-0')">← Repasar</button>
+        <button class="nav-btn primary" onclick="goTopic(1)">Siguiente →</button>
+      </div>
+    </div>
+
+    <!-- ========== STUDY-1 ========== -->
+    <div class="panel" id="study-1">
+      <div class="card">
+        <div class="card-title">✖️ Tablas de Multiplicar del 5, 6 y 7</div>
+        <div class="tables-grid">
+          <div>
+            <table class="tt-table">
+              <tr><th colspan="3">Tabla del 5</th></tr>
+              <tr><td>1×5</td><td>=</td><td class="tt-5">5</td></tr>
+              <tr><td>2×5</td><td>=</td><td class="tt-5">10</td></tr>
+              <tr><td>3×5</td><td>=</td><td class="tt-5">15</td></tr>
+              <tr><td>4×5</td><td>=</td><td class="tt-5">20</td></tr>
+              <tr><td>5×5</td><td>=</td><td class="tt-5">25</td></tr>
+              <tr><td>6×5</td><td>=</td><td class="tt-5">30</td></tr>
+              <tr><td>7×5</td><td>=</td><td class="tt-5">35</td></tr>
+              <tr><td>8×5</td><td>=</td><td class="tt-5">40</td></tr>
+              <tr><td>9×5</td><td>=</td><td class="tt-5">45</td></tr>
+              <tr><td>10×5</td><td>=</td><td class="tt-5">50</td></tr>
+            </table>
+          </div>
+          <div>
+            <table class="tt-table">
+              <tr><th colspan="3" style="background:#3b82f6;">Tabla del 6</th></tr>
+              <tr><td>1×6</td><td>=</td><td class="tt-6">6</td></tr>
+              <tr><td>2×6</td><td>=</td><td class="tt-6">12</td></tr>
+              <tr><td>3×6</td><td>=</td><td class="tt-6">18</td></tr>
+              <tr><td>4×6</td><td>=</td><td class="tt-6">24</td></tr>
+              <tr><td>5×6</td><td>=</td><td class="tt-6">30</td></tr>
+              <tr><td>6×6</td><td>=</td><td class="tt-6">36</td></tr>
+              <tr><td>7×6</td><td>=</td><td class="tt-6">42</td></tr>
+              <tr><td>8×6</td><td>=</td><td class="tt-6">48</td></tr>
+              <tr><td>9×6</td><td>=</td><td class="tt-6">54</td></tr>
+              <tr><td>10×6</td><td>=</td><td class="tt-6">60</td></tr>
+            </table>
+          </div>
+          <div>
+            <table class="tt-table">
+              <tr><th colspan="3" style="background:#7c3aed;">Tabla del 7</th></tr>
+              <tr><td>1×7</td><td>=</td><td class="tt-7">7</td></tr>
+              <tr><td>2×7</td><td>=</td><td class="tt-7">14</td></tr>
+              <tr><td>3×7</td><td>=</td><td class="tt-7">21</td></tr>
+              <tr><td>4×7</td><td>=</td><td class="tt-7">28</td></tr>
+              <tr><td>5×7</td><td>=</td><td class="tt-7">35</td></tr>
+              <tr><td>6×7</td><td>=</td><td class="tt-7">42</td></tr>
+              <tr><td>7×7</td><td>=</td><td class="tt-7">49</td></tr>
+              <tr><td>8×7</td><td>=</td><td class="tt-7">56</td></tr>
+              <tr><td>9×7</td><td>=</td><td class="tt-7">63</td></tr>
+              <tr><td>10×7</td><td>=</td><td class="tt-7">70</td></tr>
+            </table>
+          </div>
+        </div>
+        <div class="rule-box">
+          <strong>Trucos para recordar:</strong><br>
+          • Tabla del <strong>5</strong>: termina siempre en 0 o 5<br>
+          • Tabla del <strong>6</strong>: si el factor es par, el resultado termina en el mismo dígito (6×2=12, 6×4=24)<br>
+          • Tabla del <strong>7</strong>: usa los dedos o cuenta de 7 en 7
+        </div>
+      </div>
+      <div class="topic-nav">
+        <button class="nav-btn" onclick="goTopic(0)">← Anterior</button>
+        <button class="nav-btn primary" onclick="goPanel('practice-1','sd-1')">Practicar →</button>
+      </div>
+    </div>
+
+    <!-- ========== PRACTICE-1 ========== -->
+    <div class="panel" id="practice-1">
+      <div class="card">
+        <div class="card-title">✏️ Práctica: Tablas 5-6-7</div>
+
+        <div class="section-label">Quiz Rápido — ¡Responde lo más rápido que puedas! <span class="score-badge" id="sc-t-quiz"></span></div>
+        <div class="quiz-card">
+          <div class="tq-progress" id="tq-progress">1/30</div>
+          <div class="tq-question" id="tq-question">Cargando...</div>
+          <div class="tq-opts" id="tq-opts"></div>
+          <div class="tq-score" id="tq-score"></div>
+          <button class="new-quiz-btn" onclick="tqStarted=false;tqStart()">🔄 Nuevo Quiz</button>
+        </div>
+
+        <div class="section-label">Sección 2 — Encuentra el factor <span class="score-badge" id="sc-t2"></span></div>
+        <div class="mc-group">
+          <div class="mc-q">1. ¿Qué número va en el cuadro? □ × 6 = 42</div>
+          <div class="mc-opts" id="mc-t1">
+            <button class="mc-btn" onclick="selMCBtn('mc-t1',0,this)">6</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-t1',1,this)">7</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-t1',2,this)">8</button>
+          </div>
+        </div>
+        <div class="mc-group">
+          <div class="mc-q">2. ¿Qué número va en el cuadro? 5 × □ = 45</div>
+          <div class="mc-opts" id="mc-t2">
+            <button class="mc-btn" onclick="selMCBtn('mc-t2',0,this)">7</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-t2',1,this)">8</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-t2',2,this)">9</button>
+          </div>
+        </div>
+        <button class="check-btn" onclick="chkMKGroup(['mc-t1','mc-t2'],[1,2],'sc-t2')">Verificar Sección 2</button>
+
+        <div class="section-label">Sección 3 — Emparejamiento <span class="score-badge" id="sc-t3"></span></div>
+        <p style="font-size:.82rem;color:var(--muted);margin-bottom:.4rem;">Conecta la operación con su resultado:</p>
+        <div class="match-grid">
+          <div class="match-item"><span class="match-left">7 × 8</span>
+            <select class="match-sel" id="match-t-0">
+              <option value="">-- elige --</option>
+              <option value="1">56</option><option value="2">30</option>
+              <option value="3">54</option><option value="4">35</option>
+            </select>
+          </div>
+          <div class="match-item"><span class="match-left">6 × 5</span>
+            <select class="match-sel" id="match-t-1">
+              <option value="">-- elige --</option>
+              <option value="1">56</option><option value="2">30</option>
+              <option value="3">54</option><option value="4">35</option>
+            </select>
+          </div>
+          <div class="match-item"><span class="match-left">6 × 9</span>
+            <select class="match-sel" id="match-t-2">
+              <option value="">-- elige --</option>
+              <option value="1">56</option><option value="2">30</option>
+              <option value="3">54</option><option value="4">35</option>
+            </select>
+          </div>
+          <div class="match-item"><span class="match-left">5 × 7</span>
+            <select class="match-sel" id="match-t-3">
+              <option value="">-- elige --</option>
+              <option value="1">56</option><option value="2">30</option>
+              <option value="3">54</option><option value="4">35</option>
+            </select>
+          </div>
+        </div>
+        <button class="check-btn" onclick="chkMatch(['match-t-0','match-t-1','match-t-2','match-t-3'],['1','2','3','4'],'sc-t3','pd-1')">Verificar Emparejamiento</button>
+      </div>
+      <div class="topic-nav">
+        <button class="nav-btn" onclick="goPanel('study-1')">← Repasar</button>
+        <button class="nav-btn primary" onclick="goTopic(2)">Siguiente →</button>
+      </div>
+    </div>
+
+    <!-- ========== STUDY-2 ========== -->
+    <div class="panel" id="study-2">
+      <div class="card">
+        <div class="card-title">🧮 Operaciones Fundamentales con 6 Cifras</div>
+        <div class="op-grid">
+          <div class="op-block">
+            <div class="op-label">➕ Adición</div>
+            <div class="op-calc">161,312 + 301,328</div>
+            <div class="op-result">= <strong>462,640</strong></div>
+          </div>
+          <div class="op-block">
+            <div class="op-label">➖ Sustracción</div>
+            <div class="op-calc">524,800 − 213,450</div>
+            <div class="op-result">= <strong>311,350</strong></div>
+          </div>
+          <div class="op-block">
+            <div class="op-label">✖️ Multiplicación</div>
+            <div class="op-calc">12,345 × 3</div>
+            <div class="op-result">= <strong>37,035</strong></div>
+          </div>
+          <div class="op-block">
+            <div class="op-label">➗ División</div>
+            <div class="op-calc">48,672 ÷ 6</div>
+            <div class="op-result">= <strong>8,112</strong></div>
+          </div>
+        </div>
+        <div class="rule-box">
+          <strong>Adición:</strong> suma columna por columna de derecha a izquierda, lleva el acarreo.
+        </div>
+        <div class="rule-box">
+          <strong>Sustracción:</strong> resta columna por columna, pide prestado si es necesario.
+        </div>
+        <div class="rule-box">
+          <strong>Multiplicación:</strong> multiplica cada dígito por el factor, suma acarreos.
+        </div>
+        <div class="rule-box">
+          <strong>División:</strong> divide de izquierda a derecha, baja el siguiente dígito.
+        </div>
+      </div>
+      <div class="topic-nav">
+        <button class="nav-btn" onclick="goTopic(1)">← Anterior</button>
+        <button class="nav-btn primary" onclick="goPanel('practice-2','sd-2')">Practicar →</button>
+      </div>
+    </div>
+
+    <!-- ========== PRACTICE-2 ========== -->
+    <div class="panel" id="practice-2">
+      <div class="card">
+        <div class="card-title">✏️ Práctica: Operaciones</div>
+
+        <div class="section-label">Sección 1 — Elige el resultado correcto <span class="score-badge" id="sc-o1"></span></div>
+        <div class="mc-group">
+          <div class="mc-q">1. 234,500 + 125,300 = ?</div>
+          <div class="mc-opts" id="mc-o1">
+            <button class="mc-btn" onclick="selMCBtn('mc-o1',0,this)">359,700</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-o1',1,this)">359,800</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-o1',2,this)">360,800</button>
+          </div>
+        </div>
+        <div class="mc-group">
+          <div class="mc-q">2. 500,000 − 187,350 = ?</div>
+          <div class="mc-opts" id="mc-o2">
+            <button class="mc-btn" onclick="selMCBtn('mc-o2',0,this)">312,650</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-o2',1,this)">313,650</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-o2',2,this)">312,750</button>
+          </div>
+        </div>
+        <div class="mc-group">
+          <div class="mc-q">3. 25,014 × 4 = ?</div>
+          <div class="mc-opts" id="mc-o3">
+            <button class="mc-btn" onclick="selMCBtn('mc-o3',0,this)">100,046</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-o3',1,this)">100,056</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-o3',2,this)">100,066</button>
+          </div>
+        </div>
+        <div class="mc-group">
+          <div class="mc-q">4. 96,432 ÷ 8 = ?</div>
+          <div class="mc-opts" id="mc-o4">
+            <button class="mc-btn" onclick="selMCBtn('mc-o4',0,this)">12,044</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-o4',1,this)">12,054</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-o4',2,this)">12,054</button>
+          </div>
+        </div>
+        <button class="check-btn" onclick="chkMKGroup(['mc-o1','mc-o2','mc-o3','mc-o4'],[1,0,1,1],'sc-o1','pd-2')">Verificar Sección 1</button>
+
+        <div class="section-label">Sección 2 — ¿Qué operación usarías? <span class="score-badge" id="sc-o2"></span></div>
+        <div class="mc-group">
+          <div class="mc-q">5. Tenías 345,000 bolívares y gastaste 123,500. ¿Qué operación usas para saber cuánto te queda?</div>
+          <div class="mc-opts" id="mc-o5">
+            <button class="mc-btn" onclick="selMCBtn('mc-o5',0,this)">Adición</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-o5',1,this)">Sustracción</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-o5',2,this)">Multiplicación</button>
+          </div>
+        </div>
+        <div class="mc-group">
+          <div class="mc-q">6. Hay 6 cajas con 12,500 naranjas cada una. ¿Qué operación usas para saber el total?</div>
+          <div class="mc-opts" id="mc-o6">
+            <button class="mc-btn" onclick="selMCBtn('mc-o6',0,this)">División</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-o6',1,this)">Sustracción</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-o6',2,this)">Multiplicación</button>
+          </div>
+        </div>
+        <div class="mc-group">
+          <div class="mc-q">7. Se reparten 84,000 folletos entre 7 escuelas por igual. ¿Qué operación se usa?</div>
+          <div class="mc-opts" id="mc-o7">
+            <button class="mc-btn" onclick="selMCBtn('mc-o7',0,this)">División</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-o7',1,this)">Adición</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-o7',2,this)">Multiplicación</button>
+          </div>
+        </div>
+        <button class="check-btn" onclick="chkMKGroup(['mc-o5','mc-o6','mc-o7'],[1,2,0],'sc-o2')">Verificar Sección 2</button>
+
+        <div class="section-label">Sección 3 — Relaciona operación con símbolo <span class="score-badge" id="sc-o3"></span></div>
+        <div class="match-grid">
+          <div class="match-item"><span class="match-left">Adición</span>
+            <select class="match-sel" id="match-o-0">
+              <option value="">-- elige --</option>
+              <option value="1">+</option><option value="2">−</option>
+              <option value="3">×</option><option value="4">÷</option>
+            </select>
+          </div>
+          <div class="match-item"><span class="match-left">Sustracción</span>
+            <select class="match-sel" id="match-o-1">
+              <option value="">-- elige --</option>
+              <option value="1">+</option><option value="2">−</option>
+              <option value="3">×</option><option value="4">÷</option>
+            </select>
+          </div>
+          <div class="match-item"><span class="match-left">Multiplicación</span>
+            <select class="match-sel" id="match-o-2">
+              <option value="">-- elige --</option>
+              <option value="1">+</option><option value="2">−</option>
+              <option value="3">×</option><option value="4">÷</option>
+            </select>
+          </div>
+          <div class="match-item"><span class="match-left">División</span>
+            <select class="match-sel" id="match-o-3">
+              <option value="">-- elige --</option>
+              <option value="1">+</option><option value="2">−</option>
+              <option value="3">×</option><option value="4">÷</option>
+            </select>
+          </div>
+        </div>
+        <button class="check-btn" onclick="chkMatch(['match-o-0','match-o-1','match-o-2','match-o-3'],['1','2','3','4'],'sc-o3')">Verificar Sección 3</button>
+      </div>
+      <div class="topic-nav">
+        <button class="nav-btn" onclick="goPanel('study-2')">← Repasar</button>
+        <button class="nav-btn primary" onclick="goTopic(3)">Siguiente →</button>
+      </div>
+    </div>
+
+    <!-- ========== STUDY-3 ========== -->
+    <div class="panel" id="study-3">
+      <div class="card">
+        <div class="card-title">➗ Problemas con División</div>
+        <div class="info-grid">
+          <div class="info-tile">1️⃣ Leer el problema con atención</div>
+          <div class="info-tile">2️⃣ Identificar dividendo y divisor</div>
+          <div class="info-tile">3️⃣ Dividir paso a paso</div>
+          <div class="info-tile">4️⃣ Verificar: cociente × divisor = dividendo</div>
+        </div>
+        <div class="rule-box">
+          <strong>Ejemplo:</strong> La abuela tiene 672 dulces y los reparte en partes iguales entre 21 niños.<br>
+          672 ÷ 21 = <strong>32 dulces</strong> por niño<br>
+          Verificación: 32 × 21 = 672 ✓
+        </div>
+        <div class="rule-box blue">
+          <strong>Partes de una división:</strong><br>
+          <span style="color:#1d4ed8;font-weight:700;">672</span> (dividendo) ÷ <span style="color:#7c3aed;font-weight:700;">21</span> (divisor) = <span style="color:#059669;font-weight:700;">32</span> (cociente)<br>
+          Si hay residuo: dividendo = cociente × divisor + residuo
+        </div>
+        <div class="section-label">Más ejemplos</div>
+        <div class="ex-row"><span class="ex-num">84 ÷ 7</span><span>= 12 — Verif: 12×7=84 ✓</span></div>
+        <div class="ex-row"><span class="ex-num">150 ÷ 5</span><span>= 30 — Verif: 30×5=150 ✓</span></div>
+        <div class="ex-row"><span class="ex-num">252 ÷ 6</span><span>= 42 — Verif: 42×6=252 ✓</span></div>
+      </div>
+      <div class="topic-nav">
+        <button class="nav-btn" onclick="goTopic(2)">← Anterior</button>
+        <button class="nav-btn primary" onclick="goPanel('practice-3','sd-3')">Practicar →</button>
+      </div>
+    </div>
+
+    <!-- ========== PRACTICE-3 ========== -->
+    <div class="panel" id="practice-3">
+      <div class="card">
+        <div class="card-title">✏️ Práctica: División</div>
+
+        <div class="section-label">Sección 1 — Problema de la abuela <span class="score-badge" id="sc-d1"></span></div>
+        <div class="rule-box" style="margin-bottom:.5rem;">
+          La abuela tiene 672 dulces y los reparte en partes iguales entre 21 niños.
+        </div>
+        <div class="mc-group">
+          <div class="mc-q">1. ¿Cuántos dulces recibe cada niño?</div>
+          <div class="mc-opts" id="mc-d1">
+            <button class="mc-btn" onclick="selMCBtn('mc-d1',0,this)">30</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-d1',1,this)">32</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-d1',2,this)">34</button>
+          </div>
+        </div>
+        <div class="mc-group">
+          <div class="mc-q">2. ¿Cómo verificamos que la respuesta es correcta?</div>
+          <div class="mc-opts" id="mc-d2">
+            <button class="mc-btn" onclick="selMCBtn('mc-d2',0,this)">32 + 21 = 53</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-d2',1,this)">32 × 21 = 672</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-d2',2,this)">672 − 32 = 640</button>
+          </div>
+        </div>
+        <button class="check-btn" onclick="chkMKGroup(['mc-d1','mc-d2'],[1,1],'sc-d1','pd-3')">Verificar Sección 1</button>
+
+        <div class="section-label">Sección 2 — Más problemas <span class="score-badge" id="sc-d2"></span></div>
+        <div class="mc-group">
+          <div class="mc-q">3. Se reparten 420 libros entre 7 aulas. ¿Cuántos libros le toca a cada aula?</div>
+          <div class="mc-opts" id="mc-d3">
+            <button class="mc-btn" onclick="selMCBtn('mc-d3',0,this)">60</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-d3',1,this)">70</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-d3',2,this)">80</button>
+          </div>
+        </div>
+        <div class="mc-group">
+          <div class="mc-q">4. Una finca cosechó 840 kg de café en 6 días. ¿Cuántos kg se cosecharon por día?</div>
+          <div class="mc-opts" id="mc-d4">
+            <button class="mc-btn" onclick="selMCBtn('mc-d4',0,this)">130</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-d4',1,this)">140</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-d4',2,this)">150</button>
+          </div>
+        </div>
+        <div class="mc-group">
+          <div class="mc-q">5. 945 ÷ 5 = ?</div>
+          <div class="mc-opts" id="mc-d5">
+            <button class="mc-btn" onclick="selMCBtn('mc-d5',0,this)">178</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-d5',1,this)">189</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-d5',2,this)">190</button>
+          </div>
+        </div>
+        <button class="check-btn" onclick="chkMKGroup(['mc-d3','mc-d4','mc-d5'],[0,1,1],'sc-d2')">Verificar Sección 2</button>
+
+        <div class="section-label">Sección 3 — Identifica las partes <span class="score-badge" id="sc-d3"></span></div>
+        <div class="rule-box" style="margin-bottom:.5rem;">
+          En la operación: <strong>672 ÷ 21 = 32</strong>
+        </div>
+        <div class="mc-group">
+          <div class="mc-q">6. ¿Cuál es el dividendo?</div>
+          <div class="mc-opts" id="mc-d6">
+            <button class="mc-btn" onclick="selMCBtn('mc-d6',0,this)">672</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-d6',1,this)">21</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-d6',2,this)">32</button>
+          </div>
+        </div>
+        <div class="mc-group">
+          <div class="mc-q">7. ¿Cuál es el divisor?</div>
+          <div class="mc-opts" id="mc-d7">
+            <button class="mc-btn" onclick="selMCBtn('mc-d7',0,this)">672</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-d7',1,this)">21</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-d7',2,this)">32</button>
+          </div>
+        </div>
+        <div class="mc-group">
+          <div class="mc-q">8. ¿Cuál es el cociente?</div>
+          <div class="mc-opts" id="mc-d8">
+            <button class="mc-btn" onclick="selMCBtn('mc-d8',0,this)">672</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-d8',1,this)">21</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-d8',2,this)">32</button>
+          </div>
+        </div>
+        <button class="check-btn" onclick="chkMKGroup(['mc-d6','mc-d7','mc-d8'],[0,1,2],'sc-d3')">Verificar Sección 3</button>
+      </div>
+      <div class="topic-nav">
+        <button class="nav-btn" onclick="goPanel('study-3')">← Repasar</button>
+        <button class="nav-btn primary" onclick="goTopic(4)">Siguiente →</button>
+      </div>
+    </div>
+
+    <!-- ========== STUDY-4 ========== -->
+    <div class="panel" id="study-4">
+      <div class="card">
+        <div class="card-title">📐 Conversiones entre Unidades de Área</div>
+        <button class="book-btn" onclick="openBookDrawer('book-4')">📖 Ver libro pág. 56-58</button>
+        <div class="book-drawer" id="book-4">
+          <div class="pg-label">Pág. 56 · Conversión de unidades de área</div>
+          <img src="img/p56.jpg" alt="Pág. 56" onclick="openLightbox('img/p56.jpg')">
+          <div class="pg-label">Pág. 57 · Actividades</div>
+          <img src="img/p57.jpg" alt="Pág. 57" onclick="openLightbox('img/p57.jpg')">
+          <div class="pg-label">Pág. 58 · Ejercicios</div>
+          <img src="img/p58.jpg" alt="Pág. 58" onclick="openLightbox('img/p58.jpg')">
+        </div>
+
+        <div class="section-label">Escalera de unidades de área</div>
+        <div class="stair-wrap">
+          <svg viewBox="0 0 480 300" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:480px;display:block;">
+            <!-- Staircase steps -->
+            <rect x="10" y="10" width="80" height="36" rx="7" fill="#fee2e2" stroke="#e11d48" stroke-width="1.5"/>
+            <text x="50" y="33" text-anchor="middle" font-size="13" font-weight="800" fill="#9f1239">km²</text>
+
+            <rect x="70" y="50" width="80" height="36" rx="7" fill="#fef9c3" stroke="#f59e0b" stroke-width="1.5"/>
+            <text x="110" y="73" text-anchor="middle" font-size="13" font-weight="800" fill="#854d0e">hm²</text>
+
+            <rect x="130" y="90" width="80" height="36" rx="7" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+            <text x="170" y="113" text-anchor="middle" font-size="13" font-weight="800" fill="#166534">dam²</text>
+
+            <rect x="190" y="130" width="80" height="36" rx="7" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+            <text x="230" y="153" text-anchor="middle" font-size="13" font-weight="800" fill="#1d4ed8">m²</text>
+
+            <rect x="250" y="170" width="80" height="36" rx="7" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+            <text x="290" y="193" text-anchor="middle" font-size="13" font-weight="800" fill="#5b21b6">dm²</text>
+
+            <rect x="310" y="210" width="80" height="36" rx="7" fill="#fce7f3" stroke="#db2777" stroke-width="1.5"/>
+            <text x="350" y="233" text-anchor="middle" font-size="13" font-weight="800" fill="#9d174d">cm²</text>
+
+            <rect x="370" y="250" width="80" height="36" rx="7" fill="#f0fdf4" stroke="#059669" stroke-width="1.5"/>
+            <text x="410" y="273" text-anchor="middle" font-size="13" font-weight="800" fill="#065f46">mm²</text>
+
+            <!-- Down arrows (×100) -->
+            <text x="100" y="47" text-anchor="middle" font-size="10" fill="#e11d48">×100↓</text>
+            <text x="160" y="87" text-anchor="middle" font-size="10" fill="#e11d48">×100↓</text>
+            <text x="220" y="127" text-anchor="middle" font-size="10" fill="#e11d48">×100↓</text>
+            <text x="280" y="167" text-anchor="middle" font-size="10" fill="#e11d48">×100↓</text>
+            <text x="340" y="207" text-anchor="middle" font-size="10" fill="#e11d48">×100↓</text>
+            <text x="400" y="247" text-anchor="middle" font-size="10" fill="#e11d48">×100↓</text>
+
+            <!-- Up labels (÷100) -->
+            <text x="55" y="47" text-anchor="middle" font-size="9" fill="#3b82f6">÷100↑</text>
+            <text x="115" y="87" text-anchor="middle" font-size="9" fill="#3b82f6">÷100↑</text>
+            <text x="175" y="127" text-anchor="middle" font-size="9" fill="#3b82f6">÷100↑</text>
+            <text x="235" y="167" text-anchor="middle" font-size="9" fill="#3b82f6">÷100↑</text>
+            <text x="295" y="207" text-anchor="middle" font-size="9" fill="#3b82f6">÷100↑</text>
+            <text x="355" y="247" text-anchor="middle" font-size="9" fill="#3b82f6">÷100↑</text>
+          </svg>
+        </div>
+
+
+        <div class="section-label">Nomenclatura — ¿Qué significa cada símbolo?</div>
+        <table style="width:100%;border-collapse:collapse;font-size:.74rem;margin:.4rem 0;">
+          <thead>
+            <tr style="background:var(--rose);color:#fff;">
+              <th style="padding:5px 8px;text-align:left;border-radius:6px 0 0 0;">Símbolo</th>
+              <th style="padding:5px 8px;text-align:left;">Nombre completo</th>
+              <th style="padding:5px 8px;text-align:center;border-radius:0 6px 0 0;">Tipo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="background:#f3e8ff;"><td style="padding:4px 8px;font-weight:800;color:#7c3aed;">km²</td><td style="padding:4px 8px;">Kilómetros cuadrados</td><td style="padding:4px 8px;text-align:center;font-size:.66rem;font-weight:700;color:#7c3aed;background:#ede9fe;border-radius:4px;">⬆️ Múltiplo</td></tr>
+            <tr style="background:#e0f2fe;"><td style="padding:4px 8px;font-weight:800;color:#0891b2;">hm²</td><td style="padding:4px 8px;">Hectómetros cuadrados</td><td style="padding:4px 8px;text-align:center;font-size:.66rem;font-weight:700;color:#0891b2;background:#cffafe;border-radius:4px;">⬆️ Múltiplo</td></tr>
+            <tr style="background:#ccfbf1;"><td style="padding:4px 8px;font-weight:800;color:#0f766e;">dam²</td><td style="padding:4px 8px;">Decámetros cuadrados</td><td style="padding:4px 8px;text-align:center;font-size:.66rem;font-weight:700;color:#0f766e;background:#ccfbf1;border-radius:4px;">⬆️ Múltiplo</td></tr>
+            <tr style="background:#fff0f2;border:2px solid var(--rose);"><td style="padding:5px 8px;font-weight:900;color:var(--rose-dark);">m²</td><td style="padding:5px 8px;font-weight:800;">Metros cuadrados</td><td style="padding:5px 8px;text-align:center;font-size:.66rem;font-weight:800;color:#fff;background:var(--rose);border-radius:4px;">⭐ Unidad base</td></tr>
+            <tr style="background:#fff7ed;"><td style="padding:4px 8px;font-weight:800;color:#d97706;">dm²</td><td style="padding:4px 8px;">Decímetros cuadrados</td><td style="padding:4px 8px;text-align:center;font-size:.66rem;font-weight:700;color:#d97706;background:#fed7aa;border-radius:4px;">⬇️ Submúltiplo</td></tr>
+            <tr style="background:#dcfce7;"><td style="padding:4px 8px;font-weight:800;color:#16a34a;">cm²</td><td style="padding:4px 8px;">Centímetros cuadrados</td><td style="padding:4px 8px;text-align:center;font-size:.66rem;font-weight:700;color:#16a34a;background:#bbf7d0;border-radius:4px;">⬇️ Submúltiplo</td></tr>
+            <tr style="background:#f1f5f9;"><td style="padding:4px 8px;font-weight:800;color:#475569;">mm²</td><td style="padding:4px 8px;">Milímetros cuadrados</td><td style="padding:4px 8px;text-align:center;font-size:.66rem;font-weight:700;color:#475569;background:#e2e8f0;border-radius:4px;">⬇️ Submúltiplo</td></tr>
+          </tbody>
+        </table>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin:.5rem 0;">
+          <div style="background:#f3e8ff;border-left:4px solid #7c3aed;border-radius:0 8px 8px 0;padding:.5rem .7rem;">
+            <div style="font-size:.68rem;font-weight:800;color:#7c3aed;margin-bottom:.3rem;">⬆️ MÚLTIPLOS del m²</div>
+            <div style="font-size:.74rem;line-height:1.7;color:#4c1d95;">Son <strong>más grandes</strong> que el m²<br>km² · hm² · dam²</div>
+          </div>
+          <div style="background:#dcfce7;border-left:4px solid #16a34a;border-radius:0 8px 8px 0;padding:.5rem .7rem;">
+            <div style="font-size:.68rem;font-weight:800;color:#16a34a;margin-bottom:.3rem;">⬇️ SUBMÚLTIPLOS del m²</div>
+            <div style="font-size:.74rem;line-height:1.7;color:#14532d;">Son <strong>más pequeños</strong> que el m²<br>dm² · cm² · mm²</div>
+          </div>
+        </div>
+        <div class="rule-box">
+          <strong>Regla:</strong><br>
+          ⬇️ Al bajar un escalón: <strong>× 100</strong> (multiplica)<br>
+          ⬆️ Al subir un escalón: <strong>÷ 100</strong> (divide)
+        </div>
+
+        <div class="section-label">Ejemplos de conversión</div>
+        <div class="ex-row"><span class="ex-num">1 km²</span><span>= 1,000,000 m² (bajar 3 escalones: ×100×100×100)</span></div>
+        <div class="ex-row"><span class="ex-num">1 hm²</span><span>= 10,000 m² (bajar 2 escalones: ×100×100)</span></div>
+        <div class="ex-row"><span class="ex-num">100 dm²</span><span>= 1 m² (subir 1 escalón: ÷100)</span></div>
+      </div>
+      <div class="topic-nav">
+        <button class="nav-btn" onclick="goTopic(3)">← Anterior</button>
+        <button class="nav-btn primary" onclick="goPanel('practice-4','sd-4')">Practicar →</button>
+      </div>
+    </div>
+
+    <!-- ========== PRACTICE-4 ========== -->
+    <div class="panel" id="practice-4">
+      <div class="card">
+        <div class="card-title">✏️ Práctica: Unidades de Área</div>
+        <button class="book-btn" onclick="openBookDrawer('book-4p')">📖 Ver libro pág. 56-58</button>
+        <div class="book-drawer" id="book-4p">
+          <div class="pg-label">Pág. 56 · Conversión de unidades de área</div>
+          <img src="img/p56.jpg" alt="Pág. 56" onclick="openLightbox('img/p56.jpg')">
+          <div class="pg-label">Pág. 57 · Actividades</div>
+          <img src="img/p57.jpg" alt="Pág. 57" onclick="openLightbox('img/p57.jpg')">
+          <div class="pg-label">Pág. 58 · Ejercicios</div>
+          <img src="img/p58.jpg" alt="Pág. 58" onclick="openLightbox('img/p58.jpg')">
+        </div>
+
+        <div class="section-label">Sección 1 — ¿Cuál es la operación? <span class="score-badge" id="sc-a1"></span></div>
+        <div class="mc-group">
+          <div class="mc-q">1. Para convertir km² a m², debes…</div>
+          <div class="mc-opts" id="mc-a1">
+            <button class="mc-btn" onclick="selMCBtn('mc-a1',0,this)">Multiplicar por 1,000,000</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-a1',1,this)">Dividir por 1,000,000</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-a1',2,this)">Multiplicar por 1,000</button>
+          </div>
+        </div>
+        <div class="mc-group">
+          <div class="mc-q">2. 700 mm² = ? cm²</div>
+          <div class="mc-opts" id="mc-a2">
+            <button class="mc-btn" onclick="selMCBtn('mc-a2',0,this)">70,000 cm²</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-a2',1,this)">7 cm²</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-a2',2,this)">0.07 cm²</button>
+          </div>
+        </div>
+        <button class="check-btn" onclick="chkMKGroup(['mc-a1','mc-a2'],[0,1],'sc-a1','pd-4')">Verificar Sección 1</button>
+
+        <div class="section-label">Sección 2 — Equivalencias <span class="score-badge" id="sc-a2"></span></div>
+        <div class="mc-group">
+          <div class="mc-q">3. 1 hm² = ? m²</div>
+          <div class="mc-opts" id="mc-a3">
+            <button class="mc-btn" onclick="selMCBtn('mc-a3',0,this)">1,000 m²</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-a3',1,this)">10,000 m²</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-a3',2,this)">100,000 m²</button>
+          </div>
+        </div>
+        <div class="mc-group">
+          <div class="mc-q">4. 1,500 cm² = ? dm²</div>
+          <div class="mc-opts" id="mc-a4">
+            <button class="mc-btn" onclick="selMCBtn('mc-a4',0,this)">150,000 dm²</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-a4',1,this)">15 dm²</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-a4',2,this)">1.5 dm²</button>
+          </div>
+        </div>
+        <div class="mc-group">
+          <div class="mc-q">5. 3 km² = ? m²</div>
+          <div class="mc-opts" id="mc-a5">
+            <button class="mc-btn" onclick="selMCBtn('mc-a5',0,this)">300,000 m²</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-a5',1,this)">3,000,000 m²</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-a5',2,this)">30,000 m²</button>
+          </div>
+        </div>
+        <div class="mc-group">
+          <div class="mc-q">6. 400 m² = ? dam²</div>
+          <div class="mc-opts" id="mc-a6">
+            <button class="mc-btn" onclick="selMCBtn('mc-a6',0,this)">40,000 dam²</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-a6',1,this)">40 dam²</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-a6',2,this)">4 dam²</button>
+          </div>
+        </div>
+        <button class="check-btn" onclick="chkMKGroup(['mc-a3','mc-a4','mc-a5','mc-a6'],[1,1,1,2],'sc-a2')">Verificar Sección 2</button>
+
+        <div class="section-label">Sección 3 — Ordena la escalera (arrastra y suelta) <span class="score-badge" id="sc-a3"></span></div>
+        <p style="font-size:.82rem;color:var(--muted);margin-bottom:.35rem;">Toca una unidad del banco y luego toca la zona donde va.</p>
+        <div class="dd-bank" id="dd-bank-a">
+          <span class="dd-chip" id="chip-hm2" onclick="ddTapChip(this,'dd-bank-a')">hm²</span>
+          <span class="dd-chip" id="chip-dam2" onclick="ddTapChip(this,'dd-bank-a')">dam²</span>
+          <span class="dd-chip" id="chip-dm2" onclick="ddTapChip(this,'dd-bank-a')">dm²</span>
+          <span class="dd-chip" id="chip-cm2" onclick="ddTapChip(this,'dd-bank-a')">cm²</span>
+        </div>
+        <div style="margin:.4rem 0;font-size:.83rem;">
+          <div class="dd-stairrow">
+            <span class="dd-label" style="color:#9f1239;font-size:1rem;">km²</span>
+            <span style="font-size:.75rem;color:var(--muted);">→ ×100 →</span>
+            <span class="dd-zone" id="dd-az1" onclick="ddTapZone(this,'dd-bank-a')">?</span>
+            <span style="font-size:.75rem;color:var(--muted);">→ ×100 →</span>
+            <span class="dd-zone" id="dd-az2" onclick="ddTapZone(this,'dd-bank-a')">?</span>
+            <span style="font-size:.75rem;color:var(--muted);">→ ×100 →</span>
+            <span class="dd-label" style="color:#1d4ed8;font-size:1rem;">m²</span>
+          </div>
+          <div class="dd-stairrow" style="margin-top:.5rem;">
+            <span class="dd-label" style="color:#1d4ed8;font-size:1rem;">m²</span>
+            <span style="font-size:.75rem;color:var(--muted);">→ ×100 →</span>
+            <span class="dd-zone" id="dd-az3" onclick="ddTapZone(this,'dd-bank-a')">?</span>
+            <span style="font-size:.75rem;color:var(--muted);">→ ×100 →</span>
+            <span class="dd-zone" id="dd-az4" onclick="ddTapZone(this,'dd-bank-a')">?</span>
+            <span style="font-size:.75rem;color:var(--muted);">→ ×100 →</span>
+            <span class="dd-label" style="color:#065f46;font-size:1rem;">mm²</span>
+          </div>
+        </div>
+        <button class="check-btn" onclick="ddCheckZones(['dd-az1','dd-az2','dd-az3','dd-az4'],['hm2','dam2','dm2','cm2'],'sc-a3')">Verificar Orden</button>
+      </div>
+      <div class="topic-nav">
+        <button class="nav-btn" onclick="goPanel('study-4')">← Repasar</button>
+        <button class="nav-btn primary" onclick="goTopic(5)">Siguiente →</button>
+      </div>
+    </div>
+
+    <!-- ========== STUDY-5 ========== -->
+    <div class="panel" id="study-5">
+      <div class="card">
+        <div class="card-title">📊 Interpretación de Gráficos Lineales</div>
+        <div class="info-grid">
+          <div class="info-tile">📊 Barras — compara cantidades</div>
+          <div class="info-tile">📈 Líneas — muestra cambio en el tiempo</div>
+          <div class="info-tile">🖼️ Pictograma — usa imágenes para representar datos</div>
+          <div class="info-tile">📅 Eje X = tiempo · Eje Y = cantidad</div>
+        </div>
+        <div class="rule-box">
+          <strong>Cómo leer un gráfico lineal:</strong><br>
+          1. Observa el título del gráfico<br>
+          2. Lee los ejes: X (horizontal) y Y (vertical)<br>
+          3. Sigue la línea para ver cómo cambian los valores<br>
+          4. Identifica el punto más alto (máximo) y más bajo (mínimo)
+        </div>
+        <div class="rule-box amber">
+          <strong>Alza:</strong> Cuando la línea sube de un punto a otro, hay un <em>alza</em> (aumento) en los datos.
+        </div>
+        <button class="book-btn" onclick="openBookDrawer('book-5')">📖 Ver libro pág. 60-63</button>
+        <div class="book-drawer" id="book-5">
+          <div class="pg-label">Pág. 60 · Problema del atleta</div>
+          <img src="img/p60.jpg" alt="Pág. 60" onclick="openLightbox('img/p60.jpg')">
+          <div class="pg-label">Pág. 61 · Tipos de gráficas</div>
+          <img src="img/p61.jpg" alt="Pág. 61" onclick="openLightbox('img/p61.jpg')">
+          <div class="pg-label">Pág. 62 · Actividades</div>
+          <img src="img/p62.jpg" alt="Pág. 62" onclick="openLightbox('img/p62.jpg')">
+          <div class="pg-label">Pág. 63 · Diagrama de líneas</div>
+          <img src="img/p63.jpg" alt="Pág. 63" onclick="openLightbox('img/p63.jpg')">
+        </div>
+
+        <div class="section-label">Gráfico 1: Horas de entrenamiento del atleta</div>
+        <div class="chart-card">
+          <div class="chart-title">Atleta — Horas de entrenamiento (L-D)</div>
+          <canvas id="chart-atleta" height="180"></canvas>
+        </div>
+        <div class="section-label">Gráfico 2: Artículos vendidos en la tienda</div>
+        <div class="chart-card">
+          <div class="chart-title">Tienda — Artículos vendidos (L-D)</div>
+          <canvas id="chart-articulos" height="180"></canvas>
+        </div>
+      </div>
+      <div class="topic-nav">
+        <button class="nav-btn" onclick="goTopic(4)">← Anterior</button>
+        <button class="nav-btn primary" onclick="goPanel('practice-5','sd-5')">Practicar →</button>
+      </div>
+    </div>
+
+    <!-- ========== PRACTICE-5 ========== -->
+    <div class="panel" id="practice-5">
+      <div class="card">
+        <div class="card-title">✏️ Práctica: Gráficos</div>
+        <div class="charts-row">
+          <div class="chart-card">
+            <div class="chart-title">Atleta (horas)</div>
+            <canvas id="chart-atleta-p" height="150"></canvas>
+          </div>
+          <div class="chart-card">
+            <div class="chart-title">Artículos vendidos</div>
+            <canvas id="chart-articulos-p" height="150"></canvas>
+          </div>
+        </div>
+        <button class="book-btn" onclick="openBookDrawer('book-5p')">📖 Ver libro pág. 60-63</button>
+        <div class="book-drawer" id="book-5p">
+          <div class="pg-label">Pág. 60 · Problema del atleta</div>
+          <img src="img/p60.jpg" alt="Pág. 60" onclick="openLightbox('img/p60.jpg')">
+          <div class="pg-label">Pág. 61 · Tipos de gráficas</div>
+          <img src="img/p61.jpg" alt="Pág. 61" onclick="openLightbox('img/p61.jpg')">
+          <div class="pg-label">Pág. 62 · Actividades</div>
+          <img src="img/p62.jpg" alt="Pág. 62" onclick="openLightbox('img/p62.jpg')">
+          <div class="pg-label">Pág. 63 · Diagrama de líneas</div>
+          <img src="img/p63.jpg" alt="Pág. 63" onclick="openLightbox('img/p63.jpg')">
+        </div>
+
+        <div class="section-label">Sección 1 — Gráfico del Atleta <span class="score-badge" id="sc-g1"></span></div>
+        <div class="mc-group">
+          <div class="mc-q">1. ¿Cuántas horas de entrenamiento registra el gráfico en total (L a D)?</div>
+          <div class="mc-opts" id="mc-g1">
+            <button class="mc-btn" onclick="selMCBtn('mc-g1',0,this)">23 horas</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-g1',1,this)">25 horas</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-g1',2,this)">27 horas</button>
+          </div>
+        </div>
+        <div class="mc-group">
+          <div class="mc-q">2. ¿En qué día entrenó más horas el atleta?</div>
+          <div class="mc-opts" id="mc-g2">
+            <button class="mc-btn" onclick="selMCBtn('mc-g2',0,this)">Lunes</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-g2',1,this)">Martes</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-g2',2,this)">Viernes</button>
+          </div>
+        </div>
+        <div class="mc-group">
+          <div class="mc-q">3. ¿Cuántas horas entrenó el atleta el martes?</div>
+          <div class="mc-opts" id="mc-g3">
+            <button class="mc-btn" onclick="selMCBtn('mc-g3',0,this)">3 horas</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-g3',1,this)">4 horas</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-g3',2,this)">5 horas</button>
+          </div>
+        </div>
+        <div class="mc-group">
+          <div class="mc-q">4. Comparando martes con domingo, ¿cuántas horas más entrenó el martes?</div>
+          <div class="mc-opts" id="mc-g4">
+            <button class="mc-btn" onclick="selMCBtn('mc-g4',0,this)">0 horas más</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-g4',1,this)">1 hora más</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-g4',2,this)">2 horas más</button>
+          </div>
+        </div>
+        <button class="check-btn" onclick="chkMKGroup(['mc-g1','mc-g2','mc-g3','mc-g4'],[1,1,2,1],'sc-g1','pd-5')">Verificar Sección 1</button>
+
+        <div class="section-label">Sección 2 — Gráfico de Artículos <span class="score-badge" id="sc-g2"></span></div>
+        <div class="mc-group">
+          <div class="mc-q">5. ¿Cuántos artículos se vendieron en total durante la semana?</div>
+          <div class="mc-opts" id="mc-g5">
+            <button class="mc-btn" onclick="selMCBtn('mc-g5',0,this)">370</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-g5',1,this)">390</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-g5',2,this)">410</button>
+          </div>
+        </div>
+        <div class="mc-group">
+          <div class="mc-q">6. ¿Qué día se vendieron más artículos?</div>
+          <div class="mc-opts" id="mc-g6">
+            <button class="mc-btn" onclick="selMCBtn('mc-g6',0,this)">Viernes</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-g6',1,this)">Sábado</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-g6',2,this)">Domingo</button>
+          </div>
+        </div>
+        <div class="mc-group">
+          <div class="mc-q">7. ¿Cuántos artículos más se vendieron el sábado comparado con el jueves?</div>
+          <div class="mc-opts" id="mc-g7">
+            <button class="mc-btn" onclick="selMCBtn('mc-g7',0,this)">10</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-g7',1,this)">20</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-g7',2,this)">30</button>
+          </div>
+        </div>
+        <div class="mc-group">
+          <div class="mc-q">8. Los gráficos de líneas son ideales para mostrar…</div>
+          <div class="mc-opts" id="mc-g8">
+            <button class="mc-btn" onclick="selMCBtn('mc-g8',0,this)">Categorías sin orden</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-g8',1,this)">Cambios a lo largo del tiempo</button>
+            <button class="mc-btn" onclick="selMCBtn('mc-g8',2,this)">Partes de un todo</button>
+          </div>
+        </div>
+        <button class="check-btn" onclick="chkMKGroup(['mc-g5','mc-g6','mc-g7','mc-g8'],[1,1,1,1],'sc-g2')">Verificar Sección 2</button>
+
+        <div class="section-label">Sección 3 — Emparejamiento: días y artículos <span class="score-badge" id="sc-g3"></span></div>
+        <p style="font-size:.82rem;color:var(--muted);margin-bottom:.4rem;">Conecta el día con la cantidad de artículos vendidos:</p>
+        <div class="match-grid">
+          <div class="match-item"><span class="match-left">Lunes</span>
+            <select class="match-sel" id="match-g-0">
+              <option value="">-- elige --</option>
+              <option value="1">20</option><option value="2">40</option>
+              <option value="3">60</option><option value="4">80</option>
+            </select>
+          </div>
+          <div class="match-item"><span class="match-left">Martes</span>
+            <select class="match-sel" id="match-g-1">
+              <option value="">-- elige --</option>
+              <option value="1">20</option><option value="2">40</option>
+              <option value="3">60</option><option value="4">80</option>
+            </select>
+          </div>
+          <div class="match-item"><span class="match-left">Miércoles</span>
+            <select class="match-sel" id="match-g-2">
+              <option value="">-- elige --</option>
+              <option value="1">20</option><option value="2">40</option>
+              <option value="3">60</option><option value="4">80</option>
+            </select>
+          </div>
+          <div class="match-item"><span class="match-left">Sábado</span>
+            <select class="match-sel" id="match-g-3">
+              <option value="">-- elige --</option>
+              <option value="1">20</option><option value="2">40</option>
+              <option value="3">60</option><option value="4">80</option>
+            </select>
+          </div>
+        </div>
+        <button class="check-btn" onclick="chkMatch(['match-g-0','match-g-1','match-g-2','match-g-3'],['1','2','3','4'],'sc-g3')">Verificar Emparejamiento</button>
+      </div>
+      <div class="topic-nav">
+        <button class="nav-btn" onclick="goPanel('study-5')">← Repasar</button>
+        <button class="nav-btn primary" onclick="goPaper()">📝 Problemas en Papel →</button>
+      </div>
+    </div>
+
+    <!-- ========== PANEL-PAPER ========== -->
+    <div class="panel" id="panel-paper">
+      <div class="card">
+        <div class="card-title">📝 Problemas en Papel</div>
+        <div class="rule-box amber">
+          <strong>Instrucciones:</strong> Resuelve cada problema en tu cuaderno mostrando el procedimiento completo.
+          Cuando tengas la respuesta, escríbela en el recuadro. Solo se evalúa la respuesta final.
+        </div>
+
+        <div class="paper-q">
+          <div class="pq-text">1. Escribe en cifras: "trescientos cuarenta y dos mil setecientos veinte"</div>
+          <input type="text" id="pq1" placeholder="Tu respuesta">
+        </div>
+        <div class="paper-q">
+          <div class="pq-text">2. ¿Cuánto es 7 × 8?</div>
+          <input type="text" id="pq2" placeholder="Tu respuesta">
+        </div>
+        <div class="paper-q">
+          <div class="pq-text">3. Resuelve: 235,400 + 124,350 = ?</div>
+          <input type="text" id="pq3" placeholder="Tu respuesta">
+        </div>
+        <div class="paper-q">
+          <div class="pq-text">4. Un agricultor cosechó 756 mangos y los repartió en cajas de 9. ¿Cuántas cajas llenó?</div>
+          <input type="text" id="pq4" placeholder="Tu respuesta">
+        </div>
+        <div class="paper-q">
+          <div class="pq-text">5. Convierte: 2 hm² = ? m²</div>
+          <input type="text" id="pq5" placeholder="Tu respuesta">
+        </div>
+        <div class="paper-q">
+          <div class="pq-text">6. En el gráfico del atleta, ¿cuántas horas entrenó el miércoles?</div>
+          <input type="text" id="pq6" placeholder="Tu respuesta">
+        </div>
+        <button class="check-btn" style="margin-top:.6rem;" onclick="chkPaperAnswers()">Verificar Respuestas en Papel</button>
+        <div id="paper-result" style="margin-top:.5rem;font-size:.85rem;font-weight:700;color:var(--rose-dark);"></div>
+      </div>
+      <div class="topic-nav">
+        <button class="nav-btn" onclick="goTopic(5)">← Repasar Gráficos</button>
+        <button class="nav-btn primary" onclick="goFinal()">🏆 Ver Calificación →</button>
+      </div>
+    </div>
+
+    <!-- ========== PANEL-FINAL ========== -->
+    <div class="panel" id="panel-final">
+      <div class="card">
+        <div class="card-title">🏆 Calificación Final</div>
+        <p style="font-size:.85rem;color:var(--muted);margin-bottom:.6rem;">Aquí verás el resumen de todas las secciones que completaste.</p>
+        <button class="check-btn" onclick="calcFinal()" style="margin-bottom:.8rem;">Calcular Calificación</button>
+        <div id="final-content"></div>
+      </div>
+      <div class="topic-nav">
+        <button class="nav-btn" onclick="goPaper()">← Volver a Papel</button>
+        <button class="nav-btn primary" onclick="goTopic(0)">🔄 Empezar de Nuevo</button>
+      </div>
+    </div>
+
+  </div><!-- end content-area -->
+</div><!-- end app-layout -->
+
+<!-- Lightbox -->
+<div id="lb-overlay" onclick="closeLightbox()">
+  <button id="lb-close" onclick="closeLightbox()">✕</button>
+  <img id="lb-img" src="" alt="">
+</div>
+
+<script>
+// ========== NAVIGATION ==========
+function goTopic(n) {
+  document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active');});
+  var el=document.getElementById('study-'+n); if(el) el.classList.add('active');
+  document.querySelectorAll('.topic-item').forEach(function(t){t.classList.remove('active');});
+  var nav=document.getElementById('nav-'+n); if(nav) nav.classList.add('active');
+  if(n===5) initCharts();
+  window.scrollTo(0,0);
+}
+
+function goPanel(id, dotId) {
+  document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active');});
+  var el=document.getElementById(id); if(el) el.classList.add('active');
+  if(dotId){var d=document.getElementById(dotId);if(d)d.classList.add('done');}
+  if(id==='practice-1'&&!tqStarted){tqStarted=true;setTimeout(tqStart,100);}
+  if(id==='practice-5') initCharts();
+  window.scrollTo(0,0);
+}
+
+function goPaper() {
+  document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active');});
+  document.getElementById('panel-paper').classList.add('active');
+  document.querySelectorAll('.topic-item').forEach(function(t){t.classList.remove('active');});
+  var nav=document.getElementById('nav-paper'); if(nav) nav.classList.add('active');
+  var d=document.getElementById('pd-paper'); if(d) d.classList.add('done');
+  window.scrollTo(0,0);
+}
+
+function goFinal() {
+  document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active');});
+  document.getElementById('panel-final').classList.add('active');
+  document.querySelectorAll('.topic-item').forEach(function(t){t.classList.remove('active');});
+  window.scrollTo(0,0);
+}
+
+// ========== MC ==========
+function selMCBtn(groupId, idx, btn) {
+  var group=document.getElementById(groupId);
+  if(!group) return;
+  group.querySelectorAll('.mc-btn').forEach(function(b,i){
+    b.classList.remove('correct','wrong','revealed');
+    b.setAttribute('data-sel', i===idx?'1':'0');
+  });
+  btn.classList.add('revealed');
+  btn.setAttribute('data-idx', idx);
+}
+
+function chkMC1() {
+  var groups=[['mc-c1',1],['mc-c2',0],['mc-c3',2]];
+  var correct=0;
+  groups.forEach(function(g){
+    var grp=document.getElementById(g[0]);
+    if(!grp) return;
+    var btns=grp.querySelectorAll('.mc-btn');
+    var answered=false;
+    btns.forEach(function(b,i){
+      if(b.getAttribute('data-sel')==='1'){
+        answered=true;
+        if(i===g[1]){b.classList.add('correct');b.classList.remove('revealed');correct++;}
+        else{b.classList.add('wrong');b.classList.remove('revealed');}
+      }
+    });
+    if(answered) btns[g[1]].classList.add('correct');
+  });
+  recordScore('sc-c1',correct,3);
+}
+
+function revealAnswer(groupId, correctIdx) {
+  var group=document.getElementById(groupId);
+  if(!group) return;
+  var btns=group.querySelectorAll('.mc-btn');
+  btns.forEach(function(b){b.classList.remove('correct','wrong','revealed');});
+  if(btns[correctIdx]) btns[correctIdx].classList.add('correct');
+}
+
+function chkMKGroup(groupIds, correctIdxs, scoreId, dotId) {
+  var correct=0;
+  groupIds.forEach(function(gid, gi){
+    var group=document.getElementById(gid);
+    if(!group) return;
+    var btns=group.querySelectorAll('.mc-btn');
+    var answered=false;
+    btns.forEach(function(b,i){
+      if(b.getAttribute('data-sel')==='1'){
+        answered=true;
+        if(i===correctIdxs[gi]){b.classList.add('correct');b.classList.remove('revealed');correct++;}
+        else{b.classList.add('wrong');b.classList.remove('revealed');}
+      }
+    });
+    if(answered) {
+      var cb=btns[correctIdxs[gi]];
+      if(cb && !cb.classList.contains('correct')) cb.classList.add('correct');
+    }
+  });
+  recordScore(scoreId, correct, groupIds.length);
+  if(dotId){var d=document.getElementById(dotId);if(d)d.classList.add('done');}
+}
+
+// ========== MATCHING ==========
+function chkMatch(selectIds, correctVals, scoreId, dotId) {
+  var correct=0;
+  selectIds.forEach(function(sid, i){
+    var sel=document.getElementById(sid);
+    if(!sel) return;
+    sel.classList.remove('correct','wrong');
+    if(sel.value===correctVals[i]){sel.classList.add('correct');correct++;}
+    else{sel.classList.add('wrong');}
+  });
+  recordScore(scoreId, correct, selectIds.length);
+  if(dotId){var d=document.getElementById(dotId);if(d)d.classList.add('done');}
+}
+
+// ========== DRAG AND DROP (tap-based) ==========
+var ddSelected=null;
+var ddSelectedBank=null;
+var ddPlaceholders={};
+
+function ddTapChip(chip, bankId) {
+  if(chip.classList.contains('placed')) return;
+  if(ddSelected && ddSelected===chip){
+    chip.classList.remove('selected');
+    ddSelected=null; ddSelectedBank=null;
+    return;
+  }
+  if(ddSelected) ddSelected.classList.remove('selected');
+  ddSelected=chip;
+  ddSelectedBank=bankId;
+  chip.classList.add('selected');
+}
+
+function ddTapZone(zone, bankId) {
+  if(!ddSelected){
+    // deselect zone if it has content — put chip back
+    var existing=zone.getAttribute('data-chip');
+    if(existing){
+      var chip=document.getElementById('chip-'+existing);
+      if(chip){
+        chip.classList.remove('placed','selected');
+        var bank=document.getElementById(bankId);
+        if(bank) bank.appendChild(chip);
+      }
+      zone.textContent='?';
+      zone.classList.remove('filled','correct-z','wrong-z');
+      zone.removeAttribute('data-chip');
+    }
+    return;
+  }
+  var chipId=ddSelected.id.replace('chip-','');
+  // if zone already has a chip, swap it back to bank
+  var oldChip=zone.getAttribute('data-chip');
+  if(oldChip){
+    var oc=document.getElementById('chip-'+oldChip);
+    if(oc){
+      oc.classList.remove('placed','selected');
+      var bk=document.getElementById(ddSelectedBank||bankId);
+      if(bk) bk.appendChild(oc);
+    }
+  }
+  zone.textContent=ddSelected.textContent;
+  zone.classList.add('filled');
+  zone.classList.remove('correct-z','wrong-z');
+  zone.setAttribute('data-chip',chipId);
+  ddSelected.classList.add('placed');
+  ddSelected.classList.remove('selected');
+  ddSelected=null; ddSelectedBank=null;
+}
+
+function ddCheckZones(zoneIds, correctChips, scoreId) {
+  var correct=0;
+  zoneIds.forEach(function(zid,i){
+    var zone=document.getElementById(zid);
+    if(!zone) return;
+    var placed=zone.getAttribute('data-chip');
+    zone.classList.remove('correct-z','wrong-z');
+    if(placed===correctChips[i]){zone.classList.add('correct-z');correct++;}
+    else{zone.classList.add('wrong-z');}
+  });
+  recordScore(scoreId,correct,zoneIds.length);
+  if(correct===zoneIds.length){var d=document.getElementById('pd-4');if(d)d.classList.add('done');}
+}
+
+// ========== PAPER ==========
+var paperAnswers={
+  pq1:['342720','342,720'],
+  pq2:['56'],
+  pq3:['359750','359,750'],
+  pq4:['84'],
+  pq5:['20000','20,000'],
+  pq6:['4']
+};
+
+function chkPaperAnswers(){
+  var correct=0;
+  var total=Object.keys(paperAnswers).length;
+  Object.keys(paperAnswers).forEach(function(id){
+    var inp=document.getElementById(id);
+    if(!inp) return;
+    inp.classList.remove('correct','wrong');
+    var val=inp.value.trim().replace(/\s/g,'');
+    var accepted=paperAnswers[id];
+    if(accepted.indexOf(val)!==-1){inp.classList.add('correct');correct++;}
+    else{inp.classList.add('wrong');}
+  });
+  recordScore('sc-paper',correct,total);
+  var d=document.getElementById('pd-paper');if(d)d.classList.add('done');
+  document.getElementById('paper-result').textContent='Resultado: '+correct+'/'+total+' correctas';
+}
+
+// ========== SCORE ==========
+var scores={};
+var sectionNames={
+  'sc-c1':'6 Cifras — Lectura (3)',
+  'sc-c2':'6 Cifras — Posición (2)',
+  'sc-c3':'6 Cifras — Emparej. (4)',
+  'sc-t-quiz':'Tablas — Quiz (30)',
+  'sc-t2':'Tablas — Factor (2)',
+  'sc-t3':'Tablas — Emparej. (4)',
+  'sc-o1':'Operaciones — Resultado (4)',
+  'sc-o2':'Operaciones — ¿Cuál? (3)',
+  'sc-o3':'Operaciones — Símbolo (4)',
+  'sc-d1':'División — Problema (2)',
+  'sc-d2':'División — Más (3)',
+  'sc-d3':'División — Partes (3)',
+  'sc-a1':'Área — Operación (2)',
+  'sc-a2':'Área — Equivalencias (4)',
+  'sc-a3':'Área — Escalera (4)',
+  'sc-g1':'Gráficos — Atleta (4)',
+  'sc-g2':'Gráficos — Artículos (4)',
+  'sc-g3':'Gráficos — Emparej. (4)',
+  'sc-paper':'En Papel (6)'
+};
+
+function recordScore(id, correct, total){
+  scores[id]={correct:correct,total:total};
+  var el=document.getElementById(id);
+  if(el) el.textContent=correct+'/'+total;
+}
+
+function calcFinal(){
+  var totalC=0,totalT=0;
+  Object.keys(scores).forEach(function(k){
+    totalC+=scores[k].correct;
+    totalT+=scores[k].total;
+  });
+  var pct=totalT>0?Math.round(totalC/totalT*100):0;
+  var grade,msg;
+  if(pct>=90){grade='A';msg='¡Excelente trabajo! Dominas todos los temas. 🌟';}
+  else if(pct>=80){grade='B';msg='¡Muy bien! Tienes un buen manejo de los temas. 👍';}
+  else if(pct>=70){grade='C';msg='¡Bien! Repasa los temas marcados y sigue practicando. 💪';}
+  else if(pct>=60){grade='D';msg='Necesitas más práctica. ¡Tú puedes! Repasa con calma. 📚';}
+  else{grade='F';msg='¡No te rindas! Vuelve a repasar cada tema desde el principio. 🔄';}
+
+  var rows='';
+  Object.keys(sectionNames).forEach(function(k){
+    if(scores[k]){
+      var s=scores[k];
+      var pct2=Math.round(s.correct/s.total*100);
+      var color=pct2>=80?'#166534':pct2>=60?'#92400e':'#991b1b';
+      rows+='<tr><td>'+sectionNames[k]+'</td><td style="text-align:center;font-weight:700;color:'+color+';">'+s.correct+'/'+s.total+'</td><td style="text-align:center;color:'+color+';">'+pct2+'%</td></tr>';
+    }
+  });
+
+  document.getElementById('final-content').innerHTML=
+    '<table class="score-table"><thead><tr><th>Sección</th><th style="text-align:center;">Puntaje</th><th style="text-align:center;">%</th></tr></thead><tbody>'+rows+'</tbody></table>'+
+    '<div class="grade-display"><div class="grade-letter">'+grade+'</div><div style="font-size:1.1rem;font-weight:800;color:var(--rose-dark);">'+pct+'% de '+totalT+' puntos</div><div class="grade-msg">'+msg+'</div></div>';
+}
+
+// ========== TIMES TABLE QUIZ ==========
+var tQuizData=[[5,1,5],[5,2,10],[5,3,15],[5,4,20],[5,5,25],[5,6,30],[5,7,35],[5,8,40],[5,9,45],[5,10,50],[6,1,6],[6,2,12],[6,3,18],[6,4,24],[6,5,30],[6,6,36],[6,7,42],[6,8,48],[6,9,54],[6,10,60],[7,1,7],[7,2,14],[7,3,21],[7,4,28],[7,5,35],[7,6,42],[7,7,49],[7,8,56],[7,9,63],[7,10,70]];
+var tqIdx=0,tqCorrect=0,tqStarted=false;
+function tqShuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+var tqActive=[];
+function tqStart(){
+  tqActive=tqShuffle(tQuizData.slice());tqIdx=0;tqCorrect=0;
+  document.getElementById('tq-score').textContent='';
+  tqNext();
+}
+function tqNext(){
+  if(tqIdx>=tqActive.length){
+    document.getElementById('tq-question').textContent='¡Terminaste! 🎉';
+    document.getElementById('tq-opts').innerHTML='';
+    document.getElementById('tq-progress').textContent=tqCorrect+'/'+tqActive.length;
+    recordScore('sc-t-quiz',tqCorrect,tqActive.length);
+    var d=document.getElementById('pd-1');if(d)d.classList.add('done');
+    return;
+  }
+  var q=tqActive[tqIdx];
+  document.getElementById('tq-question').textContent=q[0]+' × '+q[1]+' = ?';
+  document.getElementById('tq-progress').textContent=(tqIdx+1)+'/'+tqActive.length;
+  var correct=q[2];
+  var opts=[correct];
+  var tries=0;
+  while(opts.length<3&&tries<50){
+    tries++;
+    var w=correct+(-4+Math.floor(Math.random()*9));
+    if(w>0&&w!==correct&&opts.indexOf(w)===-1)opts.push(w);
+  }
+  tqShuffle(opts);
+  var btns=document.getElementById('tq-opts');btns.innerHTML='';
+  opts.forEach(function(o){
+    var b=document.createElement('button');b.className='mc-btn';b.textContent=o;
+    b.setAttribute('onclick','tqAnswer('+o+','+correct+',this)');
+    btns.appendChild(b);
+  });
+}
+function tqAnswer(chosen,correct,btn){
+  document.querySelectorAll('#tq-opts .mc-btn').forEach(function(b){b.onclick=null;b.style.pointerEvents='none';});
+  if(chosen===correct){btn.classList.add('correct');tqCorrect++;}
+  else{btn.classList.add('wrong');document.querySelectorAll('#tq-opts .mc-btn').forEach(function(b){if(+b.textContent===correct)b.classList.add('correct');});}
+  document.getElementById('tq-score').textContent='✓ '+tqCorrect+'/'+(tqIdx+1);
+  setTimeout(function(){tqIdx++;tqNext();},900);
+}
+
+// ========== BOOK DRAWER ==========
+function openBookDrawer(id){
+  var d=document.getElementById(id);
+  if(!d) return;
+  d.classList.toggle('open');
+}
+function closeBookDrawer(id){
+  var d=document.getElementById(id);
+  if(d) d.classList.remove('open');
+}
+
+// ========== LIGHTBOX ==========
+var _lbScale=1,_lbX=0,_lbY=0,_lbDragging=false,_lbLast={x:0,y:0};
+function _lbApply(){
+  var img=document.getElementById('lb-img');
+  img.style.transform='scale('+_lbScale+') translate('+_lbX+'px,'+_lbY+'px)';
+}
+function lbZoom(e){e.stopPropagation();_lbScale=Math.min(_lbScale*1.3,5);_lbApply();}
+function lbZoomReset(){_lbScale=1;_lbX=0;_lbY=0;_lbApply();}
+function openLightbox(src){
+  var ov=document.getElementById('lb-overlay');
+  var img=document.getElementById('lb-img');
+  img.src=src;_lbScale=1;_lbX=0;_lbY=0;_lbApply();
+  ov.classList.add('open');
+}
+function closeLightbox(){
+  document.getElementById('lb-overlay').classList.remove('open');
+}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeLightbox();});
+document.addEventListener('DOMContentLoaded',function(){
+  var img=document.getElementById('lb-img');
+  if(!img) return;
+  img.addEventListener('click',function(e){e.stopPropagation();lbZoom(e);});
+  img.addEventListener('dblclick',function(e){e.stopPropagation();lbZoomReset();});
+  img.addEventListener('mousedown',function(e){_lbDragging=true;_lbLast={x:e.clientX,y:e.clientY};});
+  document.addEventListener('mousemove',function(e){
+    if(!_lbDragging) return;
+    _lbX+=(e.clientX-_lbLast.x)/_lbScale;
+    _lbY+=(e.clientY-_lbLast.y)/_lbScale;
+    _lbLast={x:e.clientX,y:e.clientY};_lbApply();
+  });
+  document.addEventListener('mouseup',function(){_lbDragging=false;});
+  img.addEventListener('wheel',function(e){
+    e.preventDefault();
+    _lbScale=e.deltaY<0?Math.min(_lbScale*1.15,5):Math.max(_lbScale/1.15,1);
+    _lbApply();
+  },{passive:false});
+});
+
+// ========== CHARTS ==========
+var _chartsInited=false;
+function initCharts(){
+  if(_chartsInited) return;
+  if(!window.Chart){setTimeout(initCharts,100);return;}
+  _chartsInited=true;
+  var days=['L','M','X','J','V','S','D'];
+  var atleta=[3,5,4,4,4,1,4];
+  var arts=[20,40,60,60,70,80,60];
+  function mkC(id,data,label){
+    var ctx=document.getElementById(id);if(!ctx)return;
+    new Chart(ctx,{type:'line',data:{labels:days,datasets:[{data:data,borderColor:'#e11d48',backgroundColor:'rgba(225,29,72,.1)',borderWidth:2.5,pointBackgroundColor:'#e11d48',pointRadius:5,fill:true,tension:0.3}]},options:{responsive:true,plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return c.parsed.y+' '+label;}}}},scales:{y:{beginAtZero:true,ticks:{font:{size:10}}},x:{ticks:{font:{size:11,weight:'700'}}}}}});
+  }
+  mkC('chart-atleta',atleta,'horas');
+  mkC('chart-articulos',arts,'artículos');
+  mkC('chart-atleta-p',atleta,'horas');
+  mkC('chart-articulos-p',arts,'artículos');
+}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+</body>
+</html>
