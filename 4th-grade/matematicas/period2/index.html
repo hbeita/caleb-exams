@@ -233,6 +233,27 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
           <span class="ti-dot" id="pd-5">✅</span>
         </span>
       </div>
+      <div class="topic-item" id="nav-6" onclick="goTopic(6)">
+        <span>7 · Frecuencia</span>
+        <span class="ti-icons">
+          <span class="ti-dot" id="sd-6">📖</span>
+          <span class="ti-dot" id="pd-6">✏️</span>
+        </span>
+      </div>
+      <div class="topic-item" id="nav-7" onclick="goTopic(7)">
+        <span>8 · Fracciones</span>
+        <span class="ti-icons">
+          <span class="ti-dot" id="sd-7">📖</span>
+          <span class="ti-dot" id="pd-7">✏️</span>
+        </span>
+      </div>
+      <div class="topic-item" id="nav-8" onclick="goTopic(8)">
+        <span>9 · Decimales</span>
+        <span class="ti-icons">
+          <span class="ti-dot" id="sd-8">📖</span>
+          <span class="ti-dot" id="pd-8">✏️</span>
+        </span>
+      </div>
       <div class="topic-item" id="nav-paper" onclick="goPaper()">
         <span>📝 En Papel</span>
         <span class="ti-icons">
@@ -1315,7 +1336,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
       </div>
       <div class="topic-nav">
         <button class="nav-btn" onclick="goPanel('study-5')">← Repasar</button>
-        <button class="nav-btn primary" onclick="goPaper()">📝 Problemas en Papel →</button>
+        <button class="nav-btn primary" onclick="goTopic(6)">Siguiente →</button>
       </div>
     </div>
 
@@ -1361,6 +1382,458 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
       </div>
     </div>
 
+
+    <!-- ========== STUDY-6 ========== -->
+    <div class="panel" id="study-6">
+      <div class="card">
+        <div class="card-title">📊 Cuadros de Frecuencia</div>
+        <div class="rule-box">
+          <strong>Definición:</strong> Un cuadro de frecuencia muestra cuántas veces aparece cada dato en una encuesta o conteo.
+        </div>
+
+        <div class="section-label">Ejemplo de Cuadro de Frecuencia</div>
+        <table style="width:100%;border-collapse:collapse;font-size:.9rem;margin:.6rem 0;">
+          <thead>
+            <tr style="background:var(--rose-mid);color:#fff;">
+              <th style="padding:.4rem .6rem;border:1px solid #ccc;text-align:left;">Comestible</th>
+              <th style="padding:.4rem .6rem;border:1px solid #ccc;text-align:center;">Conteo</th>
+              <th style="padding:.4rem .6rem;border:1px solid #ccc;text-align:center;">Frecuencia</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td style="padding:.35rem .6rem;border:1px solid #ccc;">Manzana</td><td style="padding:.35rem .6rem;border:1px solid #ccc;text-align:center;">||||</td><td style="padding:.35rem .6rem;border:1px solid #ccc;text-align:center;">4</td></tr>
+            <tr style="background:#fdf2f8;"><td style="padding:.35rem .6rem;border:1px solid #ccc;">Naranja</td><td style="padding:.35rem .6rem;border:1px solid #ccc;text-align:center;">||||||</td><td style="padding:.35rem .6rem;border:1px solid #ccc;text-align:center;">6</td></tr>
+            <tr><td style="padding:.35rem .6rem;border:1px solid #ccc;">Uva</td><td style="padding:.35rem .6rem;border:1px solid #ccc;text-align:center;">||</td><td style="padding:.35rem .6rem;border:1px solid #ccc;text-align:center;">2</td></tr>
+            <tr style="background:#fdf2f8;"><td style="padding:.35rem .6rem;border:1px solid #ccc;">Piña</td><td style="padding:.35rem .6rem;border:1px solid #ccc;text-align:center;">|||||</td><td style="padding:.35rem .6rem;border:1px solid #ccc;text-align:center;">5</td></tr>
+          </tbody>
+        </table>
+
+        <div class="section-label">Términos clave</div>
+        <div class="rule-box amber">
+          <strong>Datos:</strong> la información que se recopila (frutas, colores, etc.)<br>
+          <strong>Conteo (marcas de tally):</strong> palitos para registrar cada voto — cada 5 se agrupa con una diagonal<br>
+          <strong>Frecuencia:</strong> el número total de veces que aparece un dato<br>
+          <strong>Título:</strong> nombre que describe de qué trata el cuadro
+        </div>
+        <div class="rule-box">
+          <strong>Regla:</strong> La frecuencia es el número total de veces que aparece un dato en el conteo.
+        </div>
+
+        <div class="section-label">Leyendo el cuadro</div>
+        <ul style="font-size:.9rem;line-height:1.9;padding-left:1.2rem;">
+          <li>La fruta con <strong>mayor frecuencia</strong> es la <strong>Naranja</strong> (6 estudiantes).</li>
+          <li>La fruta con <strong>menor frecuencia</strong> es la <strong>Uva</strong> (2 estudiantes).</li>
+          <li>El <strong>total de estudiantes</strong> encuestados es 4 + 6 + 2 + 5 = <strong>17</strong>.</li>
+        </ul>
+
+        <div class="topic-nav">
+          <button class="nav-btn" onclick="goTopic(5)">← Gráficos</button>
+          <button class="nav-btn primary" onclick="goPanel('practice-6','sd-6')">Practicar →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== PRACTICE-6 ========== -->
+    <div class="panel" id="practice-6">
+      <div class="card">
+        <div class="card-title">✏️ Práctica — Cuadros de Frecuencia</div>
+
+        <div class="section-label">Usa este cuadro para responder:</div>
+        <table style="width:100%;border-collapse:collapse;font-size:.85rem;margin:.4rem 0 .8rem;">
+          <thead>
+            <tr style="background:var(--rose-mid);color:#fff;">
+              <th style="padding:.3rem .5rem;border:1px solid #ccc;">Comestible</th>
+              <th style="padding:.3rem .5rem;border:1px solid #ccc;text-align:center;">Frecuencia</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td style="padding:.3rem .5rem;border:1px solid #ccc;">Manzana</td><td style="padding:.3rem .5rem;border:1px solid #ccc;text-align:center;">4</td></tr>
+            <tr style="background:#fdf2f8;"><td style="padding:.3rem .5rem;border:1px solid #ccc;">Naranja</td><td style="padding:.3rem .5rem;border:1px solid #ccc;text-align:center;">6</td></tr>
+            <tr><td style="padding:.3rem .5rem;border:1px solid #ccc;">Uva</td><td style="padding:.3rem .5rem;border:1px solid #ccc;text-align:center;">2</td></tr>
+            <tr style="background:#fdf2f8;"><td style="padding:.3rem .5rem;border:1px solid #ccc;">Piña</td><td style="padding:.3rem .5rem;border:1px solid #ccc;text-align:center;">5</td></tr>
+          </tbody>
+        </table>
+
+        <div class="section-label">Sección 1 — Selección Múltiple</div>
+
+        <div class="mc-group" id="mc-f1">
+          <div class="mc-question">1. ¿Cuál comestible tiene mayor frecuencia?</div>
+          <div class="mc-opts">
+            <button class="mc-btn" data-sel="0" onclick="selMCBtn('mc-f1',0,this)">Manzana</button>
+            <button class="mc-btn" data-sel="0" onclick="selMCBtn('mc-f1',1,this)">Naranja</button>
+            <button class="mc-btn" data-sel="0" onclick="selMCBtn('mc-f1',2,this)">Uva</button>
+            <button class="mc-btn" data-sel="0" onclick="selMCBtn('mc-f1',3,this)">Piña</button>
+          </div>
+        </div>
+
+        <div class="mc-group" id="mc-f2">
+          <div class="mc-question">2. ¿Cuántos estudiantes prefieren la uva?</div>
+          <div class="mc-opts">
+            <button class="mc-btn" data-sel="0" onclick="selMCBtn('mc-f2',0,this)">4</button>
+            <button class="mc-btn" data-sel="0" onclick="selMCBtn('mc-f2',1,this)">2</button>
+            <button class="mc-btn" data-sel="0" onclick="selMCBtn('mc-f2',2,this)">5</button>
+            <button class="mc-btn" data-sel="0" onclick="selMCBtn('mc-f2',3,this)">6</button>
+          </div>
+        </div>
+
+        <div class="mc-group" id="mc-f3">
+          <div class="mc-question">3. ¿Cuántos estudiantes participaron en total?</div>
+          <div class="mc-opts">
+            <button class="mc-btn" data-sel="0" onclick="selMCBtn('mc-f3',0,this)">15</button>
+            <button class="mc-btn" data-sel="0" onclick="selMCBtn('mc-f3',1,this)">16</button>
+            <button class="mc-btn" data-sel="0" onclick="selMCBtn('mc-f3',2,this)">17</button>
+            <button class="mc-btn" data-sel="0" onclick="selMCBtn('mc-f3',3,this)">18</button>
+          </div>
+        </div>
+
+        <button class="check-btn" onclick="chkMCFreq()">Verificar Selección Múltiple</button>
+        <div id="sc-f1" style="display:inline-block;margin:.4rem .5rem;padding:.3rem .7rem;border-radius:8px;font-weight:700;font-size:.85rem;"></div>
+
+        <div class="section-label" style="margin-top:1rem;">Sección 2 — Completar</div>
+
+        <div class="fill-row">
+          <label>En el cuadro, la fruta con menor frecuencia es:</label>
+          <input class="fill-input" id="ffreq-1" type="text" placeholder="respuesta">
+        </div>
+        <div class="fill-row">
+          <label>La frecuencia de naranja más manzana =</label>
+          <input class="fill-input" id="ffreq-2" type="text" placeholder="número">
+        </div>
+        <div class="fill-row">
+          <label>La fruta que aparece 5 veces es:</label>
+          <input class="fill-input" id="ffreq-3" type="text" placeholder="respuesta">
+        </div>
+
+        <button class="check-btn" onclick="chkFillFreq()">Verificar Completar</button>
+        <div id="sc-f2" style="display:inline-block;margin:.4rem .5rem;padding:.3rem .7rem;border-radius:8px;font-weight:700;font-size:.85rem;"></div>
+
+        <div class="topic-nav">
+          <button class="nav-btn" onclick="goPanel('study-6')">← Repasar</button>
+          <button class="nav-btn primary" onclick="goTopic(7)">Siguiente →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== STUDY-7 ========== -->
+    <div class="panel" id="study-7">
+      <div class="card">
+        <div class="card-title">🍕 Fracciones</div>
+
+        <div class="section-label">Parte A — Términos de la fracción</div>
+        <div style="text-align:center;margin:.8rem 0;">
+          <svg viewBox="0 0 320 120" xmlns="http://www.w3.org/2000/svg" style="max-width:320px;width:100%;">
+            <text x="140" y="50" font-size="36" font-weight="bold" fill="#be185d" text-anchor="middle">3</text>
+            <line x1="110" y1="60" x2="170" y2="60" stroke="#be185d" stroke-width="3"/>
+            <text x="140" y="95" font-size="36" font-weight="bold" fill="#be185d" text-anchor="middle">5</text>
+            <text x="195" y="45" font-size="11" fill="#4b5563">← Numerador</text>
+            <text x="195" y="58" font-size="10" fill="#6b7280">(partes que tomamos)</text>
+            <text x="195" y="95" font-size="11" fill="#4b5563">← Denominador</text>
+            <text x="195" y="108" font-size="10" fill="#6b7280">(partes totales)</text>
+          </svg>
+        </div>
+        <div class="rule-box">
+          <strong>Numerador</strong> = partes que tomamos (arriba de la raya)<br>
+          <strong>Denominador</strong> = partes totales en que se divide el entero (abajo de la raya)
+        </div>
+
+        <div class="section-label">Parte B — Lectura y escritura</div>
+        <table style="width:100%;border-collapse:collapse;font-size:.88rem;margin:.5rem 0;">
+          <thead>
+            <tr style="background:var(--rose-mid);color:#fff;">
+              <th style="padding:.35rem .5rem;border:1px solid #ccc;">Fracción</th>
+              <th style="padding:.35rem .5rem;border:1px solid #ccc;">Se lee</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td style="padding:.3rem .5rem;border:1px solid #ccc;text-align:center;font-weight:700;">1/2</td><td style="padding:.3rem .5rem;border:1px solid #ccc;">un medio</td></tr>
+            <tr style="background:#fdf2f8;"><td style="padding:.3rem .5rem;border:1px solid #ccc;text-align:center;font-weight:700;">1/3</td><td style="padding:.3rem .5rem;border:1px solid #ccc;">un tercio</td></tr>
+            <tr><td style="padding:.3rem .5rem;border:1px solid #ccc;text-align:center;font-weight:700;">1/4</td><td style="padding:.3rem .5rem;border:1px solid #ccc;">un cuarto</td></tr>
+            <tr style="background:#fdf2f8;"><td style="padding:.3rem .5rem;border:1px solid #ccc;text-align:center;font-weight:700;">2/5</td><td style="padding:.3rem .5rem;border:1px solid #ccc;">dos quintos</td></tr>
+            <tr><td style="padding:.3rem .5rem;border:1px solid #ccc;text-align:center;font-weight:700;">3/8</td><td style="padding:.3rem .5rem;border:1px solid #ccc;">tres octavos</td></tr>
+          </tbody>
+        </table>
+
+        <div class="section-label">Parte C — Fracciones propias vs. impropias</div>
+        <div style="display:flex;gap:.6rem;flex-wrap:wrap;margin:.5rem 0;">
+          <div style="flex:1;min-width:130px;background:#d1fae5;border-radius:10px;padding:.6rem .8rem;border:2px solid #6ee7b7;">
+            <div style="font-weight:800;font-size:.95rem;color:#065f46;">Propia ✅</div>
+            <div style="font-size:1.3rem;font-weight:700;color:#065f46;text-align:center;margin:.3rem 0;">3/5</div>
+            <div style="font-size:.82rem;color:#064e3b;">Numerador &lt; Denominador<br>Vale <strong>MENOS</strong> que 1 entero</div>
+          </div>
+          <div style="flex:1;min-width:130px;background:#fee2e2;border-radius:10px;padding:.6rem .8rem;border:2px solid #fca5a5;">
+            <div style="font-weight:800;font-size:.95rem;color:#9f1239;">Impropia ⚠️</div>
+            <div style="font-size:1.3rem;font-weight:700;color:#9f1239;text-align:center;margin:.3rem 0;">7/4</div>
+            <div style="font-size:.82rem;color:#881337;">Numerador ≥ Denominador<br>Vale <strong>MÁS</strong> que 1 entero (o igual)</div>
+          </div>
+        </div>
+
+        <div class="section-label">Parte D — Orden de fracciones (mismo denominador)</div>
+        <div class="rule-box amber">
+          <strong>Regla:</strong> Con igual denominador, el mayor numerador indica la fracción mayor.<br>
+          <strong>Ejemplo:</strong> 2/7 &lt; 5/7 &lt; 6/7
+        </div>
+
+        <div class="topic-nav">
+          <button class="nav-btn" onclick="goTopic(6)">← Frecuencia</button>
+          <button class="nav-btn primary" onclick="goPanel('practice-7','sd-7')">Practicar →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== PRACTICE-7 ========== -->
+    <div class="panel" id="practice-7">
+      <div class="card">
+        <div class="card-title">✏️ Práctica — Fracciones</div>
+
+        <div class="section-label">Sección 1 — Términos de la fracción</div>
+
+        <div class="mc-group" id="mc-fr1">
+          <div class="mc-question">1. En la fracción 3/8, ¿cuál es el denominador?</div>
+          <div class="mc-opts">
+            <button class="mc-btn" data-sel="0" onclick="selMCBtn('mc-fr1',0,this)">3</button>
+            <button class="mc-btn" data-sel="0" onclick="selMCBtn('mc-fr1',1,this)">8</button>
+            <button class="mc-btn" data-sel="0" onclick="selMCBtn('mc-fr1',2,this)">38</button>
+            <button class="mc-btn" data-sel="0" onclick="selMCBtn('mc-fr1',3,this)">1/8</button>
+          </div>
+        </div>
+
+        <div class="mc-group" id="mc-fr2">
+          <div class="mc-question">2. ¿Cuál es el numerador de 5/9?</div>
+          <div class="mc-opts">
+            <button class="mc-btn" data-sel="0" onclick="selMCBtn('mc-fr2',0,this)">5</button>
+            <button class="mc-btn" data-sel="0" onclick="selMCBtn('mc-fr2',1,this)">9</button>
+            <button class="mc-btn" data-sel="0" onclick="selMCBtn('mc-fr2',2,this)">4</button>
+            <button class="mc-btn" data-sel="0" onclick="selMCBtn('mc-fr2',3,this)">0</button>
+          </div>
+        </div>
+
+        <div class="mc-group" id="mc-fr3">
+          <div class="mc-question">3. 3/4 se lee:</div>
+          <div class="mc-opts">
+            <button class="mc-btn" data-sel="0" onclick="selMCBtn('mc-fr3',0,this)">cuatro tercios</button>
+            <button class="mc-btn" data-sel="0" onclick="selMCBtn('mc-fr3',1,this)">tres medios</button>
+            <button class="mc-btn" data-sel="0" onclick="selMCBtn('mc-fr3',2,this)">tres cuartos</button>
+            <button class="mc-btn" data-sel="0" onclick="selMCBtn('mc-fr3',3,this)">cuatro cuartos</button>
+          </div>
+        </div>
+
+        <button class="check-btn" onclick="chkMCFrac()">Verificar Selección Múltiple</button>
+        <div id="sc-fr1" style="display:inline-block;margin:.4rem .5rem;padding:.3rem .7rem;border-radius:8px;font-weight:700;font-size:.85rem;"></div>
+
+        <div class="section-label" style="margin-top:1rem;">Sección 2 — Propia o Impropia</div>
+        <div style="display:flex;gap:.6rem;flex-wrap:wrap;margin:.5rem 0;">
+
+          <div style="background:#f3f4f6;border-radius:10px;padding:.6rem .8rem;text-align:center;min-width:120px;">
+            <div style="font-size:1.4rem;font-weight:800;color:#be185d;margin-bottom:.4rem;">2/5</div>
+            <button class="mc-btn" style="margin:.15rem;" onclick="markPI(0,'propia')">Propia</button>
+            <button class="mc-btn" style="margin:.15rem;" onclick="markPI(0,'impropia')">Impropia</button>
+            <div id="pi-result-0" style="margin-top:.3rem;font-size:.82rem;font-weight:700;padding:.2rem .4rem;border-radius:6px;" data-chosen=""></div>
+          </div>
+
+          <div style="background:#f3f4f6;border-radius:10px;padding:.6rem .8rem;text-align:center;min-width:120px;">
+            <div style="font-size:1.4rem;font-weight:800;color:#be185d;margin-bottom:.4rem;">7/3</div>
+            <button class="mc-btn" style="margin:.15rem;" onclick="markPI(1,'propia')">Propia</button>
+            <button class="mc-btn" style="margin:.15rem;" onclick="markPI(1,'impropia')">Impropia</button>
+            <div id="pi-result-1" style="margin-top:.3rem;font-size:.82rem;font-weight:700;padding:.2rem .4rem;border-radius:6px;" data-chosen=""></div>
+          </div>
+
+          <div style="background:#f3f4f6;border-radius:10px;padding:.6rem .8rem;text-align:center;min-width:120px;">
+            <div style="font-size:1.4rem;font-weight:800;color:#be185d;margin-bottom:.4rem;">4/4</div>
+            <button class="mc-btn" style="margin:.15rem;" onclick="markPI(2,'propia')">Propia</button>
+            <button class="mc-btn" style="margin:.15rem;" onclick="markPI(2,'impropia')">Impropia</button>
+            <div id="pi-result-2" style="margin-top:.3rem;font-size:.82rem;font-weight:700;padding:.2rem .4rem;border-radius:6px;" data-chosen=""></div>
+          </div>
+
+          <div style="background:#f3f4f6;border-radius:10px;padding:.6rem .8rem;text-align:center;min-width:120px;">
+            <div style="font-size:1.4rem;font-weight:800;color:#be185d;margin-bottom:.4rem;">1/8</div>
+            <button class="mc-btn" style="margin:.15rem;" onclick="markPI(3,'propia')">Propia</button>
+            <button class="mc-btn" style="margin:.15rem;" onclick="markPI(3,'impropia')">Impropia</button>
+            <div id="pi-result-3" style="margin-top:.3rem;font-size:.82rem;font-weight:700;padding:.2rem .4rem;border-radius:6px;" data-chosen=""></div>
+          </div>
+
+        </div>
+        <button class="check-btn" onclick="chkPropImp()">Verificar Propia/Impropia</button>
+        <div id="sc-fr2" style="display:inline-block;margin:.4rem .5rem;padding:.3rem .7rem;border-radius:8px;font-weight:700;font-size:.85rem;"></div>
+
+        <div class="section-label" style="margin-top:1rem;">Sección 3 — Orden de fracciones</div>
+
+        <div class="fill-row">
+          <label>Ordena de menor a mayor: 5/9, 2/9, 8/9 →</label>
+          <input class="fill-input" id="fro-1" type="text" placeholder="___, ___, ___" style="width:160px;">
+        </div>
+        <div class="fill-row">
+          <label>¿Es 3/7 mayor o menor que 6/7?</label>
+          <input class="fill-input" id="fro-2" type="text" placeholder="mayor / menor">
+        </div>
+        <div class="fill-row">
+          <label>Completa: 1/5 ___ 4/5 (usa &lt; ó &gt;)</label>
+          <input class="fill-input" id="fro-3" type="text" placeholder="&lt; ó &gt;">
+        </div>
+
+        <button class="check-btn" onclick="chkFracOrder()">Verificar Orden</button>
+        <div id="sc-fr3" style="display:inline-block;margin:.4rem .5rem;padding:.3rem .7rem;border-radius:8px;font-weight:700;font-size:.85rem;"></div>
+
+        <div class="topic-nav">
+          <button class="nav-btn" onclick="goPanel('study-7')">← Repasar</button>
+          <button class="nav-btn primary" onclick="goTopic(8)">Siguiente →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== STUDY-8 ========== -->
+    <div class="panel" id="study-8">
+      <div class="card">
+        <div class="card-title">🔢 Números Decimales</div>
+        <div class="rule-box">
+          <strong>Regla:</strong> Los números decimales tienen una parte entera y una parte decimal separadas por una coma (o punto decimal).
+        </div>
+
+        <div class="section-label">Tabla de valor posicional decimal</div>
+        <table style="width:100%;border-collapse:collapse;font-size:.85rem;margin:.5rem 0;text-align:center;">
+          <thead>
+            <tr>
+              <th style="padding:.35rem;border:1px solid #ccc;background:#be185d;color:#fff;">Unidades</th>
+              <th style="padding:.35rem;border:1px solid #ccc;background:#9f1239;color:#fff;">.</th>
+              <th style="padding:.35rem;border:1px solid #ccc;background:#a855f7;color:#fff;">Décimas</th>
+              <th style="padding:.35rem;border:1px solid #ccc;background:#7c3aed;color:#fff;">Centésimas</th>
+              <th style="padding:.35rem;border:1px solid #ccc;background:#4f46e5;color:#fff;">Milésimas</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding:.35rem;border:1px solid #ccc;font-size:1.2rem;font-weight:800;">2</td>
+              <td style="padding:.35rem;border:1px solid #ccc;font-size:1.2rem;font-weight:800;color:#9f1239;">.</td>
+              <td style="padding:.35rem;border:1px solid #ccc;font-size:1.2rem;font-weight:800;">0</td>
+              <td style="padding:.35rem;border:1px solid #ccc;font-size:1.2rem;font-weight:800;">5</td>
+              <td style="padding:.35rem;border:1px solid #ccc;font-size:1.2rem;font-weight:800;">0</td>
+            </tr>
+          </tbody>
+        </table>
+        <div style="font-size:.85rem;color:#6b7280;margin-bottom:.7rem;text-align:center;">2.050 = <strong>"dos enteros, cinco centésimas"</strong></div>
+
+        <div class="section-label">Fracción ↔ Decimal</div>
+        <table style="width:100%;border-collapse:collapse;font-size:.85rem;margin:.4rem 0;">
+          <thead>
+            <tr style="background:var(--rose-mid);color:#fff;">
+              <th style="padding:.3rem .5rem;border:1px solid #ccc;">Fracción</th>
+              <th style="padding:.3rem .5rem;border:1px solid #ccc;">Decimal</th>
+              <th style="padding:.3rem .5rem;border:1px solid #ccc;">Se lee</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td style="padding:.3rem .5rem;border:1px solid #ccc;text-align:center;">1/10</td><td style="padding:.3rem .5rem;border:1px solid #ccc;text-align:center;font-weight:700;">0.1</td><td style="padding:.3rem .5rem;border:1px solid #ccc;">un décimo</td></tr>
+            <tr style="background:#fdf2f8;"><td style="padding:.3rem .5rem;border:1px solid #ccc;text-align:center;">5/10</td><td style="padding:.3rem .5rem;border:1px solid #ccc;text-align:center;font-weight:700;">0.5</td><td style="padding:.3rem .5rem;border:1px solid #ccc;">cinco décimos</td></tr>
+            <tr><td style="padding:.3rem .5rem;border:1px solid #ccc;text-align:center;">1/100</td><td style="padding:.3rem .5rem;border:1px solid #ccc;text-align:center;font-weight:700;">0.01</td><td style="padding:.3rem .5rem;border:1px solid #ccc;">un centésimo</td></tr>
+            <tr style="background:#fdf2f8;"><td style="padding:.3rem .5rem;border:1px solid #ccc;text-align:center;">25/100</td><td style="padding:.3rem .5rem;border:1px solid #ccc;text-align:center;font-weight:700;">0.25</td><td style="padding:.3rem .5rem;border:1px solid #ccc;">veinticinco centésimos</td></tr>
+            <tr><td style="padding:.3rem .5rem;border:1px solid #ccc;text-align:center;">1/1000</td><td style="padding:.3rem .5rem;border:1px solid #ccc;text-align:center;font-weight:700;">0.001</td><td style="padding:.3rem .5rem;border:1px solid #ccc;">un milésimo</td></tr>
+          </tbody>
+        </table>
+
+        <div class="section-label">Recta numérica decimal</div>
+        <svg viewBox="0 0 340 60" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:340px;display:block;margin:.4rem auto;">
+          <line x1="20" y1="30" x2="320" y2="30" stroke="#be185d" stroke-width="2.5"/>
+          <line x1="20" y1="22" x2="20" y2="38" stroke="#be185d" stroke-width="2"/>
+          <line x1="95" y1="24" x2="95" y2="36" stroke="#7c3aed" stroke-width="2"/>
+          <line x1="170" y1="22" x2="170" y2="38" stroke="#be185d" stroke-width="2"/>
+          <line x1="245" y1="24" x2="245" y2="36" stroke="#7c3aed" stroke-width="2"/>
+          <line x1="320" y1="22" x2="320" y2="38" stroke="#be185d" stroke-width="2"/>
+          <text x="20" y="52" font-size="11" text-anchor="middle" fill="#374151">0</text>
+          <text x="95" y="52" font-size="11" text-anchor="middle" fill="#7c3aed">0.25</text>
+          <text x="170" y="52" font-size="11" text-anchor="middle" fill="#374151">0.5</text>
+          <text x="245" y="52" font-size="11" text-anchor="middle" fill="#7c3aed">0.75</text>
+          <text x="320" y="52" font-size="11" text-anchor="middle" fill="#374151">1</text>
+        </svg>
+
+        <div class="section-label">Ejemplos de lectura</div>
+        <ul style="font-size:.9rem;line-height:2;padding-left:1.2rem;">
+          <li><strong>0.3</strong> = tres décimas</li>
+          <li><strong>1.25</strong> = un entero veinticinco centésimas</li>
+          <li><strong>2.005</strong> = dos enteros cinco milésimas</li>
+        </ul>
+
+        <div class="topic-nav">
+          <button class="nav-btn" onclick="goTopic(7)">← Fracciones</button>
+          <button class="nav-btn primary" onclick="goPanel('practice-8','sd-8')">Practicar →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== PRACTICE-8 ========== -->
+    <div class="panel" id="practice-8">
+      <div class="card">
+        <div class="card-title">✏️ Práctica — Decimales</div>
+
+        <div class="section-label">Sección 1 — Selección Múltiple</div>
+
+        <div class="mc-group" id="mc-d1">
+          <div class="mc-question">1. 0.5 en fracción es:</div>
+          <div class="mc-opts">
+            <button class="mc-btn" data-sel="0" onclick="selMCBtn('mc-d1',0,this)">5/10</button>
+            <button class="mc-btn" data-sel="0" onclick="selMCBtn('mc-d1',1,this)">5/100</button>
+            <button class="mc-btn" data-sel="0" onclick="selMCBtn('mc-d1',2,this)">1/5</button>
+            <button class="mc-btn" data-sel="0" onclick="selMCBtn('mc-d1',3,this)">50/10</button>
+          </div>
+        </div>
+
+        <div class="mc-group" id="mc-d2">
+          <div class="mc-question">2. ¿Cómo se lee 1.25?</div>
+          <div class="mc-opts">
+            <button class="mc-btn" data-sel="0" onclick="selMCBtn('mc-d2',0,this)">doce con cinco</button>
+            <button class="mc-btn" data-sel="0" onclick="selMCBtn('mc-d2',1,this)">un entero veinticinco centésimas</button>
+            <button class="mc-btn" data-sel="0" onclick="selMCBtn('mc-d2',2,this)">ciento veinticinco</button>
+            <button class="mc-btn" data-sel="0" onclick="selMCBtn('mc-d2',3,this)">uno dos cinco</button>
+          </div>
+        </div>
+
+        <div class="mc-group" id="mc-d3">
+          <div class="mc-question">3. ¿Cuál es mayor: 0.3 ó 0.8?</div>
+          <div class="mc-opts">
+            <button class="mc-btn" data-sel="0" onclick="selMCBtn('mc-d3',0,this)">0.3</button>
+            <button class="mc-btn" data-sel="0" onclick="selMCBtn('mc-d3',1,this)">0.8</button>
+          </div>
+        </div>
+
+        <div class="mc-group" id="mc-d4">
+          <div class="mc-question">4. 0.001 en fracción es:</div>
+          <div class="mc-opts">
+            <button class="mc-btn" data-sel="0" onclick="selMCBtn('mc-d4',0,this)">1/10</button>
+            <button class="mc-btn" data-sel="0" onclick="selMCBtn('mc-d4',1,this)">1/100</button>
+            <button class="mc-btn" data-sel="0" onclick="selMCBtn('mc-d4',2,this)">1/1000</button>
+            <button class="mc-btn" data-sel="0" onclick="selMCBtn('mc-d4',3,this)">10/1000</button>
+          </div>
+        </div>
+
+        <button class="check-btn" onclick="chkMCDec()">Verificar Selección Múltiple</button>
+        <div id="sc-d1" style="display:inline-block;margin:.4rem .5rem;padding:.3rem .7rem;border-radius:8px;font-weight:700;font-size:.85rem;"></div>
+
+        <div class="section-label" style="margin-top:1rem;">Sección 2 — Completar</div>
+
+        <div class="fill-row">
+          <label>0.7 = ___ / 10</label>
+          <input class="fill-input" id="fdec-1" type="text" placeholder="número">
+        </div>
+        <div class="fill-row">
+          <label>dos enteros, tres décimas =</label>
+          <input class="fill-input" id="fdec-2" type="text" placeholder="decimal">
+        </div>
+        <div class="fill-row">
+          <label>2.050 se lee: dos enteros, cinco ___</label>
+          <input class="fill-input" id="fdec-3" type="text" placeholder="décimas / centésimas / milésimas">
+        </div>
+        <div class="fill-row">
+          <label>1/100 = 0.___</label>
+          <input class="fill-input" id="fdec-4" type="text" placeholder="01 ó 0.01">
+        </div>
+
+        <button class="check-btn" onclick="chkFillDec()">Verificar Completar</button>
+        <div id="sc-d2" style="display:inline-block;margin:.4rem .5rem;padding:.3rem .7rem;border-radius:8px;font-weight:700;font-size:.85rem;"></div>
+
+        <div class="topic-nav">
+          <button class="nav-btn" onclick="goPanel('study-8')">← Repasar</button>
+          <button class="nav-btn primary" onclick="goPaper()">📝 Problemas en Papel →</button>
+        </div>
+      </div>
+    </div>
 
     <!-- ========== PANEL-EXAM ========== -->
     <div class="panel" id="panel-exam">
@@ -2177,6 +2650,104 @@ function calcExamTotal(){
     '<tr><td>Sección IV — Gráficos</td><td style="text-align:right;font-weight:700;">'+examGraphScore+'/15</td></tr>'+
     '<tr><td>Sección V — Problemas</td><td style="text-align:right;font-weight:700;">~'+examProbScore+'/25</td></tr>'+
     '</table></div>';
+}
+
+// ---- Frecuencia ----
+function chkMCFreq(){
+  var answers=[[1,'mc-f1'],[1,'mc-f2'],[2,'mc-f3']];
+  var correct=0;
+  answers.forEach(function(a){
+    var grp=document.getElementById(a[1]);if(!grp)return;
+    var btns=grp.querySelectorAll('.mc-btn');
+    var sel=-1;
+    btns.forEach(function(b,i){if(b.getAttribute('data-sel')==='1')sel=i;});
+    btns.forEach(function(b,i){b.classList.remove('correct','wrong');if(i===a[0])b.classList.add('correct');else if(i===sel&&sel!==a[0])b.classList.add('wrong');});
+    if(sel===a[0])correct++;
+  });
+  var el=document.getElementById('sc-f1');if(el){el.textContent=correct+'/3';el.style.background=correct>=2?'#d1fae5':'#fee2e2';el.style.display='inline-block';}
+}
+function chkFillFreq(){
+  var ans={'ffreq-1':['uva'],'ffreq-2':['10'],'ffreq-3':['piña','pina']};
+  var correct=0;
+  Object.keys(ans).forEach(function(id){
+    var el=document.getElementById(id);if(!el)return;
+    var v=el.value.trim().toLowerCase();
+    var ok=ans[id].some(function(a){return v===a;});
+    el.style.background=ok?'#d1fae5':'#fee2e2';
+    if(ok)correct++;
+  });
+  var sc=document.getElementById('sc-f2');if(sc){sc.textContent=correct+'/3';sc.style.background=correct>=2?'#d1fae5':'#fee2e2';sc.style.display='inline-block';}
+}
+// ---- Fracciones ----
+function chkMCFrac(){
+  var answers=[[1,'mc-fr1'],[0,'mc-fr2'],[2,'mc-fr3']];
+  var correct=0;
+  answers.forEach(function(a){
+    var grp=document.getElementById(a[1]);if(!grp)return;
+    var btns=grp.querySelectorAll('.mc-btn');
+    var sel=-1;
+    btns.forEach(function(b,i){if(b.getAttribute('data-sel')==='1')sel=i;});
+    btns.forEach(function(b,i){b.classList.remove('correct','wrong');if(i===a[0])b.classList.add('correct');else if(i===sel&&sel!==a[0])b.classList.add('wrong');});
+    if(sel===a[0])correct++;
+  });
+  var el=document.getElementById('sc-fr1');if(el){el.textContent=correct+'/3';el.style.background=correct>=2?'#d1fae5':'#fee2e2';el.style.display='inline-block';}
+}
+function chkPropImp(){
+  var ans={'0':'propia','1':'impropia','2':'impropia','3':'propia'};
+  var correct=0;
+  Object.keys(ans).forEach(function(n){
+    var el=document.getElementById('pi-result-'+n);if(!el)return;
+    var chosen=el.getAttribute('data-chosen');
+    var ok=chosen===ans[n];
+    el.style.background=ok?'#d1fae5':'#fee2e2';
+    if(ok)correct++;
+  });
+  var sc=document.getElementById('sc-fr2');if(sc){sc.textContent=correct+'/4';sc.style.background=correct>=3?'#d1fae5':'#fee2e2';sc.style.display='inline-block';}
+}
+function markPI(n,val){
+  var el=document.getElementById('pi-result-'+n);
+  if(!el)return;
+  el.setAttribute('data-chosen',val);
+  el.textContent=val;
+  el.style.background='#e0f2fe';
+}
+function chkFracOrder(){
+  var ans={'fro-1':['2/9, 5/9, 8/9','2/9,5/9,8/9'],'fro-2':['menor'],'fro-3':['<']};
+  var correct=0;
+  Object.keys(ans).forEach(function(id){
+    var el=document.getElementById(id);if(!el)return;
+    var v=el.value.trim().toLowerCase().replace(/\s+/g,' ');
+    var ok=ans[id].some(function(a){return v===a.toLowerCase();});
+    el.style.background=ok?'#d1fae5':'#fee2e2';
+    if(ok)correct++;
+  });
+  var sc=document.getElementById('sc-fr3');if(sc){sc.textContent=correct+'/3';sc.style.background=correct>=2?'#d1fae5':'#fee2e2';sc.style.display='inline-block';}
+}
+// ---- Decimales ----
+function chkMCDec(){
+  var answers=[[0,'mc-d1'],[1,'mc-d2'],[1,'mc-d3'],[2,'mc-d4']];
+  var correct=0;
+  answers.forEach(function(a){
+    var grp=document.getElementById(a[1]);if(!grp)return;
+    var btns=grp.querySelectorAll('.mc-btn');
+    var sel=-1;
+    btns.forEach(function(b,i){if(b.getAttribute('data-sel')==='1')sel=i;});
+    btns.forEach(function(b,i){b.classList.remove('correct','wrong');if(i===a[0])b.classList.add('correct');else if(i===sel&&sel!==a[0])b.classList.add('wrong');});
+    if(sel===a[0])correct++;
+  });
+  var el=document.getElementById('sc-d1');if(el){el.textContent=correct+'/4';el.style.background=correct>=3?'#d1fae5':'#fee2e2';el.style.display='inline-block';}
+}
+function chkFillDec(){
+  var ans={'fdec-1':['7'],'fdec-2':['2.3','2,3'],'fdec-3':['centésimas','centesimas'],'fdec-4':['01','0.01']};
+  var correct=0;
+  Object.keys(ans).forEach(function(id){
+    var el=document.getElementById(id);if(!el)return;
+    var v=el.value.trim().toLowerCase();
+    var ok=ans[id].some(function(a){return v===a;});
+    el.style.background=ok?'#d1fae5':'#fee2e2';
+    if(ok)correct++;
+  });
+  var sc=document.getElementById('sc-d2');if(sc){sc.textContent=correct+'/4';sc.style.background=correct>=3?'#d1fae5':'#fee2e2';sc.style.display='inline-block';}
 }
 
 </script>
