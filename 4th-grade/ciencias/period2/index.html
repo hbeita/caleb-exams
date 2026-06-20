@@ -1,0 +1,1878 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>⚗️ Ciencias · Sistema Circulatorio · Caleb 4to</title>
+<style>
+
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{--teal:#0d9488;--teal-dark:#0f766e;--teal-light:#ccfbf1;--teal-mid:#5eead4;
+--bg:#f0fdfa;--card:#fff;--border:#d1fae5;--text:#0f172a;--muted:#64748b;
+--sidebar-w:220px;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+#app{display:flex;min-height:100vh;}
+
+/* SIDEBAR */
+#sidebar{width:var(--sidebar-w);min-height:100vh;background:linear-gradient(180deg,#0f766e 0%,#134e4a 100%);
+display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;overflow-y:auto;z-index:100;
+padding-bottom:2rem;}
+.sb-brand{padding:1rem .9rem .6rem;border-bottom:1px solid rgba(255,255,255,.12);}
+.sb-brand a{color:rgba(255,255,255,.6);font-size:.72rem;text-decoration:none;display:block;margin-bottom:.3rem;}
+.sb-brand h2{color:#fff;font-size:1rem;font-weight:800;line-height:1.2;}
+.sb-brand .sb-sub{color:#99f6e4;font-size:.7rem;margin-top:.2rem;}
+.sb-section{padding:.5rem .6rem .2rem;color:rgba(255,255,255,.4);font-size:.62rem;font-weight:700;
+text-transform:uppercase;letter-spacing:.08em;}
+.nav-item{display:flex;align-items:center;gap:.55rem;padding:.55rem .75rem;cursor:pointer;
+border-radius:9px;margin:.1rem .5rem;transition:all .15s;color:rgba(255,255,255,.75);font-size:.78rem;font-weight:500;}
+.nav-item:hover{background:rgba(255,255,255,.1);color:#fff;}
+.nav-item.active{background:rgba(255,255,255,.18);color:#fff;font-weight:700;}
+.nav-item.studied .nav-check{opacity:1;}
+.nav-check{opacity:0;color:#6ee7b7;font-size:.75rem;margin-left:auto;transition:opacity .2s;}
+.nav-icon{font-size:1rem;width:20px;text-align:center;flex-shrink:0;}
+.nav-divider{height:1px;background:rgba(255,255,255,.1);margin:.5rem .75rem;}
+.nav-exam-btn{display:flex;align-items:center;gap:.55rem;padding:.65rem .75rem;cursor:pointer;
+border-radius:9px;margin:.3rem .5rem;background:rgba(20,184,166,.25);border:1.5px solid rgba(20,184,166,.4);
+color:#99f6e4;font-size:.8rem;font-weight:700;transition:all .15s;}
+.nav-exam-btn:hover{background:rgba(20,184,166,.4);color:#fff;}
+.nav-exam-btn.active{background:rgba(20,184,166,.5);color:#fff;}
+
+/* CONTENT */
+#content{margin-left:var(--sidebar-w);flex:1;padding:1.5rem 1.25rem 3rem;max-width:820px;}
+
+/* PANEL */
+.panel{display:none;}
+.panel.active{display:block;}
+
+/* TOPIC HEADER */
+.topic-header{display:flex;align-items:center;gap:.75rem;margin-bottom:1.25rem;}
+.topic-icon-big{width:48px;height:48px;border-radius:14px;background:var(--teal);
+display:flex;align-items:center;justify-content:center;font-size:1.6rem;flex-shrink:0;}
+.topic-title{font-size:1.2rem;font-weight:800;color:var(--teal-dark);}
+.topic-ind{font-size:.72rem;color:var(--muted);margin-top:.15rem;}
+
+/* STUDY CARD */
+.study-card{background:#fff;border:1.5px solid var(--border);border-radius:14px;padding:1.1rem 1.2rem;margin-bottom:.85rem;}
+.study-card h3{font-size:.9rem;font-weight:700;color:var(--teal-dark);margin-bottom:.6rem;
+display:flex;align-items:center;gap:.4rem;}
+.study-card p{font-size:.83rem;line-height:1.55;color:#374151;}
+.study-card ul{font-size:.83rem;line-height:1.6;color:#374151;padding-left:1.1rem;}
+.study-card li{margin-bottom:.25rem;}
+.study-card li b{color:var(--teal-dark);}
+
+/* ICON GRID */
+.icon-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:.75rem;margin:.5rem 0;}
+.ic-card{background:var(--teal-light);border:1.5px solid #a7f3d0;border-radius:12px;padding:.85rem .9rem;text-align:center;}
+.ic-card .ic-emoji{font-size:1.8rem;margin-bottom:.4rem;}
+.ic-card .ic-name{font-size:.8rem;font-weight:800;color:var(--teal-dark);margin-bottom:.25rem;}
+.ic-card .ic-def{font-size:.72rem;color:#374151;line-height:1.4;}
+
+/* DISEASE GRID */
+.disease-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.7rem;margin:.5rem 0;}
+.disease-card{border-radius:12px;padding:.8rem;border:1.5px solid;}
+.disease-card .dc-name{font-size:.82rem;font-weight:800;margin-bottom:.3rem;}
+.disease-card .dc-body{font-size:.75rem;line-height:1.4;color:#374151;}
+.disease-card .dc-area{font-size:.7rem;font-weight:700;padding:2px 7px;border-radius:20px;
+display:inline-block;margin-top:.3rem;}
+
+/* DIAGRAM */
+.diagram-wrap{background:#fff;border:1.5px solid var(--border);border-radius:14px;padding:1rem;
+margin-bottom:.85rem;text-align:center;}
+.diagram-caption{font-size:.72rem;color:var(--muted);margin-top:.5rem;font-style:italic;}
+
+/* STUDIED BTN */
+.studied-btn{display:block;width:100%;margin-top:1.1rem;padding:.7rem;background:var(--teal);
+color:#fff;border:none;border-radius:10px;font-size:.85rem;font-weight:700;cursor:pointer;
+transition:all .15s;touch-action:manipulation;font-family:inherit;}
+.studied-btn:hover{background:var(--teal-dark);}
+.studied-btn.done{background:#d1fae5;color:#065f46;cursor:default;}
+
+/* PRACTICE */
+.practice-header{display:flex;align-items:center;gap:.5rem;margin-bottom:1rem;}
+.practice-header h2{font-size:1rem;font-weight:800;color:var(--teal-dark);}
+.exercise{background:#fff;border:1.5px solid var(--border);border-radius:12px;
+padding:.9rem 1rem;margin-bottom:.85rem;}
+.exercise .ex-q{font-size:.83rem;font-weight:600;color:var(--text);margin-bottom:.6rem;line-height:1.4;}
+.exercise .ex-q b{color:var(--teal-dark);}
+
+/* MC BUTTONS */
+.mc-btn-group{display:flex;flex-direction:column;gap:6px;margin:.4rem 0;}
+.mc-btn{background:#f8fafc;border:2px solid #cbd5e1;border-radius:8px;padding:9px 14px;
+cursor:pointer;font-size:.8rem;text-align:left;transition:all .15s;touch-action:manipulation;
+line-height:1.3;width:100%;box-sizing:border-box;font-family:inherit;}
+.mc-btn:hover{border-color:var(--teal);background:var(--teal-light);}
+.mc-btn.mc-sel{background:#ccfbf1;border-color:var(--teal);color:#0f766e;font-weight:700;}
+.mc-btn.correct{background:#dcfce7!important;border-color:#16a34a!important;color:#14532d!important;font-weight:700;}
+.mc-btn.wrong{background:#fee2e2!important;border-color:#dc2626!important;color:#991b1b!important;}
+.reveal-answer-btn{font-size:.72rem;padding:4px 10px;border:1.5px solid #94a3b8;border-radius:6px;
+background:#f8fafc;cursor:pointer;touch-action:manipulation;color:#475569;margin-top:2px;font-family:inherit;}
+
+/* MATCH */
+.match-table{width:100%;border-collapse:collapse;margin:.3rem 0;}
+.match-table td{padding:.4rem .5rem;font-size:.8rem;vertical-align:middle;}
+.ma-select{width:66px;padding:5px 4px;border:2px solid #94a3b8;border-radius:6px;
+font-size:.88rem;font-weight:700;cursor:pointer;background:#fff;touch-action:manipulation;}
+.ma-select.correct{border-color:#16a34a!important;background:#dcfce7!important;color:#14532d!important;}
+.ma-select.wrong{border-color:#dc2626!important;background:#fee2e2!important;color:#991b1b!important;}
+
+/* CHECK BTN */
+.check-btn{background:var(--teal);color:#fff;border:none;border-radius:8px;padding:.55rem 1.1rem;
+font-size:.8rem;font-weight:700;cursor:pointer;margin-top:.5rem;touch-action:manipulation;font-family:inherit;}
+.check-btn:hover{background:var(--teal-dark);}
+.score-pill{display:inline-block;margin-left:.6rem;background:var(--teal-light);color:var(--teal-dark);
+border-radius:20px;padding:2px 10px;font-size:.75rem;font-weight:700;}
+
+/* DD */
+.dd-bank{display:flex;flex-wrap:wrap;gap:7px;padding:.6rem .7rem;background:#f0fdfa;
+border-radius:10px;min-height:44px;margin:.5rem 0;}
+.dd-chip{background:var(--teal);color:#fff;border-radius:20px;padding:7px 14px;cursor:pointer;
+font-size:.78rem;font-weight:700;transition:all .15s;user-select:none;-webkit-user-select:none;
+touch-action:manipulation;line-height:1.2;border:none;outline:none;}
+.dd-chip.dd-selected{background:#0f766e;transform:scale(1.07);box-shadow:0 0 0 3px #5eead4;}
+.dd-chip.dd-used{opacity:.28;pointer-events:none;}
+.dd-zone{min-width:120px;min-height:44px;border:2px dashed var(--teal);border-radius:8px;
+display:inline-flex;align-items:center;justify-content:center;padding:4px 8px;
+font-size:.75rem;cursor:pointer;transition:all .15s;background:#fff;color:var(--teal);
+font-weight:700;text-align:center;touch-action:manipulation;outline:none;}
+.dd-zone.dd-filled{border-style:solid;background:#f0fdfa;}
+.dd-zone.dd-correct{border-color:#16a34a!important;background:#f0fdf4!important;color:#14532d!important;}
+.dd-zone.dd-wrong{border-color:#dc2626!important;background:#fef2f2!important;color:#7f1d1d!important;}
+.dd-pairs{display:flex;flex-direction:column;gap:.5rem;margin:.5rem 0;}
+.dd-pair{display:flex;align-items:center;gap:.6rem;}
+.dd-pair-label{font-size:.8rem;color:#374151;flex:1;}
+
+/* TWO-COL CLASSIFY */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin:.5rem 0;}
+.col-box{border-radius:12px;padding:.8rem;}
+.col-box h4{font-size:.8rem;font-weight:800;margin-bottom:.5rem;text-align:center;}
+.col-bucket{min-height:60px;border:2px dashed;border-radius:10px;padding:.5rem;
+display:flex;flex-wrap:wrap;gap:.3rem;cursor:pointer;transition:all .15s;}
+
+/* EXAM */
+.exam-header{background:linear-gradient(135deg,var(--teal-dark),#134e4a);color:#fff;
+border-radius:16px;padding:1.2rem 1.4rem;margin-bottom:1.25rem;}
+.exam-header h1{font-size:1.15rem;font-weight:800;}
+.exam-header p{font-size:.78rem;opacity:.8;margin-top:.3rem;}
+.exam-section{background:#fff;border:1.5px solid var(--border);border-radius:14px;
+padding:1rem 1.1rem;margin-bottom:1rem;}
+.exam-section h3{font-size:.88rem;font-weight:800;color:var(--teal-dark);margin-bottom:.75rem;
+padding-bottom:.45rem;border-bottom:1.5px solid var(--teal-light);}
+.exam-q{margin-bottom:.85rem;}
+.exam-q-text{font-size:.82rem;font-weight:600;margin-bottom:.45rem;color:var(--text);}
+
+/* FINAL */
+.final-card{background:#fff;border:2px solid var(--teal);border-radius:16px;padding:1.4rem;
+text-align:center;margin-bottom:1rem;}
+.final-grade{font-size:3.5rem;font-weight:900;color:var(--teal-dark);line-height:1;}
+.final-label{font-size:.85rem;color:var(--muted);margin-top:.3rem;}
+.sb-row{display:flex;justify-content:space-between;font-size:.8rem;padding:.3rem .5rem;
+border-bottom:1px solid #a7f3d0;}
+.sb-row:last-child{border-bottom:none;font-weight:800;font-size:.85rem;}
+
+@media(max-width:640px){
+#sidebar{width:196px;}
+#content{margin-left:196px;padding:1rem .9rem 2rem;}
+.icon-grid{grid-template-columns:1fr 1fr;}
+.two-col{grid-template-columns:1fr;}
+.disease-grid{grid-template-columns:1fr;}
+}
+
+</style>
+</head>
+<body>
+
+<div id="sidebar">
+  <div class="sb-brand">
+    <a href="../../../../index.html">← Hub</a>
+    <h2>⚗️ Ciencias</h2>
+    <div class="sb-sub">4to · Bloque 2</div>
+  </div>
+  <div class="sb-section">Temas de Estudio</div>
+  <div class="nav-item" id="nav-0" onclick="goTopic(0)"><span class="nav-icon">🫀</span><span style="flex:1;font-size:.73rem">Estructura Circ.</span><span class="nav-check">✓</span></div>
+  <div class="nav-item" id="nav-1" onclick="goTopic(1)"><span class="nav-icon">⚙️</span><span style="flex:1;font-size:.73rem">Funciones Comp.</span><span class="nav-check">✓</span></div>
+  <div class="nav-item" id="nav-2" onclick="goTopic(2)"><span class="nav-icon">🩸</span><span style="flex:1;font-size:.73rem">Componentes Sangre</span><span class="nav-check">✓</span></div>
+  <div class="nav-item" id="nav-3" onclick="goTopic(3)"><span class="nav-icon">🔴</span><span style="flex:1;font-size:.73rem">Funciones Sangre</span><span class="nav-check">✓</span></div>
+  <div class="nav-item" id="nav-4" onclick="goTopic(4)"><span class="nav-icon">💉</span><span style="flex:1;font-size:.73rem">Donación Sangre</span><span class="nav-check">✓</span></div>
+  <div class="nav-item" id="nav-5" onclick="goTopic(5)"><span class="nav-icon">📋</span><span style="flex:1;font-size:.73rem">Requisitos Donación</span><span class="nav-check">✓</span></div>
+  <div class="nav-item" id="nav-6" onclick="goTopic(6)"><span class="nav-icon">🏥</span><span style="flex:1;font-size:.73rem">Enfermedades Circ.</span><span class="nav-check">✓</span></div>
+  <div class="nav-item" id="nav-7" onclick="goTopic(7)"><span class="nav-icon">💚</span><span style="flex:1;font-size:.73rem">Cuidados Sistema</span><span class="nav-check">✓</span></div>
+  <div class="nav-item" id="nav-8" onclick="goTopic(8)"><span class="nav-icon">🛡️</span><span style="flex:1;font-size:.73rem">Tipos de Inmunidad</span><span class="nav-check">✓</span></div>
+  <div class="nav-item" id="nav-9" onclick="goTopic(9)"><span class="nav-icon">🦠</span><span style="flex:1;font-size:.73rem">Bacterias</span><span class="nav-check">✓</span></div>
+  <div class="nav-item" id="nav-10" onclick="goTopic(10)"><span class="nav-icon">🔬</span><span style="flex:1;font-size:.73rem">Virus</span><span class="nav-check">✓</span></div>
+  <div class="nav-item" id="nav-11" onclick="goTopic(11)"><span class="nav-icon">🧼</span><span style="flex:1;font-size:.73rem">Prevención</span><span class="nav-check">✓</span></div>
+  <div class="nav-divider"></div>
+  <div class="nav-exam-btn" id="nav-exam" onclick="goExam()">
+    <span class="nav-icon">📋</span><span>Práctica de Examen</span>
+  </div>
+</div>
+
+<div id="content">
+
+<div class="panel" id="panel-study-0">
+  <div class="topic-header">
+    <div class="topic-icon-big">🫀</div>
+    <div><div class="topic-title">Estructura del Sistema Circulatorio</div>
+    <div class="topic-ind">Ind. 1 · Páginas 42-43</div></div>
+  </div>
+  <div class="study-card">
+    <h3>🏗️ ¿De qué está formado el sistema circulatorio?</h3>
+    <p>El sistema circulatorio está formado por tres grandes estructuras:</p>
+    <ul style="margin-top:.5rem">
+      <li><b>El corazón</b> — músculo encargado de impulsar la sangre a todo el cuerpo.</li>
+      <li><b>Los vasos sanguíneos</b> — conductos por donde circula la sangre (3 tipos).</li>
+      <li><b>La sangre</b> — líquido que contiene los nutrientes y el oxígeno que requieren las células.</li>
+    </ul>
+  </div>
+  <div class="diagram-wrap">
+    <svg viewBox="0 0 340 230" xmlns="http://www.w3.org/2000/svg" style="max-height:200px">
+      <ellipse cx="170" cy="42" rx="26" ry="30" fill="#fde8d8" stroke="#c9a88a" stroke-width="1.5"/>
+      <rect x="144" y="70" width="52" height="76" rx="12" fill="#fde8d8" stroke="#c9a88a" stroke-width="1.5"/>
+      <rect x="108" y="74" width="38" height="14" rx="7" fill="#fde8d8" stroke="#c9a88a" stroke-width="1.2"/>
+      <rect x="194" y="74" width="38" height="14" rx="7" fill="#fde8d8" stroke="#c9a88a" stroke-width="1.2"/>
+      <rect x="149" y="144" width="20" height="56" rx="9" fill="#fde8d8" stroke="#c9a88a" stroke-width="1.2"/>
+      <rect x="171" y="144" width="20" height="56" rx="9" fill="#fde8d8" stroke="#c9a88a" stroke-width="1.2"/>
+      <path d="M161 100 C161 91 173 88 173 96 C173 88 185 91 185 100 C185 110 173 119 173 119 C173 119 161 110 161 100Z" fill="#ef4444" opacity="0.9"/>
+      <line x1="173" y1="100" x2="173" y2="82" stroke="#ef4444" stroke-width="2.5"/>
+      <line x1="173" y1="82" x2="154" y2="79" stroke="#ef4444" stroke-width="2.2"/>
+      <line x1="173" y1="82" x2="192" y2="79" stroke="#ef4444" stroke-width="2.2"/>
+      <line x1="173" y1="115" x2="163" y2="145" stroke="#ef4444" stroke-width="2.2"/>
+      <line x1="173" y1="115" x2="180" y2="145" stroke="#ef4444" stroke-width="2.2"/>
+      <line x1="118" y1="84" x2="161" y2="97" stroke="#3b82f6" stroke-width="2" stroke-dasharray="4,2"/>
+      <line x1="228" y1="84" x2="185" y2="97" stroke="#3b82f6" stroke-width="2" stroke-dasharray="4,2"/>
+      <line x1="158" y1="157" x2="163" y2="117" stroke="#3b82f6" stroke-width="2" stroke-dasharray="4,2"/>
+      <line x1="182" y1="157" x2="180" y2="117" stroke="#3b82f6" stroke-width="2" stroke-dasharray="4,2"/>
+      <rect x="190" y="94" width="56" height="14" rx="4" fill="#fef2f2" opacity="0.95"/>
+      <text x="218" y="104" text-anchor="middle" font-size="8.5" font-weight="700" fill="#ef4444">CORAZÓN ❤️</text>
+      <rect x="22" y="76" width="52" height="13" rx="4" fill="#fef2f2"/>
+      <text x="48" y="86" text-anchor="middle" font-size="8.5" font-weight="700" fill="#ef4444">Arterias →</text>
+      <rect x="262" y="76" width="46" height="13" rx="4" fill="#eff6ff"/>
+      <text x="285" y="86" text-anchor="middle" font-size="8.5" font-weight="700" fill="#3b82f6">← Venas</text>
+      <rect x="252" y="168" width="78" height="13" rx="4" fill="#f0fdf4"/>
+      <text x="291" y="178" text-anchor="middle" font-size="8" font-weight="700" fill="#16a34a">Vasos capilares</text>
+      <line x1="252" y1="174" x2="183" y2="160" stroke="#16a34a" stroke-width="1.2" stroke-dasharray="3,2"/>
+    </svg>
+    <div class="diagram-caption">Sistema circulatorio: corazón (rojo), arterias (→), venas (azul ←), vasos capilares (verde)</div>
+  </div>
+  <div class="study-card">
+    <h3>❤️ El Corazón</h3>
+    <ul>
+      <li>Se encuentra entre los dos <b>pulmones</b>.</li>
+      <li>Sus movimientos se llaman <b>latidos</b>.</li>
+      <li>Tiene <b>4 cavidades</b>: 2 <b>aurículas</b> (parte superior) y 2 <b>ventrículos</b> (parte inferior).</li>
+    </ul>
+  </div>
+  <div class="study-card">
+    <h3>🔴🔵🟢 Los 3 Tipos de Vasos Sanguíneos</h3>
+    <div class="icon-grid">
+      <div class="ic-card" style="background:#fef2f2;border-color:#fca5a5;">
+        <div class="ic-emoji">🔴</div>
+        <div class="ic-name" style="color:#991b1b;">Arterias</div>
+        <div class="ic-def">Tubos <b>gruesos y elásticos</b>. Llevan la sangre <b>del corazón al organismo</b>.</div>
+      </div>
+      <div class="ic-card" style="background:#eff6ff;border-color:#93c5fd;">
+        <div class="ic-emoji">🔵</div>
+        <div class="ic-name" style="color:#1e40af;">Venas</div>
+        <div class="ic-def">Más delgadas que arterias. Llevan la sangre <b>de regreso al corazón</b>.</div>
+      </div>
+      <div class="ic-card" style="background:#f0fdf4;border-color:#6ee7b7;">
+        <div class="ic-emoji">🟢</div>
+        <div class="ic-name" style="color:#14532d;">Vasos Capilares</div>
+        <div class="ic-def">Tubos <b>muy finos</b>. Comunican arterias con venas. Llevan sangre por órganos y tejidos.</div>
+      </div>
+    </div>
+  </div>
+  <button class="studied-btn" id="studied-0" onclick="markStudied(0)">✅ ¡Ya estudié este tema!</button>
+  <button class="check-btn" style="margin-top:.6rem;width:100%;" onclick="goPanel('panel-practice-0','nav-0')">→ Practicar ejercicios</button>
+</div>
+
+<div class="panel" id="panel-study-1">
+  <div class="topic-header">
+    <div class="topic-icon-big">⚙️</div>
+    <div><div class="topic-title">Funciones de los Componentes</div>
+    <div class="topic-ind">Ind. 2 · Páginas 42-43</div></div>
+  </div>
+  <div class="study-card">
+    <h3>📊 ¿Qué función tiene cada componente?</h3>
+    <div class="icon-grid">
+      <div class="ic-card">
+        <div class="ic-emoji">❤️</div>
+        <div class="ic-name">Corazón</div>
+        <div class="ic-def">Impulsa la sangre a todo el cuerpo mediante <b>latidos</b>.</div>
+      </div>
+      <div class="ic-card" style="background:#fef2f2;border-color:#fca5a5;">
+        <div class="ic-emoji">🔴</div>
+        <div class="ic-name" style="color:#991b1b;">Arterias</div>
+        <div class="ic-def">Llevan la sangre <b>desde el corazón al resto del organismo</b>.</div>
+      </div>
+      <div class="ic-card" style="background:#eff6ff;border-color:#93c5fd;">
+        <div class="ic-emoji">🔵</div>
+        <div class="ic-name" style="color:#1e40af;">Venas</div>
+        <div class="ic-def">Transportan la sangre <b>de vuelta al corazón</b> desde todo el cuerpo.</div>
+      </div>
+      <div class="ic-card" style="background:#f0fdf4;border-color:#6ee7b7;">
+        <div class="ic-emoji">🟢</div>
+        <div class="ic-name" style="color:#14532d;">Vasos Capilares</div>
+        <div class="ic-def">Conducen la sangre por el <b>interior de los órganos y tejidos</b>.</div>
+      </div>
+    </div>
+  </div>
+  <div class="study-card">
+    <h3>🔑 Truco para recordar</h3>
+    <p style="padding:.5rem .7rem;background:#f0fdfa;border-radius:8px;border-left:3px solid var(--teal);font-size:.83rem;">
+    <b>A</b>rterias → <b>A</b>lejan del corazón &nbsp;&nbsp;|&nbsp;&nbsp; <b>V</b>enas → <b>V</b>uelven al corazón</p>
+  </div>
+  <button class="studied-btn" id="studied-1" onclick="markStudied(1)">✅ ¡Ya estudié este tema!</button>
+  <button class="check-btn" style="margin-top:.6rem;width:100%;" onclick="goPanel('panel-practice-1','nav-1')">→ Practicar ejercicios</button>
+</div>
+
+<div class="panel" id="panel-study-2">
+  <div class="topic-header">
+    <div class="topic-icon-big">🩸</div>
+    <div><div class="topic-title">Componentes de la Sangre</div>
+    <div class="topic-ind">Ind. 3 · Página 45</div></div>
+  </div>
+  <div class="study-card">
+    <h3>🧪 La sangre es un tejido líquido formado por 4 componentes:</h3>
+  </div>
+  <div class="disease-grid" style="grid-template-columns:repeat(auto-fill,minmax(210px,1fr))">
+    <div class="disease-card" style="background:#fefce8;border-color:#fde047;">
+      <div class="dc-name" style="color:#92400e;">🟡 Plasma</div>
+      <div class="dc-body">Mezcla líquida de <b>agua, sales minerales, azúcares</b> y otras sustancias disueltas.</div>
+      <div class="dc-area" style="background:#fde047;color:#78350f;">Parte líquida</div>
+    </div>
+    <div class="disease-card" style="background:#fef2f2;border-color:#fca5a5;">
+      <div class="dc-name" style="color:#991b1b;">🔴 Glóbulos Rojos</div>
+      <div class="dc-body">= <b>Eritrocitos</b>. Disco achatado. <b>Sin núcleo</b>. Los más <b>abundantes</b>. Tienen <b>hemoglobina</b> (captura O₂).</div>
+      <div class="dc-area" style="background:#fca5a5;color:#7f1d1d;">Eritrocitos</div>
+    </div>
+    <div class="disease-card" style="background:#eff6ff;border-color:#93c5fd;">
+      <div class="dc-name" style="color:#1e40af;">⚪ Glóbulos Blancos</div>
+      <div class="dc-body">= <b>Leucocitos</b>. <b>Con núcleo</b>. Pueden cambiar de forma. Los más <b>grandes</b>.</div>
+      <div class="dc-area" style="background:#93c5fd;color:#1e3a8a;">Leucocitos</div>
+    </div>
+    <div class="disease-card" style="background:#fdf4ff;border-color:#d8b4fe;">
+      <div class="dc-name" style="color:#6b21a8;">🟣 Plaquetas</div>
+      <div class="dc-body">= <b>Trombocitos</b>. Fragmentos celulares. <b>Sin núcleo</b>. Los más <b>pequeños</b>.</div>
+      <div class="dc-area" style="background:#d8b4fe;color:#581c87;">Trombocitos</div>
+    </div>
+  </div>
+  <div class="study-card">
+    <h3>📝 Comparación rápida</h3>
+    <table style="width:100%;border-collapse:collapse;font-size:.78rem;">
+      <tr style="background:var(--teal-light);">
+        <th style="padding:.35rem .4rem;text-align:left;border:1px solid #a7f3d0;">Componente</th>
+        <th style="padding:.35rem;border:1px solid #a7f3d0;text-align:center;">Núcleo</th>
+        <th style="padding:.35rem;border:1px solid #a7f3d0;text-align:center;">Tamaño</th>
+      </tr>
+      <tr><td style="padding:.35rem .4rem;border:1px solid #d1fae5;font-weight:600">Glóbulos rojos</td><td style="padding:.35rem;border:1px solid #d1fae5;text-align:center">❌</td><td style="padding:.35rem;border:1px solid #d1fae5;text-align:center">Mediano</td></tr>
+      <tr style="background:#fafafa"><td style="padding:.35rem .4rem;border:1px solid #d1fae5;font-weight:600">Glóbulos blancos</td><td style="padding:.35rem;border:1px solid #d1fae5;text-align:center">✅</td><td style="padding:.35rem;border:1px solid #d1fae5;text-align:center">Más grande</td></tr>
+      <tr><td style="padding:.35rem .4rem;border:1px solid #d1fae5;font-weight:600">Plaquetas</td><td style="padding:.35rem;border:1px solid #d1fae5;text-align:center">❌</td><td style="padding:.35rem;border:1px solid #d1fae5;text-align:center">🔬 Más pequeño</td></tr>
+    </table>
+  </div>
+  <button class="studied-btn" id="studied-2" onclick="markStudied(2)">✅ ¡Ya estudié este tema!</button>
+  <button class="check-btn" style="margin-top:.6rem;width:100%;" onclick="goPanel('panel-practice-2','nav-2')">→ Practicar ejercicios</button>
+</div>
+
+<div class="panel" id="panel-study-3">
+  <div class="topic-header">
+    <div class="topic-icon-big">🔴</div>
+    <div><div class="topic-title">Funciones de la Sangre</div>
+    <div class="topic-ind">Ind. 4 · Página 46</div></div>
+  </div>
+  <div class="study-card"><h3>🚀 La sangre cumple 4 funciones vitales:</h3></div>
+  <div class="icon-grid" style="grid-template-columns:1fr 1fr;">
+    <div class="ic-card" style="background:#fef2f2;border-color:#fca5a5;">
+      <div class="ic-emoji">🚌</div>
+      <div class="ic-name" style="color:#991b1b;">Transporte (G. Rojos)</div>
+      <div class="ic-def">La <b>hemoglobina</b> transporta <b>oxígeno</b> (pulmones→células) y <b>CO₂</b> (células→pulmones).</div>
+    </div>
+    <div class="ic-card" style="background:#fefce8;border-color:#fde047;">
+      <div class="ic-emoji">🥤</div>
+      <div class="ic-name" style="color:#92400e;">Transporte (Plasma)</div>
+      <div class="ic-def">El plasma lleva <b>nutrientes</b>, parte del CO₂ y <b>productos de excreción</b>.</div>
+    </div>
+    <div class="ic-card" style="background:#fdf4ff;border-color:#d8b4fe;">
+      <div class="ic-emoji">🩹</div>
+      <div class="ic-name" style="color:#6b21a8;">Coagulación</div>
+      <div class="ic-def">Las <b>plaquetas</b> forman un <b>coágulo</b> cuando se rompe un vaso sanguíneo.</div>
+    </div>
+    <div class="ic-card" style="background:#f0fdf4;border-color:#6ee7b7;">
+      <div class="ic-emoji">🛡️</div>
+      <div class="ic-name" style="color:#14532d;">Defensa</div>
+      <div class="ic-def">Los <b>glóbulos blancos</b> destruyen patógenos y producen <b>anticuerpos</b>.</div>
+    </div>
+  </div>
+  <div class="study-card">
+    <h3>🔑 ¿Quién hace qué?</h3>
+    <ul>
+      <li><b>Glóbulos rojos</b> → Transporte de gases (O₂ y CO₂)</li>
+      <li><b>Plasma</b> → Transporte de nutrientes y excreción</li>
+      <li><b>Plaquetas</b> → Coagulación</li>
+      <li><b>Glóbulos blancos</b> → Defensa y anticuerpos</li>
+    </ul>
+  </div>
+  <button class="studied-btn" id="studied-3" onclick="markStudied(3)">✅ ¡Ya estudié este tema!</button>
+  <button class="check-btn" style="margin-top:.6rem;width:100%;" onclick="goPanel('panel-practice-3','nav-3')">→ Practicar ejercicios</button>
+</div>
+
+<div class="panel" id="panel-study-4">
+  <div class="topic-header">
+    <div class="topic-icon-big">💉</div>
+    <div><div class="topic-title">Donación de Sangre</div>
+    <div class="topic-ind">Ind. 5 · Página 49</div></div>
+  </div>
+  <div class="study-card">
+    <h3>❓ ¿Qué es la donación de sangre?</h3>
+    <p>Proceso en el que se <b>extrae sangre</b> a una persona, con su consentimiento, para usarla en una <b>transfusión</b>. Es un <b>acto de solidaridad</b> ya que ayuda a <b>salvar vidas</b>.</p>
+  </div>
+  <div class="icon-grid" style="grid-template-columns:repeat(3,1fr)">
+    <div class="ic-card" style="background:#fef2f2;border-color:#fca5a5;">
+      <div class="ic-emoji">🩸</div><div class="ic-name">Extracción</div>
+      <div class="ic-def">Con consentimiento del donante</div>
+    </div>
+    <div class="ic-card" style="background:#f0fdf4;border-color:#6ee7b7;">
+      <div class="ic-emoji">💝</div><div class="ic-name">Solidaridad</div>
+      <div class="ic-def">Acto altruista que beneficia a otros</div>
+    </div>
+    <div class="ic-card" style="background:#fefce8;border-color:#fde047;">
+      <div class="ic-emoji">🏥</div><div class="ic-name">Transfusión</div>
+      <div class="ic-def">La sangre donada salva vidas</div>
+    </div>
+  </div>
+  <button class="studied-btn" id="studied-4" onclick="markStudied(4)">✅ ¡Ya estudié este tema!</button>
+  <button class="check-btn" style="margin-top:.6rem;width:100%;" onclick="goPanel('panel-practice-4','nav-4')">→ Practicar ejercicios</button>
+</div>
+
+<div class="panel" id="panel-study-5">
+  <div class="topic-header">
+    <div class="topic-icon-big">📋</div>
+    <div><div class="topic-title">Requisitos para Donar Sangre</div>
+    <div class="topic-ind">Ind. 6 · Página 49</div></div>
+  </div>
+  <div class="study-card">
+    <h3>✅ Los donantes deben cumplir:</h3>
+    <div style="display:flex;flex-direction:column;gap:.4rem;margin-top:.5rem;">
+      <div style="background:#f0fdfa;border-radius:8px;padding:.45rem .65rem;font-size:.82rem;border-left:3px solid var(--teal);"><b>1.</b> Tener entre <b>18 y 65 años</b>.</div>
+      <div style="background:#f0fdfa;border-radius:8px;padding:.45rem .65rem;font-size:.82rem;border-left:3px solid var(--teal);"><b>2.</b> Encontrarse en <b>buen estado de salud</b>.</div>
+      <div style="background:#f0fdfa;border-radius:8px;padding:.45rem .65rem;font-size:.82rem;border-left:3px solid var(--teal);"><b>3.</b> Esperar <b>1 año</b> después de hacerse un tatuaje.</div>
+      <div style="background:#f0fdfa;border-radius:8px;padding:.45rem .65rem;font-size:.82rem;border-left:3px solid var(--teal);"><b>4.</b> Masa corporal <b>superior a 50 kg</b>.</div>
+      <div style="background:#f0fdfa;border-radius:8px;padding:.45rem .65rem;font-size:.82rem;border-left:3px solid var(--teal);"><b>5.</b> Esperar <b>2 semanas</b> si padeció un resfriado recientemente.</div>
+      <div style="background:#f0fdfa;border-radius:8px;padding:.45rem .65rem;font-size:.82rem;border-left:3px solid var(--teal);"><b>6.</b> Esperar <b>12 días</b> después de tomar antibióticos.</div>
+      <div style="background:#f0fdfa;border-radius:8px;padding:.45rem .65rem;font-size:.82rem;border-left:3px solid var(--teal);"><b>7.</b> No padecer enfermedades que se transmiten por la sangre (ej. hepatitis).</div>
+    </div>
+  </div>
+  <button class="studied-btn" id="studied-5" onclick="markStudied(5)">✅ ¡Ya estudié este tema!</button>
+  <button class="check-btn" style="margin-top:.6rem;width:100%;" onclick="goPanel('panel-practice-5','nav-5')">→ Practicar ejercicios</button>
+</div>
+
+<div class="panel" id="panel-study-6">
+  <div class="topic-header">
+    <div class="topic-icon-big">🏥</div>
+    <div><div class="topic-title">Enfermedades del Sistema Circulatorio</div>
+    <div class="topic-ind">Ind. 7 · Páginas 50-51</div></div>
+  </div>
+  <div class="study-card"><h3>⚠️ Hay 6 enfermedades principales:</h3></div>
+  <div class="disease-grid">
+    <div class="disease-card" style="background:#fef2f2;border-color:#f87171;">
+      <div class="dc-name" style="color:#991b1b;">❤️‍🔥 Hipertensión</div>
+      <div class="dc-body">Presión arterial <b>alta</b>. Las paredes de los vasos se deterioran. Causa dolor de cabeza, mareos, dificultad para respirar.</div>
+      <div class="dc-area" style="background:#f87171;color:#fff;">Presión alta</div>
+    </div>
+    <div class="disease-card" style="background:#eff6ff;border-color:#93c5fd;">
+      <div class="dc-name" style="color:#1e40af;">💤 Hipotensión</div>
+      <div class="dc-body">Presión arterial <b>baja</b>. El flujo al cerebro disminuye. Causa debilidad, visión borrosa, náuseas.</div>
+      <div class="dc-area" style="background:#93c5fd;color:#1e3a8a;">Presión baja</div>
+    </div>
+    <div class="disease-card" style="background:#fefce8;border-color:#fde047;">
+      <div class="dc-name" style="color:#92400e;">💥 Aneurisma</div>
+      <div class="dc-body">Sección <b>debilitada</b> de la pared de una arteria o vena. Se abulta como una "bolsa" que puede romperse. Puede causar parálisis o muerte.</div>
+      <div class="dc-area" style="background:#fde047;color:#78350f;">Arteria/Vena</div>
+    </div>
+    <div class="disease-card" style="background:#fdf4ff;border-color:#d8b4fe;">
+      <div class="dc-name" style="color:#6b21a8;">😮‍💨 Insuf. Cardíaca</div>
+      <div class="dc-body">El <b>corazón se debilita</b> y no puede suministrar suficiente sangre. Dificultad para respirar, dolor en el pecho. Puede ser mortal.</div>
+      <div class="dc-area" style="background:#d8b4fe;color:#581c87;">Corazón</div>
+    </div>
+    <div class="disease-card" style="background:#fff7ed;border-color:#fb923c;">
+      <div class="dc-name" style="color:#9a3412;">🔶 Arterioesclerosis</div>
+      <div class="dc-body"><b>Endurecimiento</b> y pérdida de elasticidad de las arterias. Causada por acumulación de grasa o nicotina. Produce hipertensión.</div>
+      <div class="dc-area" style="background:#fb923c;color:#fff;">Arterias</div>
+    </div>
+    <div class="disease-card" style="background:#f0fdf4;border-color:#6ee7b7;">
+      <div class="dc-name" style="color:#14532d;">🫀 Várices</div>
+      <div class="dc-body"><b>Inflamación de las venas</b>. Las válvulas no funcionan bien, la sangre se acumula. Provoca dolor y coágulos.</div>
+      <div class="dc-area" style="background:#6ee7b7;color:#14532d;">Venas</div>
+    </div>
+  </div>
+  <button class="studied-btn" id="studied-6" onclick="markStudied(6)">✅ ¡Ya estudié este tema!</button>
+  <button class="check-btn" style="margin-top:.6rem;width:100%;" onclick="goPanel('panel-practice-6','nav-6')">→ Practicar ejercicios</button>
+</div>
+
+<div class="panel" id="panel-study-7">
+  <div class="topic-header">
+    <div class="topic-icon-big">💚</div>
+    <div><div class="topic-title">Cuidados del Sistema Circulatorio</div>
+    <div class="topic-ind">Ind. 8 · Página 52</div></div>
+  </div>
+  <div class="study-card">
+    <h3>🏃 Adoptar hábitos saludables es la mejor manera de cuidar el sistema circulatorio:</h3>
+  </div>
+  <div class="icon-grid">
+    <div class="ic-card" style="background:#f0fdf4;border-color:#6ee7b7;">
+      <div class="ic-emoji">🥗</div>
+      <div class="ic-name">Alimentación sana</div>
+      <div class="ic-def">Dieta baja en grasas y sal previene arterioesclerosis e hipertensión.</div>
+    </div>
+    <div class="ic-card" style="background:#ecfdf5;border-color:#a7f3d0;">
+      <div class="ic-emoji">🏃</div>
+      <div class="ic-name">Ejercicio físico</div>
+      <div class="ic-def">Fortalece el corazón y evita pérdida de elasticidad de las arterias.</div>
+    </div>
+    <div class="ic-card" style="background:#f0fdfa;border-color:#5eead4;">
+      <div class="ic-emoji">🩺</div>
+      <div class="ic-name">Medir presión</div>
+      <div class="ic-def">Medir periódicamente. Valores altos se asocian con aneurismas.</div>
+    </div>
+    <div class="ic-card" style="background:#fefce8;border-color:#fde047;">
+      <div class="ic-emoji">🧍</div>
+      <div class="ic-name">No mucho tiempo de pie/sentado</div>
+      <div class="ic-def">No usar zapatos o ropa muy ajustada. Previene la aparición de várices.</div>
+    </div>
+    <div class="ic-card" style="background:#eff6ff;border-color:#93c5fd;">
+      <div class="ic-emoji">✂️</div>
+      <div class="ic-name">Cuidado con cortantes</div>
+      <div class="ic-def">Manipular tijeras y utensilios con cuidado. Evita ruptura de vasos.</div>
+    </div>
+    <div class="ic-card" style="background:#fef2f2;border-color:#fca5a5;">
+      <div class="ic-emoji">🚭</div>
+      <div class="ic-name">Sin alcohol ni cigarros</div>
+      <div class="ic-def">El alcohol y el tabaco provocan pérdida de elasticidad de las arterias.</div>
+    </div>
+  </div>
+  <button class="studied-btn" id="studied-7" onclick="markStudied(7)">✅ ¡Ya estudié este tema!</button>
+  <button class="check-btn" style="margin-top:.6rem;width:100%;" onclick="goPanel('panel-practice-7','nav-7')">→ Practicar ejercicios</button>
+</div>
+
+<div class="panel" id="panel-study-8">
+  <div class="topic-header">
+    <div class="topic-icon-big">🛡️</div>
+    <div><div class="topic-title">Tipos de Inmunidad</div>
+    <div class="topic-ind">Ind. 9 · Página 58</div></div>
+  </div>
+  <div class="study-card">
+    <h3>🔑 ¿Qué es la inmunidad?</h3>
+    <p>Estado en que un ser humano está <b>protegido</b> contra males causados por patógenos (gérmenes). Según su origen se clasifica en <b>Natural</b> o <b>Adquirida (artificial)</b>.</p>
+  </div>
+  <div class="diagram-wrap">
+    <svg viewBox="0 0 500 220" xmlns="http://www.w3.org/2000/svg" style="max-height:200px">
+      <!-- Root -->
+      <rect x="175" y="8" width="150" height="32" rx="10" fill="#0d9488"/>
+      <text x="250" y="29" text-anchor="middle" font-size="13" font-weight="800" fill="#fff">INMUNIDAD</text>
+      <!-- Lines to L1 -->
+      <line x1="250" y1="40" x2="250" y2="55" stroke="#0d9488" stroke-width="2"/>
+      <line x1="250" y1="55" x2="110" y2="55" stroke="#0d9488" stroke-width="2"/>
+      <line x1="250" y1="55" x2="390" y2="55" stroke="#0d9488" stroke-width="2"/>
+      <line x1="110" y1="55" x2="110" y2="70" stroke="#0d9488" stroke-width="2"/>
+      <line x1="390" y1="55" x2="390" y2="70" stroke="#0d9488" stroke-width="2"/>
+      <!-- Natural box -->
+      <rect x="45" y="70" width="130" height="28" rx="8" fill="#14b8a6"/>
+      <text x="110" y="88" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">🌿 Natural</text>
+      <!-- Adquirida box -->
+      <rect x="325" y="70" width="130" height="28" rx="8" fill="#6366f1"/>
+      <text x="390" y="88" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">💉 Adquirida</text>
+      <!-- Lines to L2 -->
+      <line x1="110" y1="98" x2="110" y2="110" stroke="#14b8a6" stroke-width="1.5"/>
+      <line x1="110" y1="110" x2="70" y2="110" stroke="#14b8a6" stroke-width="1.5"/>
+      <line x1="110" y1="110" x2="150" y2="110" stroke="#14b8a6" stroke-width="1.5"/>
+      <line x1="70" y1="110" x2="70" y2="122" stroke="#14b8a6" stroke-width="1.5"/>
+      <line x1="150" y1="110" x2="150" y2="122" stroke="#14b8a6" stroke-width="1.5"/>
+      <line x1="390" y1="98" x2="390" y2="110" stroke="#6366f1" stroke-width="1.5"/>
+      <line x1="390" y1="110" x2="350" y2="110" stroke="#6366f1" stroke-width="1.5"/>
+      <line x1="390" y1="110" x2="430" y2="110" stroke="#6366f1" stroke-width="1.5"/>
+      <line x1="350" y1="110" x2="350" y2="122" stroke="#6366f1" stroke-width="1.5"/>
+      <line x1="430" y1="110" x2="430" y2="122" stroke="#6366f1" stroke-width="1.5"/>
+      <!-- Nat Activa -->
+      <rect x="20" y="122" width="100" height="26" rx="7" fill="#ccfbf1" stroke="#14b8a6" stroke-width="1.5"/>
+      <text x="70" y="139" text-anchor="middle" font-size="10" font-weight="700" fill="#0f766e">Activa</text>
+      <!-- Nat Pasiva -->
+      <rect x="100" y="122" width="100" height="26" rx="7" fill="#ccfbf1" stroke="#14b8a6" stroke-width="1.5"/>
+      <text x="150" y="139" text-anchor="middle" font-size="10" font-weight="700" fill="#0f766e">Pasiva</text>
+      <!-- Adq Activa -->
+      <rect x="300" y="122" width="100" height="26" rx="7" fill="#e0e7ff" stroke="#6366f1" stroke-width="1.5"/>
+      <text x="350" y="139" text-anchor="middle" font-size="10" font-weight="700" fill="#3730a3">Activa</text>
+      <!-- Adq Pasiva -->
+      <rect x="380" y="122" width="100" height="26" rx="7" fill="#e0e7ff" stroke="#6366f1" stroke-width="1.5"/>
+      <text x="430" y="139" text-anchor="middle" font-size="10" font-weight="700" fill="#3730a3">Pasiva</text>
+      <!-- Descriptions -->
+      <text x="70" y="162" text-anchor="middle" font-size="7.5" fill="#374151">Fiebre, defensas</text>
+      <text x="70" y="172" text-anchor="middle" font-size="7.5" fill="#374151">del cuerpo</text>
+      <text x="150" y="162" text-anchor="middle" font-size="7.5" fill="#374151">Leche materna</text>
+      <text x="150" y="172" text-anchor="middle" font-size="7.5" fill="#374151">(anticuerpos)</text>
+      <text x="350" y="162" text-anchor="middle" font-size="7.5" fill="#374151">Vacuna</text>
+      <text x="350" y="172" text-anchor="middle" font-size="7.5" fill="#374151">Larga duración</text>
+      <text x="430" y="162" text-anchor="middle" font-size="7.5" fill="#374151">Suero</text>
+      <text x="430" y="172" text-anchor="middle" font-size="7.5" fill="#374151">Corta duración</text>
+    </svg>
+    <div class="diagram-caption">Clasificación de los tipos de inmunidad según su origen</div>
+  </div>
+  <div class="study-card">
+    <h3>📋 Resumen: 4 tipos de inmunidad</h3>
+    <table style="width:100%;border-collapse:collapse;font-size:.78rem;">
+      <tr style="background:var(--teal-light);"><th style="padding:.35rem .4rem;text-align:left;border:1px solid #a7f3d0;">Tipo</th><th style="padding:.35rem;border:1px solid #a7f3d0;">Ejemplo</th><th style="padding:.35rem;border:1px solid #a7f3d0;">Duración</th></tr>
+      <tr><td style="padding:.35rem .4rem;border:1px solid #d1fae5;font-weight:600;">Natural Activa</td><td style="padding:.35rem;border:1px solid #d1fae5;">Fiebre, defensas propias</td><td style="padding:.35rem;border:1px solid #d1fae5;">Variable</td></tr>
+      <tr style="background:#fafafa"><td style="padding:.35rem .4rem;border:1px solid #d1fae5;font-weight:600;">Natural Pasiva</td><td style="padding:.35rem;border:1px solid #d1fae5;">Leche materna al bebé</td><td style="padding:.35rem;border:1px solid #d1fae5;">Temporal</td></tr>
+      <tr><td style="padding:.35rem .4rem;border:1px solid #d1fae5;font-weight:600;">Adquirida Activa</td><td style="padding:.35rem;border:1px solid #d1fae5;"><b>Vacuna</b></td><td style="padding:.35rem;border:1px solid #d1fae5;color:#16a34a;font-weight:600;">Larga duración ✅</td></tr>
+      <tr style="background:#fafafa"><td style="padding:.35rem .4rem;border:1px solid #d1fae5;font-weight:600;">Adquirida Pasiva</td><td style="padding:.35rem;border:1px solid #d1fae5;"><b>Suero</b> con anticuerpos</td><td style="padding:.35rem;border:1px solid #d1fae5;color:#dc2626;font-weight:600;">Corta duración ⚠️</td></tr>
+    </table>
+  </div>
+  <button class="studied-btn" id="studied-8" onclick="markStudied(8)">✅ ¡Ya estudié este tema!</button>
+  <button class="check-btn" style="margin-top:.6rem;width:100%;" onclick="goPanel('panel-practice-8','nav-8')">→ Practicar ejercicios</button>
+</div>
+
+<div class="panel" id="panel-study-9">
+  <div class="topic-header">
+    <div class="topic-icon-big">🦠</div>
+    <div><div class="topic-title">Enfermedades por Bacterias</div>
+    <div class="topic-ind">Ind. 10 · Página 61</div></div>
+  </div>
+  <div class="study-card"><h3>🦠 Las bacterias causan estas enfermedades:</h3></div>
+  <div class="disease-grid">
+    <div class="disease-card" style="background:#fff7ed;border-color:#fb923c;">
+      <div class="dc-name" style="color:#9a3412;">😮‍💨 Tosferina</div>
+      <div class="dc-body">Infección de las <b>vías respiratorias</b>. Ataques severos de tos, fiebre, vómito. Se transmite por contacto directo o aire.</div>
+      <div class="dc-area" style="background:#fb923c;color:#fff;">Vías respiratorias</div>
+    </div>
+    <div class="disease-card" style="background:#fef2f2;border-color:#f87171;">
+      <div class="dc-name" style="color:#991b1b;">💪 Tétanos</div>
+      <div class="dc-body">Infección de las células que controlan los <b>músculos</b>. Calambres dolorosos, babeo, fiebre. Se contagia por suelo u objetos contaminados.</div>
+      <div class="dc-area" style="background:#f87171;color:#fff;">Músculos</div>
+    </div>
+    <div class="disease-card" style="background:#f0fdf4;border-color:#6ee7b7;">
+      <div class="dc-name" style="color:#14532d;">🫁 Tuberculosis</div>
+      <div class="dc-body">Infección en los <b>pulmones</b>. Tos débil y persistente, fiebre, dolor de pecho. Se propaga por el aire o secreciones.</div>
+      <div class="dc-area" style="background:#6ee7b7;color:#14532d;">Pulmones</div>
+    </div>
+    <div class="disease-card" style="background:#fefce8;border-color:#fde047;">
+      <div class="dc-name" style="color:#92400e;">🗣️ Difteria</div>
+      <div class="dc-body">Infección en la <b>garganta, nariz o piel</b>. Dolor de garganta, inflamación del cuello, lesiones en piel.</div>
+      <div class="dc-area" style="background:#fde047;color:#78350f;">Garganta/Piel</div>
+    </div>
+    <div class="disease-card" style="background:#fdf4ff;border-color:#d8b4fe;">
+      <div class="dc-name" style="color:#6b21a8;">🧠 Meningitis Bacteriana</div>
+      <div class="dc-body">Inflamación de las membranas del <b>cerebro y médula espinal</b>. Puede ser mortal. Fiebre, convulsiones, rigidez de cuello.</div>
+      <div class="dc-area" style="background:#d8b4fe;color:#581c87;">Cerebro/Médula</div>
+    </div>
+  </div>
+  <button class="studied-btn" id="studied-9" onclick="markStudied(9)">✅ ¡Ya estudié este tema!</button>
+  <button class="check-btn" style="margin-top:.6rem;width:100%;" onclick="goPanel('panel-practice-9','nav-9')">→ Practicar ejercicios</button>
+</div>
+
+<div class="panel" id="panel-study-10">
+  <div class="topic-header">
+    <div class="topic-icon-big">🔬</div>
+    <div><div class="topic-title">Enfermedades por Virus</div>
+    <div class="topic-ind">Ind. 11 · Página 62</div></div>
+  </div>
+  <div class="study-card"><h3>🔬 Los virus causan estas enfermedades:</h3></div>
+  <div class="disease-grid">
+    <div class="disease-card" style="background:#fef2f2;border-color:#fca5a5;">
+      <div class="dc-name" style="color:#991b1b;">🌺 Rubeola</div>
+      <div class="dc-body">Infección de las <b>vías respiratorias</b>. Manchas rosadas en piel, fiebre, dolor de garganta. Se contagia por secreciones de nariz/garganta.</div>
+      <div class="dc-area" style="background:#fca5a5;color:#7f1d1d;">Vías respiratorias</div>
+    </div>
+    <div class="disease-card" style="background:#fff7ed;border-color:#fb923c;">
+      <div class="dc-name" style="color:#9a3412;">🐸 Paperas</div>
+      <div class="dc-body">Infección de las <b>glándulas salivales</b>. Fiebre, hinchazón y dolor. Se transmite por la saliva y secreciones.</div>
+      <div class="dc-area" style="background:#fb923c;color:#fff;">Glándulas salivales</div>
+    </div>
+    <div class="disease-card" style="background:#fefce8;border-color:#fde047;">
+      <div class="dc-name" style="color:#92400e;">🟡 Hepatitis B</div>
+      <div class="dc-body">Inflamación del <b>hígado</b>. Fiebre, pérdida de apetito, ronchas en piel. Se transmite por fluidos corporales de persona infectada.</div>
+      <div class="dc-area" style="background:#fde047;color:#78350f;">Hígado</div>
+    </div>
+    <div class="disease-card" style="background:#fdf4ff;border-color:#d8b4fe;">
+      <div class="dc-name" style="color:#6b21a8;">🔴 Sarampión</div>
+      <div class="dc-body">Infección de la <b>piel</b>. Pequeñas ronchas rojas en la piel y puntitos blancos en la boca. Provoca tos y fiebre. Se contagia por secreciones.</div>
+      <div class="dc-area" style="background:#d8b4fe;color:#581c87;">Piel</div>
+    </div>
+    <div class="disease-card" style="background:#f0fdf4;border-color:#6ee7b7;">
+      <div class="dc-name" style="color:#14532d;">⚡ Poliomielitis</div>
+      <div class="dc-body">Destrucción de las <b>células nerviosas</b> que controlan los músculos. Parálisis muscular, fiebre, vómito. Secreciones nariz/garganta.</div>
+      <div class="dc-area" style="background:#6ee7b7;color:#14532d;">Células nerviosas</div>
+    </div>
+    <div class="disease-card" style="background:#eff6ff;border-color:#93c5fd;">
+      <div class="dc-name" style="color:#1e40af;">🧠 Meningitis Viral</div>
+      <div class="dc-body">Inflamación de las <b>meninges</b>. Menos grave que la bacteriana. Fiebre, dolor de cabeza, rigidez de cuello. Secreciones y saliva.</div>
+      <div class="dc-area" style="background:#93c5fd;color:#1e3a8a;">Meninges</div>
+    </div>
+  </div>
+  <button class="studied-btn" id="studied-10" onclick="markStudied(10)">✅ ¡Ya estudié este tema!</button>
+  <button class="check-btn" style="margin-top:.6rem;width:100%;" onclick="goPanel('panel-practice-10','nav-10')">→ Practicar ejercicios</button>
+</div>
+
+<div class="panel" id="panel-study-11">
+  <div class="topic-header">
+    <div class="topic-icon-big">🧼</div>
+    <div><div class="topic-title">Prevención Infectocontagiosa</div>
+    <div class="topic-ind">Ind. 12 · Página 63</div></div>
+  </div>
+  <div class="study-card">
+    <h3>🛡️ La propagación de males infectocontagiosos ocurre por transferencia de virus o gérmenes. Para prevenirlos:</h3>
+  </div>
+  <div class="icon-grid">
+    <div class="ic-card" style="background:#fef2f2;border-color:#fca5a5;">
+      <div class="ic-emoji">🖐️</div>
+      <div class="ic-name" style="color:#991b1b;">Higiene Personal</div>
+      <div class="ic-def">Lavarse las manos con frecuencia, bañarse todos los días, lavar heridas con agua y jabón.</div>
+    </div>
+    <div class="ic-card" style="background:#fefce8;border-color:#fde047;">
+      <div class="ic-emoji">🫧</div>
+      <div class="ic-name" style="color:#92400e;">Esterilización</div>
+      <div class="ic-def">Sumergir chupones y beberitos en agua hirviendo para eliminar microorganismos.</div>
+    </div>
+    <div class="ic-card" style="background:#f0fdf4;border-color:#6ee7b7;">
+      <div class="ic-emoji">🧹</div>
+      <div class="ic-name" style="color:#14532d;">Desinfección</div>
+      <div class="ic-def">Usar detergentes o desinfectantes. Colocar basura en el basurero para eliminar condiciones para patógenos.</div>
+    </div>
+    <div class="ic-card" style="background:#eff6ff;border-color:#93c5fd;">
+      <div class="ic-emoji">💉</div>
+      <div class="ic-name" style="color:#1e40af;">Vacunación</div>
+      <div class="ic-def">Colocarse todas las vacunas que especifica el esquema nacional de vacunación.</div>
+    </div>
+  </div>
+  <button class="studied-btn" id="studied-11" onclick="markStudied(11)">✅ ¡Ya estudié este tema!</button>
+  <button class="check-btn" style="margin-top:.6rem;width:100%;" onclick="goPanel('panel-practice-11','nav-11')">→ Practicar ejercicios</button>
+</div>
+
+<!-- ====== PRACTICE 0 ====== -->
+<div class="panel" id="panel-practice-0">
+  <div class="practice-header"><button class="check-btn" style="background:#64748b;padding:.4rem .8rem;font-size:.75rem" onclick="goPanel('panel-study-0','nav-0')">← Volver al estudio</button><h2 style="margin-left:.5rem">🫀 Práctica: Estructura</h2></div>
+
+  <div class="exercise">
+    <div class="ex-q"><b>1.</b> ¿Cuáles son los tres componentes del sistema circulatorio?</div>
+    <div class="mc-btn-group" id="p0q1">
+      <button class="mc-btn" onclick="selMCBtn(this,'p0q1')">a) Corazón, pulmones y sangre</button>
+      <button class="mc-btn" onclick="selMCBtn(this,'p0q1')">b) Corazón, vasos sanguíneos y sangre</button>
+      <button class="mc-btn" onclick="selMCBtn(this,'p0q1')">c) Arterias, venas y huesos</button>
+    </div>
+    <button class="reveal-answer-btn" id="rev-p0q1" onclick="revealAnswer('p0q1',1)" style="display:none">👁 Ver respuesta</button>
+  </div>
+
+  <div class="exercise">
+    <div class="ex-q"><b>2.</b> ¿Cuántas cavidades tiene el corazón?</div>
+    <div class="mc-btn-group" id="p0q2">
+      <button class="mc-btn" onclick="selMCBtn(this,'p0q2')">a) 2</button>
+      <button class="mc-btn" onclick="selMCBtn(this,'p0q2')">b) 3</button>
+      <button class="mc-btn" onclick="selMCBtn(this,'p0q2')">c) 4</button>
+      <button class="mc-btn" onclick="selMCBtn(this,'p0q2')">d) 6</button>
+    </div>
+    <button class="reveal-answer-btn" id="rev-p0q2" onclick="revealAnswer('p0q2',2)" style="display:none">👁 Ver respuesta</button>
+  </div>
+
+  <div class="exercise">
+    <div class="ex-q"><b>3.</b> Relaciona cada vaso sanguíneo con su descripción:</div>
+    <table class="match-table">
+      <tr><td><select class="ma-select" id="m0a"><option value="">—</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td><td>Tubos gruesos y elásticos que llevan la sangre del corazón al organismo</td></tr>
+      <tr><td><select class="ma-select" id="m0b"><option value="">—</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td><td>Transportan la sangre de regreso al corazón</td></tr>
+      <tr><td><select class="ma-select" id="m0c"><option value="">—</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></td><td>Tubos muy finos que comunican arterias con venas</td></tr>
+    </table>
+    <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem;">1=Arterias &nbsp; 2=Venas &nbsp; 3=Vasos capilares</div>
+    <button class="check-btn" onclick="chkMatch(['m0a','m0b','m0c'],['1','2','3'],'sc0',0)">Revisar</button>
+    <span class="score-pill" id="sc0"></span>
+  </div>
+
+  <div class="exercise">
+    <div class="ex-q"><b>4.</b> ¿Cómo se llaman los movimientos del corazón?</div>
+    <div class="mc-btn-group" id="p0q4">
+      <button class="mc-btn" onclick="selMCBtn(this,'p0q4')">a) Pulsaciones</button>
+      <button class="mc-btn" onclick="selMCBtn(this,'p0q4')">b) Latidos</button>
+      <button class="mc-btn" onclick="selMCBtn(this,'p0q4')">c) Contracciones arteriales</button>
+    </div>
+    <button class="reveal-answer-btn" id="rev-p0q4" onclick="revealAnswer('p0q4',1)" style="display:none">👁 Ver respuesta</button>
+  </div>
+
+  <button class="check-btn" style="width:100%;margin-top:.5rem" onclick="chkMKGroup([['p0q1',1],['p0q2',2],['p0q4',1]],'sc0mc',0)">Revisar todas las preguntas de opción múltiple</button>
+  <span class="score-pill" id="sc0mc"></span>
+</div>
+
+<!-- ====== PRACTICE 1 ====== -->
+<div class="panel" id="panel-practice-1">
+  <div class="practice-header"><button class="check-btn" style="background:#64748b;padding:.4rem .8rem;font-size:.75rem" onclick="goPanel('panel-study-1','nav-1')">← Volver al estudio</button><h2 style="margin-left:.5rem">⚙️ Práctica: Funciones</h2></div>
+
+  <div class="exercise">
+    <div class="ex-q"><b>1.</b> ¿Qué función realizan las arterias?</div>
+    <div class="mc-btn-group" id="p1q1">
+      <button class="mc-btn" onclick="selMCBtn(this,'p1q1')">a) Llevan sangre de regreso al corazón</button>
+      <button class="mc-btn" onclick="selMCBtn(this,'p1q1')">b) Llevan la sangre del corazón al organismo</button>
+      <button class="mc-btn" onclick="selMCBtn(this,'p1q1')">c) Comunican arterias con venas</button>
+    </div>
+    <button class="reveal-answer-btn" id="rev-p1q1" onclick="revealAnswer('p1q1',1)" style="display:none">👁 Ver respuesta</button>
+  </div>
+
+  <div class="exercise">
+    <div class="ex-q"><b>2.</b> Arrastra cada componente a su función:</div>
+    <div class="dd-bank" id="dd1-bank">
+      <button class="dd-chip" data-value="corazon" onclick="ddTapChip(this,'dd1-bank')">Corazón</button>
+      <button class="dd-chip" data-value="arterias" onclick="ddTapChip(this,'dd1-bank')">Arterias</button>
+      <button class="dd-chip" data-value="venas" onclick="ddTapChip(this,'dd1-bank')">Venas</button>
+      <button class="dd-chip" data-value="capilares" onclick="ddTapChip(this,'dd1-bank')">Vasos capilares</button>
+    </div>
+    <div class="dd-pairs">
+      <div class="dd-pair"><button class="dd-zone" id="dd1-z1" onclick="ddTapZone(this,'dd1-bank')">— aquí —</button><span class="dd-pair-label">Impulsa la sangre a todo el cuerpo</span></div>
+      <div class="dd-pair"><button class="dd-zone" id="dd1-z2" onclick="ddTapZone(this,'dd1-bank')">— aquí —</button><span class="dd-pair-label">Llevan sangre del corazón al organismo</span></div>
+      <div class="dd-pair"><button class="dd-zone" id="dd1-z3" onclick="ddTapZone(this,'dd1-bank')">— aquí —</button><span class="dd-pair-label">Transportan sangre de regreso al corazón</span></div>
+      <div class="dd-pair"><button class="dd-zone" id="dd1-z4" onclick="ddTapZone(this,'dd1-bank')">— aquí —</button><span class="dd-pair-label">Conducen sangre por órganos y tejidos</span></div>
+    </div>
+    <button class="check-btn" onclick="ddCheckZones({'dd1-z1':'corazon','dd1-z2':'arterias','dd1-z3':'venas','dd1-z4':'capilares'},'sc1dd')">Revisar</button>
+    <span class="score-pill" id="sc1dd"></span>
+  </div>
+
+  <div class="exercise">
+    <div class="ex-q"><b>3.</b> ¿Cuál componente conduce la sangre por el interior de los órganos y tejidos?</div>
+    <div class="mc-btn-group" id="p1q3">
+      <button class="mc-btn" onclick="selMCBtn(this,'p1q3')">a) Arterias</button>
+      <button class="mc-btn" onclick="selMCBtn(this,'p1q3')">b) Venas</button>
+      <button class="mc-btn" onclick="selMCBtn(this,'p1q3')">c) Vasos capilares</button>
+      <button class="mc-btn" onclick="selMCBtn(this,'p1q3')">d) Corazón</button>
+    </div>
+    <button class="reveal-answer-btn" id="rev-p1q3" onclick="revealAnswer('p1q3',2)" style="display:none">👁 Ver respuesta</button>
+  </div>
+
+  <button class="check-btn" style="width:100%;margin-top:.5rem" onclick="chkMKGroup([['p1q1',1],['p1q3',2]],'sc1mc',1)">Revisar opción múltiple</button>
+  <span class="score-pill" id="sc1mc"></span>
+</div>
+
+<!-- ====== PRACTICE 2 ====== -->
+<div class="panel" id="panel-practice-2">
+  <div class="practice-header"><button class="check-btn" style="background:#64748b;padding:.4rem .8rem;font-size:.75rem" onclick="goPanel('panel-study-2','nav-2')">← Volver al estudio</button><h2 style="margin-left:.5rem">🩸 Práctica: Componentes de la Sangre</h2></div>
+
+  <div class="exercise">
+    <div class="ex-q"><b>1.</b> ¿Cuál componente de la sangre <b>no tiene núcleo</b> y tiene forma de disco achatado?</div>
+    <div class="mc-btn-group" id="p2q1">
+      <button class="mc-btn" onclick="selMCBtn(this,'p2q1')">a) Plasma</button>
+      <button class="mc-btn" onclick="selMCBtn(this,'p2q1')">b) Glóbulos rojos</button>
+      <button class="mc-btn" onclick="selMCBtn(this,'p2q1')">c) Glóbulos blancos</button>
+      <button class="mc-btn" onclick="selMCBtn(this,'p2q1')">d) Plaquetas</button>
+    </div>
+    <button class="reveal-answer-btn" id="rev-p2q1" onclick="revealAnswer('p2q1',1)" style="display:none">👁 Ver respuesta</button>
+  </div>
+
+  <div class="exercise">
+    <div class="ex-q"><b>2.</b> ¿Cómo se llaman científicamente los glóbulos rojos?</div>
+    <div class="mc-btn-group" id="p2q2">
+      <button class="mc-btn" onclick="selMCBtn(this,'p2q2')">a) Leucocitos</button>
+      <button class="mc-btn" onclick="selMCBtn(this,'p2q2')">b) Trombocitos</button>
+      <button class="mc-btn" onclick="selMCBtn(this,'p2q2')">c) Eritrocitos</button>
+    </div>
+    <button class="reveal-answer-btn" id="rev-p2q2" onclick="revealAnswer('p2q2',2)" style="display:none">👁 Ver respuesta</button>
+  </div>
+
+  <div class="exercise">
+    <div class="ex-q"><b>3.</b> Relaciona el componente con su nombre científico:</div>
+    <table class="match-table">
+      <tr><td><select class="ma-select" id="m2a"><option value="">—</option><option>1</option><option>2</option><option>3</option></select></td><td>Glóbulos rojos</td></tr>
+      <tr><td><select class="ma-select" id="m2b"><option value="">—</option><option>1</option><option>2</option><option>3</option></select></td><td>Glóbulos blancos</td></tr>
+      <tr><td><select class="ma-select" id="m2c"><option value="">—</option><option>1</option><option>2</option><option>3</option></select></td><td>Plaquetas</td></tr>
+    </table>
+    <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem;">1=Eritrocitos &nbsp; 2=Leucocitos &nbsp; 3=Trombocitos</div>
+    <button class="check-btn" onclick="chkMatch(['m2a','m2b','m2c'],['1','2','3'],'sc2m',2)">Revisar</button>
+    <span class="score-pill" id="sc2m"></span>
+  </div>
+
+  <div class="exercise">
+    <div class="ex-q"><b>4.</b> ¿Cuáles componentes de la sangre <b>no tienen núcleo</b>? (elige los dos correctos)</div>
+    <div class="mc-btn-group" id="p2q4">
+      <button class="mc-btn" onclick="selMCBtn(this,'p2q4')">a) Plasma y glóbulos blancos</button>
+      <button class="mc-btn" onclick="selMCBtn(this,'p2q4')">b) Glóbulos rojos y plaquetas</button>
+      <button class="mc-btn" onclick="selMCBtn(this,'p2q4')">c) Glóbulos blancos y plaquetas</button>
+    </div>
+    <button class="reveal-answer-btn" id="rev-p2q4" onclick="revealAnswer('p2q4',1)" style="display:none">👁 Ver respuesta</button>
+  </div>
+
+  <button class="check-btn" style="width:100%;margin-top:.5rem" onclick="chkMKGroup([['p2q1',1],['p2q2',2],['p2q4',1]],'sc2mc',2)">Revisar opción múltiple</button>
+  <span class="score-pill" id="sc2mc"></span>
+</div>
+
+<!-- ====== PRACTICE 3 ====== -->
+<div class="panel" id="panel-practice-3">
+  <div class="practice-header"><button class="check-btn" style="background:#64748b;padding:.4rem .8rem;font-size:.75rem" onclick="goPanel('panel-study-3','nav-3')">← Volver al estudio</button><h2 style="margin-left:.5rem">🔴 Práctica: Funciones de la Sangre</h2></div>
+
+  <div class="exercise">
+    <div class="ex-q"><b>1.</b> ¿Qué componente de la sangre se encarga de la <b>coagulación</b>?</div>
+    <div class="mc-btn-group" id="p3q1">
+      <button class="mc-btn" onclick="selMCBtn(this,'p3q1')">a) Plasma</button>
+      <button class="mc-btn" onclick="selMCBtn(this,'p3q1')">b) Glóbulos rojos</button>
+      <button class="mc-btn" onclick="selMCBtn(this,'p3q1')">c) Glóbulos blancos</button>
+      <button class="mc-btn" onclick="selMCBtn(this,'p3q1')">d) Plaquetas</button>
+    </div>
+    <button class="reveal-answer-btn" id="rev-p3q1" onclick="revealAnswer('p3q1',3)" style="display:none">👁 Ver respuesta</button>
+  </div>
+
+  <div class="exercise">
+    <div class="ex-q"><b>2.</b> Relaciona función con responsable:</div>
+    <table class="match-table">
+      <tr><td><select class="ma-select" id="m3a"><option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option></select></td><td>Transporte de oxígeno</td></tr>
+      <tr><td><select class="ma-select" id="m3b"><option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option></select></td><td>Transporte de nutrientes</td></tr>
+      <tr><td><select class="ma-select" id="m3c"><option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option></select></td><td>Coagulación</td></tr>
+      <tr><td><select class="ma-select" id="m3d"><option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option></select></td><td>Defensa / anticuerpos</td></tr>
+    </table>
+    <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem;">1=G. rojos &nbsp; 2=Plasma &nbsp; 3=Plaquetas &nbsp; 4=G. blancos</div>
+    <button class="check-btn" onclick="chkMatch(['m3a','m3b','m3c','m3d'],['1','2','3','4'],'sc3m',3)">Revisar</button>
+    <span class="score-pill" id="sc3m"></span>
+  </div>
+
+  <div class="exercise">
+    <div class="ex-q"><b>3.</b> ¿Qué sustancia permite que los glóbulos rojos transporten oxígeno?</div>
+    <div class="mc-btn-group" id="p3q3">
+      <button class="mc-btn" onclick="selMCBtn(this,'p3q3')">a) Anticuerpos</button>
+      <button class="mc-btn" onclick="selMCBtn(this,'p3q3')">b) Hemoglobina</button>
+      <button class="mc-btn" onclick="selMCBtn(this,'p3q3')">c) Plasma</button>
+    </div>
+    <button class="reveal-answer-btn" id="rev-p3q3" onclick="revealAnswer('p3q3',1)" style="display:none">👁 Ver respuesta</button>
+  </div>
+
+  <button class="check-btn" style="width:100%;margin-top:.5rem" onclick="chkMKGroup([['p3q1',3],['p3q3',1]],'sc3mc',3)">Revisar opción múltiple</button>
+  <span class="score-pill" id="sc3mc"></span>
+</div>
+
+<!-- ====== PRACTICE 4 ====== -->
+<div class="panel" id="panel-practice-4">
+  <div class="practice-header"><button class="check-btn" style="background:#64748b;padding:.4rem .8rem;font-size:.75rem" onclick="goPanel('panel-study-4','nav-4')">← Volver al estudio</button><h2 style="margin-left:.5rem">💉 Práctica: Donación</h2></div>
+
+  <div class="exercise">
+    <div class="ex-q"><b>1.</b> La donación de sangre es un acto de:</div>
+    <div class="mc-btn-group" id="p4q1">
+      <button class="mc-btn" onclick="selMCBtn(this,'p4q1')">a) Obligación legal</button>
+      <button class="mc-btn" onclick="selMCBtn(this,'p4q1')">b) Solidaridad que ayuda a salvar vidas</button>
+      <button class="mc-btn" onclick="selMCBtn(this,'p4q1')">c) Tratamiento médico obligatorio</button>
+    </div>
+    <button class="reveal-answer-btn" id="rev-p4q1" onclick="revealAnswer('p4q1',1)" style="display:none">👁 Ver respuesta</button>
+  </div>
+
+  <div class="exercise">
+    <div class="ex-q"><b>2.</b> ¿Con qué fin se usa la sangre donada?</div>
+    <div class="mc-btn-group" id="p4q2">
+      <button class="mc-btn" onclick="selMCBtn(this,'p4q2')">a) Para investigación únicamente</button>
+      <button class="mc-btn" onclick="selMCBtn(this,'p4q2')">b) En una transfusión</button>
+      <button class="mc-btn" onclick="selMCBtn(this,'p4q2')">c) Para hacer vacunas</button>
+    </div>
+    <button class="reveal-answer-btn" id="rev-p4q2" onclick="revealAnswer('p4q2',1)" style="display:none">👁 Ver respuesta</button>
+  </div>
+
+  <div class="exercise">
+    <div class="ex-q"><b>3.</b> Verdadero o Falso: Para donar sangre se necesita el consentimiento de la persona.</div>
+    <div class="mc-btn-group" id="p4q3">
+      <button class="mc-btn" onclick="selMCBtn(this,'p4q3')">✅ Verdadero</button>
+      <button class="mc-btn" onclick="selMCBtn(this,'p4q3')">❌ Falso</button>
+    </div>
+    <button class="reveal-answer-btn" id="rev-p4q3" onclick="revealAnswer('p4q3',0)" style="display:none">👁 Ver respuesta</button>
+  </div>
+
+  <button class="check-btn" style="width:100%;margin-top:.5rem" onclick="chkMKGroup([['p4q1',1],['p4q2',1],['p4q3',0]],'sc4mc',4)">Revisar todo</button>
+  <span class="score-pill" id="sc4mc"></span>
+</div>
+
+<!-- ====== PRACTICE 5 ====== -->
+<div class="panel" id="panel-practice-5">
+  <div class="practice-header"><button class="check-btn" style="background:#64748b;padding:.4rem .8rem;font-size:.75rem" onclick="goPanel('panel-study-5','nav-5')">← Volver al estudio</button><h2 style="margin-left:.5rem">📋 Práctica: Requisitos</h2></div>
+
+  <div class="exercise">
+    <div class="ex-q"><b>1.</b> ¿Entre qué edades debe tener un donante de sangre?</div>
+    <div class="mc-btn-group" id="p5q1">
+      <button class="mc-btn" onclick="selMCBtn(this,'p5q1')">a) 15 a 50 años</button>
+      <button class="mc-btn" onclick="selMCBtn(this,'p5q1')">b) 18 a 65 años</button>
+      <button class="mc-btn" onclick="selMCBtn(this,'p5q1')">c) 21 a 70 años</button>
+    </div>
+    <button class="reveal-answer-btn" id="rev-p5q1" onclick="revealAnswer('p5q1',1)" style="display:none">👁 Ver respuesta</button>
+  </div>
+
+  <div class="exercise">
+    <div class="ex-q"><b>2.</b> Indica si cada afirmación es un requisito CORRECTO (✅) o INCORRECTO (❌):</div>
+    <div style="font-size:.8rem;margin-top:.3rem">
+      <div style="margin-bottom:.6rem">
+        <div style="margin-bottom:.3rem;font-weight:500">Tener masa corporal superior a 50 kg</div>
+        <div class="mc-btn-group" id="p5r1">
+          <button class="mc-btn" onclick="selMCBtn(this,'p5r1')">✅ Correcto</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'p5r1')">❌ Incorrecto</button>
+        </div>
+        <button class="reveal-answer-btn" id="rev-p5r1" onclick="revealAnswer('p5r1',0)" style="display:none">👁 Ver respuesta</button>
+      </div>
+      <div style="margin-bottom:.6rem">
+        <div style="margin-bottom:.3rem;font-weight:500">Esperar 2 semanas después de un tatuaje</div>
+        <div class="mc-btn-group" id="p5r2">
+          <button class="mc-btn" onclick="selMCBtn(this,'p5r2')">✅ Correcto</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'p5r2')">❌ Incorrecto (es 1 año)</button>
+        </div>
+        <button class="reveal-answer-btn" id="rev-p5r2" onclick="revealAnswer('p5r2',1)" style="display:none">👁 Ver respuesta</button>
+      </div>
+      <div>
+        <div style="margin-bottom:.3rem;font-weight:500">Esperar 12 días después de antibióticos</div>
+        <div class="mc-btn-group" id="p5r3">
+          <button class="mc-btn" onclick="selMCBtn(this,'p5r3')">✅ Correcto</button>
+          <button class="mc-btn" onclick="selMCBtn(this,'p5r3')">❌ Incorrecto</button>
+        </div>
+        <button class="reveal-answer-btn" id="rev-p5r3" onclick="revealAnswer('p5r3',0)" style="display:none">👁 Ver respuesta</button>
+      </div>
+    </div>
+    <button class="check-btn" style="margin-top:.5rem" onclick="chkMKGroup([['p5r1',0],['p5r2',1],['p5r3',0]],'sc5r',5)">Revisar</button>
+    <span class="score-pill" id="sc5r"></span>
+  </div>
+
+  <button class="check-btn" style="width:100%;margin-top:.5rem" onclick="chkMKGroup([['p5q1',1]],'sc5mc',5)">Revisar opción múltiple</button>
+  <span class="score-pill" id="sc5mc"></span>
+</div>
+
+<!-- ====== PRACTICE 6 ====== -->
+<div class="panel" id="panel-practice-6">
+  <div class="practice-header"><button class="check-btn" style="background:#64748b;padding:.4rem .8rem;font-size:.75rem" onclick="goPanel('panel-study-6','nav-6')">← Volver al estudio</button><h2 style="margin-left:.5rem">🏥 Práctica: Enfermedades</h2></div>
+
+  <div class="exercise">
+    <div class="ex-q"><b>1.</b> ¿Qué enfermedad es el endurecimiento y pérdida de elasticidad de las arterias?</div>
+    <div class="mc-btn-group" id="p6q1">
+      <button class="mc-btn" onclick="selMCBtn(this,'p6q1')">a) Hipertensión</button>
+      <button class="mc-btn" onclick="selMCBtn(this,'p6q1')">b) Arterioesclerosis</button>
+      <button class="mc-btn" onclick="selMCBtn(this,'p6q1')">c) Várices</button>
+      <button class="mc-btn" onclick="selMCBtn(this,'p6q1')">d) Aneurisma</button>
+    </div>
+    <button class="reveal-answer-btn" id="rev-p6q1" onclick="revealAnswer('p6q1',1)" style="display:none">👁 Ver respuesta</button>
+  </div>
+
+  <div class="exercise">
+    <div class="ex-q"><b>2.</b> Relaciona la enfermedad con su descripción:</div>
+    <table class="match-table">
+      <tr><td><select class="ma-select" id="m6a"><option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select></td><td>Presión arterial alta</td></tr>
+      <tr><td><select class="ma-select" id="m6b"><option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select></td><td>Inflamación de las venas</td></tr>
+      <tr><td><select class="ma-select" id="m6c"><option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select></td><td>Corazón se debilita y no puede suministrar sangre</td></tr>
+      <tr><td><select class="ma-select" id="m6d"><option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select></td><td>Sección debilitada de arteria o vena que se abulta</td></tr>
+    </table>
+    <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem;">1=Hipertensión &nbsp; 2=Hipotensión &nbsp; 3=Aneurisma &nbsp; 4=Insuf.Cardíaca &nbsp; 5=Arterioesclerosis &nbsp; 6=Várices</div>
+    <button class="check-btn" onclick="chkMatch(['m6a','m6b','m6c','m6d'],['1','6','4','3'],'sc6m',6)">Revisar</button>
+    <span class="score-pill" id="sc6m"></span>
+  </div>
+
+  <div class="exercise">
+    <div class="ex-q"><b>3.</b> ¿Cuál enfermedad produce debilidad, visión borrosa y náuseas por disminución de presión?</div>
+    <div class="mc-btn-group" id="p6q3">
+      <button class="mc-btn" onclick="selMCBtn(this,'p6q3')">a) Hipertensión</button>
+      <button class="mc-btn" onclick="selMCBtn(this,'p6q3')">b) Hipotensión</button>
+      <button class="mc-btn" onclick="selMCBtn(this,'p6q3')">c) Arterioesclerosis</button>
+    </div>
+    <button class="reveal-answer-btn" id="rev-p6q3" onclick="revealAnswer('p6q3',1)" style="display:none">👁 Ver respuesta</button>
+  </div>
+
+  <button class="check-btn" style="width:100%;margin-top:.5rem" onclick="chkMKGroup([['p6q1',1],['p6q3',1]],'sc6mc',6)">Revisar opción múltiple</button>
+  <span class="score-pill" id="sc6mc"></span>
+</div>
+
+<!-- ====== PRACTICE 7 ====== -->
+<div class="panel" id="panel-practice-7">
+  <div class="practice-header"><button class="check-btn" style="background:#64748b;padding:.4rem .8rem;font-size:.75rem" onclick="goPanel('panel-study-7','nav-7')">← Volver al estudio</button><h2 style="margin-left:.5rem">💚 Práctica: Cuidados</h2></div>
+
+  <div class="exercise">
+    <div class="ex-q"><b>1.</b> ¿Cuál de estos es un cuidado del sistema circulatorio?</div>
+    <div class="mc-btn-group" id="p7q1">
+      <button class="mc-btn" onclick="selMCBtn(this,'p7q1')">a) Fumar frecuentemente</button>
+      <button class="mc-btn" onclick="selMCBtn(this,'p7q1')">b) Practicar ejercicio físico moderado</button>
+      <button class="mc-btn" onclick="selMCBtn(this,'p7q1')">c) Comer mucha grasa y sal</button>
+    </div>
+    <button class="reveal-answer-btn" id="rev-p7q1" onclick="revealAnswer('p7q1',1)" style="display:none">👁 Ver respuesta</button>
+  </div>
+
+  <div class="exercise">
+    <div class="ex-q"><b>2.</b> Clasifica: ¿Es un buen hábito para el sistema circulatorio?</div>
+    <div style="display:flex;flex-direction:column;gap:.5rem;margin:.4rem 0">
+      <div><div style="font-size:.8rem;font-weight:500;margin-bottom:.25rem">Llevar una alimentación baja en grasas y sal</div>
+        <div class="mc-btn-group" id="p7h1"><button class="mc-btn" onclick="selMCBtn(this,'p7h1')">✅ Sí</button><button class="mc-btn" onclick="selMCBtn(this,'p7h1')">❌ No</button></div>
+        <button class="reveal-answer-btn" id="rev-p7h1" onclick="revealAnswer('p7h1',0)" style="display:none">👁 Ver respuesta</button>
+      </div>
+      <div><div style="font-size:.8rem;font-weight:500;margin-bottom:.25rem">Tomar alcohol regularmente</div>
+        <div class="mc-btn-group" id="p7h2"><button class="mc-btn" onclick="selMCBtn(this,'p7h2')">✅ Sí</button><button class="mc-btn" onclick="selMCBtn(this,'p7h2')">❌ No</button></div>
+        <button class="reveal-answer-btn" id="rev-p7h2" onclick="revealAnswer('p7h2',1)" style="display:none">👁 Ver respuesta</button>
+      </div>
+      <div><div style="font-size:.8rem;font-weight:500;margin-bottom:.25rem">Medir la presión arterial periódicamente</div>
+        <div class="mc-btn-group" id="p7h3"><button class="mc-btn" onclick="selMCBtn(this,'p7h3')">✅ Sí</button><button class="mc-btn" onclick="selMCBtn(this,'p7h3')">❌ No</button></div>
+        <button class="reveal-answer-btn" id="rev-p7h3" onclick="revealAnswer('p7h3',0)" style="display:none">👁 Ver respuesta</button>
+      </div>
+    </div>
+    <button class="check-btn" onclick="chkMKGroup([['p7h1',0],['p7h2',1],['p7h3',0]],'sc7h',7)">Revisar hábitos</button>
+    <span class="score-pill" id="sc7h"></span>
+  </div>
+
+  <button class="check-btn" style="width:100%;margin-top:.5rem" onclick="chkMKGroup([['p7q1',1]],'sc7mc',7)">Revisar opción múltiple</button>
+  <span class="score-pill" id="sc7mc"></span>
+</div>
+
+<!-- ====== PRACTICE 8 ====== -->
+<div class="panel" id="panel-practice-8">
+  <div class="practice-header"><button class="check-btn" style="background:#64748b;padding:.4rem .8rem;font-size:.75rem" onclick="goPanel('panel-study-8','nav-8')">← Volver al estudio</button><h2 style="margin-left:.5rem">🛡️ Práctica: Inmunidad</h2></div>
+
+  <div class="exercise">
+    <div class="ex-q"><b>1.</b> ¿Qué tipo de inmunidad proporciona la <b>vacunación</b>?</div>
+    <div class="mc-btn-group" id="p8q1">
+      <button class="mc-btn" onclick="selMCBtn(this,'p8q1')">a) Natural activa</button>
+      <button class="mc-btn" onclick="selMCBtn(this,'p8q1')">b) Natural pasiva</button>
+      <button class="mc-btn" onclick="selMCBtn(this,'p8q1')">c) Adquirida activa</button>
+      <button class="mc-btn" onclick="selMCBtn(this,'p8q1')">d) Adquirida pasiva</button>
+    </div>
+    <button class="reveal-answer-btn" id="rev-p8q1" onclick="revealAnswer('p8q1',2)" style="display:none">👁 Ver respuesta</button>
+  </div>
+
+  <div class="exercise">
+    <div class="ex-q"><b>2.</b> ¿Qué tipo de inmunidad recibe un bebé a través de la <b>leche materna</b>?</div>
+    <div class="mc-btn-group" id="p8q2">
+      <button class="mc-btn" onclick="selMCBtn(this,'p8q2')">a) Adquirida activa</button>
+      <button class="mc-btn" onclick="selMCBtn(this,'p8q2')">b) Natural pasiva</button>
+      <button class="mc-btn" onclick="selMCBtn(this,'p8q2')">c) Natural activa</button>
+    </div>
+    <button class="reveal-answer-btn" id="rev-p8q2" onclick="revealAnswer('p8q2',1)" style="display:none">👁 Ver respuesta</button>
+  </div>
+
+  <div class="exercise">
+    <div class="ex-q"><b>3.</b> Relaciona el tipo de inmunidad con su ejemplo o característica:</div>
+    <table class="match-table">
+      <tr><td><select class="ma-select" id="m8a"><option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option></select></td><td>Vacuna — efecto de larga duración</td></tr>
+      <tr><td><select class="ma-select" id="m8b"><option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option></select></td><td>Suero con anticuerpos — efecto corto</td></tr>
+      <tr><td><select class="ma-select" id="m8c"><option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option></select></td><td>Leche materna al bebé</td></tr>
+      <tr><td><select class="ma-select" id="m8d"><option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option></select></td><td>Fiebre y defensas propias del cuerpo</td></tr>
+    </table>
+    <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem;">1=Nat.Activa &nbsp; 2=Nat.Pasiva &nbsp; 3=Adq.Activa &nbsp; 4=Adq.Pasiva</div>
+    <button class="check-btn" onclick="chkMatch(['m8a','m8b','m8c','m8d'],['3','4','2','1'],'sc8m',8)">Revisar</button>
+    <span class="score-pill" id="sc8m"></span>
+  </div>
+
+  <button class="check-btn" style="width:100%;margin-top:.5rem" onclick="chkMKGroup([['p8q1',2],['p8q2',1]],'sc8mc',8)">Revisar opción múltiple</button>
+  <span class="score-pill" id="sc8mc"></span>
+</div>
+
+<!-- ====== PRACTICE 9 ====== -->
+<div class="panel" id="panel-practice-9">
+  <div class="practice-header"><button class="check-btn" style="background:#64748b;padding:.4rem .8rem;font-size:.75rem" onclick="goPanel('panel-study-9','nav-9')">← Volver al estudio</button><h2 style="margin-left:.5rem">🦠 Práctica: Bacterias</h2></div>
+
+  <div class="exercise">
+    <div class="ex-q"><b>1.</b> ¿Qué enfermedad bacteriana afecta los <b>pulmones</b> con tos persistente y fiebre?</div>
+    <div class="mc-btn-group" id="p9q1">
+      <button class="mc-btn" onclick="selMCBtn(this,'p9q1')">a) Tosferina</button>
+      <button class="mc-btn" onclick="selMCBtn(this,'p9q1')">b) Tétanos</button>
+      <button class="mc-btn" onclick="selMCBtn(this,'p9q1')">c) Tuberculosis</button>
+      <button class="mc-btn" onclick="selMCBtn(this,'p9q1')">d) Difteria</button>
+    </div>
+    <button class="reveal-answer-btn" id="rev-p9q1" onclick="revealAnswer('p9q1',2)" style="display:none">👁 Ver respuesta</button>
+  </div>
+
+  <div class="exercise">
+    <div class="ex-q"><b>2.</b> Relaciona la enfermedad bacteriana con la zona del cuerpo que afecta:</div>
+    <table class="match-table">
+      <tr><td><select class="ma-select" id="m9a"><option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></td><td>Tosferina</td></tr>
+      <tr><td><select class="ma-select" id="m9b"><option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></td><td>Tétanos</td></tr>
+      <tr><td><select class="ma-select" id="m9c"><option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></td><td>Tuberculosis</td></tr>
+      <tr><td><select class="ma-select" id="m9d"><option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></td><td>Meningitis bacteriana</td></tr>
+    </table>
+    <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem;">1=Vías resp. &nbsp; 2=Músculos &nbsp; 3=Pulmones &nbsp; 4=Garganta/Piel &nbsp; 5=Cerebro/Médula</div>
+    <button class="check-btn" onclick="chkMatch(['m9a','m9b','m9c','m9d'],['1','2','3','5'],'sc9m',9)">Revisar</button>
+    <span class="score-pill" id="sc9m"></span>
+  </div>
+
+  <div class="exercise">
+    <div class="ex-q"><b>3.</b> El tétanos se contagia principalmente por:</div>
+    <div class="mc-btn-group" id="p9q3">
+      <button class="mc-btn" onclick="selMCBtn(this,'p9q3')">a) Secreciones de nariz y garganta</button>
+      <button class="mc-btn" onclick="selMCBtn(this,'p9q3')">b) Contacto con suelo u objetos contaminados</button>
+      <button class="mc-btn" onclick="selMCBtn(this,'p9q3')">c) Fluidos corporales de persona infectada</button>
+    </div>
+    <button class="reveal-answer-btn" id="rev-p9q3" onclick="revealAnswer('p9q3',1)" style="display:none">👁 Ver respuesta</button>
+  </div>
+
+  <button class="check-btn" style="width:100%;margin-top:.5rem" onclick="chkMKGroup([['p9q1',2],['p9q3',1]],'sc9mc',9)">Revisar opción múltiple</button>
+  <span class="score-pill" id="sc9mc"></span>
+</div>
+
+<!-- ====== PRACTICE 10 ====== -->
+<div class="panel" id="panel-practice-10">
+  <div class="practice-header"><button class="check-btn" style="background:#64748b;padding:.4rem .8rem;font-size:.75rem" onclick="goPanel('panel-study-10','nav-10')">← Volver al estudio</button><h2 style="margin-left:.5rem">🔬 Práctica: Virus</h2></div>
+
+  <div class="exercise">
+    <div class="ex-q"><b>1.</b> ¿Qué enfermedad viral causa inflamación del <b>hígado</b>?</div>
+    <div class="mc-btn-group" id="p10q1">
+      <button class="mc-btn" onclick="selMCBtn(this,'p10q1')">a) Rubeola</button>
+      <button class="mc-btn" onclick="selMCBtn(this,'p10q1')">b) Paperas</button>
+      <button class="mc-btn" onclick="selMCBtn(this,'p10q1')">c) Hepatitis B</button>
+      <button class="mc-btn" onclick="selMCBtn(this,'p10q1')">d) Sarampión</button>
+    </div>
+    <button class="reveal-answer-btn" id="rev-p10q1" onclick="revealAnswer('p10q1',2)" style="display:none">👁 Ver respuesta</button>
+  </div>
+
+  <div class="exercise">
+    <div class="ex-q"><b>2.</b> Arrastra cada enfermedad a su causa: <b>Bacteria</b> o <b>Virus</b></div>
+    <div class="dd-bank" id="dd10-bank">
+      <button class="dd-chip" data-value="sarampion" onclick="ddTapChip(this,'dd10-bank')">Sarampión</button>
+      <button class="dd-chip" data-value="tetanos" onclick="ddTapChip(this,'dd10-bank')">Tétanos</button>
+      <button class="dd-chip" data-value="paperas" onclick="ddTapChip(this,'dd10-bank')">Paperas</button>
+      <button class="dd-chip" data-value="tuberculosis" onclick="ddTapChip(this,'dd10-bank')">Tuberculosis</button>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin:.5rem 0">
+      <div>
+        <div style="font-size:.78rem;font-weight:700;color:#991b1b;margin-bottom:.3rem">🦠 Bacteria</div>
+        <div class="dd-pairs">
+          <div class="dd-pair"><button class="dd-zone" id="dd10-b1" onclick="ddTapZone(this,'dd10-bank')">— aquí —</button></div>
+          <div class="dd-pair"><button class="dd-zone" id="dd10-b2" onclick="ddTapZone(this,'dd10-bank')">— aquí —</button></div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:.78rem;font-weight:700;color:#1e40af;margin-bottom:.3rem">🔬 Virus</div>
+        <div class="dd-pairs">
+          <div class="dd-pair"><button class="dd-zone" id="dd10-v1" onclick="ddTapZone(this,'dd10-bank')">— aquí —</button></div>
+          <div class="dd-pair"><button class="dd-zone" id="dd10-v2" onclick="ddTapZone(this,'dd10-bank')">— aquí —</button></div>
+        </div>
+      </div>
+    </div>
+    <button class="check-btn" onclick="ddCheckZones({'dd10-b1':'tetanos','dd10-b2':'tuberculosis','dd10-v1':'sarampion','dd10-v2':'paperas'},'sc10dd')">Revisar</button>
+    <span class="score-pill" id="sc10dd"></span>
+    <div style="font-size:.72rem;color:var(--muted);margin-top:.3rem;">Nota: el orden dentro de cada columna no importa para la corrección.</div>
+  </div>
+
+  <div class="exercise">
+    <div class="ex-q"><b>3.</b> ¿Cuál es la diferencia entre meningitis viral y bacteriana?</div>
+    <div class="mc-btn-group" id="p10q3">
+      <button class="mc-btn" onclick="selMCBtn(this,'p10q3')">a) Son exactamente iguales</button>
+      <button class="mc-btn" onclick="selMCBtn(this,'p10q3')">b) La viral es menos grave que la bacteriana</button>
+      <button class="mc-btn" onclick="selMCBtn(this,'p10q3')">c) La bacteriana es menos grave que la viral</button>
+    </div>
+    <button class="reveal-answer-btn" id="rev-p10q3" onclick="revealAnswer('p10q3',1)" style="display:none">👁 Ver respuesta</button>
+  </div>
+
+  <button class="check-btn" style="width:100%;margin-top:.5rem" onclick="chkMKGroup([['p10q1',2],['p10q3',1]],'sc10mc',10)">Revisar opción múltiple</button>
+  <span class="score-pill" id="sc10mc"></span>
+</div>
+
+<!-- ====== PRACTICE 11 ====== -->
+<div class="panel" id="panel-practice-11">
+  <div class="practice-header"><button class="check-btn" style="background:#64748b;padding:.4rem .8rem;font-size:.75rem" onclick="goPanel('panel-study-11','nav-11')">← Volver al estudio</button><h2 style="margin-left:.5rem">🧼 Práctica: Prevención</h2></div>
+
+  <div class="exercise">
+    <div class="ex-q"><b>1.</b> ¿Cuál de estas es una medida para prevenir males infectocontagiosos?</div>
+    <div class="mc-btn-group" id="p11q1">
+      <button class="mc-btn" onclick="selMCBtn(this,'p11q1')">a) No bañarse para no mojarse</button>
+      <button class="mc-btn" onclick="selMCBtn(this,'p11q1')">b) Lavarse las manos con frecuencia</button>
+      <button class="mc-btn" onclick="selMCBtn(this,'p11q1')">c) Compartir utensilios con enfermos</button>
+    </div>
+    <button class="reveal-answer-btn" id="rev-p11q1" onclick="revealAnswer('p11q1',1)" style="display:none">👁 Ver respuesta</button>
+  </div>
+
+  <div class="exercise">
+    <div class="ex-q"><b>2.</b> Relaciona la medida preventiva con su descripción:</div>
+    <table class="match-table">
+      <tr><td><select class="ma-select" id="m11a"><option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option></select></td><td>Lavarse las manos, bañarse, lavar heridas con agua y jabón</td></tr>
+      <tr><td><select class="ma-select" id="m11b"><option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option></select></td><td>Sumergir chupones en agua hirviendo</td></tr>
+      <tr><td><select class="ma-select" id="m11c"><option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option></select></td><td>Usar detergentes, colocar basura en basurero</td></tr>
+      <tr><td><select class="ma-select" id="m11d"><option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option></select></td><td>Colocarse todas las vacunas del esquema nacional</td></tr>
+    </table>
+    <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem;">1=Hig.Personal &nbsp; 2=Esterilización &nbsp; 3=Desinfección &nbsp; 4=Vacunación</div>
+    <button class="check-btn" onclick="chkMatch(['m11a','m11b','m11c','m11d'],['1','2','3','4'],'sc11m',11)">Revisar</button>
+    <span class="score-pill" id="sc11m"></span>
+  </div>
+
+  <div class="exercise">
+    <div class="ex-q"><b>3.</b> La vacunación es un ejemplo de medida de:</div>
+    <div class="mc-btn-group" id="p11q3">
+      <button class="mc-btn" onclick="selMCBtn(this,'p11q3')">a) Esterilización</button>
+      <button class="mc-btn" onclick="selMCBtn(this,'p11q3')">b) Higiene personal</button>
+      <button class="mc-btn" onclick="selMCBtn(this,'p11q3')">c) Prevención infectocontagiosa</button>
+    </div>
+    <button class="reveal-answer-btn" id="rev-p11q3" onclick="revealAnswer('p11q3',2)" style="display:none">👁 Ver respuesta</button>
+  </div>
+
+  <button class="check-btn" style="width:100%;margin-top:.5rem" onclick="chkMKGroup([['p11q1',1],['p11q3',2]],'sc11mc',11)">Revisar opción múltiple</button>
+  <span class="score-pill" id="sc11mc"></span>
+</div>
+
+<!-- ====== EXAM ====== -->
+<div class="panel" id="panel-exam">
+  <div class="exam-header">
+    <h1>📋 Práctica de Examen — Ciencias</h1>
+    <p>Sistema Circulatorio · Sangre · Inmunidad · Enfermedades · Prevención</p>
+    <p style="margin-top:.5rem;opacity:.65;font-size:.74rem">100 puntos · 6 secciones</p>
+  </div>
+
+  <!-- SECCIÓN I: SELECCIÓN MÚLTIPLE 25 pts -->
+  <div class="exam-section">
+    <h3>I. Selección Múltiple — 25 puntos (5 pts c/u)</h3>
+
+    <div class="exam-q">
+      <div class="exam-q-text">1. ¿Cuál es la función principal del corazón en el sistema circulatorio?</div>
+      <div class="mc-btn-group" id="eq1">
+        <button class="mc-btn" onclick="selMCBtn(this,'eq1')">a) Filtrar la sangre</button>
+        <button class="mc-btn" onclick="selMCBtn(this,'eq1')">b) Impulsar la sangre a todo el cuerpo</button>
+        <button class="mc-btn" onclick="selMCBtn(this,'eq1')">c) Producir glóbulos rojos</button>
+        <button class="mc-btn" onclick="selMCBtn(this,'eq1')">d) Transportar oxígeno directamente</button>
+      </div>
+      <button class="reveal-answer-btn" id="rev-eq1" onclick="revealAnswer('eq1',1)" style="display:none">👁 Ver respuesta</button>
+    </div>
+
+    <div class="exam-q">
+      <div class="exam-q-text">2. ¿Qué componente de la sangre se encarga de la coagulación?</div>
+      <div class="mc-btn-group" id="eq2">
+        <button class="mc-btn" onclick="selMCBtn(this,'eq2')">a) Plasma</button>
+        <button class="mc-btn" onclick="selMCBtn(this,'eq2')">b) Glóbulos rojos</button>
+        <button class="mc-btn" onclick="selMCBtn(this,'eq2')">c) Glóbulos blancos</button>
+        <button class="mc-btn" onclick="selMCBtn(this,'eq2')">d) Plaquetas</button>
+      </div>
+      <button class="reveal-answer-btn" id="rev-eq2" onclick="revealAnswer('eq2',3)" style="display:none">👁 Ver respuesta</button>
+    </div>
+
+    <div class="exam-q">
+      <div class="exam-q-text">3. ¿Qué tipo de inmunidad proporciona la lactancia materna a un bebé?</div>
+      <div class="mc-btn-group" id="eq3">
+        <button class="mc-btn" onclick="selMCBtn(this,'eq3')">a) Adquirida activa</button>
+        <button class="mc-btn" onclick="selMCBtn(this,'eq3')">b) Natural activa</button>
+        <button class="mc-btn" onclick="selMCBtn(this,'eq3')">c) Natural pasiva</button>
+        <button class="mc-btn" onclick="selMCBtn(this,'eq3')">d) Adquirida pasiva</button>
+      </div>
+      <button class="reveal-answer-btn" id="rev-eq3" onclick="revealAnswer('eq3',2)" style="display:none">👁 Ver respuesta</button>
+    </div>
+
+    <div class="exam-q">
+      <div class="exam-q-text">4. ¿Cuál de las siguientes enfermedades es causada por bacterias?</div>
+      <div class="mc-btn-group" id="eq4">
+        <button class="mc-btn" onclick="selMCBtn(this,'eq4')">a) Sarampión</button>
+        <button class="mc-btn" onclick="selMCBtn(this,'eq4')">b) Paperas</button>
+        <button class="mc-btn" onclick="selMCBtn(this,'eq4')">c) Tuberculosis</button>
+        <button class="mc-btn" onclick="selMCBtn(this,'eq4')">d) Rubeola</button>
+      </div>
+      <button class="reveal-answer-btn" id="rev-eq4" onclick="revealAnswer('eq4',2)" style="display:none">👁 Ver respuesta</button>
+    </div>
+
+    <div class="exam-q">
+      <div class="exam-q-text">5. ¿Cuál es un requisito básico para donar sangre?</div>
+      <div class="mc-btn-group" id="eq5">
+        <button class="mc-btn" onclick="selMCBtn(this,'eq5')">a) Tener menos de 18 años</button>
+        <button class="mc-btn" onclick="selMCBtn(this,'eq5')">b) Tener entre 18 y 65 años</button>
+        <button class="mc-btn" onclick="selMCBtn(this,'eq5')">c) Tener más de 70 años</button>
+        <button class="mc-btn" onclick="selMCBtn(this,'eq5')">d) Haber tenido hepatitis</button>
+      </div>
+      <button class="reveal-answer-btn" id="rev-eq5" onclick="revealAnswer('eq5',1)" style="display:none">👁 Ver respuesta</button>
+    </div>
+
+    <button class="check-btn" style="width:100%" onclick="chkExamMC()">Revisar Sección I</button>
+    <span class="score-pill" id="sc-exmc"></span>
+  </div>
+
+  <!-- SECCIÓN II: RELACIONAR 20 pts -->
+  <div class="exam-section">
+    <h3>II. Relaciona cada componente con su función — 20 puntos</h3>
+    <p style="font-size:.78rem;color:var(--muted);margin-bottom:.75rem">Escribe el número de la función que corresponde a cada componente.</p>
+    <p style="font-size:.78rem;margin-bottom:.6rem;padding:.4rem .6rem;background:var(--teal-light);border-radius:8px;">
+    <b>Funciones:</b> 1=Transporte de O₂ &nbsp; 2=Transporte de nutrientes &nbsp; 3=Coagulación &nbsp; 4=Defensa/anticuerpos</p>
+    <table class="match-table">
+      <tr><td><select class="ma-select" id="er1"><option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option></select></td><td><b>Glóbulos rojos (eritrocitos)</b></td></tr>
+      <tr><td><select class="ma-select" id="er2"><option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option></select></td><td><b>Plasma</b></td></tr>
+      <tr><td><select class="ma-select" id="er3"><option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option></select></td><td><b>Plaquetas (trombocitos)</b></td></tr>
+      <tr><td><select class="ma-select" id="er4"><option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option></select></td><td><b>Glóbulos blancos (leucocitos)</b></td></tr>
+    </table>
+    <button class="check-btn" style="width:100%;margin-top:.5rem" onclick="chkExamRel()">Revisar Sección II</button>
+    <span class="score-pill" id="sc-exrel"></span>
+  </div>
+
+  <!-- SECCIÓN III: VERDADERO/FALSO 20 pts -->
+  <div class="exam-section">
+    <h3>III. Verdadero o Falso — 20 puntos (4 pts c/u)</h3>
+
+    <div class="exam-q">
+      <div class="exam-q-text">1. Las arterias son más delgadas que las venas.</div>
+      <div class="mc-btn-group" id="evf1">
+        <button class="mc-btn" onclick="selMCBtn(this,'evf1')">✅ Verdadero</button>
+        <button class="mc-btn" onclick="selMCBtn(this,'evf1')">❌ Falso</button>
+      </div>
+      <button class="reveal-answer-btn" id="rev-evf1" onclick="revealAnswer('evf1',1)" style="display:none">👁 Ver respuesta</button>
+    </div>
+
+    <div class="exam-q">
+      <div class="exam-q-text">2. Los glóbulos blancos se llaman también leucocitos.</div>
+      <div class="mc-btn-group" id="evf2">
+        <button class="mc-btn" onclick="selMCBtn(this,'evf2')">✅ Verdadero</button>
+        <button class="mc-btn" onclick="selMCBtn(this,'evf2')">❌ Falso</button>
+      </div>
+      <button class="reveal-answer-btn" id="rev-evf2" onclick="revealAnswer('evf2',0)" style="display:none">👁 Ver respuesta</button>
+    </div>
+
+    <div class="exam-q">
+      <div class="exam-q-text">3. La hipertensión es la disminución de la presión arterial.</div>
+      <div class="mc-btn-group" id="evf3">
+        <button class="mc-btn" onclick="selMCBtn(this,'evf3')">✅ Verdadero</button>
+        <button class="mc-btn" onclick="selMCBtn(this,'evf3')">❌ Falso</button>
+      </div>
+      <button class="reveal-answer-btn" id="rev-evf3" onclick="revealAnswer('evf3',1)" style="display:none">👁 Ver respuesta</button>
+    </div>
+
+    <div class="exam-q">
+      <div class="exam-q-text">4. La tuberculosis es una enfermedad causada por bacterias.</div>
+      <div class="mc-btn-group" id="evf4">
+        <button class="mc-btn" onclick="selMCBtn(this,'evf4')">✅ Verdadero</button>
+        <button class="mc-btn" onclick="selMCBtn(this,'evf4')">❌ Falso</button>
+      </div>
+      <button class="reveal-answer-btn" id="rev-evf4" onclick="revealAnswer('evf4',0)" style="display:none">👁 Ver respuesta</button>
+    </div>
+
+    <div class="exam-q">
+      <div class="exam-q-text">5. La inmunidad adquirida activa (vacuna) tiene efecto de corta duración.</div>
+      <div class="mc-btn-group" id="evf5">
+        <button class="mc-btn" onclick="selMCBtn(this,'evf5')">✅ Verdadero</button>
+        <button class="mc-btn" onclick="selMCBtn(this,'evf5')">❌ Falso</button>
+      </div>
+      <button class="reveal-answer-btn" id="rev-evf5" onclick="revealAnswer('evf5',1)" style="display:none">👁 Ver respuesta</button>
+    </div>
+
+    <button class="check-btn" style="width:100%" onclick="chkExamVF()">Revisar Sección III</button>
+    <span class="score-pill" id="sc-exvf"></span>
+  </div>
+
+  <!-- SECCIÓN IV: CLASIFICAR 15 pts -->
+  <div class="exam-section">
+    <h3>IV. Clasifica las enfermedades — 15 puntos</h3>
+    <p style="font-size:.78rem;color:var(--muted);margin-bottom:.7rem">Indica si cada enfermedad es causada por Bacteria (B) o Virus (V)</p>
+    <table class="match-table">
+      <tr><td><select class="ma-select" id="ecl1"><option value="">—</option><option>B</option><option>V</option></select></td><td>Tosferina</td></tr>
+      <tr><td><select class="ma-select" id="ecl2"><option value="">—</option><option>B</option><option>V</option></select></td><td>Sarampión</td></tr>
+      <tr><td><select class="ma-select" id="ecl3"><option value="">—</option><option>B</option><option>V</option></select></td><td>Tétanos</td></tr>
+      <tr><td><select class="ma-select" id="ecl4"><option value="">—</option><option>B</option><option>V</option></select></td><td>Paperas</td></tr>
+      <tr><td><select class="ma-select" id="ecl5"><option value="">—</option><option>B</option><option>V</option></select></td><td>Difteria</td></tr>
+    </table>
+    <button class="check-btn" style="width:100%;margin-top:.5rem" onclick="chkExamClasif()">Revisar Sección IV</button>
+    <span class="score-pill" id="sc-excl"></span>
+  </div>
+
+  <!-- SECCIÓN V: VASOS SANGUÍNEOS 10 pts -->
+  <div class="exam-section">
+    <h3>V. Vasos Sanguíneos y Cuidados — 10 puntos</h3>
+
+    <div class="exam-q">
+      <div class="exam-q-text">1. (4 pts) ¿Cuál vaso sanguíneo lleva sangre DEL CORAZÓN al organismo?</div>
+      <div class="mc-btn-group" id="eq6">
+        <button class="mc-btn" onclick="selMCBtn(this,'eq6')">a) Venas</button>
+        <button class="mc-btn" onclick="selMCBtn(this,'eq6')">b) Vasos capilares</button>
+        <button class="mc-btn" onclick="selMCBtn(this,'eq6')">c) Arterias</button>
+      </div>
+      <button class="reveal-answer-btn" id="rev-eq6" onclick="revealAnswer('eq6',2)" style="display:none">👁 Ver respuesta</button>
+    </div>
+
+    <div class="exam-q">
+      <div class="exam-q-text">2. (6 pts) ¿Qué medida ayuda a prevenir las várices?</div>
+      <div class="mc-btn-group" id="eq7">
+        <button class="mc-btn" onclick="selMCBtn(this,'eq7')">a) Fumar regularmente</button>
+        <button class="mc-btn" onclick="selMCBtn(this,'eq7')">b) No permanecer mucho tiempo de pie ni sentado y evitar ropa ajustada</button>
+        <button class="mc-btn" onclick="selMCBtn(this,'eq7')">c) Consumir mucha sal</button>
+      </div>
+      <button class="reveal-answer-btn" id="rev-eq7" onclick="revealAnswer('eq7',1)" style="display:none">👁 Ver respuesta</button>
+    </div>
+
+    <button class="check-btn" style="width:100%" onclick="chkExamV()">Revisar Sección V</button>
+    <span class="score-pill" id="sc-exv"></span>
+  </div>
+
+  <!-- SECCIÓN VI: PREVENCIÓN 10 pts -->
+  <div class="exam-section">
+    <h3>VI. Prevención Infectocontagiosa — 10 puntos</h3>
+
+    <div class="exam-q">
+      <div class="exam-q-text">1. Relaciona cada medida con su descripción:</div>
+      <table class="match-table">
+        <tr><td><select class="ma-select" id="ep1"><option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option></select></td><td>Sumergir chupones y beberitos en agua hirviendo</td></tr>
+        <tr><td><select class="ma-select" id="ep2"><option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option></select></td><td>Lavarse las manos y bañarse todos los días</td></tr>
+        <tr><td><select class="ma-select" id="ep3"><option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option></select></td><td>Colocarse todas las vacunas del esquema nacional</td></tr>
+        <tr><td><select class="ma-select" id="ep4"><option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option></select></td><td>Usar desinfectantes y colocar la basura en el basurero</td></tr>
+      </table>
+      <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem;">1=Hig.Personal &nbsp; 2=Esterilización &nbsp; 3=Vacunación &nbsp; 4=Desinfección</div>
+    </div>
+
+    <button class="check-btn" style="width:100%;margin-top:.5rem" onclick="chkExamPrev()">Revisar Sección VI</button>
+    <span class="score-pill" id="sc-exprv"></span>
+  </div>
+
+  <!-- TOTAL -->
+  <div style="text-align:center;margin-top:1rem">
+    <button onclick="calcExamTotal()" style="background:linear-gradient(135deg,var(--teal-dark),#134e4a);color:#fff;border:none;border-radius:12px;padding:.85rem 2rem;font-size:.95rem;font-weight:800;cursor:pointer;touch-action:manipulation;font-family:inherit;">
+      🎓 Calcular Calificación Final
+    </button>
+  </div>
+</div>
+
+<!-- ====== FINAL SCORE ====== -->
+<div class="panel" id="panel-final">
+  <div class="final-card">
+    <div style="font-size:2rem;margin-bottom:.5rem">🎉</div>
+    <div class="final-grade" id="final-grade">—</div>
+    <div class="final-label" id="final-label">pts / 100</div>
+    <div id="final-msg" style="margin-top:.75rem;font-size:.88rem;color:var(--muted)"></div>
+  </div>
+  <div style="background:var(--teal-light);border-radius:12px;padding:.9rem 1rem;margin-bottom:1rem">
+    <div style="font-size:.85rem;font-weight:800;color:var(--teal-dark);margin-bottom:.5rem">Desglose por sección</div>
+    <div class="sb-row"><span>I. Selección múltiple (25 pts)</span><span id="fb-1">—</span></div>
+    <div class="sb-row"><span>II. Relacionar (20 pts)</span><span id="fb-2">—</span></div>
+    <div class="sb-row"><span>III. V/F (20 pts)</span><span id="fb-3">—</span></div>
+    <div class="sb-row"><span>IV. Clasificar (15 pts)</span><span id="fb-4">—</span></div>
+    <div class="sb-row"><span>V. Vasos / Cuidados (10 pts)</span><span id="fb-5">—</span></div>
+    <div class="sb-row"><span>VI. Prevención (10 pts)</span><span id="fb-6">—</span></div>
+    <div class="sb-row" style="margin-top:.25rem"><span><b>TOTAL</b></span><span id="fb-total" style="font-size:.9rem;color:var(--teal-dark)"><b>—</b></span></div>
+  </div>
+  <button class="check-btn" style="width:100%" onclick="goExam()">← Volver al examen</button>
+</div>
+
+</div><!-- end #content -->
+
+<div id="img-lightbox">
+  <div id="lb-wrap"><img id="img-lightbox-img" src="" alt=""></div>
+  <span id="img-lightbox-close" onclick="closeLightbox()">✕</span>
+  <div id="lb-zoom-label">100%</div>
+  <div id="lb-controls">
+    <button onclick="lbZoom(-1)">−</button>
+    <button onclick="lbZoomReset()">↺</button>
+    <button onclick="lbZoom(1)">+</button>
+  </div>
+</div>
+<style>
+#img-lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:9999;
+flex-direction:column;align-items:center;justify-content:center;touch-action:none;}
+#img-lightbox.open{display:flex;}
+#lb-wrap{position:relative;width:100%;height:100%;display:flex;align-items:center;
+justify-content:center;overflow:hidden;cursor:grab;}
+#img-lightbox-img{max-width:96vw;max-height:88vh;border-radius:8px;transform-origin:center center;
+transform:scale(1) translate(0px,0px);will-change:transform;user-select:none;pointer-events:none;}
+#img-lightbox-close{position:absolute;top:14px;right:18px;color:#fff;font-size:2rem;cursor:pointer;
+font-weight:900;z-index:2;background:rgba(0,0,0,.4);border-radius:50%;width:38px;height:38px;
+display:flex;align-items:center;justify-content:center;}
+#lb-controls{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);display:flex;gap:10px;z-index:2;}
+#lb-controls button{background:rgba(255,255,255,.18);color:#fff;border:1.5px solid rgba(255,255,255,.35);
+border-radius:10px;padding:10px 20px;font-size:1.1rem;cursor:pointer;touch-action:manipulation;font-weight:700;}
+#lb-zoom-label{color:rgba(255,255,255,.7);font-size:.8rem;text-align:center;margin-bottom:4px;}
+</style>
+
+<script>
+
+var scores = {};
+var studiedTopics = {};
+
+function goTopic(n) {
+  var panels = document.querySelectorAll('.panel');
+  panels.forEach(function(p){ p.classList.remove('active'); });
+  var navItems = document.querySelectorAll('.nav-item, .nav-exam-btn');
+  navItems.forEach(function(n){ n.classList.remove('active'); });
+  var sp = document.getElementById('panel-study-' + n);
+  if(sp) sp.classList.add('active');
+  var ni = document.getElementById('nav-' + n);
+  if(ni) ni.classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function goPanel(panelId, navId) {
+  var panels = document.querySelectorAll('.panel');
+  panels.forEach(function(p){ p.classList.remove('active'); });
+  var navItems = document.querySelectorAll('.nav-item, .nav-exam-btn');
+  navItems.forEach(function(n){ n.classList.remove('active'); });
+  var p = document.getElementById(panelId);
+  if(p) p.classList.add('active');
+  var ni = document.getElementById(navId);
+  if(ni) ni.classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function goExam() {
+  var panels = document.querySelectorAll('.panel');
+  panels.forEach(function(p){ p.classList.remove('active'); });
+  var navItems = document.querySelectorAll('.nav-item, .nav-exam-btn');
+  navItems.forEach(function(n){ n.classList.remove('active'); });
+  var ep = document.getElementById('panel-exam');
+  if(ep) ep.classList.add('active');
+  var nb = document.getElementById('nav-exam');
+  if(nb) nb.classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function markStudied(n) {
+  studiedTopics[n] = true;
+  var btn = document.getElementById('studied-' + n);
+  if(btn){ btn.textContent = '✅ ¡Tema estudiado!'; btn.classList.add('done'); }
+  var navItem = document.getElementById('nav-' + n);
+  if(navItem) navItem.classList.add('studied');
+}
+
+// MC BUTTONS
+function selMCBtn(btn, gid) {
+  document.querySelectorAll('#' + gid + ' .mc-btn').forEach(function(b){
+    b.classList.remove('mc-sel','correct','wrong');
+  });
+  btn.classList.add('mc-sel');
+}
+
+function chkMC1(grpId, correctIdx, scoreKey, topicN) {
+  var btns = document.querySelectorAll('#' + grpId + ' .mc-btn');
+  var chosen = -1;
+  btns.forEach(function(b,i){ if(b.classList.contains('mc-sel')) chosen = i; });
+  btns.forEach(function(b){ b.classList.remove('correct','wrong','mc-sel'); });
+  if(chosen >= 0 && chosen !== correctIdx) btns[chosen].classList.add('wrong');
+  var revBtn = document.getElementById('rev-' + grpId);
+  if(revBtn) revBtn.style.display = 'inline-block';
+  var ok = chosen === correctIdx ? 1 : 0;
+  if(scoreKey) recordScore(scoreKey, ok, 1, topicN);
+  return ok;
+}
+
+function revealAnswer(grpId, correctIdx) {
+  var btns = document.querySelectorAll('#' + grpId + ' .mc-btn');
+  if(btns[correctIdx]) btns[correctIdx].classList.add('correct');
+}
+
+function chkMKGroup(pairs, scoreId, topicN) {
+  var n = 0;
+  pairs.forEach(function(p){ n += chkMC1(p[0], p[1], null, null); });
+  recordScore(scoreId, n, pairs.length, topicN !== undefined ? topicN : 'practice');
+}
+
+// MATCH
+function chkMatch(ids, answers, scoreKey, topicN) {
+  var correct = 0;
+  ids.forEach(function(id, i) {
+    var el = document.getElementById(id); if(!el) return;
+    var val = String(el.value || '');
+    var ok = val === String(answers[i]);
+    el.classList.remove('correct','wrong');
+    if(ok){ el.classList.add('correct'); correct++; }
+    else if(val && val !== '') { el.classList.add('wrong'); el.title = 'Correcto: ' + answers[i]; }
+  });
+  recordScore(scoreKey, correct, ids.length, topicN);
+}
+
+// DD
+var ddSelected = null, ddSelectedBank = null;
+document.addEventListener('DOMContentLoaded', function(){
+  document.querySelectorAll('.dd-zone').forEach(function(z){
+    z.dataset.placeholder = z.textContent.trim();
+  });
+});
+
+function ddTapChip(el, bankId) {
+  if(ddSelected === el){ el.classList.remove('dd-selected'); ddSelected = null; ddSelectedBank = null; return; }
+  if(ddSelected) ddSelected.classList.remove('dd-selected');
+  el.classList.add('dd-selected'); ddSelected = el; ddSelectedBank = bankId;
+}
+
+function ddTapZone(zoneEl, bankId) {
+  if(!ddSelected) {
+    var ev = zoneEl.dataset.placed;
+    if(ev) {
+      var bk = bankId || ddSelectedBank;
+      document.querySelectorAll('#' + bk + ' .dd-chip').forEach(function(c){ if(c.dataset.value === ev) c.classList.remove('dd-used'); });
+      zoneEl.textContent = zoneEl.dataset.placeholder || '— aquí —';
+      delete zoneEl.dataset.placed; zoneEl.classList.remove('dd-filled','dd-correct','dd-wrong');
+    }
+    return;
+  }
+  var bk = bankId || ddSelectedBank;
+  var oldVal = zoneEl.dataset.placed;
+  if(oldVal && bk){ document.querySelectorAll('#' + bk + ' .dd-chip').forEach(function(c){ if(c.dataset.value === oldVal) c.classList.remove('dd-used'); }); }
+  zoneEl.textContent = ddSelected.textContent; zoneEl.dataset.placed = ddSelected.dataset.value;
+  zoneEl.classList.add('dd-filled'); zoneEl.classList.remove('dd-correct','dd-wrong');
+  ddSelected.classList.remove('dd-selected'); ddSelected.classList.add('dd-used');
+  ddSelected = null; ddSelectedBank = null;
+}
+
+function ddCheckZones(correctMap, scoreId) {
+  var n = 0, total = Object.keys(correctMap).length;
+  // For the bacteria/virus exercise, allow any order within each category
+  var bZones = ['dd10-b1','dd10-b2'];
+  var vZones = ['dd10-v1','dd10-v2'];
+  var bCorrect = ['tetanos','tuberculosis'];
+  var vCorrect = ['sarampion','paperas'];
+  var isBVExercise = Object.keys(correctMap).indexOf('dd10-b1') >= 0;
+
+  if(isBVExercise) {
+    var bPlaced = bZones.map(function(id){ var z = document.getElementById(id); return z ? (z.dataset.placed || '') : ''; });
+    var vPlaced = vZones.map(function(id){ var z = document.getElementById(id); return z ? (z.dataset.placed || '') : ''; });
+    bCorrect.forEach(function(val){
+      var inB = bPlaced.indexOf(val) >= 0;
+      bZones.forEach(function(id){ var z = document.getElementById(id); if(z && z.dataset.placed === val){ z.classList.toggle('dd-correct', inB); z.classList.toggle('dd-wrong', !inB); } });
+      if(inB) n++;
+    });
+    vCorrect.forEach(function(val){
+      var inV = vPlaced.indexOf(val) >= 0;
+      vZones.forEach(function(id){ var z = document.getElementById(id); if(z && z.dataset.placed === val){ z.classList.toggle('dd-correct', inV); z.classList.toggle('dd-wrong', !inV); } });
+      if(inV) n++;
+    });
+    recordScore(scoreId, n, total, 'practice');
+    return;
+  }
+
+  Object.keys(correctMap).forEach(function(zoneId){
+    var zone = document.getElementById(zoneId); if(!zone) return;
+    var placed = zone.dataset.placed || '';
+    if(placed === correctMap[zoneId]){ zone.classList.add('dd-correct'); zone.classList.remove('dd-wrong'); n++; }
+    else{ zone.classList.add('dd-wrong'); zone.classList.remove('dd-correct'); zone.title = 'Correcto: ' + correctMap[zoneId]; }
+  });
+  recordScore(scoreId, n, total, 'practice');
+}
+
+// SCORE
+function recordScore(key, got, total, topicN) {
+  scores[key] = {got: got, total: total};
+  var el = document.getElementById(key);
+  if(el){ el.textContent = got + '/' + total + ' ✓'; el.style.background = got === total ? '#dcfce7' : '#fef9c3'; el.style.color = got === total ? '#14532d' : '#92400e'; }
+}
+
+// EXAM GRADING
+function chkExamMC() {
+  var n = 0;
+  n += chkMC1('eq1',1,null,null);
+  n += chkMC1('eq2',3,null,null);
+  n += chkMC1('eq3',2,null,null);
+  n += chkMC1('eq4',2,null,null);
+  n += chkMC1('eq5',1,null,null);
+  var pts = n * 5;
+  scores['exmc'] = {got: pts, total: 25};
+  var el = document.getElementById('sc-exmc');
+  if(el){ el.textContent = pts + '/25 pts'; el.style.background = pts === 25 ? '#dcfce7' : '#fef9c3'; el.style.color = pts === 25 ? '#14532d' : '#92400e'; }
+}
+
+function chkExamRel() {
+  var ids = ['er1','er2','er3','er4'];
+  var ans = ['1','2','3','4'];
+  var n = 0;
+  ids.forEach(function(id,i){
+    var el = document.getElementById(id); if(!el) return;
+    var val = String(el.value || '');
+    var ok = val === ans[i];
+    el.classList.remove('correct','wrong');
+    if(ok){ el.classList.add('correct'); n++; }
+    else if(val){ el.classList.add('wrong'); el.title = 'Correcto: ' + ans[i]; }
+  });
+  var pts = n * 5;
+  scores['exrel'] = {got: pts, total: 20};
+  var el = document.getElementById('sc-exrel');
+  if(el){ el.textContent = pts + '/20 pts'; el.style.background = pts === 20 ? '#dcfce7' : '#fef9c3'; el.style.color = pts === 20 ? '#14532d' : '#92400e'; }
+}
+
+function chkExamVF() {
+  var pairs = [['evf1',1],['evf2',0],['evf3',1],['evf4',0],['evf5',1]];
+  var n = 0;
+  pairs.forEach(function(p){ n += chkMC1(p[0],p[1],null,null); });
+  var pts = n * 4;
+  scores['exvf'] = {got: pts, total: 20};
+  var el = document.getElementById('sc-exvf');
+  if(el){ el.textContent = pts + '/20 pts'; el.style.background = pts === 20 ? '#dcfce7' : '#fef9c3'; el.style.color = pts === 20 ? '#14532d' : '#92400e'; }
+}
+
+function chkExamClasif() {
+  var ids = ['ecl1','ecl2','ecl3','ecl4','ecl5'];
+  var ans = ['B','V','B','V','B'];
+  var n = 0;
+  ids.forEach(function(id,i){
+    var el = document.getElementById(id); if(!el) return;
+    var val = String(el.value || '');
+    var ok = val === ans[i];
+    el.classList.remove('correct','wrong');
+    if(ok){ el.classList.add('correct'); n++; }
+    else if(val){ el.classList.add('wrong'); el.title = 'Correcto: ' + ans[i]; }
+  });
+  var pts = n * 3;
+  scores['excl'] = {got: pts, total: 15};
+  var el = document.getElementById('sc-excl');
+  if(el){ el.textContent = pts + '/15 pts'; el.style.background = pts === 15 ? '#dcfce7' : '#fef9c3'; el.style.color = pts === 15 ? '#14532d' : '#92400e'; }
+}
+
+function chkExamV() {
+  // Store selected answers before chkMC1 clears mc-sel
+  var sel6=-1, sel7=-1;
+  document.querySelectorAll('#eq6 .mc-btn').forEach(function(b,i){ if(b.classList.contains('mc-sel')) sel6=i; });
+  document.querySelectorAll('#eq7 .mc-btn').forEach(function(b,i){ if(b.classList.contains('mc-sel')) sel7=i; });
+  chkMC1('eq6',2,null,null);
+  chkMC1('eq7',1,null,null);
+  var p = (sel6===2?5:0) + (sel7===1?5:0);
+  scores['exv'] = {got: p, total: 10};
+  var el = document.getElementById('sc-exv');
+  if(el){ el.textContent = p + '/10 pts'; el.style.background = p === 10 ? '#dcfce7' : '#fef9c3'; el.style.color = p === 10 ? '#14532d' : '#92400e'; }
+}
+
+function chkMC1r(grpId, correctIdx) {
+  var btns = document.querySelectorAll('#' + grpId + ' .mc-btn');
+  var chosen = -1;
+  btns.forEach(function(b,i){ if(b.classList.contains('mc-sel')) chosen=i; });
+  return chosen === correctIdx ? 1 : 0;
+}
+
+function chkExamPrev() {
+  var ids = ['ep1','ep2','ep3','ep4'];
+  var ans = ['2','1','3','4'];
+  var n = 0;
+  ids.forEach(function(id,i){
+    var el = document.getElementById(id); if(!el) return;
+    var val = String(el.value || '');
+    var ok = val === ans[i];
+    el.classList.remove('correct','wrong');
+    if(ok){ el.classList.add('correct'); n++; }
+    else if(val){ el.classList.add('wrong'); el.title = 'Correcto: ' + ans[i]; }
+  });
+  var pts = n * 2 + (n === 4 ? 2 : 0);
+  if(n === 4) pts = 10;
+  else pts = n * 2;
+  scores['exprv'] = {got: pts, total: 10};
+  var el = document.getElementById('sc-exprv');
+  if(el){ el.textContent = pts + '/10 pts'; el.style.background = pts === 10 ? '#dcfce7' : '#fef9c3'; el.style.color = pts === 10 ? '#14532d' : '#92400e'; }
+}
+
+function calcExamTotal() {
+  var sections = [
+    {key:'exmc', max:25, id:'fb-1'},
+    {key:'exrel', max:20, id:'fb-2'},
+    {key:'exvf', max:20, id:'fb-3'},
+    {key:'excl', max:15, id:'fb-4'},
+    {key:'exv', max:10, id:'fb-5'},
+    {key:'exprv', max:10, id:'fb-6'},
+  ];
+  var total = 0, maxTotal = 100;
+  sections.forEach(function(s){
+    var sc = scores[s.key];
+    var got = sc ? sc.got : 0;
+    total += got;
+    var el = document.getElementById(s.id);
+    if(el) el.textContent = got + '/' + s.max + ' pts';
+  });
+  var pct = Math.round(total);
+  var grade = pct >= 90 ? 'A' : pct >= 80 ? 'B' : pct >= 70 ? 'C' : 'D';
+  var msgs = {A:'🌟 ¡Excelente! ¡Dominas toda la materia!', B:'👍 ¡Muy bien! Repasa las secciones con puntos bajos.', C:'📚 Sigue estudiando. ¡Puedes mejorar!', D:'💪 Necesitas repasar más. ¡Tú puedes!'};
+  document.getElementById('final-grade').textContent = pct;
+  document.getElementById('final-label').textContent = 'pts / 100 · Nota: ' + grade;
+  document.getElementById('final-msg').textContent = msgs[grade];
+  document.getElementById('fb-total').innerHTML = '<b>' + pct + '/100</b>';
+
+  var panels = document.querySelectorAll('.panel');
+  panels.forEach(function(p){ p.classList.remove('active'); });
+  document.getElementById('panel-final').classList.add('active');
+  window.scrollTo(0,0);
+}
+
+// LIGHTBOX
+var _lbScale=1,_lbTx=0,_lbTy=0,_lbPinching=false,_lbPinchDist=0,_lbPinchScale=1,_lbDrag=null;
+function _lbApply(){var img=document.getElementById('img-lightbox-img'),lbl=document.getElementById('lb-zoom-label');if(img)img.style.transform='scale('+_lbScale.toFixed(2)+') translate('+_lbTx.toFixed(1)+'px,'+_lbTy.toFixed(1)+'px)';if(lbl)lbl.textContent=Math.round(_lbScale*100)+'%';}
+function lbZoom(dir){_lbScale=Math.min(Math.max(_lbScale*(dir>0?1.4:0.71),0.5),6);if(_lbScale<=1){_lbTx=0;_lbTy=0;}_lbApply();}
+function lbZoomReset(){_lbScale=1;_lbTx=0;_lbTy=0;_lbApply();}
+function openLightbox(src){var lb=document.getElementById('img-lightbox'),img=document.getElementById('img-lightbox-img');if(!lb||!img)return;img.src=src;_lbScale=1;_lbTx=0;_lbTy=0;_lbApply();lb.classList.add('open');document.body.style.overflow='hidden';}
+function closeLightbox(){var lb=document.getElementById('img-lightbox');if(lb)lb.classList.remove('open');document.body.style.overflow='';}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeLightbox();});
+document.addEventListener('DOMContentLoaded',function(){
+  var wrap=document.getElementById('lb-wrap');if(!wrap)return;
+  function pd(e){var dx=e.touches[0].clientX-e.touches[1].clientX,dy=e.touches[0].clientY-e.touches[1].clientY;return Math.sqrt(dx*dx+dy*dy);}
+  wrap.addEventListener('touchstart',function(e){if(e.touches.length===2){_lbPinching=true;_lbPinchDist=pd(e);_lbPinchScale=_lbScale;e.preventDefault();}else if(e.touches.length===1&&_lbScale>1){_lbDrag={x:e.touches[0].clientX,y:e.touches[0].clientY,tx:_lbTx,ty:_lbTy};e.preventDefault();}else{_lbDrag=null;}},{passive:false});
+  wrap.addEventListener('touchmove',function(e){if(_lbPinching&&e.touches.length===2){_lbScale=Math.min(Math.max(_lbPinchScale*pd(e)/_lbPinchDist,0.5),6);_lbApply();e.preventDefault();}else if(_lbDrag&&e.touches.length===1){_lbTx=_lbDrag.tx+(e.touches[0].clientX-_lbDrag.x)/_lbScale;_lbTy=_lbDrag.ty+(e.touches[0].clientY-_lbDrag.y)/_lbScale;_lbApply();e.preventDefault();}},{passive:false});
+  wrap.addEventListener('touchend',function(e){if(_lbPinching&&e.touches.length<2){_lbPinching=false;if(_lbScale<=1){_lbScale=1;_lbTx=0;_lbTy=0;_lbApply();}}if(e.touches.length===0){if(!_lbDrag&&!_lbPinching&&_lbScale===1)closeLightbox();_lbDrag=null;_lbPinching=false;}},{passive:true});
+  wrap.addEventListener('mousedown',function(e){if(_lbScale>1){_lbDrag={x:e.clientX,y:e.clientY,tx:_lbTx,ty:_lbTy};e.preventDefault();}else{closeLightbox();}});
+  document.addEventListener('mousemove',function(e){if(_lbDrag){_lbTx=_lbDrag.tx+(e.clientX-_lbDrag.x)/_lbScale;_lbTy=_lbDrag.ty+(e.clientY-_lbDrag.y)/_lbScale;_lbApply();}});
+  document.addEventListener('mouseup',function(){_lbDrag=null;});
+  wrap.addEventListener('wheel',function(e){e.preventDefault();_lbScale=Math.min(Math.max(_lbScale*(e.deltaY<0?1.15:0.87),0.5),6);if(_lbScale<=1){_lbTx=0;_lbTy=0;}_lbApply();},{passive:false});
+});
+
+// Init: show first topic
+document.addEventListener('DOMContentLoaded', function(){
+  goTopic(0);
+});
+
+</script>
+</body>
+</html>
