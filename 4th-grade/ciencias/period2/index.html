@@ -168,6 +168,16 @@ text-align:center;margin-bottom:1rem;}
 .sb-row{display:flex;justify-content:space-between;font-size:.8rem;padding:.3rem .5rem;
 border-bottom:1px solid #a7f3d0;}
 .sb-row:last-child{border-bottom:none;font-weight:800;font-size:.85rem;}
+.writing-ta{width:100%;box-sizing:border-box;border:2px solid #cbd5e1;border-radius:8px;padding:8px 10px;font-size:.82rem;font-family:inherit;resize:vertical;min-height:44px;height:44px;margin-bottom:.4rem;transition:border-color .15s;}
+.writing-ta:focus{outline:none;border-color:var(--teal);}
+.writing-ta:disabled{background:#f8fafc;color:#64748b;}
+.dad-row{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;margin:.4rem 0 .2rem;}
+.dad-btn{border:none;border-radius:8px;padding:6px 12px;font-size:.75rem;font-weight:700;cursor:pointer;touch-action:manipulation;font-family:inherit;}
+.dad-great{background:#dcfce7;color:#14532d;}
+.dad-ok{background:#fef9c3;color:#92400e;}
+.dad-no{background:#fee2e2;color:#991b1b;}
+.dad-result{font-size:.78rem;margin-top:.2rem;min-height:.5rem;}
+.answer-hint{background:var(--teal-light);border-left:3px solid var(--teal);border-radius:0 8px 8px 0;padding:.5rem .7rem;margin-top:.4rem;font-size:.78rem;color:var(--teal-dark);line-height:1.5;}
 
 @media(max-width:640px){
 #sidebar{width:196px;}
@@ -201,6 +211,9 @@ border-bottom:1px solid #a7f3d0;}
   <div class="nav-item" id="nav-10" onclick="goTopic(10)"><span class="nav-icon">🔬</span><span style="flex:1;font-size:.73rem">Virus</span><span class="nav-check">✓</span></div>
   <div class="nav-item" id="nav-11" onclick="goTopic(11)"><span class="nav-icon">🧼</span><span style="flex:1;font-size:.73rem">Prevención</span><span class="nav-check">✓</span></div>
   <div class="nav-divider"></div>
+  <div class="nav-exam-btn" id="nav-teacher" onclick="goPanel('panel-teacher','nav-teacher')" style="background:rgba(99,102,241,.18);">
+    <span class="nav-icon">✏️</span><span>Práctica Maestra</span>
+  </div>
   <div class="nav-exam-btn" id="nav-exam" onclick="goExam()">
     <span class="nav-icon">📋</span><span>Práctica de Examen</span>
   </div>
@@ -1286,6 +1299,104 @@ border-bottom:1px solid #a7f3d0;}
   <span class="score-pill" id="sc11mc"></span>
 </div>
 
+<!-- ====== TEACHER PRACTICE ====== -->
+<div class="panel" id="panel-teacher">
+  <div class="exam-header">
+    <h1>✏️ Práctica de la Maestra</h1>
+    <p>Preguntas enviadas por la teacher · Responde con tus propias palabras</p>
+    <p style="margin-top:.4rem;font-size:.74rem;opacity:.65">Papá revisa y califica cada respuesta</p>
+  </div>
+
+  <div class="exam-section">
+
+    <div class="exam-q">
+      <div class="exam-q-text"><b>1.</b> Escriba 2 enfermedades causadas por <b>bacterias</b>.</div>
+      <textarea class="writing-ta" id="tw1a" placeholder="Enfermedad 1..."></textarea>
+      <textarea class="writing-ta" id="tw1b" placeholder="Enfermedad 2..."></textarea>
+      <div class="dad-row" id="dad-row-1" style="display:none">
+        <span style="font-size:.78rem;font-weight:700;color:#475569;">Papá califica:</span>
+        <button class="dad-btn dad-great" onclick="dadGrade(1,'great')">⭐ Correcto</button>
+        <button class="dad-btn dad-ok" onclick="dadGrade(1,'ok')">✏️ Revisar</button>
+        <button class="dad-btn dad-no" onclick="dadGrade(1,'no')">❌ Incorrecto</button>
+      </div>
+      <div class="dad-result" id="dad-result-1"></div>
+    </div>
+
+    <div class="exam-q">
+      <div class="exam-q-text"><b>2.</b> Escriba 2 enfermedades causadas por <b>virus</b>.</div>
+      <textarea class="writing-ta" id="tw2a" placeholder="Enfermedad 1..."></textarea>
+      <textarea class="writing-ta" id="tw2b" placeholder="Enfermedad 2..."></textarea>
+      <div class="dad-row" id="dad-row-2" style="display:none">
+        <span style="font-size:.78rem;font-weight:700;color:#475569;">Papá califica:</span>
+        <button class="dad-btn dad-great" onclick="dadGrade(2,'great')">⭐ Correcto</button>
+        <button class="dad-btn dad-ok" onclick="dadGrade(2,'ok')">✏️ Revisar</button>
+        <button class="dad-btn dad-no" onclick="dadGrade(2,'no')">❌ Incorrecto</button>
+      </div>
+      <div class="dad-result" id="dad-result-2"></div>
+    </div>
+
+    <div class="exam-q">
+      <div class="exam-q-text"><b>3.</b> Escriba 2 enfermedades que afectan el <b>sistema circulatorio</b> y qué podemos hacer para cuidarlo.</div>
+      <textarea class="writing-ta" id="tw3a" placeholder="Enfermedad 1..."></textarea>
+      <textarea class="writing-ta" id="tw3b" placeholder="Enfermedad 2..."></textarea>
+      <textarea class="writing-ta" style="height:70px" id="tw3c" placeholder="¿Cómo cuidarlo?..."></textarea>
+      <div class="dad-row" id="dad-row-3" style="display:none">
+        <span style="font-size:.78rem;font-weight:700;color:#475569;">Papá califica:</span>
+        <button class="dad-btn dad-great" onclick="dadGrade(3,'great')">⭐ Correcto</button>
+        <button class="dad-btn dad-ok" onclick="dadGrade(3,'ok')">✏️ Revisar</button>
+        <button class="dad-btn dad-no" onclick="dadGrade(3,'no')">❌ Incorrecto</button>
+      </div>
+      <div class="dad-result" id="dad-result-3"></div>
+    </div>
+
+    <div class="exam-q">
+      <div class="exam-q-text"><b>4.</b> Mencione la diferencia entre la <b>inmunidad natural</b> y la <b>artificial</b>.</div>
+      <textarea class="writing-ta" style="height:80px" id="tw4" placeholder="Escribe la diferencia..."></textarea>
+      <div class="dad-row" id="dad-row-4" style="display:none">
+        <span style="font-size:.78rem;font-weight:700;color:#475569;">Papá califica:</span>
+        <button class="dad-btn dad-great" onclick="dadGrade(4,'great')">⭐ Correcto</button>
+        <button class="dad-btn dad-ok" onclick="dadGrade(4,'ok')">✏️ Revisar</button>
+        <button class="dad-btn dad-no" onclick="dadGrade(4,'no')">❌ Incorrecto</button>
+      </div>
+      <div class="dad-result" id="dad-result-4">
+        <div class="answer-hint" style="display:none" id="hint-4">
+          💡 <b>Natural:</b> es la respuesta del propio sistema inmune (activa: fiebre/defensas; pasiva: leche materna). <b>Adquirida/artificial:</b> se produce por un tratamiento médico (activa: vacuna, larga duración; pasiva: suero, corta duración).
+        </div>
+      </div>
+    </div>
+
+    <div class="exam-q">
+      <div class="exam-q-text"><b>5.</b> Escriba <b>3 medidas</b> para prevenir enfermedades infectocontagiosas.</div>
+      <textarea class="writing-ta" id="tw5a" placeholder="Medida 1..."></textarea>
+      <textarea class="writing-ta" id="tw5b" placeholder="Medida 2..."></textarea>
+      <textarea class="writing-ta" id="tw5c" placeholder="Medida 3..."></textarea>
+      <div class="dad-row" id="dad-row-5" style="display:none">
+        <span style="font-size:.78rem;font-weight:700;color:#475569;">Papá califica:</span>
+        <button class="dad-btn dad-great" onclick="dadGrade(5,'great')">⭐ Correcto</button>
+        <button class="dad-btn dad-ok" onclick="dadGrade(5,'ok')">✏️ Revisar</button>
+        <button class="dad-btn dad-no" onclick="dadGrade(5,'no')">❌ Incorrecto</button>
+      </div>
+      <div class="dad-result" id="dad-result-5"></div>
+    </div>
+
+    <button class="check-btn" style="width:100%;margin-top:.5rem" onclick="submitTeacherPractice()">📨 Enviar a Papá para revisar</button>
+    <div id="teacher-score-row" style="display:none;margin-top:.75rem;text-align:center">
+      <span class="score-pill" id="sc-teacher"></span>
+    </div>
+
+  </div>
+
+  <div style="margin-top:1rem;text-align:right">
+    <button onclick="toggleRef()" style="background:none;border:none;font-size:1.4rem;cursor:pointer;touch-action:manipulation;" title="Respuestas de referencia">💡</button>
+  </div>
+  <div id="ref-answers" style="display:none;padding:.7rem;background:var(--teal-light);border-radius:10px;font-size:.75rem;color:var(--teal-dark);margin-top:.3rem">
+    <b>Bacterias:</b> Tosferina, Tétanos, Tuberculosis, Difteria, Meningitis bacteriana<br>
+    <b>Virus:</b> Rubeola, Paperas, Hepatitis B, Sarampión, Poliomielitis, Meningitis viral<br>
+    <b>Enf. circulatorias:</b> Hipertensión, Aneurisma, Insuficiencia cardiaca, Hipotensión, Arterioesclerosis, Várices<br>
+    <b>Prevención:</b> Higiene personal · Esterilización · Desinfección · Vacunación
+  </div>
+</div>
+
 <!-- ====== EXAM ====== -->
 <div class="panel" id="panel-exam">
   <div class="exam-header">
@@ -1867,6 +1978,63 @@ document.addEventListener('DOMContentLoaded',function(){
   document.addEventListener('mouseup',function(){_lbDrag=null;});
   wrap.addEventListener('wheel',function(e){e.preventDefault();_lbScale=Math.min(Math.max(_lbScale*(e.deltaY<0?1.15:0.87),0.5),6);if(_lbScale<=1){_lbTx=0;_lbTy=0;}_lbApply();},{passive:false});
 });
+
+// TEACHER PRACTICE
+var dadScores = {};
+
+function submitTeacherPractice() {
+  for (var i = 1; i <= 5; i++) {
+    var row = document.getElementById('dad-row-' + i);
+    if (row) row.style.display = 'flex';
+  }
+  // lock textareas
+  document.querySelectorAll('#panel-teacher .writing-ta').forEach(function(ta) {
+    ta.disabled = true;
+  });
+  var btn = document.querySelector('#panel-teacher .check-btn');
+  if (btn) { btn.textContent = '✅ Enviado — Papá revisando…'; btn.disabled = true; }
+}
+
+function dadGrade(qNum, rating) {
+  var pts = rating === 'great' ? 1 : rating === 'ok' ? 0.5 : 0;
+  dadScores[qNum] = pts;
+  var labels = {great:'⭐ Correcto', ok:'✏️ Para mejorar', no:'❌ Incorrecto'};
+  var colors = {great:'#14532d', ok:'#92400e', no:'#991b1b'};
+  var bgs = {great:'#dcfce7', ok:'#fef9c3', no:'#fee2e2'};
+  var res = document.getElementById('dad-result-' + qNum);
+  if (res) {
+    res.innerHTML = '<span style="background:'+bgs[rating]+';color:'+colors[rating]+';border-radius:6px;padding:3px 9px;font-size:.76rem;font-weight:700;">'+labels[rating]+'</span>';
+    if (qNum === 4) {
+      var hint = document.getElementById('hint-4');
+      if (hint) hint.style.display = 'block';
+    }
+  }
+  // disable dad buttons for this question
+  var row = document.getElementById('dad-row-' + qNum);
+  if (row) row.querySelectorAll('.dad-btn').forEach(function(b){ b.disabled = true; b.style.opacity='.5'; });
+  updateTeacherScore();
+}
+
+function toggleRef() {
+  var el = document.getElementById('ref-answers');
+  if (el) el.style.display = el.style.display === 'none' ? 'block' : 'none';
+}
+
+function updateTeacherScore() {
+  var total = 0, graded = 0;
+  for (var i = 1; i <= 5; i++) {
+    if (dadScores[i] !== undefined) { total += dadScores[i]; graded++; }
+  }
+  if (graded === 0) return;
+  var el = document.getElementById('sc-teacher');
+  var row = document.getElementById('teacher-score-row');
+  if (row) row.style.display = 'block';
+  if (el) {
+    el.textContent = total + '/' + graded + ' (' + graded + '/5 revisadas)';
+    el.style.background = total === graded ? '#dcfce7' : '#fef9c3';
+    el.style.color = total === graded ? '#14532d' : '#92400e';
+  }
+}
 
 // Init: show first topic
 document.addEventListener('DOMContentLoaded', function(){
