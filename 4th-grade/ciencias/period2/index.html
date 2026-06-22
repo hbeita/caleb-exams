@@ -2070,6 +2070,7 @@ function chkMC1(grpId, correctIdx, scoreKey, topicN) {
   btns.forEach(function(b,i){ if(b.classList.contains('mc-sel')) chosen = i; });
   btns.forEach(function(b){ b.classList.remove('correct','wrong','mc-sel'); });
   if(chosen >= 0 && chosen !== correctIdx) btns[chosen].classList.add('wrong');
+  if(chosen >= 0 && chosen === correctIdx) btns[chosen].classList.add('correct');
   var revBtn = document.getElementById('rev-' + grpId);
   if(revBtn) revBtn.style.display = 'inline-block';
   var ok = chosen === correctIdx ? 1 : 0;
